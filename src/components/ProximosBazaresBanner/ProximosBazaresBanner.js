@@ -7,7 +7,7 @@ export default function ProximosBazares({ className }) {
     <div className={className}>
       <div className="flex flex-col   top-0 left-0  w-full px-8 items-center rounded-xl  bg-orange-200 mt-2 ">
         <div className="flex items-center ">
-          <h3 className="">Próximos Bazares</h3>
+          <h3 className="text-center pr-6">Próximos Bazares</h3>
           <ul className=" flex w-full py-4 gap-10 ">
             <li>
               <BazarSmallView />
