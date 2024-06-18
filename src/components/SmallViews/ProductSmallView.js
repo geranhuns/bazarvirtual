@@ -9,8 +9,8 @@ export default function ProductSmallView() {
         heigth="100px"
         alt="producto"
       />
-      <h3 className="text-center">Título detallado del producto</h3>
-      <h3> $550.00</h3>
+      <h3 className="text-center text-sm">Título detallado del producto</h3>
+      <h3 className="text-xs"> $550.00</h3>
       <Button text="Agregar al carrito" variant="yellow" href="/product1" />
     </div>
   );
