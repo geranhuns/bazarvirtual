@@ -21,6 +21,11 @@ body {
   background: #f8eadc;
 }
 
+hr {
+  height: 10px;
+  background-color: black;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
