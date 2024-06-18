@@ -11,7 +11,7 @@ export const metadata = {
   authors: [
     {
       name: "Gerardo Nuncio",
-      name: "Carlos Hermosillo",
+      name: "Carlos Gastélum",
       name: "Arturo Zambrano",
     },
   ],
