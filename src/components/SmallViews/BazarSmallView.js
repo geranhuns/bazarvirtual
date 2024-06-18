@@ -1,6 +1,6 @@
 export default function BazarSmallView() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex gap-2 items-center">
       <img
         className="rounded-full"
         src="https://picsum.photos/100/100"
@@ -8,8 +8,10 @@ export default function BazarSmallView() {
         heigth="100px"
         alt="logo"
       />
-      <h3>10 - Jun</h3>
-      <h3> 10 - 18 hrs</h3>
+      <div className="text-center text-xs w-24">
+        <h3>10 - Jun</h3>
+        <h3> 8:00 - 18:00</h3>
+      </div>
     </div>
   );
 }
