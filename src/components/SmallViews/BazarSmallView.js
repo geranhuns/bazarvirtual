@@ -1,6 +1,6 @@
-export default function BazarSmallView() {
+export default function BazarSmallView({ className }) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className={`flex gap-2 items-center ${className}`}>
       <img
         className="rounded-full"
         src="https://picsum.photos/100/100"
