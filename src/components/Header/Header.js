@@ -3,7 +3,7 @@
 import Button from "../Button/Button";
 import LogoH from "../Logos/LogoH";
 import Dropdown from "../Dropdown/Dropdown";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const options = [
   "Todo",
@@ -33,14 +33,13 @@ const options = [
 ];
 
 function Header() {
-  const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname();
+
   return (
     <>
       <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md">
         <div className="h-full flex justify-between items-center mx-auto   lg:max-w-7xl px-5">
           <LogoH />
-
           {pathname !== "/login" && pathname !== "/register" && (
             <div className="flex items-center  w-4/12 gap-0">
               <Dropdown options={options} />
@@ -51,10 +50,16 @@ function Header() {
               />
             </div>
           )}
-          <div className="flex gap-4">
-            <Button text="Iniciar sesión" href="/login" variant="transparent" />
-            <Button text="Crear cuenta" href="/register" variant="yellow" />
-          </div>
+          {pathname !== "/login" && pathname !== "/register" && (
+            <div className="flex gap-4">
+              <Button
+                text="Iniciar sesión"
+                href="/login"
+                variant="transparent"
+              />
+              <Button text="Crear cuenta" href="/register" variant="yellow" />
+            </div>
+          )}
         </div>
       </nav>
     </>
