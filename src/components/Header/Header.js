@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import LogoH from "../Logos/LogoH";
 import Dropdown from "../Dropdown/Dropdown";
 import { usePathname } from "next/navigation";
+import { IoIosSearch } from "react-icons/io";
 
 const options = [
   "Todo",
@@ -45,9 +46,12 @@ function Header() {
               <Dropdown options={options} />
               <input
                 type="text"
-                className=" w-full p-1 rounded-lg "
+                className=" w-full p-1  "
                 placeholder="Buscar productos..."
               />
+              <div className=" bg-yellow-bazar p-2 rounded-r-lg">
+                <IoIosSearch />
+              </div>
             </div>
           )}
           {pathname !== "/login" && pathname !== "/register" && (

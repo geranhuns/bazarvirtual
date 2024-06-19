@@ -9,7 +9,12 @@ export default function Dropdown({ options }) {
   return (
     <div className="w-20">
       <label htmlFor="dropdown"></label>
-      <select id="dropdown" value={selectedOption} onChange={handleDropdown}>
+      <select
+        id="dropdown"
+        value={selectedOption}
+        onChange={handleDropdown}
+        className="h-8 w-16 pl-1 rounded-l-lg bg-raw-sienna-200 text-raw-sienna-900 "
+      >
         {options.map((option, index) => (
           <option value={option} key={index}>
             {option}
