@@ -3,7 +3,7 @@
 import { FaRegStar, FaStar } from "react-icons/fa6";
 
 import { useState } from "react";
-const ProductWithStar = ({ imageUrl, altText }) => {
+const ProductoConEstrella = ({ imageUrl, altText }) => {
   const [activeStar, setActiveStar] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
@@ -41,4 +41,4 @@ const ProductWithStar = ({ imageUrl, altText }) => {
   );
 };
 
-export default ProductWithStar;
+export default ProductoConEstrella;
