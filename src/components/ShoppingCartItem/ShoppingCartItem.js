@@ -1,6 +1,9 @@
+"use client";
 import Dropdown from "../Dropdown/Dropdown";
 import MarcaSmallView from "../SmallViews/MarcaSmallView";
+import { usePathname } from "next/navigation";
 export default function ShoppingCartItem() {
+  const pathname = usePathname();
   return (
     <>
       <div className="flex  items-center bg-raw-sienna-50 py-5 px-4 rounded-md">
@@ -20,9 +23,15 @@ export default function ShoppingCartItem() {
               <h4>Cantidad</h4>
               <Dropdown className="rounded-md" options={[1, 2, 3, 4, 5, 6]} />
             </div>
-            <p className="flex gap-3">
-              <a>Eliminar</a> |<a>Guardar para más tarde</a>
-            </p>
+            {pathname === "/carritoDeCompras" ? (
+              <p className="flex gap-3">
+                <a>Agregar al carrito</a>
+              </p>
+            ) : (
+              <p className="flex gap-3">
+                <a>Eliminar</a> | <a>Guardar para más tarde</a>
+              </p>
+            )}
           </div>
         </div>
         <h3 className="text-xl "> $550.00</h3>
