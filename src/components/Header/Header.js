@@ -64,7 +64,7 @@ function Header() {
               />
               <Button text="Crear cuenta" href="/register" variant="yellow" />
               <div className="p-2 text-raw-sienna-50 cursor-pointer">
-                <a href="/login">
+                <a href="/carritoDeCompras">
                   <MdOutlineShoppingCart size={25} />
                 </a>
               </div>
