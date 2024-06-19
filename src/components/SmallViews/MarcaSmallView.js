@@ -1,4 +1,4 @@
-export default function MarcaSmallView(className) {
+export default function MarcaSmallView({ className }) {
   return (
     <div className={`flex gap-2 items-center ${className}`}>
       <img
