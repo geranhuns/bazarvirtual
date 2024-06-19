@@ -1,5 +1,6 @@
 import ProductoConEstrella from "@/components/ProductoConEstrella/ProductoConEstrella";
 import MarcaSmallView from "@/components/SmallViews/MarcaSmallView";
+import Button from "@/components/Button/Button";
 export default function vistaDetalladaProducto() {
   return (
     <>
@@ -10,10 +11,18 @@ export default function vistaDetalladaProducto() {
               imageUrl="https://picsum.photos/400/400"
               altText="Sample Product"
             />
+            <div className="flex gap-1 justify-around pr-10 pt-4">
+              <Button
+                href=""
+                text="Agregar al carrito"
+                variant="raw-sienna-50"
+              />
+              <Button href="" text="Comprar Ahora" variant="raw-sienna-50" />
+            </div>
           </div>
           <div className="pt-10 pr-10  w-full ">
             <h3>Título detallado del Producto</h3>
-            <MarcaSmallView />
+            <MarcaSmallView className="pt-4" />
             <h4 className="text-xl py-8"> $550.00</h4>
             <h4> Acerca de este artículo</h4>
             <p className="  pt-2">
