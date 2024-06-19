@@ -6,14 +6,14 @@ export default function registerForm() {
     <>
       <form action="">
         <div className=" flex flex-col gap-3 w-96 mb-3">
-          <div className="flex flex-col gap-1">
+          {/* <div className="flex flex-col gap-1">
             <label className="text-lg">Nombre de usuario</label>
             <input
               className="w-full border rounded-lg p-3"
               type="text"
               placeholder=""
             />
-          </div>
+          </div> */}
           <div className="flex flex-col gap-1">
             <label className="text-lg">Correo</label>
             <input
