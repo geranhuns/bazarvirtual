@@ -11,7 +11,7 @@ export default function page() {
   return (
     <>
       <main className="flex flex-col items-center h-screen justify-center  ">
-        <div className="bg-white p-10 rounded-md flex flex-col items-center">
+        <div className="bg-white p-10 rounded-md flex flex-col items-center shadow-md">
           <h1 className="text-4xl text-black mb-6 font-bold">Crea tu cuenta</h1>
           <div className="flex pb-4">
             <h4

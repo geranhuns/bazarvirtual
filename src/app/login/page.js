@@ -2,7 +2,7 @@ import LoginForm from "@/components/LoginForm/LoginForm";
 export default function Login() {
   return (
     <main className=" flex justify-center items-center h-screen">
-      <div className="bg-white p-8 rounded shadow-md w-80">
+      <div className="bg-white p-10 rounded shadow-md flex flex-col items-center">
         <h2 className="text-2xl mb-6">Iniciar sesión</h2>
         <LoginForm />
         <p className="mt-4">
