@@ -5,6 +5,7 @@ import LogoH from "../Logos/LogoH";
 import Dropdown from "../Dropdown/Dropdown";
 import { usePathname } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 const options = [
   "Todo",
@@ -49,19 +50,24 @@ function Header() {
                 className=" w-full p-1  "
                 placeholder="Buscar productos..."
               />
-              <div className=" bg-yellow-bazar p-2 rounded-r-lg">
-                <IoIosSearch />
+              <div className=" bg-yellow-bazar p-1.5 rounded-r-lg">
+                <IoIosSearch size={20} />
               </div>
             </div>
           )}
           {pathname !== "/login" && pathname !== "/register" && (
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <Button
                 text="Iniciar sesión"
                 href="/login"
                 variant="transparent"
               />
               <Button text="Crear cuenta" href="/register" variant="yellow" />
+              <div className="p-2 text-raw-sienna-50 cursor-pointer">
+                <a href="/login">
+                  <MdOutlineShoppingCart size={25} />
+                </a>
+              </div>
             </div>
           )}
         </div>
