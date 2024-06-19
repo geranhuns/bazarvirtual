@@ -4,13 +4,19 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/img/**/*.{js,ts,jsx,tsx,mdx}", // Nueva ruta agregada
   ],
   theme: {
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'landing1': "url('/img/Opcion_1.jpg')",
+        'landing2': "url('/img/Landing2.png')",
+        'ecoShopping': "url('/img/EcoShopping.png')",
+        'panaBeer': "url('/img/BeerPana.png')",
+        'teamPana': "url('/img/TeamPana.png')",
+        'safePlatform': "url('/img/Safe.png')",
       },
       colors: {
         "green-bazar": "#7E914F",
@@ -25,15 +31,44 @@ module.exports = {
         "raw-sienna-500": "#D37340",
         "raw-sienna-800": "#833A29",
         "raw-sienna-900": "#6A3224",
-        "raw-sienna-950": "#391711",
         "avocado-200": "#D4DBBB",
         "avocado-500": "#76854C",
         "avocado-900": "#373E29",
+        "customGreen": "#2C4440",
         "patina-50": "#F5F8F7",
         "patina-100": "#DDEAE6",
         "patina-200": "#BBD4CD",
         "patina-500": "#598C83",
         "patina-900": "#283937",
+        "color-text": "#FFF",
+        "color-btnUnete": "#99461A",
+        "KombuGreen": "#4A532F",
+        "Eggshell": "#F4F0E5",
+      },
+      height: {
+        'custom1': '575px',
+        '85vh': '85vh',
+        '65vh': '65vh',
+      },
+      fontSize: {
+        sm: '0.8rem',
+        base: '1rem',
+        xl: '1.25rem',
+        '2xl': '1.563rem',
+        '3xl': '1.953rem',
+        '4xl': '2.441rem',
+        '5xl': '3.052rem',
+        'custom1': '40px',
+        'custom2': '32px'
+      },
+      lineHeight: {
+        'custom': '62.4px',
+        'custom2': '25px',
+        'custom3': '45px',
+        'custom4': '41.6px',
+      },
+      borderRadius: {
+        'custom1':'56px'
       },
     },
   },
