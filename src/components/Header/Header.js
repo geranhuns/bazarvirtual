@@ -6,6 +6,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import { usePathname } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import Link from "next/link";
 
 const options = [
   "Todo",
@@ -51,7 +52,9 @@ function Header() {
                 placeholder="Buscar productos..."
               />
               <div className=" bg-yellow-bazar p-1.5 rounded-r-lg">
-                <IoIosSearch size={20} />
+                <Link href={"/busquedaProductos"}>
+                  <IoIosSearch size={20} />
+                </Link>
               </div>
             </div>
           )}
