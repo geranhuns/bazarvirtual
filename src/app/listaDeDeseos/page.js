@@ -12,8 +12,7 @@ export default function ListaDeDeseos() {
           </p>
           <hr className="h-0.5 bg-raw-sienna-800" />
           <ShoppingCartItem />
-          <ShoppingCartItem />
-          <ShoppingCartItem />
+
           <ShoppingCartItem />
         </div>
       </main>
