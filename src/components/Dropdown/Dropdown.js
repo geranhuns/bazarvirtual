@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-export default function Dropdown({ options }) {
+export default function Dropdown({ options, className }) {
   const [selectedOption, setSelectedOption] = useState("Todos");
   const handleDropdown = (e) => {
     setSelectedOption(e.target.value);
@@ -13,7 +13,7 @@ export default function Dropdown({ options }) {
         id="dropdown"
         value={selectedOption}
         onChange={handleDropdown}
-        className="h-8 w-16 pl-1 rounded-l-lg bg-raw-sienna-200 text-raw-sienna-900 "
+        className={`h-8 w-16 pl-1  bg-raw-sienna-200 text-raw-sienna-900 ${className}`}
       >
         {options.map((option, index) => (
           <option value={option} key={index}>

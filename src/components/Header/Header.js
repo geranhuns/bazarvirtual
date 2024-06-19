@@ -44,7 +44,7 @@ function Header() {
           <LogoH />
           {pathname !== "/login" && pathname !== "/register" && (
             <div className="flex items-center  w-4/12 gap-0">
-              <Dropdown options={options} />
+              <Dropdown className="rounded-l-lg" options={options} />
               <input
                 type="text"
                 className=" w-full p-1  "
