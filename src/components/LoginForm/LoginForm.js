@@ -6,7 +6,7 @@ export default function LoginForm() {
       <form action="">
         <div className="mb-4">
           <label htmlFor="username" className="block mb-1">
-            Nombre de usuario:
+            Correo:
           </label>
           <input
             type="text"
