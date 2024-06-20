@@ -28,13 +28,13 @@ const ProductoConEstrella = ({ imageUrl, altText }) => {
         )}
       </div>
       {showMessage && activeStar && (
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-2">
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-1">
           Haz agregado este producto a tu lista de deseos
         </div>
       )}
       {showMessage && !activeStar && (
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-2">
-          Haz eliminado este producto a tu lista de deseos
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-1">
+          Haz eliminado este producto de tu lista de deseos
         </div>
       )}
     </div>
