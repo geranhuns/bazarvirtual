@@ -4,7 +4,7 @@ import Link from "next/link";
 function Section1Landing() {
     return (
         <>
-            <section className="relative bg-landing1 bg-cover bg-center min-h-screen  w-full">
+            <section className="relative bg-landing1 bg-cover bg-center min-h-screen  w-full -z-50">
                 <div className="  absolute inset-0 bg-fill-landing1 flex flex-col items-center justify-center ">
                     <div className=" w-9/12 h-64 ">
                         <h1 className="w-9/12  text-6xl font-semibold leading-custom tracking-wide text-raw-sienna-50">Sí, somos el punto de encuentro</h1>

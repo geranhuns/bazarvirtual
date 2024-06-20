@@ -8,9 +8,9 @@ import Section6Landing from "@/components/landing/Section6Landing";
 
 export default function Home() {
   return (
-    <main className=" bg-raw-sienna-200 flex flex-col  w-full min-h-screen">
+    <main className=" flex flex-col    mx-auto  lg:max-w-7xl overflow-auto ">
       {/* Primera Seccion */}
-      <Section1Landing id="section1"/>
+      <Section1Landing id="section1" />
       {/* Segunda Seccion*/}
       <div id="section2"><Section2Landing /></div>
       {/* Tercera Seccion*/}
@@ -18,15 +18,15 @@ export default function Home() {
       {/* Cuarta Seccion*/}
       <div id="section4"><Section4Landing /></div>
       {/* Quinta Seccion*/}
-      <Section5Landing id="section5"/>
+      <Section5Landing id="section5" />
       {/* Sexta Seccion*/}
-      <Section6Landing id="section6"/>
+      <Section6Landing id="section6" />
 
-      
 
-      
 
-      
+
+
+
     </main>
 
   );
