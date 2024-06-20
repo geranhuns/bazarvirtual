@@ -90,21 +90,23 @@ function Header() {
                 </div>
               </div>
             )}
-          {pathname !== "/login" && pathname !== "/register" && (
-            <div className="flex gap-4 items-center">
-              <Button
-                text="Iniciar sesión"
-                href="/login"
-                variant="transparent"
-              />
-              <Button text="Crear cuenta" href="/register" variant="yellow" />
-              <div className="p-2 text-raw-sienna-50 cursor-pointer">
-                <a href="/carritoDeCompras">
-                  <MdOutlineShoppingCart size={25} />
-                </a>
+          {pathname !== "/login" &&
+            pathname !== "/register" &&
+            pathname !== "/" && (
+              <div className="flex gap-4 items-center">
+                <Button
+                  text="Iniciar sesión"
+                  href="/login"
+                  variant="transparent"
+                />
+                <Button text="Crear cuenta" href="/register" variant="yellow" />
+                <div className="p-2 text-raw-sienna-50 cursor-pointer">
+                  <a href="/carritoDeCompras">
+                    <MdOutlineShoppingCart size={25} />
+                  </a>
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </nav>
     </>
