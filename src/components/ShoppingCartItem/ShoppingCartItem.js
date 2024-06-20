@@ -2,8 +2,19 @@
 import Dropdown from "../Dropdown/Dropdown";
 import MarcaSmallView from "../SmallViews/MarcaSmallView";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 export default function ShoppingCartItem() {
   const pathname = usePathname();
+
+  // const [carrito, setCarrito] = useState([]);
+  // const [wish, setWish] = useState([]);
+
+  // const handleRemoveWish = (e) => {
+  //   setWish(wish.slice(wish.indexOf(e.target.name, 1)));
+  // };
+  // const handleItemToCart = (e)=>{
+  //   setCarrito(carrito.push(e.target))
+  // }
   return (
     <>
       <div className="flex  items-center bg-raw-sienna-50 py-5 px-4 rounded-md">
@@ -23,13 +34,21 @@ export default function ShoppingCartItem() {
               <h4>Cantidad</h4>
               <Dropdown className="rounded-md" options={[1, 2, 3, 4, 5, 6]} />
             </div>
-            {pathname === "/carritoDeCompras" ? (
+            {pathname !== "/carritoDeCompras" ? (
               <p className="flex gap-3">
-                <a>Agregar al carrito</a>
+                <a>Agregar al carrito</a>|
+                <a onClick={handleRemoveWish}>Quitar de la lista</a>
               </p>
             ) : (
               <p className="flex gap-3">
-                <a>Eliminar</a> | <a>Guardar para más tarde</a>
+                <a
+                  onClick={() => {
+                    // setCarrito(carrito.push("nuevoProductoId"));
+                  }}
+                >
+                  Eliminar
+                </a>
+                | <a>Guardar para más tarde</a>
               </p>
             )}
           </div>

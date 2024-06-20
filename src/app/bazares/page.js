@@ -1,5 +1,5 @@
-import BazarSmallView from "@/components/SmallViews/BazarSmallView";
-import CreaTuBazarBanner from "@/components/creaTuBazarBanner/CreaTuBazarBanner";
+import BazarMediumView from "@/components/bazares/bazaresMediumVie";
+import CreaTuBazarBanner from "@/components/CreaTuBazarBanner/CreaTuBazarBanner";
 
 export default function Bazares() {
   return (
@@ -8,16 +8,12 @@ export default function Bazares() {
         <div className="flex flex-col w-10/12 mx-auto  ">
           <h2 className="self-center pt-4">Próximos Bazares</h2>
           <div className="grid grid-cols-4 gap-4 py-5 px-20">
-            <BazarSmallView className="flex-col" />
-            <BazarSmallView className="flex-col" />
-            <BazarSmallView className="flex-col" />
-            <BazarSmallView className="flex-col" />
-            <BazarSmallView className="flex-col" />
-            <BazarSmallView className="flex-col" />
-            <BazarSmallView className="flex-col" />
-            <BazarSmallView className="flex-col" />
+            <BazarMediumView />
+            <BazarMediumView />
+            <BazarMediumView />
+            <BazarMediumView />
+            <CreaTuBazarBanner />
           </div>
-          <CreaTuBazarBanner />
         </div>
       </main>
     </>

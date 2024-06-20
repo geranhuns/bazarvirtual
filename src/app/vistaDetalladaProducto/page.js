@@ -1,7 +1,11 @@
+"use client";
 import ProductoConEstrella from "@/components/ProductoConEstrella/ProductoConEstrella";
 import MarcaSmallView from "@/components/SmallViews/MarcaSmallView";
 import Button from "@/components/Button/Button";
+import { useState } from "react";
 export default function vistaDetalladaProducto() {
+  const [carrito, setCarrito] = useState([]);
+
   return (
     <>
       <main className="flex  items-center  mx-auto  lg:max-w-7xl overflow-auto ">
@@ -16,11 +20,18 @@ export default function vistaDetalladaProducto() {
                 href=""
                 text="Agregar al carrito"
                 variant="raw-sienna-50"
+                onClick={() => {
+                  // setCarrito(carrito.push("nuevoProductoId"));
+                }}
               />
-              <Button href="" text="Comprar Ahora" variant="raw-sienna-50" />
+              <Button
+                href="/carritoDeCompras"
+                text="Comprar Ahora"
+                variant="raw-sienna-50"
+              />
             </div>
           </div>
-          <div className="pt-10 pr-10  w-full ">
+          <div className="pt-10 pr-10  w-full pl-6">
             <h3>Título detallado del Producto</h3>
             <MarcaSmallView className="pt-4" />
             <h4 className="text-xl py-8"> $550.00</h4>
