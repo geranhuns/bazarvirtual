@@ -46,7 +46,7 @@ function Header() {
   };
   return (
     <>
-      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md">
+      <nav className="bg-raw-sienna-500 fixed inset-0 z-50 h-16  left-0 right-0 top-0 shadow-md">
         <div className="h-full flex justify-between items-center mx-auto   lg:max-w-7xl px-5">
           <LogoH />
           <div className="flex">

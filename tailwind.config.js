@@ -46,7 +46,8 @@ module.exports = {
         "Eggshell": "#F4F0E5",
         "facebook": '#1877F2',
         "customBlue": '#3E635E',
-        "raw-sienna-custom": '#DD8E64',
+        "raw-sienna-custom": '#DD8E64', 
+        "form-newDate-green": '#76854C',
         instagram: {
           pink: '#E4405F',
           purple: '#C13584',
