@@ -10,7 +10,7 @@ export default function VistaMarca() {
           altText={"marcaLogo"}
         />
         <h3>Catálogo de productos</h3>
-        <div className="grid grid-cols-4 gap-4 py-5 px-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-5 px-20">
           <ProductSmallView />
           <ProductSmallView />
           <ProductSmallView />
