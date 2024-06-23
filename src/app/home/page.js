@@ -6,7 +6,7 @@ export default function Home() {
       <div className="flex flex-col w-10/12 mx-auto lg:max-w-7xl items-center">
         <ProximosBazares className="" />
         <h2 className="pt-6 text-xl">Productos destacados</h2>
-        <div className=" grid grid-cols-2 lg:grid-cols-4 gap-4 py-5 ">
+        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
           <ProductSmallView />
           <ProductSmallView />
           <ProductSmallView />
