@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Link from "next/link";
 export default function Button({ text, href, variant, className, onClick }) {
   const buttonClassNames = classNames(
-    " p-1 rounded-lg text-lg text-gray-800 font-medium h-9",
+    "flex items-center justify-center p-1 rounded-lg text-lg text-gray-800 font-medium h-9",
     {
       "bg-yellow-bazar": variant === "yellow",
       "bg-orange-bazar": variant === "orange",

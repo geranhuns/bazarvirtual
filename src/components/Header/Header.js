@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import Link from "next/link";
+import LogoTag from "../Logos/LogoTag";
 
 const options = [
   "Todo",
@@ -46,9 +47,10 @@ function Header() {
   };
   return (
     <>
-      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md">
+      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50">
         <div className="h-full flex justify-between items-center mx-auto   lg:max-w-7xl px-5">
-          <LogoH />
+          <LogoH className={" hidden md:block"} />
+          <LogoTag width={"50px"} className={" block md:hidden h-full py-2"} />
           {/* <div className="flex"> */}
           {pathname === "/" && (
             <div className="flex items-center cursor-pointer">
@@ -77,7 +79,7 @@ function Header() {
           {pathname !== "/login" &&
             pathname !== "/register" &&
             pathname !== "/" && (
-              <div className="flex items-center  w-4/12 gap-0">
+              <div className="flex items-center  w-4/12 gap-0  invisible md:visible">
                 <Dropdown className="rounded-l-lg" options={options} />
                 <input
                   type="text"
@@ -92,7 +94,7 @@ function Header() {
               </div>
             )}
           {pathname !== "/login" && pathname !== "/register" && (
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center  invisible md:visible">
               <Button
                 text="Iniciar sesión"
                 href="/login"
