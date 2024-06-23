@@ -22,18 +22,18 @@ const ProductoConEstrella = ({ imageUrl, altText }) => {
       <img src={imageUrl} alt={altText} className="w-full h-auto rounded-md" />
       <div className="cursor-pointer" onClick={handleClick}>
         {activeStar === false ? (
-          <FaRegStar className="absolute bottom-6 left-6  text-4xl" />
+          <FaRegStar className="absolute md:bottom-6 md:left-6 bottom-2 left-2 text-xl md:text-4xl" />
         ) : (
-          <FaStar className="absolute bottom-6 left-6 text-yellow-bazar text-4xl" />
+          <FaStar className="absolute md:bottom-6 md:left-6 bottom-2 left-2 text-yellow-bazar text-xl md:text-4xl" />
         )}
       </div>
       {showMessage && activeStar && (
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-1">
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-1 text-xs md:text-xl">
           Haz agregado este producto a tu lista de deseos
         </div>
       )}
       {showMessage && !activeStar && (
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-1">
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-1 text-xs md:text-xl">
           Haz eliminado este producto de tu lista de deseos
         </div>
       )}
