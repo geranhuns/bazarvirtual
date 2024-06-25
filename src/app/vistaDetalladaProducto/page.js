@@ -38,12 +38,12 @@ export default function vistaDetalladaProducto() {
             <MarcaSmallView className="pt-4" />
             <h4 className="text-xl py-4 md:py-8"> $550.00</h4>
             <h4> Acerca de este artículo</h4>
-            <p className="  pt-2">
+            <p className="  pt-2 text-justify pb-10">
               ✅【VELA DE SOYA PREMIUM】Esta vela aromática con pabilo de
               algodón y cera de soya al 100% natural está hecha con aceites
               esenciales que aportan beneficios y una fragancia masculina e
               intensa a tu hogar. ✅【MORA Y SÁNDALO】 Combinación exquisita que
-              combina la dulzura jugosa de las moras con la rica y terrosa
+              combina la dulzura jugosa de la s moras con la rica y terrosa
               esencia de sándalo. Este aroma cautivador y equilibrado tiene
               beneficios tanto para la mente como para el cuerpo. La mora,
               conocida por ser rica en antioxidantes, puede ayudar a fortalecer
