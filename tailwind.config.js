@@ -59,6 +59,11 @@ module.exports = {
           gradient: 'linear-gradient(45deg, #69C9D0, #EE1D52)',
         },
       },
+      screens: {
+        'custom': '1120px',
+        
+      },
+      
       height: {
         'custom1': '575px',
         '85vh': '85vh',

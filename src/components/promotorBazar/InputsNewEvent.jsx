@@ -7,7 +7,7 @@ function InputNewEvent(props){
 
     return(
         <>
-        <div className=" w-full flex justify-around  bg-red-500 ">
+        <div className=" w-full flex justify-around   ">
 
             <div className="flex flex-col justify-center w-3/12 text-center ">
                 <label htmlFor="">Evento</label>
