@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import Link from "next/link";
+import LogoTag from "../Logos/LogoTag";
 
 const options = [
   "Todo",
@@ -46,68 +47,69 @@ function Header() {
   };
   return (
     <>
-      <nav className="bg-raw-sienna-500 fixed inset-0 z-50 h-16  left-0 right-0 top-0 shadow-md">
-        <div className="h-full flex justify-between items-center mx-auto   lg:max-w-7xl px-5">
-          <LogoH />
-          <div className="flex">
-            {pathname === "/" && (
-              <div className="flex items-center cursor-pointer">
-                <ul className="flex flex-row items-center mr-10 gap-4 text-base text-color-text">
-                  <li
-                    className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                    onClick={() => handleScroll("section3")}
-                  >
-                    Acerca de
-                  </li>
-                  <li
-                    className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                    onClick={() => handleScroll("section4")}
-                  >
-                    Marcas
-                  </li>
-                  <li
-                    className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                    onClick={() => handleScroll("section2")}
-                  >
-                    Bazares
-                  </li>
-                </ul>
-              </div>
-            )}
-            {pathname !== "/login" &&
-              pathname !== "/register" &&
-              pathname !== "/" && (
-                <div className="flex items-center  w-4/12 gap-0">
-                  <Dropdown className="rounded-l-lg" options={options} />
-                  <input
-                    type="text"
-                    className=" w-full p-1  "
-                    placeholder="Buscar productos..."
-                  />
-                  <div className=" bg-yellow-bazar p-1.5 rounded-r-lg">
-                    <Link href={"/busquedaProductos"}>
-                      <IoIosSearch size={20} />
-                    </Link>
-                  </div>
-                </div>
-              )}
-            {pathname !== "/login" && pathname !== "/register" && (
-              <div className="flex gap-4 items-center">
-                <Button
-                  text="Iniciar sesión"
-                  href="/login"
-                  variant="transparent"
+      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50">
+        <div className="h-full flex md:justify-between items-center mx-auto   lg:max-w-7xl px-5">
+          <LogoH className={" hidden md:block"} />
+          <LogoTag width={"50px"} className={" block md:hidden h-full py-2"} />
+          {/* <div className="flex"> */}
+          {pathname === "/" && (
+            <div className="flex items-center cursor-pointer">
+              <ul className="flex flex-row items-center mr-10 gap-4 text-base text-color-text">
+                <li
+                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
+                  onClick={() => handleScroll("section3")}
+                >
+                  Acerca de
+                </li>
+                <li
+                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
+                  onClick={() => handleScroll("section4")}
+                >
+                  Marcas
+                </li>
+                <li
+                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
+                  onClick={() => handleScroll("section2")}
+                >
+                  Bazares
+                </li>
+              </ul>
+            </div>
+          )}
+          {pathname !== "/login" &&
+            pathname !== "/register" &&
+            pathname !== "/" && (
+              <div className="md:flex  items-center  w-4/12 gap-0  hidden ">
+                <Dropdown className="rounded-l-lg" options={options} />
+                <input
+                  type="text"
+                  className=" w-full p-1  "
+                  placeholder="Buscar productos..."
                 />
-                <Button text="Crear cuenta" href="/register" variant="yellow" />
-                <div className="p-2 text-raw-sienna-50 cursor-pointer">
-                  <a href="/carritoDeCompras">
-                    <MdOutlineShoppingCart size={25} />
-                  </a>
+                <div className=" bg-yellow-bazar p-1.5 rounded-r-lg">
+                  <Link href={"/busquedaProductos"}>
+                    <IoIosSearch size={20} />
+                  </Link>
                 </div>
               </div>
             )}
-          </div>
+          {pathname !== "/login" && pathname !== "/register" && (
+            <div className="md:flex gap-4 items-center  hidden">
+              <Button
+                text="Iniciar sesión"
+                href="/login"
+                variant="transparent"
+              />
+              <Button text="Crear cuenta" href="/register" variant="yellow" />
+              <div className="p-2 text-raw-sienna-50 cursor-pointer">
+                <a href="/carritoDeCompras">
+                  <MdOutlineShoppingCart size={25} />
+                </a>
+              </div>
+            </div>
+          )}
         </div>
+        {/* </div> */}
       </nav>
     </>
   );

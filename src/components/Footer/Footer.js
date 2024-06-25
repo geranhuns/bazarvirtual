@@ -6,15 +6,15 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
   return (
-    <footer className="text-center w-full bg-raw-sienna-50 pb-10 pt-3 mt-auto justify-end">
+    <footer className="text-center w-full bg-raw-sienna-50 pb-10 pt-3 mt-auto justify-end text-sm md:text-base">
       {pathname !== "/login" && pathname !== "/register" && (
         <div className="footer-content">
           <div className="footer-logo flex justify-center">
-            <LogoTag width="100" />
+            <LogoTag className={"w-20 md:w-24"} />
           </div>
 
           <div className="footer-links px-6">
-            <ul className="flex  flex-wrap justify-center gap-6 list-disc">
+            <ul className="flex  flex-wrap justify-center leading-3 gap-6 list-disc pt-6">
               <li>
                 <a href="/landingPage">Acerca de</a>
               </li>
@@ -32,7 +32,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <ul className="pt-2 flex justify-center gap-6 list-disc">
+          <ul className="pt-8  flex justify-center gap-6 list-disc">
             <li>
               <Link href="/">Aviso de privacidad</Link>
             </li>
