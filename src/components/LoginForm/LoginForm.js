@@ -4,9 +4,9 @@ export default function LoginForm() {
   return (
     <>
       <form action="">
-        <div className="flex flex-col w-96 mb-3 gap-1">
-          <div className=" ">
-            <label htmlFor="username" className="text-lg mb-1">
+        <div className="flex flex-col w-60 lg:w-96 mb-3 gap-1">
+          <div className="mb-4">
+            <label htmlFor="username" className="text-base lg:text-xl mb-1">
               Correo:
             </label>
             <input
@@ -18,7 +18,7 @@ export default function LoginForm() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="text-lg mb-1">
+            <label htmlFor="password" className="text-base lg:text-xl mb-1">
               Contraseña:
             </label>
             <input
