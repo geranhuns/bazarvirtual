@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CardMarcas from "@/components/promotorBazar/CardMarcas";
+import ProductoDestacadoMarca from "../SmallViews/ProductoDestacadoMarca";
 
 function Carrucel() {
   const settings = {
@@ -56,6 +57,7 @@ function Carrucel() {
 
           </Slider>
         </div>
+        <ProductoDestacadoMarca />
 
       </section>
     </>
