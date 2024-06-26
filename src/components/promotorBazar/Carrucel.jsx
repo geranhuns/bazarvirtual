@@ -46,10 +46,10 @@ function Carrucel() {
 
   return (
     <>
-      <section className="w-full pb-6 bg-patina-500 flex flex-col items-center justify-center max-sm:text-center ">
+      <section className="w-full pb-6 bg-patina-500 flex flex-col items-center justify-center text-center ">
         <h2 className="font-medium text-3xl text-white pt-5">Marcas en curso</h2>
-        <div className=" relative slider-container flex justify-center w-11/12 h-5/6">
-          <Slider {...settings} className="  w-11/12 h-full flex justify-center items-center  ">
+        <div className=" relative slider-container flex justify-start w-10/12 h-5/6   ">
+          <Slider {...settings} className="  w-full h-full flex justify-center items-center  ">
             <CardMarcas />
             <CardMarcas />
             <CardMarcas />

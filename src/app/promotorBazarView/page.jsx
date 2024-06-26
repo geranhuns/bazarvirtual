@@ -48,8 +48,8 @@ function PromotorVista() {
             <main className="relative bg-raw-sienna-200 w-full min-h-screen flex flex-col ">
                 {open && <FormNewDate open={open} setOpen={setOpen} />}
                 {/* {open && <FormNewDate dataHere={dataFormulario} open={open} setOpen={setOpen} />} */}
-                <section className="w-full   flex justify-around items-center  my-5 ">
-                    <div className="bg-raw-sienna-500  w-10/12 flex flex-row items-center justify-around max-md:w-full max-sm:flex-col  p-10 ">
+                <section className="w-full   flex justify-around items-center  my-2 ">
+                    <div className="bg-raw-sienna-400  w-10/12 flex flex-row items-center justify-around max-md:w-full max-sm:flex-col  p-10 ">
 
                         <div className=" w-4/12 h-full flex justify-start  max-md:w-4/12 max-md:h-4/6  max-sm:w-10/12 max-sm:justify-center max-sm:h-2/6   ">
                             <div className="w-full   rounded-b-custom2 flex justify-center items-center max-md:h-5/6 max-md:w-12/12  max-sm:h-full max-sm:w-6/12">
@@ -74,7 +74,7 @@ function PromotorVista() {
                                 </div>
                             </div>
 
-                            <div className="bg-avocado-500 rounded-md w-full flex text-center items-center text-black gap-2 max-md:h-1/6 p-4">
+                            <div className="bg-avocado-500 rounded-md w-full flex text-center items-center justify-between text-black gap-2 max-md:h-1/6 p-4">
                                 <CardEventDetail />
                                 <CardEventDetail />
                                 <CardEventDetail />
@@ -83,7 +83,7 @@ function PromotorVista() {
                                 <CardEventDetail data={event} />
                            
                         ))} */}
-                                <button className="bg-raw-sienna-500 w-auto h-full rounded-sm ml-4 max-md:w-8 max-md:h-9 " onClick={() => setOpen(!open)} ><CiSquarePlus className="w-full h-full text-white" /></button>
+                                <button className="bg-raw-sienna-500 w-auto h-full rounded-sm  " onClick={() => setOpen(!open)} ><CiSquarePlus className="w-8 h-full text-white" /></button>
                             </div>
                         </div>
                     </div>
