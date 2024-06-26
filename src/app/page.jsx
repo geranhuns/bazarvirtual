@@ -8,7 +8,7 @@ import Section6Landing from "@/components/landing/Section6Landing";
 
 export default function Home() {
   return (
-    <main className=" flex flex-col    mx-auto  lg:max-w-7xl overflow-auto ">
+    <main className=" flex flex-col">
       {/* Primera Seccion */}
       <Section1Landing id="section1" />
       {/* Segunda Seccion*/}

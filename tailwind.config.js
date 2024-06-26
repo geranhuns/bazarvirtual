@@ -35,7 +35,7 @@ module.exports = {
         "avocado-200": "#D4DBBB",
         "avocado-500": "#76854C",
         "avocado-900": "#373E29",
-        customGreen: "#2C4440",
+        "customGreen": "#2C4440",
         "patina-50": "#F5F8F7",
         "patina-100": "#DDEAE6",
         "patina-200": "#BBD4CD",
