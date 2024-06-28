@@ -52,7 +52,13 @@ function FormMarca() {
             case 'twitter':
                 return <i className="fab fa-twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M23 4.999c-0.875 0.389-1.813 0.65-2.805 0.769 1.007-0.604 1.779-1.56 2.139-2.699-0.941 0.558-1.981 0.963-3.094 1.184-0.888-0.947-2.152-1.542-3.555-1.542-2.686 0-4.864 2.178-4.864 4.864 0 0.381 0.043 0.753 0.126 1.109C6.285 9.157 3.38 7.25 1.38 4.688 1.038 5.313 0.875 6.019 0.875 6.769c0 1.688 0.859 3.175 2.172 4.043-0.8-0.025-1.556-0.245-2.218-0.611v0.061c0 2.355 1.677 4.32 3.899 4.769-0.407 0.111-0.838 0.171-1.283 0.171-0.313 0-0.615-0.031-0.912-0.088 0.654 2.041 2.541 3.527 4.781 3.563-1.754 1.373-3.963 2.188-6.36 2.188-0.413 0-0.82-0.025-1.225-0.075C1.792 22.25 3.979 23 6.313 23 14.688 23 19 15.031 19 8.625L19 7.875C19.688 7.425 20.313 6.825 20.813 6.125 21.438 5.325 21.875 4.375 22.125 3.375 22.625 4.025 23 4.725 23 5.499L23 4.999z" /></svg></i>
             case 'instagram':
-                return <i className="fab fa-instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M12 2C6.48 2 2 6.48 2 12C2 16.42 5.13 20.13 9.5 20.88V14.59H7.81V12H9.5V9.81C9.5 7.5 10.88 6.5 12.85 6.5H14.19V9H12.85C12.55 9 12.5 9.23 12.5 9.5V12H14.19L13.88 14.59H12.5V20.88C16.87 20.13 20 16.42 20 12C20 6.48 15.52 2 12 2Z" /></svg></i>
+                return (
+                    <i className="fab fa-instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor" className="w-6 h-6">
+                            <path d="M 16 3 C 8.83 3 3 8.83 3 16 L 3 34 C 3 41.17 8.83 47 16 47 L 34 47 C 41.17 47 47 41.17 47 34 L 47 16 C 47 8.83 41.17 3 34 3 L 16 3 z M 37 11 C 38.1 11 39 11.9 39 13 C 39 14.1 38.1 15 37 15 C 35.9 15 35 14.1 35 13 C 35 11.9 35.9 11 37 11 z M 25 14 C 31.07 14 36 18.93 36 25 C 36 31.07 31.07 36 25 36 C 18.93 36 14 31.07 14 25 C 14 18.93 18.93 14 25 14 z M 25 16 C 20.04 16 16 20.04 16 25 C 16 29.96 20.04 34 25 34 C 29.96 34 34 29.96 34 25 C 34 20.04 29.96 16 25 16 z"></path>
+                        </svg>
+                    </i>
+                )
             default:
                 return <p className="text-red-500 text-sm font-semibold ml-2">Ingresa una red social correcta</p>
         }
@@ -90,8 +96,7 @@ function FormMarca() {
                     </div>
                     <div className="flex flex-wrap gap-2 mt-2">
                         {redesSociales.map((redSocial, index) => (
-                            <div key={index} className="flex items-center gap-1 border border-gray-300 p-2 rounded
-                            ">
+                            <div key={index} className="flex items-center gap-1 border border-gray-300 p-2 rounded">
                                 {renderIconoRedSocial(redSocial)}
                                 <span className="capitalize">{redSocial}</span>
                             </div>
