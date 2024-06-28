@@ -45,7 +45,7 @@ function PromotorVista() {
     return (
         <>
 
-            <main className="relative bg-raw-sienna-200 w-full min-h-screen flex flex-col ">
+            <main className="flex flex-col    mx-auto  lg:max-w-7xl overflow-auto  ">
                 {open && <FormNewDate open={open} setOpen={setOpen} />}
                 {/* {open && <FormNewDate dataHere={dataFormulario} open={open} setOpen={setOpen} />} */}
                 <section className="w-full   flex justify-around items-center  my-2 ">

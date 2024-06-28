@@ -3,21 +3,45 @@ import MarcaSmallView from "./MarcaSmallView";
 import Link from "next/link";
 export default function ProductoDestacadoMarca() {
   return (
-    <div className="flex flex-col items-center bg-raw-sienna-50 py-5 px-4 rounded-md ">
+    <div className="flex flex-col items-center justify-center bg-raw-sienna-50 py-5 rounded-md w-11/12">
       <Link
-        className="flex flex-col gap-4 items-center cursor-pointer"
+        className="flex flex-col gap-4 items-center cursor-pointer w-full"
         href="/vistaDetalladaProducto"
       >
-        <MarcaSmallView className={" flex-col "} />
+        <MarcaSmallView className={" flex-col"} />
+        <div className="grid grid-cols-2 md:w-full ">
+          <img
+            className=" "
+            src="https://picsum.photos/200/200"
+            width="200px"
+            heigth="200px"
+            alt="producto"
+          />
 
-        <h3 className="text-base">Producto Destacado</h3>
-        <img
-          className="rounded-lg "
-          src="https://picsum.photos/200/200"
-          width="100px"
-          heigth="100px"
-          alt="producto"
-        />
+          <img
+            className=" "
+            src="https://picsum.photos/200/200"
+            width="200px"
+            heigth="200px"
+            alt="producto"
+          />
+
+          <img
+            className=" "
+            src="https://picsum.photos/200/200"
+            width="200px"
+            heigth="200px"
+            alt="producto"
+          />
+
+          <img
+            className=" "
+            src="https://picsum.photos/200/200"
+            width="200px"
+            heigth="200px"
+            alt="producto"
+          />
+        </div>
         <Button
           text={"Ver más"}
           href={"marcas/vistaMarca"}
