@@ -48,6 +48,7 @@ module.exports = {
       },
       height: {
         custom1: "575px",
+        custom2: "495px",
         "85vh": "85vh",
         "65vh": "65vh",
       },

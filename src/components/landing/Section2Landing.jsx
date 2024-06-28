@@ -4,8 +4,8 @@ function Section2Landing(){
     return(
         <>
         <section className="w-full min-h-screen  flex justify-center items-center">
-        <div className=" w-9/12 rounded-3xl h-custom1 bg-landing2 bg-cover bg-center flex justify-end items-center max-sm:bg-none max-sm:bg-white max-sm:justify-center  ">
-          <div className="  w-3/6 h-2/3 text-customGreen flex flex-col items-start gap-10  max-sm:w-5/6 max-sm:h-5/6 max-sm:items-center">
+        <div className=" w-9/12 rounded-3xl h-custom1 bg-landing2 bg-cover bg-center flex justify-end items-center max-sm:bg-none max-sm:bg-white max-sm:justify-center   ">
+          <div className="  w-3/6 h-2/3 text-customGreen flex flex-col items-start gap-10  max-sm:w-5/6 max-sm:h-5/6 max-sm:items-center  max-sm:justify-around">
             <h2 className="text-custom1 font-semibold leading-custom3 mt-4 max-sm:text-2xl max-sm:mt-0 max-sm:text-center">¡Crea y gestiona tus bazares fácilmente!</h2>
             <p className="text-2xl font-normal leading-9 max-sm:text-lg max-sm:text-center ">Conecta con marcas locales y ofrece una experiencia de compra única para
             tus clientes.</p>

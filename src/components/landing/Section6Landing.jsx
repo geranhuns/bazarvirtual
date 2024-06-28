@@ -30,6 +30,7 @@ function SamplePrevArrow(props) {
 function Section6Landing(){
     const settings = {
         dots: false, //Puntos de debajo del carrucel off(false)
+        arrows:false,
         infinite: true,
         speed: 500,
         slidesToShow: 3,
@@ -44,7 +45,7 @@ function Section6Landing(){
     return (
         <>
         <section className="w-full h-85vh flex flex-col items-center justify-center gap-1 ">
-          <h2 className="text-customGreen text-6xl font-semibold">Testimonios</h2>
+          <h2 className="text-customGreen text-6xl font-semibold max-sm:text-3xl">Testimonios</h2>
       <Slider {...settings} className="  w-11/12 h-4/6 flex justify-center items-center ">
         <CardSection6
         bg={'bg-KombuGreen'}
