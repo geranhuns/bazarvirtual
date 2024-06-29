@@ -24,7 +24,7 @@ export default function ProductSmallView() {
         text="Agregar al carrito"
         variant="yellow"
         href=""
-        className={"text-sm h-7 mt-3 "}
+        className={"text-sm h-7 mt-3 leading-"}
         onClick={() => {
           // setCarrito(carrito.push("nuevoProductoId"));
         }}

@@ -2,7 +2,7 @@ import Button from "../Button/Button";
 export default function BazarMediumView({ className }) {
   return (
     <a
-      href="/vistaBazar"
+      href="promotorBazarView"
       className={`flex flex-col bg-raw-sienna-200 py-4 rounded-lg gap-2 items-center cursor-pointer w-36 md:w-40 lg:w-48  ${className}`}
     >
       <img

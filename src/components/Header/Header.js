@@ -53,7 +53,7 @@ function Header() {
           <LogoTag width={"50px"} className={" block md:hidden h-full py-2"} />
           {/* <div className="flex"> */}
           {pathname === "/" && (
-            <div className="flex items-center cursor-pointer">
+            <div className="md:flex items-center cursor-pointer hidden">
               <ul className="flex flex-row items-center mr-10 gap-4 text-base text-color-text">
                 <li
                   className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "

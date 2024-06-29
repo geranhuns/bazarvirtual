@@ -1,7 +1,7 @@
 export default function BazarSmallView({ className }) {
   return (
     <a
-      href="/bazar1"
+      href="promotorBazarView"
       className={`flex flex-col lg:flex-row  gap-2 items-center ${className}`}
     >
       <img

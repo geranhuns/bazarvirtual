@@ -9,7 +9,7 @@ export default function MarcaHeaderInfo({ imageURL, altText }) {
           alt={altText}
           width="200px"
           height="200px"
-          className="h-48 rounded-full self-center"
+          className="h-48 w-48 rounded-full self-center"
         />
         <div id="infoMarca" className="flex flex-col justify-center pl-10 ">
           <h2>NombreDeMarca</h2>
