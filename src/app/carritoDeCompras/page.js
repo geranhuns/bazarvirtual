@@ -3,7 +3,7 @@ import Button from "@/components/Button/Button";
 export default function CarritoDeCompras() {
   return (
     <>
-      <main className="flex flex-col  items-center  mx-auto  lg:max-w-7xl overflow-auto ">
+      <div className="flex flex-col  items-center  mx-auto  lg:max-w-7xl overflow-auto ">
         <div className=" pt-4 md:pt-10 pb-8 w-10/12">
           <h3 className="text-lg">Carrito de Compras</h3>
           <p>
@@ -28,7 +28,7 @@ export default function CarritoDeCompras() {
             <h3>$5,000.00</h3>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

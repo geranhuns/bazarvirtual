@@ -45,7 +45,7 @@ function PromotorVista() {
     return (
         <>
 
-            <main className="flex flex-col    mx-auto  lg:max-w-7xl overflow-auto  ">
+            <div className="flex flex-col    mx-auto  lg:max-w-7xl overflow-auto  ">
                 {open && <FormNewDate open={open} setOpen={setOpen} />}
                 {/* {open && <FormNewDate dataHere={dataFormulario} open={open} setOpen={setOpen} />} */}
                 <section className="w-full   flex justify-around items-center  my-2 ">
@@ -92,7 +92,7 @@ function PromotorVista() {
                 <Carrucel></Carrucel>
                 <EventBazar />
 
-            </main>
+            </div>
 
         </>
     )
