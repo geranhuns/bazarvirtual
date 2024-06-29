@@ -40,7 +40,19 @@ function Section6Landing(){
         autoplay: true,
         // speed: 1000,
         autoplaySpeed: 10000,
-        cssEase: "linear"
+        cssEase: "linear",
+        responsive: [
+          {
+            breakpoint: 640,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: false
+            }
+          },
+        ]
+        
       };
     return (
         <>

@@ -6,10 +6,10 @@ import { TbWorldSearch } from "react-icons/tb";
 function Section4Landing(){
 return(
     <>
-    <section className="w-full h-65vh flex flex-row  ">
+    <section className="w-full h-65vh flex flex-row max-sm:px-6 max-sm:flex-col max-sm:h-85vh  ">
         <CardSection4
             bgClass="bg-KombuGreen"
-            iconCard={<BsShop className="w-2/12 h-5/6 text-Eggshell" />}
+            iconCard={<BsShop className="w-2/12 h-5/6 text-Eggshell " />}
             title="¿Impulsas marcas mexicanas con tu bazar?"
             description1="Maximiza tu Alcance"
             description2="Tus bazares siempre en el radar de los compradores locales."

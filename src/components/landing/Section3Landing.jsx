@@ -15,18 +15,18 @@ function Section3Landing(){
                 slidesToScroll: 1,
                 // nextArrow: <SampleNextArrow />,
                 // prevArrow: <SamplePrevArrow />,
-                autoplay: false,
+                autoplay: true,
                 // speed: 1000,
-                autoplaySpeed: 10000,
+                autoplaySpeed: 8000,
                 cssEase: "linear",
                 rows: 1,
                 
               };
     return(
         <>
-        <section className=" w-full h-85vh  flex justify-around items-center  ">
+        <section className=" w-full h-85vh  flex justify-around items-center max-sm:justify-center  ">
         
-        <Slider {...settings} className="Slider  w-11/12 h-5/6      ">
+        {/* <Slider {...settings} className="Slider justify-center items-center  w-11/12 h-5/6      ">
                <div className="h-full">
                 <CardSection3
                 bgClass="bg-KombuGreen"
@@ -50,8 +50,8 @@ function Section3Landing(){
                         description="Forma parte de una red de personas comprometidas con el crecimiento y la prosperidad de nuestra comunidad"
                 /> 
         
-         </Slider>
-        {/* <CardSection3
+         </Slider> */}
+        <CardSection3
                 bgClass="bg-KombuGreen"
                 bgImageClass="bg-ecoShopping"
                 title="Apoyamos la economía local"
@@ -69,7 +69,7 @@ function Section3Landing(){
                 bgImageClass="bg-teamPana"
                 title="Y conectamos con la Comunidad"
                 description="Forma parte de una red de personas comprometidas con el crecimiento y la prosperidad de nuestra comunidad"
-        /> */}
+        />
         
       </section>
         </>
