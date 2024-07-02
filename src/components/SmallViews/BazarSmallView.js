@@ -1,4 +1,5 @@
-export default function BazarSmallView({ className }) {
+export default function BazarSmallView({ className, item }) {
+  const { image, date, time } = item;
   return (
     <a
       href="promotorBazarView"
@@ -6,14 +7,14 @@ export default function BazarSmallView({ className }) {
     >
       <img
         className="rounded-full h-20 w-20 lg:w-auto"
-        src="https://picsum.photos/100/100"
+        src={image}
         width="100px"
         heigth="100px"
         alt="logo"
       />
       <div className=" text-center text-xs w-24">
-        <h3 className="">10 - Jun</h3>
-        <h3 className=""> 8:00 - 18:00</h3>
+        <h3 className="">{date}</h3>
+        <h3 className=""> {time}</h3>
       </div>
     </a>
   );
