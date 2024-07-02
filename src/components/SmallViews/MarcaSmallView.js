@@ -1,4 +1,4 @@
-export default function MarcaSmallView({ className }) {
+export default function MarcaSmallView({ className, brand }) {
   return (
     <a
       href="marcas/vistaMarca"
@@ -12,7 +12,7 @@ export default function MarcaSmallView({ className }) {
         alt="logo"
       />
       <div className="text-center text-xs w-24">
-        <h3>NombreDeMarca</h3>
+        <h3>{brand}</h3>
       </div>
     </a>
   );
