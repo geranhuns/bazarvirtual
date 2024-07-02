@@ -37,7 +37,7 @@ export default function ShoppingCartItem() {
             {pathname !== "/carritoDeCompras" ? (
               <p className="flex gap-3">
                 <a>Agregar al carrito</a>|
-                <a onClick={handleRemoveWish}>Quitar de la lista</a>
+                {/* <a onClick={handleRemoveWish}>Quitar de la lista</a> */}
               </p>
             ) : (
               <p className="flex gap-3 pt-2 md:pt-0">
@@ -54,7 +54,10 @@ export default function ShoppingCartItem() {
           </div>
         </div>
       </div>
-      <h3 className="bg-raw-sienna-50 text-xl w-full text-right "> $550.00</h3>
+      <h3 className="bg-raw-sienna-50 text-xl w-full text-right pr-4">
+        {" "}
+        $550.00
+      </h3>
 
       <hr className="h-0.5 bg-raw-sienna-800" />
     </>
