@@ -6,7 +6,7 @@ import { BsStars } from "react-icons/bs";
 function CardEvent() {
     return (
         <>
-            <div className="bg-raw-sienna-500 w-5/12 h-3/6 rounded-lg flex items-center justify-center max-md:h-2/6 max-md:w-7/12 max-sm:w-11/12  ">
+            <div className="bg-raw-sienna-500 w-5/12 h-3/6 rounded-lg flex items-center justify-center max-md:h-2/6 max-md:w-7/12 max-sm:w-11/12  mt-10">
                 <div className=" w-3/12  flex justify-center">
                     <SiPinboard className="  text-white text-4xl" />
                 </div>
