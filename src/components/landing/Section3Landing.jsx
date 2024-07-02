@@ -50,7 +50,7 @@ function Section3Landing() {
         };
         return (
 
-                <section className="lg:max-w-screen-xl mx-auto w-full my-20  flex flex-col justify-around items-center max-sm:justify-center   py-20 px-8 ">
+                <section className="lg:max-w-screen-xl mx-auto w-full mb-20  flex flex-col justify-around items-center max-sm:justify-center  px-8 ">
 
 
                         <Slider {...settings} className="Slider flex justify-between items-center  w-11/12 ">
