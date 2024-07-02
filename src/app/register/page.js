@@ -10,8 +10,8 @@ export default function page() {
   };
   return (
     <>
-      <main className="flex flex-col items-center h-screen justify-center  ">
-        <div className="bg-white p-10 rounded-md flex flex-col items-center shadow-md">
+      <div className="flex flex-col items-center h-screen lg:max-w-screen-xl mx-auto  ">
+        <div className="bg-white px-5 py-10 md:px-10 my-auto rounded-md flex flex-col items-center shadow-md">
           <h1 className="text-4xl text-black mb-6 font-bold">Crea tu cuenta</h1>
           <div className="flex pb-4">
             <h4
@@ -36,13 +36,13 @@ export default function page() {
             </h4>
           </div>
 
-          <h2 className="text-xl text-gray-500 mb-2 w-96 text-center">
+          <h2 className="text-xl text-gray-500 mb-2 lg:w-96 text-center">
             {messages[option]}
           </h2>
           {option === "soyEmprendedor" && <RadioButton />}
           <RegisterForm />
         </div>
-      </main>
+      </div>
     </>
   );
 }

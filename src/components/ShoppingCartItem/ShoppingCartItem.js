@@ -17,7 +17,7 @@ export default function ShoppingCartItem() {
   // }
   return (
     <>
-      <div className="flex  items-center bg-raw-sienna-50 py-5 px-4 rounded-md">
+      <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 rounded-md">
         <img
           className="rounded-sm"
           src="https://picsum.photos/200/200"
@@ -26,10 +26,10 @@ export default function ShoppingCartItem() {
           alt="producto"
         />
 
-        <div className="px-10 flex flex-col w-full ">
+        <div className="pl-10 flex flex-col w-full ">
           <h3 className="  text-lg ">Título detallado del producto</h3>
           <MarcaSmallView />
-          <div className="flex">
+          <div className="flex flex-col md:flex-row pt-2">
             <div className="flex items-center">
               <h4>Cantidad</h4>
               <Dropdown className="rounded-md" options={[1, 2, 3, 4, 5, 6]} />
@@ -37,10 +37,10 @@ export default function ShoppingCartItem() {
             {pathname !== "/carritoDeCompras" ? (
               <p className="flex gap-3">
                 <a>Agregar al carrito</a>|
-                <a onClick={handleRemoveWish}>Quitar de la lista</a>
+                {/* <a onClick={handleRemoveWish}>Quitar de la lista</a> */}
               </p>
             ) : (
-              <p className="flex gap-3">
+              <p className="flex gap-3 pt-2 md:pt-0">
                 <a
                   onClick={() => {
                     // setCarrito(carrito.push("nuevoProductoId"));
@@ -53,8 +53,11 @@ export default function ShoppingCartItem() {
             )}
           </div>
         </div>
-        <h3 className="text-xl "> $550.00</h3>
       </div>
+      <h3 className="bg-raw-sienna-50 text-xl w-full text-right pr-4">
+        {" "}
+        $550.00
+      </h3>
 
       <hr className="h-0.5 bg-raw-sienna-800" />
     </>
