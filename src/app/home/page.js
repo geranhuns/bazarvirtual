@@ -54,7 +54,6 @@ export default function Home() {
         <h2 className="pt-6 text-xl">Productos destacados</h2>
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
           {productsExample.map((item) => {
-            console.log(item);
             return <ProductSmallView key={item.id} item={item} />;
           })}
         </div>

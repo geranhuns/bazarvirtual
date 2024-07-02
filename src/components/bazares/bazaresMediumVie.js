@@ -1,5 +1,5 @@
-import Button from "../Button/Button";
-export default function BazarMediumView({ className }) {
+export default function BazarMediumView({ className, item }) {
+  const { image, time, date, name } = item;
   return (
     <a
       href="promotorBazarView"
@@ -7,14 +7,15 @@ export default function BazarMediumView({ className }) {
     >
       <img
         className="rounded-full"
-        src="https://picsum.photos/100/100"
+        src={image}
         width="100px"
         heigth="100px"
-        alt="logo"
+        alt={name}
       />
       <div className="text-center text-md w-24">
-        <h3>10 - Jun</h3>
-        <h3> 8:00 - 18:00</h3>
+        <h3>{name}</h3>
+        <h3>{date}</h3>
+        <h3> {time}</h3>
       </div>
     </a>
   );
