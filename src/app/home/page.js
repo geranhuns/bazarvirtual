@@ -2,8 +2,8 @@ import ProximosBazares from "@/components/ProximosBazaresBanner/ProximosBazaresB
 import ProductSmallView from "@/components/SmallViews/ProductSmallView";
 export default function Home() {
   return (
-    <main className="flex flex-col    mx-auto  lg:max-w-7xl overflow-auto ">
-      <div className="flex flex-col w-10/12 mx-auto lg:max-w-7xl items-center">
+    <div className="flex flex-col    mx-auto  lg:max-w-screen-xl overflow-auto ">
+      <div className="flex flex-col w-10/12 mx-auto lg:max-w-screen-xl items-center">
         <ProximosBazares className="" />
         <h2 className="pt-6 text-xl">Productos destacados</h2>
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
@@ -26,6 +26,6 @@ export default function Home() {
           <ProductSmallView />
         </div>
       </div>
-    </main>
+    </div>
   );
 }

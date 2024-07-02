@@ -4,26 +4,29 @@ import Button from "../Button/Button";
 
 export default function ProximosBazares({ className }) {
   return (
-    <div className={className}>
-      <div className="flex flex-col   top-0 left-0  w-full px-8 py-1 items-center rounded-xl  bg-patina-900 mt-2 text-raw-sienna-50">
-        <h3 className="text-center pr-6  text-lg">Próximos Bazares</h3>
-        <div className="flex items-center ">
-          <ul className=" flex w-full py-4 gap-8 ">
-            <li>
+    <section className={className}>
+      <div className="flex flex-col   top-0 left-0  w-full  px-8  items-center justify-center rounded-xl  bg-patina-900 mt-2 text-raw-sienna-50 py-8">
+        <h2 className="text-center text-lg pb-4">Próximos Bazares</h2>
+        <div className="flex flex-col items-center justify-center ">
+          <div className=" flex w-full py-4 gap-8 flex-wrap  lg:flex-nowrap justify-center ">
+            <article>
               <BazarSmallView />
-            </li>
-            <li>
+            </article>
+            <article>
               <BazarSmallView />
-            </li>
-            <li>
+            </article>
+            <article>
               <BazarSmallView />
-            </li>
-          </ul>
+            </article>
+            <article>
+              <BazarSmallView />
+            </article>
+          </div>
           <Button
             text={"Ver todos"}
             href={"/bazares"}
             variant={"patina-500"}
-            className={"ml-8 w-1/4 text-sm lg:text-lg"}
+            className={" w-full md:w-1/2 lg:1/3 text-lg"}
           />
         </div>
         {/* <div className="bg-yellow-bazar py-2 px-4 mt-10">
@@ -33,6 +36,6 @@ export default function ProximosBazares({ className }) {
           </p>
         </div> */}
       </div>
-    </div>
+    </section>
   );
 }

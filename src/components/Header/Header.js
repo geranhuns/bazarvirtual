@@ -48,7 +48,7 @@ function Header() {
   return (
     <>
       <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50 ">
-        <div className="h-full flex md:justify-between items-center mx-auto   lg:max-w-7xl px-5 ">
+        <div className="h-full flex md:justify-between items-center mx-auto   lg:max-w-screen-xl  px-5 ">
           <LogoH className={" hidden md:block"} />
           <LogoTag width={"50px"} className={" block md:hidden h-full py-2"} />
           {/* <div className="flex"> */}

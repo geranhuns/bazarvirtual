@@ -17,7 +17,7 @@ export default function ShoppingCartItem() {
   // }
   return (
     <>
-      <div className="flex flex-col md:flex-row items-center bg-raw-sienna-50 py-5 px-4 rounded-md">
+      <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 rounded-md">
         <img
           className="rounded-sm"
           src="https://picsum.photos/200/200"
@@ -26,7 +26,7 @@ export default function ShoppingCartItem() {
           alt="producto"
         />
 
-        <div className="px-2 md:px-10 flex flex-col w-full ">
+        <div className="pl-10 flex flex-col w-full ">
           <h3 className="  text-lg ">Título detallado del producto</h3>
           <MarcaSmallView />
           <div className="flex flex-col md:flex-row pt-2">
@@ -53,8 +53,8 @@ export default function ShoppingCartItem() {
             )}
           </div>
         </div>
-        <h3 className="text-xl self-end pt-4 md:pt-0"> $550.00</h3>
       </div>
+      <h3 className="bg-raw-sienna-50 text-xl w-full text-right "> $550.00</h3>
 
       <hr className="h-0.5 bg-raw-sienna-800" />
     </>
