@@ -11,7 +11,7 @@ function Section1Landing() {
                         <h3 className="w-9/12  text-5xl max-sm:text-2xl max-sm:w-10/12  font-semibold  tracking-wide text-raw-sienna-50 leading-10 md:leading-custom ">para emprendedores mexicanos</h3>
 
 
-                        <button className="bg-raw-sienna-500 rounded-md md:rounded-sm h-full py-4   md:h-12 w-4/12 mt-4 text-raw-sienna-50 text-base font-semibold tracking-wide hover:bg-white transition duration-500 hover:text-color-btnUnete max-sm:w-8/12  ">
+                        <button className="bg-raw-sienna-500 rounded-md  h-full py-4   md:h-14 w-4/12 mt-4 text-raw-sienna-50 text-base font-semibold tracking-wide hover:bg-white transition duration-500 hover:text-color-btnUnete max-sm:w-8/12  ">
                             <Link href={"/home"} >Explorar más</Link>
                         </button>
 
