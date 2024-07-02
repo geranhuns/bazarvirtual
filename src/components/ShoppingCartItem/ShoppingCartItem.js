@@ -18,7 +18,7 @@ export default function ShoppingCartItem({ item }) {
   };
   return (
     <>
-      <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 ">
+      <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 lg:max-w-screen-lg">
         <img
           className="rounded-sm"
           src={image}
@@ -55,11 +55,11 @@ export default function ShoppingCartItem({ item }) {
           </div>
         </div>
       </div>
-      <h3 className="bg-raw-sienna-50 text-xl w-full text-right pr-4">
-        {price}
+      <h3 className="bg-raw-sienna-50 text-xl w-full text-right pr-4 lg:max-w-screen-lg">
+        ${price}
       </h3>
 
-      <hr className="h-0.5 bg-raw-sienna-800" />
+      <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
     </>
   );
 }

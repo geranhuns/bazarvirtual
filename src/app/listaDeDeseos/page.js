@@ -51,15 +51,15 @@ export default function CarritoDeCompras() {
     0
   );
   return (
-    <div className="flex flex-col  md:w-10/12  lg:w-10/12  lg:max-w-screen-xl mx-auto overflow-auto">
-      <div className=" flex flex-col pt-4 md:pt-10 pb-8 px-4">
+    <div className="flex flex-col  md:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto">
+      <div className=" flex flex-col pt-4 md:pt-10 pb-8 px-4 mx-auto">
         <h3 className="text-lg">Lista de Deseos</h3>
         <p className="pb-4 md:pb-8">
           Consulta la página de detalle del producto para ver otras opciones de
           compra.
         </p>
 
-        <hr className="h-0.5 bg-raw-sienna-800" />
+        <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
         {carritoExample.map((item) => {
           return <ShoppingCartItem key={item.id} item={item} />;
         })}
