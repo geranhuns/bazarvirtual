@@ -45,54 +45,56 @@ function PromotorVista() {
     return (
         <>
 
-            <main className="relative bg-raw-sienna-200 w-full min-h-screen flex flex-col ">
+            <section className="relative bg-raw-sienna-200  min-h-screen flex flex-col lg:max-w-screen-xl overflow-auto mx-auto ">
                 {open && <FormNewDate open={open} setOpen={setOpen} />}
                 {/* {open && <FormNewDate dataHere={dataFormulario} open={open} setOpen={setOpen} />} */}
-                <section className="w-full   flex justify-around items-center  my-5 ">
-                    <div className="bg-raw-sienna-500  w-10/12 flex flex-row items-center justify-around max-md:w-full max-sm:flex-col  p-10 ">
+               
+                    <div className="bg-raw-sienna-500  w-10/12 flex  items-center justify-around  p-10 mx-auto max-md:flex-col max-sm:w-11/12 ">
 
-                        <div className=" w-4/12 h-full flex justify-start  max-md:w-4/12 max-md:h-4/6  max-sm:w-10/12 max-sm:justify-center max-sm:h-2/6   ">
-                            <div className="w-full   rounded-b-custom2 flex justify-center items-center max-md:h-5/6 max-md:w-12/12  max-sm:h-full max-sm:w-6/12">
-                                <img className=" rounded-custom2 mb-5 md:mb-0 max-md:h-4/6 max-md:w-11/12  " src="https://cdn.leonardo.ai/users/be6f4fcf-f918-450f-a54b-b46b96cd9cd4/generations/c77dc036-fe62-4dde-89a4-9d78dd29bf30/Default_bazaar_sea_logo_2.jpg?w=512" alt="" />
-                            </div>
+                        <div className=" w-4/12 mb-1 h-full flex justify-center   max-md:w-5/12 max-sm:w-6/12 ">
+                            
+                                <img className=" rounded-custom2 w-full h-full" src="https://cdn.leonardo.ai/users/be6f4fcf-f918-450f-a54b-b46b96cd9cd4/generations/c77dc036-fe62-4dde-89a4-9d78dd29bf30/Default_bazaar_sea_logo_2.jpg?w=512" alt="" />
+                            
 
                         </div>
 
-                        <div className=" text-Eggshell w-7/12 h-5/6 flex flex-col justify-between items-center max-md:justify-around max-sm:w-11/12">
+                        <div className=" text-Eggshell w-7/12 h-5/6  flex flex-col justify-between items-center max-md:w-11/12 max-sm:w-full">
 
-                            <div className="bg-patina-900 rounded-xl w-9/12 h-4/6 flex flex-col justify-center items-center  mb-10">
+                            <div className="bg-patina-900 rounded-xl w-9/12 h-4/6 flex flex-col justify-center items-center  mb-10 max-md:w-11/12 max-sm:w-full">
                                 <h2 className=" text-xl md:text-4xl pt-4 font-medium  text-center ">Sea Bazaar</h2>
                                 <div className="text-sm font-medium flex flex-col justify-center items-center ">
                                     <span>www.SeaBazar_413.com</span>
                                     <span>613-174-8973</span>
                                 </div>
                                 <div className="  flex justify-center gap-x-4 mb-5">
-                                    <FaFacebook className="w-10 h-11 rounded-custom2 text-facebook bg-white" />
-                                    <FaInstagramSquare className="w-10 h-11 rounded-custom2  bg-instagram-gradient" />
-                                    <AiFillTikTok className="w-10 h-11 rounded-custom2 text-black bg-tiktok-gradient" />
+                                    <FaFacebook className="w-10 h-11 rounded-custom2 text-facebook bg-white max-sm:w-auto" />
+                                    <FaInstagramSquare className="w-10 h-11 rounded-custom2  bg-instagram-gradient max-sm:w-auto" />
+                                    <AiFillTikTok className="w-10 h-11 rounded-custom2 text-black bg-tiktok-gradient max-sm:w-auto " />
 
                                 </div>
                             </div>
 
-                            <div className="bg-avocado-500 rounded-md w-full flex text-center items-center text-black gap-2 max-md:h-1/6 p-4">
+                            <div className="bg-avocado-500 rounded-md w-full flex text-center items-center text-black gap-2 max-md:h-1/6 p-3">
                                 <CardEventDetail />
                                 <CardEventDetail />
                                 <CardEventDetail />
-                                {/* {allFormData.map((event, index) => (
+                                    {/* {allFormData.map((event, index) => (
                             
-                                <CardEventDetail data={event} />
+                                        <CardEventDetail data={event} />
                            
-                        ))} */}
-                                <button className="bg-raw-sienna-500 w-auto h-full rounded-sm ml-4 max-md:w-8 max-md:h-9 " onClick={() => setOpen(!open)} ><CiSquarePlus className="w-full h-full text-white" /></button>
+                                    ))} */}
+                                <button className="bg-raw-sienna-500 w-1/12 h-3/6 rounded-sm flex items-center justify-center text-base font-medium " onClick={() => setOpen(!open)} ><CiSquarePlus className="text-white w-full h-full" /></button>
                             </div>
                         </div>
                     </div>
 
-                </section>
+                
+
                 <Carrucel></Carrucel>
+                
                 <EventBazar />
 
-            </main>
+            </section>
 
         </>
     )

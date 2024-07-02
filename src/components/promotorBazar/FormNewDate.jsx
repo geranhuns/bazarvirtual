@@ -49,7 +49,7 @@ function FormNewDate(props){
         <button className="bg-raw-sienna-500 w-10 h-10 flex justify-center items-center rounded-2xl" onClick={() => setOpen(!open)} ><MdClose className="w-full h-full" /></button>
             <form onSubmit={handleSubmit(onSubmit)} className="bg-form-newDate-green w-full h-5/6 flex flex-col items-center text-customGreen text-2xl ">
                 <label htmlFor="">Lugar</label>
-                <input className="rounded-xl" type="text" {...register("Lugar")} />
+                <input className="rounded-lg" type="text" {...register("Lugar")} />
 
                 <label htmlFor="">fecha</label>
                 <input className="rounded-xl"  type="text" {...register("Fecha")} />

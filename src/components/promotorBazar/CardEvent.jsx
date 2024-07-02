@@ -10,7 +10,7 @@ function CardEvent() {
                 <div className=" w-3/12  flex justify-center">
                     <SiPinboard className="  text-white text-4xl" />
                 </div>
-                <div className=" w-6/12 h-full flex flex-col items-center justify-around text-center">
+                <div className=" w-8/12 h-full flex flex-col items-center justify-around text-center   max-sm:w-9/12">
                     <span className="text-2xl font-semibold flex justify-around items-center max-md:text-lg"><BsStars className="text-white" />Música en vivo</span>
                     <span className="text-xl font-medium max-md:text-sm">Enjoy performances by top artists.</span>
                     <span className="text-xl font-medium flex justify-around items-center max-md:text-sm"><IoIosTime className="text-white" />11:00 AM </span>
