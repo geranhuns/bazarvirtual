@@ -65,8 +65,8 @@ export default function CarritoDeCompras() {
         {carritoExample.map((item) => {
           return <ShoppingCartItem key={item.id} item={item} />;
         })}
+        <PaymentTotalButton total={totalPrice} className={"mt-8"} />
       </div>
-      <PaymentTotalButton total={totalPrice} />
     </div>
   );
 }
