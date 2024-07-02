@@ -50,10 +50,10 @@ function Section3Landing() {
         };
         return (
 
-                <section className="lg:max-w-screen-xl mx-auto w-full my-20  flex flex-col justify-around items-center max-sm:justify-center border border-red-500 py-20 px-8 ">
+                <section className="lg:max-w-screen-xl mx-auto w-full my-20  flex flex-col justify-around items-center max-sm:justify-center   py-20 px-8 ">
 
 
-                        <Slider {...settings} className="Slider flex justify-between bg-green-400 items-center  w-11/12 ">
+                        <Slider {...settings} className="Slider flex justify-between items-center  w-11/12 ">
                                 <CardSection3
                                         bgClass="bg-KombuGreen"
                                         bgImageClass="bg-ecoShopping"

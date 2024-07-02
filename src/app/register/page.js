@@ -10,7 +10,7 @@ export default function page() {
   };
   return (
     <>
-      <div className="flex flex-col items-center h-screen   ">
+      <div className="flex flex-col items-center h-screen lg:max-w-screen-xl mx-auto  ">
         <div className="bg-white px-5 py-10 md:px-10 my-auto rounded-md flex flex-col items-center shadow-md">
           <h1 className="text-4xl text-black mb-6 font-bold">Crea tu cuenta</h1>
           <div className="flex pb-4">

@@ -1,8 +1,8 @@
 import ProductSmallView from "@/components/SmallViews/ProductSmallView";
 export default function BusquedaProductos() {
   return (
-    <div className="flex flex-col    mx-auto  lg:max-w-7xl overflow-auto justify-center items-center ">
-      <div className="flex flex-col w-10/12 md:mx-auto  lg:max-w-7xl ">
+    <div className="flex flex-col    mx-auto  lg:max-w-screen-xl overflow-auto mx-auto justify-center items-center ">
+      <div className="flex flex-col w-10/12 md:mx-auto  lg:max-w-screen-xl ">
         <h2 className="pt-6 text-xl self-start  md:pl-0">
           Resultados de la búsqueda
         </h2>

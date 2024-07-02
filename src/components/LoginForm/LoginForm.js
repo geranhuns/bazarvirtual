@@ -6,7 +6,7 @@ export default function LoginForm() {
       <form action="">
         <div className="flex flex-col w-60 lg:w-96 mb-3 gap-1">
           <div className="mb-4">
-            <label htmlFor="username" className="text-base lg:text-xl mb-1">
+            <label htmlFor="email" className="text-base lg:text-xl mb-1">
               Correo:
             </label>
             <input

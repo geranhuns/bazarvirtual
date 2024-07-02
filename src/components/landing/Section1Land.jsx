@@ -5,14 +5,14 @@ function Section1Landing() {
     return (
         <>
             <section className="relative bg-landing1 bg-cover bg-center min-h-screen  w-full -z-50 ">
-                <div className="  absolute inset-0 bg-fill-landing1 flex flex-col items-center justify-center max-sm:justify-start">
-                    <div className=" w-9/12 h-64 max-sm:text-center max-sm:flex max-sm:flex-col max-sm:items-center max-sm:mt-20  max-sm:h-5/6 max-sm:gap-5 ">
-                        <h1 className="w-9/12  text-6xl max-sm:text-4xl  font-semibold leading-custom tracking-wide text-raw-sienna-50">Sí, somos el punto de encuentro</h1>
-                        <h3 className="w-9/12  text-5xl max-sm:text-3xl max-sm:w-10/12  font-semibold leading-custom tracking-wide text-raw-sienna-50  ">para emprendedores mexicanos</h3>
+                <div className="  mx-auto absolute inset-0 bg-fill-landing1 flex flex-col items-center pt-32 md:pt-52 lg:justify-center ">
+                    <div className=" w-9/12   md:text-start flex flex-col  mt-48 md:mt-20   max-sm:gap-5 ">
+                        <h1 className="w-9/12  text-6xl max-sm:text-3xl  font-semibold leading-10 md:leading-custom tracking-wide text-raw-sienna-50">Sí, somos el punto de encuentro</h1>
+                        <h3 className="w-9/12  text-5xl max-sm:text-2xl max-sm:w-10/12  font-semibold  tracking-wide text-raw-sienna-50 leading-10 md:leading-custom ">para emprendedores mexicanos</h3>
 
 
-                        <button className="bg-raw-sienna-500 rounded-3xl h-16 w-4/12 mt-4 text-raw-sienna-50 text-base font-semibold leading-custom2 tracking-wide hover:bg-white transition duration-500 hover:text-color-btnUnete max-sm:w-8/12 max-sm:h-1/6 ">
-                            <Link href={"/home"}>Explorar más</Link>
+                        <button className="bg-raw-sienna-500 rounded-md md:rounded-sm h-full py-4   md:h-12 w-4/12 mt-4 text-raw-sienna-50 text-base font-semibold tracking-wide hover:bg-white transition duration-500 hover:text-color-btnUnete max-sm:w-8/12  ">
+                            <Link href={"/home"} >Explorar más</Link>
                         </button>
 
                     </div>

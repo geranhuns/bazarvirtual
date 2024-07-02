@@ -8,7 +8,7 @@ import Section6Landing from "@/components/landing/Section6Landing";
 
 export default function Home() {
   return (
-    <main className=" flex flex-col">
+    <div className=" flex flex-col ">
       {/* Primera Seccion */}
       <Section1Landing id="section1" />
       {/* Segunda Seccion*/}
@@ -27,7 +27,7 @@ export default function Home() {
 
 
 
-    </main>
+    </div>
 
   );
 }
