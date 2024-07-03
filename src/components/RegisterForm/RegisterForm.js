@@ -3,12 +3,13 @@ import Button from "../Button/Button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function registerForm() {
+export default function registerForm({dataRegister}) {
 
   const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
-  
+
   const onSubmit = (data) =>{
-    console.log(data)
+    // console.log(data)
+    dataRegister(data)
     reset();
   }
   
