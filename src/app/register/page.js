@@ -38,16 +38,15 @@ export default function page() {
           const modifiedData = {
             ...data,
             role: role,
-            password: validPassword,
-            
+            password: validPassword, 
           };
   
           delete modifiedData.passwordComparation; //elimina la propiedad passwordComparation, ya que solo necesitamos solo un password
-          console.log(modifiedData)
+          // console.log(modifiedData)
           await registerUserFetch(modifiedData)
          
     } else {
-      // console.log("Contraseña no válida");
+      
       Swal.fire({
         title: "Oops",
         text: "Las contraseñas no coinciden prueba de nuevo!",
