@@ -1,4 +1,4 @@
-
+"use client";
 import Button from "@/components/Button/Button";
 import { useForm } from "react-hook-form";
 
@@ -6,7 +6,7 @@ export default function LoginForm({dataLoginProp}) {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-  const onSubmit = (data) =>{
+  const onSubmit =  (data) =>{
    
     dataLoginProp(data)
    

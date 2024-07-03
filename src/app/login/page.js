@@ -1,11 +1,36 @@
 "use client";
 import LoginForm from "@/components/LoginForm/LoginForm";
 import { loginUserFetch } from "@/api/users/routes";
+import {jwtDecode} from 'jwt-decode';
+import { useRouter } from 'next/navigation'
+
+
 export default function Login() {
-  
-  const dataLogin =((data)=>{
-    // console.log(data)
-    loginUserFetch(data)
+  const router = useRouter()
+
+  const dataLogin =(async (data)=>{
+    try {
+      const token = await loginUserFetch(data);
+      const decodedToken = jwtDecode(token.data);
+      const userRole = decodedToken.role;
+      // console.log(userRole)
+
+      if (userRole === 'marca') {
+        router.push('/marcas')
+
+        } else if (userRole === 'bazar') {
+          router.push('/promotorBazarView')
+
+        } else {
+          router.push('/home')
+        }
+            
+        
+      
+    } catch (error) {
+      console.error(error.message);
+    }   
+   
   })
 
   return (
