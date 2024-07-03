@@ -4,6 +4,7 @@ import { useState } from "react";
 import RadioButton from "@/components/RadioButton/RadioButton";
 export default function page() {
   const [option, setOption] = useState("quieroComprar");
+  const [stateForm, setStateForm] = useState(''); //agregado
   const messages = {
     quieroComprar: "¡Gracias por apoyar el comercio local!",
     soyEmprendedor: "¿Cómo quieres registrarte?",
@@ -39,7 +40,7 @@ export default function page() {
           <h2 className="text-xl text-gray-500 mb-2 lg:w-96 text-center">
             {messages[option]}
           </h2>
-          {option === "soyEmprendedor" && <RadioButton />}
+          {option === "soyEmprendedor" && <RadioButton setStateFormProp={setStateForm} />}
           <RegisterForm />
         </div>
       </div>
