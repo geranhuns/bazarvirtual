@@ -47,13 +47,13 @@ function Header() {
   };
   return (
     <>
-      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50">
-        <div className="h-full flex md:justify-between items-center mx-auto   lg:max-w-7xl px-5">
+      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50 ">
+        <div className="h-full flex md:justify-between items-center mx-auto   lg:max-w-screen-xl  px-5 ">
           <LogoH className={" hidden md:block"} />
           <LogoTag width={"50px"} className={" block md:hidden h-full py-2"} />
           {/* <div className="flex"> */}
           {pathname === "/" && (
-            <div className="flex items-center cursor-pointer">
+            <div className="md:flex items-center cursor-pointer hidden">
               <ul className="flex flex-row items-center mr-10 gap-4 text-base text-color-text">
                 <li
                   className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "

@@ -8,7 +8,7 @@ export default function vistaDetalladaProducto() {
 
   return (
     <>
-      <main className="flex  items-center  mx-auto  lg:max-w-7xl overflow-auto ">
+      <div className="flex  items-center lg:max-w-screen-xl mx-auto overflow-auto ">
         <div className=" flex flex-col md:flex-row ">
           <div className="flex flex-col justify-center w-full md:w-7/12 md:justify-center md:inline-block relative p-6 md:pl-10 pt-10 pb-2 md:pb-8 ">
             <ProductoConEstrella
@@ -67,7 +67,7 @@ export default function vistaDetalladaProducto() {
             </p>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -1,16 +1,65 @@
 "use client";
 import RegisterForm from "@/components/RegisterForm/RegisterForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RadioButton from "@/components/RadioButton/RadioButton";
+import { registerUserFetch } from "@/api/users/routes";
+import Swal from 'sweetalert2'
+
 export default function page() {
+
   const [option, setOption] = useState("quieroComprar");
+  const [stateForm, setStateForm] = useState(''); //agregado
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    if (option === "quieroComprar") {
+      setRole("comprador");
+    } else if (stateForm === "bazar") {
+      setRole("bazar");
+    } else if (stateForm === "marca") {
+      setRole("marca");
+    } else {
+      setRole("");
+    }
+  }, [option, stateForm]);
+  
   const messages = {
     quieroComprar: "¡Gracias por apoyar el comercio local!",
     soyEmprendedor: "¿Cómo quieres registrarte?",
   };
+
+  const dataRegister =( async  (data)=>{
+    console.log(data)
+    
+    let validPassword = null;
+    if (data.password === data.passwordComparation) {
+
+       validPassword = data.password;
+          const modifiedData = {
+            ...data,
+            role: role,
+            password: validPassword, 
+          };
+  
+          delete modifiedData.passwordComparation; //elimina la propiedad passwordComparation, ya que solo necesitamos solo un password
+          // console.log(modifiedData)
+          await registerUserFetch(modifiedData)
+         
+    } else {
+      
+      Swal.fire({
+        title: "Oops",
+        text: "Las contraseñas no coinciden prueba de nuevo!",
+        icon: "error"
+      });
+    }
+  
+  })
+
+
   return (
     <>
-      <main className="flex flex-col items-center h-screen   ">
+      <div className="flex flex-col items-center h-screen lg:max-w-screen-xl mx-auto  ">
         <div className="bg-white px-5 py-10 md:px-10 my-auto rounded-md flex flex-col items-center shadow-md">
           <h1 className="text-4xl text-black mb-6 font-bold">Crea tu cuenta</h1>
           <div className="flex pb-4">
@@ -39,10 +88,10 @@ export default function page() {
           <h2 className="text-xl text-gray-500 mb-2 lg:w-96 text-center">
             {messages[option]}
           </h2>
-          {option === "soyEmprendedor" && <RadioButton />}
-          <RegisterForm />
+          {option === "soyEmprendedor" && <RadioButton setStateFormProp={setStateForm} />}
+          <RegisterForm dataRegister={dataRegister} />
         </div>
-      </main>
+      </div>
     </>
   );
 }

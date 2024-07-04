@@ -1,6 +1,9 @@
-export default function MarcaSmallView({ className }) {
+export default function MarcaSmallView({ className, brand }) {
   return (
-    <a href="/vistaMarca" className={`flex gap-2 items-center ${className}`}>
+    <a
+      href="marcas/vistaMarca"
+      className={`flex gap-2 items-center ${className}`}
+    >
       <img
         className="rounded-full"
         src="https://picsum.photos/100/100"
@@ -9,7 +12,7 @@ export default function MarcaSmallView({ className }) {
         alt="logo"
       />
       <div className="text-center text-xs w-24">
-        <h3>NombreDeMarca</h3>
+        <h3>{brand}</h3>
       </div>
     </a>
   );
