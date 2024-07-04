@@ -3,6 +3,7 @@ import LoginForm from "@/components/LoginForm/LoginForm";
 import { loginUserFetch } from "@/api/users/routes";
 import {jwtDecode} from 'jwt-decode';
 import { useRouter } from 'next/navigation'
+import Swal from "sweetalert2";
 
 
 export default function Login() {
@@ -16,7 +17,10 @@ export default function Login() {
       // console.log(userRole)
 
       if (userRole === 'marca') {
+       
         router.push('/marcas')
+        
+        
 
         } else if (userRole === 'bazar') {
           router.push('/promotorBazarView')
