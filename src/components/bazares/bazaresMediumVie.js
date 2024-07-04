@@ -1,5 +1,5 @@
 export default function BazarMediumView({ className, item }) {
-  const { image, time, date, name } = item;
+  const { image, time, date, username } = item;
   return (
     <a
       href="promotorBazarView"
@@ -10,10 +10,10 @@ export default function BazarMediumView({ className, item }) {
         src={image}
         width="100px"
         heigth="100px"
-        alt={name}
+        alt={username}
       />
       <div className="text-center text-md w-24">
-        <h3>{name}</h3>
+        <h3>{username}</h3>
         <h3>{date}</h3>
         <h3> {time}</h3>
       </div>

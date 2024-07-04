@@ -1,51 +1,30 @@
+"use client";
+import { useEffect, useState } from "react";
 import ProximosBazares from "@/components/ProximosBazaresBanner/ProximosBazaresBanner";
 import ProductSmallView from "@/components/SmallViews/ProductSmallView";
 export default function Home() {
-  const productsExample = [
-    {
-      id: 1,
-      image: "https://picsum.photos/200/200",
-      title: "Camiseta Deportiva",
-      description: "Camiseta de alta calidad, ideal para hacer deporte.",
-      price: 19.99,
-      brand: "SportBrand",
-    },
-    {
-      id: 2,
-      image: "https://picsum.photos/200/200",
-      title: "Zapatillas de Running",
-      description:
-        "Zapatillas ligeras y cómodas para correr largas distancias.",
-      price: 49.99,
-      brand: "RunFast",
-    },
-    {
-      id: 3,
-      image: "https://picsum.photos/200/200",
-      title: "Auriculares Inalámbricos padrísimos",
-      description:
-        "Auriculares con cancelación de ruido y batería de larga duración.",
-      price: 89.99,
-      brand: "SoundMagic",
-    },
-    {
-      id: 4,
-      image: "https://picsum.photos/200/200",
-      title: "Mochila para Laptop",
-      description: "Mochila resistente al agua con múltiples compartimentos.",
-      price: 39.99,
-      brand: "UrbanGear",
-    },
-    {
-      id: 5,
-      image: "https://picsum.photos/200/200",
-      title: "Reloj Inteligente",
-      description:
-        "Reloj con monitor de actividad física y notificaciones inteligentes.",
-      price: 99.99,
-      brand: "TechTime",
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3001/products")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        // console.log(data);
+        setProducts(data.data);
+      });
+  }, []);
+
+  // useEffect(() => {
+  //   const getProducts = async () => {
+  //     const response = await fetch("http://localhost:3001/products");
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setProducts(data);
+  //   };
+  //   getProducts();
+  //   console.log(products);
+  // }, []);
 
   return (
     <div className="flex flex-col    mx-auto  lg:max-w-screen-xl overflow-auto ">
@@ -53,9 +32,10 @@ export default function Home() {
         <ProximosBazares className="" />
         <h2 className="pt-6 text-xl">Productos destacados</h2>
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
-          {productsExample.map((item) => {
-            return <ProductSmallView key={item.id} item={item} />;
-          })}
+          {products &&
+            products.map((item) => {
+              return <ProductSmallView key={item._id} item={item} />;
+            })}
         </div>
       </div>
     </div>

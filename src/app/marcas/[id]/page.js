@@ -11,13 +11,11 @@ export default function VistaMarca() {
         />
         <h3>Catálogo de productos</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
-          <ProductSmallView />
-          <ProductSmallView />
-          <ProductSmallView />
-          <ProductSmallView />
-          <ProductSmallView />
-          <ProductSmallView />
-          <ProductSmallView />
+          <ProductSmallView image={"https://picsum.photos/100/100"} />
+          <ProductSmallView image={"https://picsum.photos/100/100"} />
+          <ProductSmallView image={"https://picsum.photos/100/100"} />
+          <ProductSmallView image={"https://picsum.photos/100/100"} />
+          <ProductSmallView image={"https://picsum.photos/100/100"} />
         </div>
       </div>
     </>
