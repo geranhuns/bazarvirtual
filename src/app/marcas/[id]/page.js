@@ -1,5 +1,7 @@
+"use client";
 import MarcaHeaderInfo from "@/components/Marcas/MarcaHeaderInfo";
 import ProductSmallView from "@/components/SmallViews/ProductSmallView";
+import { useRouter } from "next/navigation";
 
 export default function VistaMarca() {
   return (
