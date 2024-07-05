@@ -43,6 +43,7 @@ export default function page() {
   
           delete modifiedData.passwordComparation; //elimina la propiedad passwordComparation, ya que solo necesitamos solo un password
           // console.log(modifiedData)
+          // console.log(modifiedData)
           await registerUserFetch(modifiedData)
          
     } else {
