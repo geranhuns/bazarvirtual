@@ -8,18 +8,19 @@ export default function vistaDetalladaProducto() {
 
   return (
     <>
-      <main className="flex  items-center  mx-auto  lg:max-w-7xl overflow-auto ">
-        <div className=" flex  ">
-          <div className="w-7/12 inline-block relative pl-10 pt-10 pb-8 ">
+      <div className="flex  items-center lg:max-w-screen-xl mx-auto overflow-auto ">
+        <div className=" flex flex-col md:flex-row ">
+          <div className="flex flex-col justify-center w-full md:w-7/12 md:justify-center md:inline-block relative p-6 md:pl-10 pt-10 pb-2 md:pb-8 ">
             <ProductoConEstrella
               imageUrl="https://picsum.photos/400/400"
               altText="Sample Product"
             />
-            <div className="flex gap-1 justify-around pr-10 pt-4">
+            <div className="flex gap-1  justify-evenly pt-4">
               <Button
                 href=""
                 text="Agregar al carrito"
                 variant="raw-sienna-50"
+                className={"text-xs lg:text-lg"}
                 onClick={() => {
                   // setCarrito(carrito.push("nuevoProductoId"));
                 }}
@@ -28,20 +29,21 @@ export default function vistaDetalladaProducto() {
                 href="/carritoDeCompras"
                 text="Comprar Ahora"
                 variant="raw-sienna-50"
+                className={"text-xs lg:text-lg"}
               />
             </div>
           </div>
-          <div className="pt-10 pr-10  w-full pl-6">
+          <div className="  md:pt-10 pr-10  w-full pl-6">
             <h3>Título detallado del Producto</h3>
             <MarcaSmallView className="pt-4" />
-            <h4 className="text-xl py-8"> $550.00</h4>
+            <h4 className="text-xl py-4 md:py-8"> $550.00</h4>
             <h4> Acerca de este artículo</h4>
-            <p className="  pt-2">
+            <p className="  pt-2 text-justify pb-10">
               ✅【VELA DE SOYA PREMIUM】Esta vela aromática con pabilo de
               algodón y cera de soya al 100% natural está hecha con aceites
               esenciales que aportan beneficios y una fragancia masculina e
               intensa a tu hogar. ✅【MORA Y SÁNDALO】 Combinación exquisita que
-              combina la dulzura jugosa de las moras con la rica y terrosa
+              combina la dulzura jugosa de la s moras con la rica y terrosa
               esencia de sándalo. Este aroma cautivador y equilibrado tiene
               beneficios tanto para la mente como para el cuerpo. La mora,
               conocida por ser rica en antioxidantes, puede ayudar a fortalecer
@@ -65,7 +67,7 @@ export default function vistaDetalladaProducto() {
             </p>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

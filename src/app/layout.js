@@ -28,14 +28,15 @@ export const metadata = {
   ],
   publisher: "Bazar Virtual Consume Local",
   referrer: "origin-when-crossorigin",
+  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es" className="flex flex-col h-full">
+    <html lang="es">
       <body className={inter.className}>
         <Header />
-        {children}
+        <main className="flex flex-col h-full">{children}</main>
         <Footer />
       </body>
     </html>

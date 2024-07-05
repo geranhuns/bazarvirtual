@@ -1,7 +1,6 @@
-import ProximosBazares from "@/components/ProximosBazaresBanner/ProximosBazaresBanner";
-import ProductSmallView from "@/components/SmallViews/ProductSmallView";
-export default function Home() {
-  const productsExample = [
+import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
+export default function CarritoDeCompras() {
+  const carritoExample = [
     {
       id: 1,
       image: "https://picsum.photos/200/200",
@@ -47,16 +46,23 @@ export default function Home() {
     },
   ];
 
+  const totalPrice = carritoExample.reduce(
+    (total, product) => total + product.price,
+    0
+  );
   return (
-    <div className="flex flex-col    mx-auto  lg:max-w-screen-xl overflow-auto ">
-      <div className="flex flex-col w-full mx-auto lg:max-w-screen-xl items-center">
-        <ProximosBazares className="" />
-        <h2 className="pt-6 text-xl">Productos destacados</h2>
-        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
-          {productsExample.map((item) => {
-            return <ProductSmallView key={item.id} item={item} />;
-          })}
-        </div>
+    <div className="flex flex-col  md:w-10/12  lg:w-10/12  lg:max-w-screen-xl mx-auto overflow-auto">
+      <div className=" flex flex-col pt-4 md:pt-10 pb-8 px-4">
+        <h3 className="text-lg">Lista de Deseos</h3>
+        <p className="pb-4 md:pb-8">
+          Consulta la página de detalle del producto para ver otras opciones de
+          compra.
+        </p>
+
+        <hr className="h-0.5 bg-raw-sienna-800" />
+        {carritoExample.map((item) => {
+          return <ShoppingCartItem key={item.id} item={item} />;
+        })}
       </div>
     </div>
   );

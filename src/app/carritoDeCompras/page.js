@@ -1,32 +1,72 @@
 import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
-import Button from "@/components/Button/Button";
+import PaymentTotalButton from "@/components/paymentTotalButton/PaymentTotalButton";
 export default function CarritoDeCompras() {
-  return (
-    <>
-      <main className="flex flex-col  items-center  mx-auto  lg:max-w-7xl overflow-auto ">
-        <div className=" pt-10 pb-8 w-10/12">
-          <h3 className="text-lg">Carrito de Compras</h3>
-          <p>
-            Consulta la página de detalle del producto para ver otras opciones
-            de compra.
-          </p>
-          <hr className="h-0.5 bg-raw-sienna-800" />
-          <ShoppingCartItem />
-          <ShoppingCartItem />
-          <ShoppingCartItem />
-          <ShoppingCartItem />
-        </div>
-        <div className="flex self-end gap-10 text-2xl pb-8 pr-32">
-          <Button
-            text="Proceder al pago"
-            href="/stripeWindow"
-            variant={"raw-sienna-900"}
-          />
+  const carritoExample = [
+    {
+      id: 1,
+      image: "https://picsum.photos/200/200",
+      title: "Camiseta Deportiva",
+      description: "Camiseta de alta calidad, ideal para hacer deporte.",
+      price: 19.99,
+      brand: "SportBrand",
+    },
+    {
+      id: 2,
+      image: "https://picsum.photos/200/200",
+      title: "Zapatillas de Running",
+      description:
+        "Zapatillas ligeras y cómodas para correr largas distancias.",
+      price: 49.99,
+      brand: "RunFast",
+    },
+    {
+      id: 3,
+      image: "https://picsum.photos/200/200",
+      title: "Auriculares Inalámbricos padrísimos",
+      description:
+        "Auriculares con cancelación de ruido y batería de larga duración.",
+      price: 89.99,
+      brand: "SoundMagic",
+    },
+    {
+      id: 4,
+      image: "https://picsum.photos/200/200",
+      title: "Mochila para Laptop",
+      description: "Mochila resistente al agua con múltiples compartimentos.",
+      price: 39.99,
+      brand: "UrbanGear",
+    },
+    {
+      id: 5,
+      image: "https://picsum.photos/200/200",
+      title: "Reloj Inteligente",
+      description:
+        "Reloj con monitor de actividad física y notificaciones inteligentes.",
+      price: 99.99,
+      brand: "TechTime",
+    },
+  ];
 
-          <h3>Total:</h3>
-          <h3>$5,000.00</h3>
-        </div>
-      </main>
-    </>
+  const totalPrice = carritoExample.reduce(
+    (total, product) => total + product.price,
+    0
+  );
+  return (
+    <div className="flex flex-col  items-center    lg:max-w-screen-xl mx-auto overflow-auto ">
+      <div className=" flex flex-col pt-4 md:pt-10 pb-8 ">
+        <h3 className="text-lg">Carrito de Compras</h3>
+        <p className="pb-8">
+          Consulta la página de detalle del producto para ver otras opciones de
+          compra.
+        </p>
+        <PaymentTotalButton total={totalPrice} className="self-end " />
+
+        <hr className="h-0.5 bg-raw-sienna-800" />
+        {carritoExample.map((item) => {
+          return <ShoppingCartItem key={item.id} item={item} />;
+        })}
+      </div>
+      <PaymentTotalButton total={totalPrice} />
+    </div>
   );
 }

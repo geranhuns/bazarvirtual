@@ -26,8 +26,17 @@ hr {
   background-color: black;
 }
 
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+.bg-instagram-gradient {
+  background: linear-gradient(45deg, #833AB4, #E1306C, #F77737);
+}
+
+.bg-tiktok-gradient {
+  background: linear-gradient(45deg, #69C9D0, #EE1D52);
 }
