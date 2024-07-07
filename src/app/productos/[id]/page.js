@@ -12,11 +12,24 @@ export default function vistaDetalladaProducto() {
   const params = useParams();
   const id = params.id;
   console.log(params.id);
-  useEffect(async () => {
-    const response = await fetch(`http://localhost:3001/products/${params.id}`);
-    const data = await response.json();
-    setProduct(data.data);
-    setLoading(false);
+
+  const getProduct = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/products/${params.id}`
+      );
+      const data = await response.json();
+      setProduct(data.data);
+      console.log(data.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    getProduct();
+    console.log(product);
   }, []);
 
   // useEffect(() => {
@@ -30,8 +43,7 @@ export default function vistaDetalladaProducto() {
   // }, []);
   // console.log(product);
   if (loading) {
-    return;
-    <div>Cargando...</div>;
+    return <div>Cargando...</div>;
   }
 
   return (
