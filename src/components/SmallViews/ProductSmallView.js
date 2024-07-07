@@ -6,15 +6,18 @@ export default function ProductSmallView({ item }) {
   console.log(item);
   // const [carrito, setCarrito] = useState([]);
   const { productImage, title, price, _id } = item;
+  const redirectProductView = () => router.push(`/productos/${_id}`);
 
   return (
-    <div className="flex flex-col items-center bg-raw-sienna-50 py-5 px-2 rounded-md w-44">
+    <div
+      onClick={() => {
+        redirectProductView();
+      }}
+      className="flex flex-col items-center bg-raw-sienna-50 py-5 px-2 rounded-md w-44"
+    >
       <div
         className="flex flex-col items-center cursor-pointer"
-        href={`products/${_id}`}
-        onClick={() => {
-          // router.push(`/productos/${_id}`);
-        }}
+        // href={`products/${_id}`}
       >
         <img
           className="rounded-lg"
