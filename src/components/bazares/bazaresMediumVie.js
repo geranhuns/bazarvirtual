@@ -1,4 +1,7 @@
+import { usePathname } from "next/navigation";
+
 export default function BazarMediumView({ className, item }) {
+  const pathname = usePathname();
   const { image, time, date, username } = item;
   return (
     <a
@@ -14,8 +17,12 @@ export default function BazarMediumView({ className, item }) {
       />
       <div className="text-center text-md w-24">
         <h3>{username}</h3>
-        <h3>{date}</h3>
-        <h3> {time}</h3>
+        {pathname === "/proximosBazares" && (
+          <>
+            <h3>{date}</h3>
+            <h3> {time}</h3>
+          </>
+        )}
       </div>
     </a>
   );
