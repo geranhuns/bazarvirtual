@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function registerForm({dataRegister}) {
+export default function registerForm({dataRegister,role}) {
 
   const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
@@ -19,7 +19,9 @@ export default function registerForm({dataRegister}) {
         <div className=" flex flex-col gap-3  lg:w-96 mb-3  ">
           <div className="flex flex-col gap-1">
 
-            <label className="text-lg">Nombre del usuario</label>
+            <label className="text-lg">
+            {role === 'bazar' ? 'Nombre del bazar' : (role === 'marca' ? 'Nombre de la marca' : 'Nombre del usuario')}
+            </label>
             <input
               className={`w-full border rounded-lg p-3 ${errors.username ? 'border-red-500' : 'border-gray-300'}`}
               type="text"

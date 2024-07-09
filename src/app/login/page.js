@@ -1,12 +1,14 @@
 "use client";
 import LoginForm from "@/components/LoginForm/LoginForm";
 import { loginUserFetch } from "@/api/users/routes";
+import { loginBazarFetch } from "@/api/bazar/routes";
 import {jwtDecode} from 'jwt-decode';
 import { useRouter } from 'next/navigation'
 import Swal from "sweetalert2";
 
 
 export default function Login() {
+
   const router = useRouter()
 
   const dataLogin =(async (data)=>{
@@ -14,14 +16,11 @@ export default function Login() {
       const token = await loginUserFetch(data);
       const decodedToken = jwtDecode(token.data);
       const userRole = decodedToken.role;
-      // console.log(userRole)
+      console.log(userRole)
 
-      if (userRole === 'marca') {
-       
+      if (userRole === 'marca') {  
         router.push('/marcas')
         
-        
-
         } else if (userRole === 'bazar') {
           router.push('/promotorBazarView')
 
