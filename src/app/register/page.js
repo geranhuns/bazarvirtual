@@ -3,6 +3,7 @@ import RegisterForm from "@/components/RegisterForm/RegisterForm";
 import { useState, useEffect } from "react";
 import RadioButton from "@/components/RadioButton/RadioButton";
 import { registerBazarFetch } from "@/api/bazar/routes";
+import { registerUserFetch } from "@/api/users/routes";
 import Swal from 'sweetalert2'
 
 export default function page() {
@@ -41,8 +42,18 @@ export default function page() {
             password: validPassword, 
           };
   
-          delete modifiedData.passwordComparation; //elimina la propiedad passwordComparation, ya que solo necesitamos solo un password
-          await registerBazarFetch(modifiedData)
+          delete modifiedData.passwordComparation; 
+          console.log(modifiedData.role)
+          if(modifiedData.role === 'comprador'){
+            // console.log("registrando como comprador") 
+            await registerUserFetch(modifiedData)
+          }
+          if(modifiedData.role === 'bazar'){
+             await registerBazarFetch(modifiedData)
+          }
+
+          
+          // await registerBazarFetch(modifiedData)
          
     } else {
       
