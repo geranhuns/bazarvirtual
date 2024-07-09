@@ -5,6 +5,7 @@ import LogoH from "../Logos/LogoH";
 import Dropdown from "../Dropdown/Dropdown";
 import { usePathname } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
+import HeaderBazar from "../promotorBazar/headerBazar";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import Link from "next/link";
 import LogoTag from "../Logos/LogoTag";
@@ -47,6 +48,11 @@ function Header() {
   };
   return (
     <>
+    {pathname === "/promotorBazarView" && (
+        <HeaderBazar/>
+    )}
+
+    {pathname != "/promotorBazarView" && (
       <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50 ">
         <div className="h-full flex md:justify-between items-center mx-auto   lg:max-w-screen-xl  px-5 ">
           <LogoH className={" hidden md:block"} />
@@ -110,7 +116,8 @@ function Header() {
           )}
         </div>
         {/* </div> */}
-      </nav>
+      </nav> 
+    )}
     </>
   );
 }
