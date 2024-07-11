@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 export default function ProductSmallView({ item }) {
   const router = useRouter();
-  console.log(item);
   // const [carrito, setCarrito] = useState([]);
   const { productImage, title, price, _id } = item;
   const redirectProductView = () => router.push(`/productos/${_id}`);

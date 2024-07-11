@@ -12,7 +12,6 @@ export default function MarcaHeaderInfo({ id }) {
     try {
       const response = await fetch(`http://localhost:3001/users/marcas/${id}`);
       const data = await response.json();
-      console.log(data);
       setBrandInfo(data.data);
       setLoading(false);
     } catch (error) {
@@ -21,7 +20,6 @@ export default function MarcaHeaderInfo({ id }) {
   };
   useEffect(() => {
     getMarca();
-    console.log(brandInfo);
   }, []);
 
   if (loading) {

@@ -20,7 +20,6 @@ export default function VistaMarca() {
 
       const data = await response.json();
       setBrandProducts(data.data);
-      console.log(brandProducts);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -29,7 +28,6 @@ export default function VistaMarca() {
   };
   useEffect(() => {
     getProducts();
-    console.log(brandProducts);
   }, []);
   if (loading) {
     return <div>Cargando...</div>;
@@ -38,7 +36,6 @@ export default function VistaMarca() {
   return (
     <>
       <div className=" flex flex-col w-10/12 items-center  mx-auto  lg:max-w-7xl overflow-auto ">
-        {console.log(id)}
         <MarcaHeaderInfo id={id} />
         <h3>Catálogo de productos</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
