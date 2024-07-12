@@ -46,6 +46,7 @@ export default function page() {
           console.log(modifiedData.role)
           if(modifiedData.role === 'comprador'){
             // console.log("registrando como comprador") 
+            console.log(modifiedData)
             await registerUserFetch(modifiedData)
           }
           if(modifiedData.role === 'bazar'){
