@@ -4,6 +4,12 @@ import ProximosBazares from "@/components/ProximosBazaresBanner/ProximosBazaresB
 import ProductSmallView from "@/components/SmallViews/ProductSmallView";
 export default function Home() {
   const [products, setProducts] = useState([]);
+  // useEffect(async () => {
+  //   const response = await fetch("http://localhost:3001/products");
+  //   const data = await response.json();
+  //   setProducts(data.data);
+  // }, []);
+
   useEffect(() => {
     fetch("http://localhost:3001/products")
       .then((res) => {

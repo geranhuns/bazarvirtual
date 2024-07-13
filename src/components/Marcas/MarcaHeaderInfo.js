@@ -1,25 +1,52 @@
+"use client";
 import SocialMedia from "@/components/SocialMedia/SocialMedia";
+import { Asul } from "next/font/google";
+import { useEffect, useState } from "react";
+import Section1Landing from "../landing/Section1Land";
+export default function MarcaHeaderInfo({ id }) {
+  console.log(id);
+  const [brandInfo, setBrandInfo] = useState({});
+  const [loading, setLoading] = useState(true);
 
-export default function MarcaHeaderInfo({ imageURL, altText }) {
-  return (
-    <>
-      <div className="flex flex-col  md:flex-row justify-center gap-10 py-10">
-        <img
-          src={imageURL}
-          alt={altText}
-          width="200px"
-          height="200px"
-          className="h-48 w-48 rounded-full self-center"
-        />
-        <div id="infoMarca" className="flex flex-col justify-center pl-10 ">
-          <h2>NombreDeMarca</h2>
-          <h3 className="pt-2">Slogan de la Marca</h3>
-          <p className="pt-6 w-2/3">
-            Descripción amplia de lo que hace la marca y cómo logra su objetivo.
-          </p>
+  const getMarca = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/users/marcas/${id}`);
+      const data = await response.json();
+      console.log(data);
+      setBrandInfo(data.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getMarca();
+    console.log(brandInfo);
+  }, []);
+
+  if (loading) {
+    <div>Cargando...</div>;
+  }
+
+  if (brandInfo) {
+    return (
+      <>
+        <div className="flex flex-col  md:flex-row justify-center gap-10 py-10">
+          <img
+            src={brandInfo.profilePicture}
+            alt={brandInfo.username}
+            width="200px"
+            height="200px"
+            className="h-48 w-48 rounded-full self-center"
+          />
+          <div id="infoMarca" className="flex flex-col justify-center pl-10 ">
+            <h2>{brandInfo.username}</h2>
+            <h3 className="pt-2">{brandInfo.slogan}</h3>
+            <p className="pt-6 w-2/3">{brandInfo.description}</p>
+          </div>
+          <SocialMedia />
         </div>
-        <SocialMedia />
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }

@@ -31,7 +31,7 @@ export default function ProximosBazares({ className }) {
           </div>
           <Button
             text={"Ver todos"}
-            href={"/bazares"}
+            href={"/proximosBazares"}
             variant={"patina-500"}
             className={" w-full md:w-1/2 lg:1/3 text-lg"}
           />
