@@ -11,18 +11,18 @@ function InputNewEvent(props){
 
             <div className="flex flex-col justify-center w-3/12 text-center ">
                 <label htmlFor="">Evento</label>
-                <input type="text" {...register(event1)} />
+                <input type="text rounded-lg" {...register(event1)} />
             </div>
 
 
             <div className="flex flex-col w-5/12 text-center">
                 <label htmlFor="">Descripcion</label>
-                <input type="text" {...register(description1)} />
+                <input type="text rounded-lg" {...register(description1)} />
             </div>
 
             <div className="flex flex-col w-3/12 text-center">
                 <label htmlFor="">Horario</label>
-                <input type="text" {...register(horarioEvent1)} />
+                <input type="text rounded-lg" {...register(horarioEvent1)} />
             </div>
 
         </div>
