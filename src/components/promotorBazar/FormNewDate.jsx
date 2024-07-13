@@ -16,7 +16,7 @@ function FormNewDate(props) {
 
     const onSubmit = data => {
         console.log(data);
-        setFormData(data);
+        // setFormData(data);
         reset();
     };
 
