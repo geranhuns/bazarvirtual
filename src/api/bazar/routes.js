@@ -77,6 +77,11 @@ export const updateProfileBazar = async (userdata, userId) => {
   
       const data = await response.json(); // Si esperas una respuesta JSON del servidor
       console.log('Usuario actualizado con éxito:', data);
+      Swal.fire({
+        title: "Listo!",
+        text: "Perfil actualizado.",
+        icon: "success",
+      });
       return data; // Puedes retornar los datos actualizados si lo necesitas
     } catch (error) {
       console.error('Error al actualizar el usuario:', error.message);
