@@ -18,19 +18,19 @@ import { HeaderContext } from "@/components/HContext/HeaderContext";
 function PromotorVista() {
 const router = useRouter()
 const[open, setOpen] = useState(false)
-const[dataUser, setDataUser] = useState([])
+const[dataUser, setDataUser] = useState({})
 
 const { active, setActive } = useContext(HeaderContext);
 
-console.log(active)
-console.log(dataUser.socialNetworks) //para pruebas de existencia de datos
+// console.log(active)
+// console.log(dataUser.socialNetworks) //para pruebas de existencia de datos
 const redesSociales = dataUser.socialNetworks
 
 const fetchData = async () => {
     try {
       const userData = await dataUserBazarFetch();
       setDataUser(userData.data);
-      console.log(userData.data);
+    //   console.log(userData.data);
     } catch (error) {
       console.error('Error al obtener datos del usuario:', error);
     }
@@ -63,7 +63,7 @@ useEffect(() => {
     return (
         <section className="relative w-full bg-raw-sienna-200  min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
               {open && <FormNewDate open={open} setOpen={setOpen} />}
-              {active && <FormEditProfileBazar _idUser={dataUser._id} active={active} setActive={setActive} />}
+              {active && <FormEditProfileBazar dataUserP={dataUser}  _idUser={dataUser._id} active={active} setActive={setActive} />}
 
              <div className="bg-raw-sienna-500  w-10/12 flex  items-center justify-around  p-10 mx-auto max-md:flex-col max-sm:w-11/12 ">
                 
@@ -81,21 +81,21 @@ useEffect(() => {
                             </div>
                             <div className=" flex justify-center gap-x-4 mb-5">
                             {redesSociales && redesSociales.map(red => {
-                                    if(red.platform === "facebook"){
+                                    if(red.platform === "facebook" && red.url != ''){
                                         return (
                                             <a key={red._id} href={red.url} >
                                                 <FaFacebook className="w-10 h-11 rounded-custom2 text-facebook bg-white max-sm:w-auto" />
                                             </a>
                                         );
                                     }
-                                    if(red.platform === "instagram"){
+                                    if(red.platform === "instagram" && red.url != ''){
                                         return (
                                             <a key={red._id} href={red.url} >
                                                 <FaInstagramSquare className="w-10 h-11 rounded-custom2  bg-instagram-gradient  max-sm:w-auto" />
                                             </a>
                                         );
                                     }
-                                    if(red.platform === "tiktok"){
+                                    if(red.platform === "tiktok" && red.url != ''){
                                         return (
                                             <a key={red._id} href={red.url} >
                                                 <AiFillTikTok className="w-10 h-11 rounded-custom2 text-black bg-tiktok-gradient max-sm:w-auto " />

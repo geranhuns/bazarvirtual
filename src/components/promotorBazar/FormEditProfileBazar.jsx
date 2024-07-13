@@ -1,22 +1,55 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import React  from "react";
 import { useForm } from "react-hook-form";
+import { dataUserBazarFetch } from "@/api/bazar/routes";
+import { updateProfileBazar } from "@/api/bazar/routes";
 
 
 
 
 function FormEditProfileBazar({active, setActive, _idUser}){
 
-  
-  
+  const[dataUser, setDataUser] = useState({})
+  const [isLoading, setIsLoading] = useState(true);
+ 
+  const redesSociales = dataUser.socialNetworks || [];
+  console.log(redesSociales)
+  const facebookObject = redesSociales.find(network => network.platform === 'facebook') || { platform: 'facebook', url: '' };
+  const instagramObject = redesSociales.find(network => network.platform === 'instagram') || { platform: 'instagram', url: '' };
+  const tiktokObject = redesSociales.find(network => network.platform === 'tiktok') || { platform: 'tiktok', url: '' };
+  // const facebookObject = redesSociales?.find(network => network.platform === 'facebook');
+  // const instagramObject = redesSociales?.find(network => network.platform === 'instagram');
+  // const tiktokObject = redesSociales?.find(network => network.platform === 'tiktok');
+
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const userData = await dataUserBazarFetch();
+        setDataUser(userData.data);
+        console.log(userData);
+      } catch (error) {
+        console.error('Error al obtener datos del usuario:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+   
+}, []);
+
+
+
     
   const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
-  const onSubmit = (data) =>{
+  const onSubmit = async  (data) =>{
 
     const socialNetworks = [
-      { plataforma: 'facebook', liga: data.facebook },
-      { plataforma: 'instagram', liga: data.instagram },
-      { plataforma: 'tiktok', liga: data.tiktok }
+      { platform: 'facebook', url: data.facebook },
+      { platform: 'instagram', url: data.instagram },
+      { platform: 'tiktok', url: data.tiktok }
     ];
     const dataAdjust = {
       username: data.username,
@@ -25,11 +58,30 @@ function FormEditProfileBazar({active, setActive, _idUser}){
       _id:_idUser //este se pasara al fetch para hacer la update
     };
     console.log(dataAdjust);
-   
+  //  aqui el fect para mandarData
+   try {
+    const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
+    console.log('Usuario actualizado con éxito:', updatedUser);
+    // Aquí puedes manejar la respuesta, como mostrar un mensaje al usuario
+    setDataUser(updatedUser); 
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error.message);
+    // Aquí puedes manejar el error, como mostrar un mensaje al usuario
+  }
+
+  console.log(dataUser)
+
+   //
     reset();
   }
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+    //colocar alert
+  }
+
   
+ 
 
 return(
     <>
@@ -46,13 +98,13 @@ return(
                     <div className=" w-full h-2/6  flex justify-around items-center max-sm:flex-col">
                         <div className="  flex flex-col items-center w-1/2 max-sm:w-10/12">
                             <label className="text-lg text-white " htmlFor="">Bazar name</label>
-                            <input className="w-11/12 p-1 rounded-xl max-sm:w-full" type="text"
+                            <input className="w-11/12 p-1 rounded-xl max-sm:w-full" type="text" defaultValue={dataUser.username}
                               {...register("username" , { required:"Este campo es requerido"})} />
                         </div>
                         <div className="  flex flex-col items-center w-1/2 max-sm:w-10/12 ">
                             <label className="text-lg text-white " htmlFor="">wep page</label>
-                            <input className="w-11/12 p-1 rounded-xl max-sm:w-full" type="text"
-                              {...register("wepPage" , { required:"Este campo es requerido"})}/>
+                            <input className="w-11/12 p-1 rounded-xl max-sm:w-full" type="text" defaultValue={dataUser.wepPage}
+                              {...register("wepPage" )}/>
                         </div>
                     </div>
                     
@@ -62,19 +114,20 @@ return(
                             
                             <div className="  flex flex-col items-center w-full max-sm:w-10/12 ">
                                 <label id="facebook"  name="facebook" className="text-lg text-white " htmlFor="facebook">Facebook</label>
-                                <input className="w-11/12 p-1 rounded-xl" type="text" 
-                                  {...register("facebook" , { required:"Este campo es requerido"})}/>
+                                <input className="w-11/12 p-1 rounded-xl" type="text" defaultValue={facebookObject.url}
+                                 {...register("facebook")} />
+                                
                             </div>
                             <div className="  flex flex-col items-center w-full max-sm:w-10/12 ">
                                 <label  className="text-lg text-white " htmlFor="">Instagram</label>
-                                <input className="w-11/12 p-1 rounded-xl" type="text"
-                                 {...register("instagram" , { required:"Este campo es requerido"})} />
+                                <input className="w-11/12 p-1 rounded-xl" type="text" defaultValue={instagramObject.url}
+                                 {...register("instagram" )} />
                             </div>
                             
                             <div className="  flex flex-col items-center w-full max-sm:w-10/12">
-                                <label  className="text-lg text-white" htmlFor="">TikTok</label>
-                                <input className="w-11/12 p-1 rounded-xl" type="text"
-                                 {...register("TikTok" , { required:"Este campo es requerido"})}
+                                <label  className="text-lg text-white" htmlFor="">TikTok</label> 
+                                <input className="w-11/12 p-1 rounded-xl" type="text"  defaultValue={tiktokObject.url}
+                                 {...register("tiktok" )}
                                  />
                             </div>
                        </div>
