@@ -7,25 +7,33 @@ function InputNewEvent(props){
 
     return(
         <>
-        <div className=" w-full flex justify-around   ">
+        <div className=" border w-full flex justify-around mt-2  ">
 
-            <div className="flex flex-col justify-center w-3/12 text-center ">
-                <label htmlFor="">Evento</label>
-                <input type="text rounded-lg" {...register(event1)} />
-            </div>
+                <div className="flex flex-col w-3/12 text-center ">
+                    <label className="text-lg text-white">Evento</label>
+                    <input className="p-1 rounded-xl text-center" 
+                     {...register("eventExtra")}
+                     />
+                   
+                </div>
 
 
-            <div className="flex flex-col w-5/12 text-center">
-                <label htmlFor="">Descripcion</label>
-                <input type="text rounded-lg" {...register(description1)} />
-            </div>
+                <div className="flex flex-col w-5/12 text-center">
+                    <label className="text-lg text-white">Descripcion</label>
+                    <input className="p-1 rounded-xl text-center"
+                     {...register("descriptionExtraEvent")}
+                      />
+                </div>
 
-            <div className="flex flex-col w-3/12 text-center">
-                <label htmlFor="">Horario</label>
-                <input type="text rounded-lg" {...register(horarioEvent1)} />
-            </div>
+                <div className="flex flex-col w-3/12 text-center">
+                    <label className="text-lg text-white">Horario</label>
+                    <input className="p-1 rounded-xl text-center" type="time" 
+                     {...register("timeEventExtra")}
+                    />
+                </div>
 
         </div>
+
         </>
     )
 }

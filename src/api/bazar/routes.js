@@ -100,6 +100,41 @@ export const updateProfileBazar = async (userdata, userId) => {
       throw error; // Propaga el error para manejo adicional si es necesario
     }
   };
+
+
+
+  export const createDateFetch = async (data) => {
+    try {
+        const response = await fetch(`${MONGO_URL}/createDate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+  
+        if (response.ok) {
+            const responseData = await response.json();
+            Swal.fire({
+              title: "Listo!",
+              text: responseData.msg,
+              icon: "success",
+              
+            });
+        } else {
+            const errorData = await response.json();
+            Swal.fire({
+              title: "Oops!",
+              text: errorData.msg,
+              icon: "error",
+              
+            });
+        }
+    } catch (error) {
+        alert('Error al realizar la solicitud: ' + error.message);  // Mostrar error de solicitud
+    }
+  };
+  
   
  
   

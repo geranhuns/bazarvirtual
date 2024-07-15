@@ -62,7 +62,7 @@ useEffect(() => {
 
     return (
         <section className="relative w-full bg-raw-sienna-200  min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
-              {open && <FormNewDate open={open} setOpen={setOpen} />}
+              {open && <FormNewDate _idUser={dataUser._id} open={open} setOpen={setOpen} />}
               {active && <FormEditProfileBazar dataUserP={dataUser}  _idUser={dataUser._id} active={active} setActive={setActive} />}
 
              <div className="bg-raw-sienna-500  w-10/12 flex  items-center justify-around  p-10 mx-auto max-md:flex-col max-sm:w-11/12 ">
