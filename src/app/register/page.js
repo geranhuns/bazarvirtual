@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import RadioButton from "@/components/RadioButton/RadioButton";
 import { registerBazarFetch } from "@/api/bazar/routes";
 import { registerUserFetch } from "@/api/users/routes";
+import { registerMarcaFetch } from "@/api/marcas/routes";
 import Swal from 'sweetalert2'
 
 export default function page() {
@@ -44,16 +45,18 @@ export default function page() {
   
           delete modifiedData.passwordComparation; 
           console.log(modifiedData.role)
+
           if(modifiedData.role === 'comprador'){
             // console.log("registrando como comprador") 
+            console.log(modifiedData)
             await registerUserFetch(modifiedData)
           }
           if(modifiedData.role === 'bazar'){
              await registerBazarFetch(modifiedData)
           }
-
-          
-          // await registerBazarFetch(modifiedData)
+          if(modifiedData.role === 'marca'){
+            await registerMarcaFetch(modifiedData)
+         }
          
     } else {
       

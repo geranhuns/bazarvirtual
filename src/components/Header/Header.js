@@ -38,6 +38,8 @@ const options = [
 ];
 
 function Header() {
+
+
   const pathname = usePathname();
   const handleScroll = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -47,9 +49,10 @@ function Header() {
     }
   };
   return (
+
     <>
     {pathname === "/promotorBazarView" && (
-        <HeaderBazar/>
+        <HeaderBazar   />
     )}
 
     {pathname != "/promotorBazarView" && (

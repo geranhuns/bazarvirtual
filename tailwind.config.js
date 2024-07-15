@@ -49,7 +49,7 @@ module.exports = {
         "customBlue": '#3E635E',
         "raw-sienna-custom": '#DD8E64', 
         "form-newDate-green": '#76854C',
-        instagram: {
+        "instagram": {
           pink: '#E4405F',
           purple: '#C13584',
           gradient: 'linear-gradient(45deg, #833AB4, #E1306C, #F77737)',

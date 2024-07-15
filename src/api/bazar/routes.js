@@ -60,6 +60,42 @@ export const dataUserBazarFetch = async () => {
 }
 
 
+export const updateProfileBazar = async (userdata, userId) => {
+    try {
+      const response = await fetch(`${MONGO_URL}/updateProfile/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          // Puedes incluir otros headers si son necesarios, como tokens de autenticación
+        },
+        body: JSON.stringify(userdata), // Convierte el objeto a formato JSON
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al actualizar el usuario');
+      }
+  
+      const data = await response.json(); // Si esperas una respuesta JSON del servidor
+      console.log('Usuario actualizado con éxito:', data);
+      Swal.fire({
+        title: "Listo!",
+        text: "Perfil actualizado.",
+        icon: "success",
+      });
+      return data; // Puedes retornar los datos actualizados si lo necesitas
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error.message);
+      // Puedes manejar el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
+      throw error; // Propaga el error para manejo adicional si es necesario
+    }
+  };
+  
+ 
+  
+
+
+
+
 
 
 

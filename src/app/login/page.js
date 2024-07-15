@@ -19,7 +19,7 @@ export default function Login() {
       console.log(userRole)
 
       if (userRole === 'marca') {  
-        router.push('/marcas')
+        router.push('/vistaMarca/editar') //NOTA cambiarle aqui la ruta
         
         } else if (userRole === 'bazar') {
           router.push('/promotorBazarView')
