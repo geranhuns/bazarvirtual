@@ -74,10 +74,11 @@ useEffect(() => {
                     <div className=" text-Eggshell w-7/12 h-5/6  flex flex-col justify-between gap-y-1 items-center max-md:w-11/12 max-sm:w-full">
 
                         <div className="bg-patina-900 rounded-xl w-9/12 h-4/6 flex flex-col justify-center items-center  mb-10 max-md:w-11/12 max-sm:w-full">
-                            <h2 className=" text-xl md:text-4xl pt-4 font-medium  text-center ">{dataUser.username}</h2>
-                            <div className="text-sm font-medium flex flex-col justify-center items-center ">
-                                <span>{dataUser.wepPage}</span>
-                                {/* <span>613-174-8973</span> */}
+                            <h2 className=" text-xl md:text-4xl p-1 font-medium  text-center ">{dataUser.username}</h2>
+                            <div className=" text-sm font-medium flex flex-col p-1 justify-center items-center ">
+                                <span>{dataUser.wepPage}</span> 
+                                {/* meter en un <a> */}
+                               
                             </div>
                             <div className=" flex justify-center gap-x-4 mb-5">
                             {redesSociales && redesSociales.map(red => {

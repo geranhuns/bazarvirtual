@@ -3,6 +3,18 @@ import Swal from 'sweetalert2'
  import {jwtDecode} from 'jwt-decode';
 
 
+ const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+
 export const registerBazarFetch = async (data) => {
   try {
       const response = await fetch(`${MONGO_URL}/register`, {
@@ -77,10 +89,9 @@ export const updateProfileBazar = async (userdata, userId) => {
   
       const data = await response.json(); // Si esperas una respuesta JSON del servidor
       console.log('Usuario actualizado con éxito:', data);
-      Swal.fire({
-        title: "Listo!",
-        text: "Perfil actualizado.",
+      Toast.fire({
         icon: "success",
+        title: "Perfil actualizado."
       });
       return data; // Puedes retornar los datos actualizados si lo necesitas
     } catch (error) {
