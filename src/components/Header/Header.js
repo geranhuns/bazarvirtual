@@ -77,7 +77,13 @@ function Header() {
               </button>
             )}
           </div>
-          {dropdownActive && <DropdownMenu token={token} />}
+          {dropdownActive && (
+            <DropdownMenu
+              token={token}
+              setDropdownActive={setDropdownActive}
+              setToken={setToken}
+            />
+          )}
         </nav>
       )}
     </>

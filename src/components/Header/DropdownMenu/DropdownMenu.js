@@ -1,6 +1,11 @@
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
-export default function DropdownMenu({ token }) {
+import { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/navigation";
+import { HeaderContext } from "@/components/HContext/HeaderContext";
+export default function DropdownMenu({ token, setDropdownActive, setToken }) {
+  const { active, setActive } = useContext(HeaderContext);
+
+  const router = useRouter();
   const [decodedToken, setDecodedToken] = useState(null);
   console.log(token);
   const decodeToken = (token) => {
@@ -15,6 +20,8 @@ export default function DropdownMenu({ token }) {
     localStorage.removeItem("jwtToken");
 
     router.push("/login");
+    setDropdownActive(false);
+    setToken(null);
   }
   useEffect(() => {
     if (token) {
@@ -35,10 +42,20 @@ export default function DropdownMenu({ token }) {
             <li className="cursor-pointer">
               <a>Carrito de Compras</a>
             </li>
+            <li>
+              <a>Mis pedidos</a>
+            </li>
           </>
         )}
         <li className=" border-b-2 border-raw-sienna-300 pb-2 cursor-pointer">
-          <a>Editar Perfil</a>
+          <a
+            onClick={() => {
+              setActive(!active);
+              console.log(active);
+            }}
+          >
+            Editar Perfil
+          </a>
         </li>
         <li className="pt-2 cursor-pointer" onClick={handleLogout}>
           <a>Cerrar sesión</a>
