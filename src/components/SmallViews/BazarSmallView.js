@@ -13,8 +13,8 @@ export default function BazarSmallView({ className, item }) {
         alt="logo"
       />
       <div className=" text-center text-xs w-24">
-        <h3 className="">{date}</h3>
-        <h3 className=""> {time}</h3>
+        <h3 className="font-bold">{date}</h3>
+        <h3 className="font-bold"> {time}</h3>
       </div>
     </a>
   );

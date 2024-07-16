@@ -1,44 +1,17 @@
 "use client";
 
-import Button from "../Button/Button";
-import LogoH from "../Logos/LogoH";
-import Dropdown from "../Dropdown/Dropdown";
 import { usePathname } from "next/navigation";
-import { IoIosSearch } from "react-icons/io";
 import HeaderBazar from "../promotorBazar/headerBazar";
-import { MdOutlineShoppingCart } from "react-icons/md";
-import Link from "next/link";
-import LogoTag from "../Logos/LogoTag";
-
-const options = [
-  "Todo",
-  "Alimentos y Bebidas",
-  "Auto",
-  "Bebé",
-  "Belleza",
-  "Deportes y Aire Libre",
-  "Electrónicos",
-  "Hecho a mano",
-  "Herramientas y Mejoras del Hogar",
-  "Hogar y Cocina",
-  "Industria y Ciencia",
-  "Instrumentos Musicales",
-  "Jardín",
-  "Juegos y juguetes",
-  "Libros",
-  "Mascotas",
-  "Música",
-  "Oficina y Papelería",
-  "Otros productos",
-  "Películas y Series de TV",
-  "Ropa, Zapatos y Accesorios",
-  "Salud y Cuidado Personal",
-  "Software",
-  "Videojuegos",
-];
+import { useEffect, useState } from "react";
+import { CgProfile } from "react-icons/cg";
+import HeaderLogin from "./HeaderLogin/HeaderLogin";
+import HeaderSearch from "./HeaderSearch/HeaderSearch";
+import HeaderLogo from "./HeaderLogo/HeaderLogo";
+import DropdownMenu from "./DropdownMenu/DropdownMenu";
 
 function Header() {
-
+  const [token, setToken] = useState(null);
+  const [dropdownActive, setDropdownActive] = useState(false);
 
   const pathname = usePathname();
   const handleScroll = (sectionId) => {
@@ -48,79 +21,65 @@ function Header() {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("jwtToken");
+      if (storedToken) {
+        setToken(storedToken);
+      }
+    }
+  }, []);
   return (
-
     <>
-    {pathname === "/promotorBazarView" && (
-        <HeaderBazar   />
-    )}
+      {pathname === "/promotorBazarView" && <HeaderBazar />}
 
-    {pathname != "/promotorBazarView" && (
-      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50 ">
-        <div className="h-full flex md:justify-between items-center mx-auto   lg:max-w-screen-xl  px-5 ">
-          <LogoH className={" hidden md:block"} />
-          <LogoTag width={"50px"} className={" block md:hidden h-full py-2"} />
-          {/* <div className="flex"> */}
-          {pathname === "/" && (
-            <div className="md:flex items-center cursor-pointer hidden">
-              <ul className="flex flex-row items-center mr-10 gap-4 text-base text-color-text">
-                <li
-                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                  onClick={() => handleScroll("section3")}
-                >
-                  Acerca de
-                </li>
-                <li
-                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                  onClick={() => handleScroll("section4")}
-                >
-                  Marcas
-                </li>
-                <li
-                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                  onClick={() => handleScroll("section2")}
-                >
-                  Bazares
-                </li>
-              </ul>
-            </div>
-          )}
-          {pathname !== "/login" &&
-            pathname !== "/register" &&
-            pathname !== "/" && (
-              <div className="md:flex  items-center  w-4/12 gap-0  hidden ">
-                <Dropdown className="rounded-l-lg" options={options} />
-                <input
-                  type="text"
-                  className=" w-full p-1  "
-                  placeholder="Buscar productos..."
-                />
-                <div className=" bg-yellow-bazar p-1.5 rounded-r-lg">
-                  <Link href={"/busquedaProductos"}>
-                    <IoIosSearch size={20} />
-                  </Link>
-                </div>
+      {pathname != "/promotorBazarView" && (
+        <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50 ">
+          <div className="h-full flex justify-between items-center mx-auto   lg:max-w-screen-xl  px-5 ">
+            <HeaderLogo />
+            {pathname === "/" && (
+              <div className="md:flex items-center cursor-pointer hidden">
+                <ul className="flex flex-row items-center mr-10 gap-4 text-base text-color-text">
+                  <li
+                    className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
+                    onClick={() => handleScroll("section3")}
+                  >
+                    Acerca de
+                  </li>
+                  <li
+                    className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
+                    onClick={() => handleScroll("section4")}
+                  >
+                    Marcas
+                  </li>
+                  <li
+                    className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
+                    onClick={() => handleScroll("section2")}
+                  >
+                    Bazares
+                  </li>
+                </ul>
               </div>
             )}
-          {pathname !== "/login" && pathname !== "/register" && (
-            <div className="md:flex gap-4 items-center  hidden">
-              <Button
-                text="Iniciar sesión"
-                href="/login"
-                variant="transparent"
-              />
-              <Button text="Crear cuenta" href="/register" variant="yellow" />
-              <div className="p-2 text-raw-sienna-50 cursor-pointer">
-                <a href="/carritoDeCompras">
-                  <MdOutlineShoppingCart size={25} />
-                </a>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* </div> */}
-      </nav> 
-    )}
+            {pathname !== "/login" &&
+              pathname !== "/register" &&
+              pathname !== "/" && <HeaderSearch />}
+            {pathname !== "/login" && pathname !== "/register" && !token && (
+              <HeaderLogin />
+            )}
+            {pathname !== "/login" && pathname !== "/register" && token && (
+              <button
+                className="rounded-full p-2 bg-gray-300  "
+                onClick={() => setDropdownActive(!dropdownActive)}
+              >
+                <CgProfile className="w-full h-full" />
+              </button>
+            )}
+          </div>
+          {dropdownActive && <DropdownMenu token={token} />}
+        </nav>
+      )}
     </>
   );
 }
