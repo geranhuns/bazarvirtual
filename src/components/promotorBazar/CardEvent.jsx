@@ -2,7 +2,7 @@ import React from "react";
 
 
 
-function CardEvent() {
+function CardEvent({eventName, description, timeEvent}) {
     return (
         <>
             <div className="bg-raw-sienna-500 w-5/12 h-3/6 rounded-lg flex items-center justify-around max-md:h-2/6 max-md:w-7/12 max-sm:w-11/12 max-sm:flex-col ">
@@ -13,9 +13,9 @@ function CardEvent() {
                 </div>
                 
                 <div className="  w-8/12 h-full flex flex-col items-center justify-around text-center   max-sm:w-9/12">
-                    <span className="text-2xl font-semibold flex justify-around items-center max-md:text-lg">Música en vivo</span>
-                    <span className="text-xl font-medium max-md:text-sm">Enjoy performances by top artists.</span>
-                    <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">11:00 AM </span>
+                    <span className="text-2xl font-semibold flex justify-around items-center max-md:text-lg">{eventName}</span>
+                    <span className="text-xl font-medium max-md:text-sm">{description}</span>
+                    <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">{timeEvent} </span>
 
 
                 </div>

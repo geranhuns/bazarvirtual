@@ -10,6 +10,7 @@ import FormEditProfileBazar from "@/components/promotorBazar/FormEditProfileBaza
 import CardEvent from "@/components/promotorBazar/CardEvent";
 import { useRouter } from 'next/navigation'
 import { dataUserBazarFetch } from "@/api/bazar/routes";
+import { datesBazarFetch } from "@/api/bazar/routes";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 
 
@@ -19,11 +20,11 @@ function PromotorVista() {
 const router = useRouter()
 const[open, setOpen] = useState(false)
 const[dataUser, setDataUser] = useState({})
+const[datesBazar, setDatesBazar] = useState([])
+const[dataDate, setDataDate] = useState([])
 
 const { active, setActive } = useContext(HeaderContext);
 
-// console.log(active)
-// console.log(dataUser.socialNetworks) //para pruebas de existencia de datos
 const redesSociales = dataUser.socialNetworks
 
 const fetchData = async () => {
@@ -36,22 +37,42 @@ const fetchData = async () => {
     }
   };
 
+  const fetchDataDates = async () => {
+    try {
+      const bazarDates = await datesBazarFetch();
+      console.log(bazarDates.data)
+      setDatesBazar(bazarDates.data);
+    
+    } catch (error) {
+      console.error('Error al obtener las fechas del bazar:', error);
+    }
+  };
+
 useEffect(() => {
     const token = localStorage.getItem('jwtToken');
     if (!token) {
       router.push('/login');
-      return;
+    
     }else{
         fetchData();
+        fetchDataDates()
+     
+        
     }
 }, []);
+
+useEffect(()=>{
+    fetchDataDates()
+},[open])
 
 useEffect(() => {
     fetchData();
     console.log("ejecutando por cierre")
 }, [active]);
     
-
+useEffect(()=>{
+    console.log(dataDate)
+},[dataDate])
    
 
    
@@ -62,7 +83,7 @@ useEffect(() => {
 
     return (
         <section className="relative w-full bg-raw-sienna-200  min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
-              {open && <FormNewDate _idUser={dataUser._id} open={open} setOpen={setOpen} />}
+              {open && <FormNewDate fetchDataDates={fetchDataDates} _idUser={dataUser._id} open={open} setOpen={setOpen} />}
               {active && <FormEditProfileBazar dataUserP={dataUser}  _idUser={dataUser._id} active={active} setActive={setActive} />}
 
              <div className="bg-raw-sienna-500  w-10/12 flex  items-center justify-around  p-10 mx-auto max-md:flex-col max-sm:w-11/12 ">
@@ -104,19 +125,18 @@ useEffect(() => {
                                         );
                                     }
                                 })}
-                                {/* <FaFacebook className="w-10 h-11 rounded-custom2 text-facebook bg-white max-sm:w-auto" /> */}
-                                {/* <FaInstagramSquare className="w-10 h-11 rounded-custom2  bg-instagram-gradient max-sm:w-auto" /> */}
-                                {/* <AiFillTikTok className="w-10 h-11 rounded-custom2 text-black bg-tiktok-gradient max-sm:w-auto " /> */}
+                               
 
                             </div>
                         </div>
 
-                        <div className="bg-avocado-500 rounded-md w-full flex text-center items-center text-black gap-2 max-md:h-1/6 p-3">
-                            <CardEventDetail 
-                             />
-                            <CardEventDetail />
-                            <CardEventDetail  />
-                            <button className="bg-raw-sienna-500 w-1/12 h-3/6 rounded-sm flex items-center justify-center text-base font-medium " onClick={() => setOpen(!open)} ><CiSquarePlus className="text-white w-full h-full" /></button>
+                        <div className="bg-avocado-500 rounded-md w-full flex text-center items-center text-black gap-2  p-3">
+                            {datesBazar.map(date =>{
+                              return  <CardEventDetail setDataDate={setDataDate} events={date.events} date={date.date} key={date._id}  />
+                            })}
+                            
+                            
+                            <button className="bg-raw-sienna-500 w-1/12 h-3/6 rounded-lg  text-base font-medium " onClick={() => setOpen(!open)} ><CiSquarePlus className="text-white w-full h-full" /></button>
                         </div>
                     </div>
              </div> 
@@ -125,8 +145,11 @@ useEffect(() => {
 
              <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
                 <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12">
-                    <CardEvent/>
-                    <CardEvent/>
+                   {dataDate && dataDate.map(date=>{
+                         return <CardEvent key={date._id} eventName={date.eventName} description={date.description} timeEvent={date.timeEvent}/>
+                   })}
+                    {/* <CardEvent/>
+                    <CardEvent/> */}
                 </div>
              </div>
 

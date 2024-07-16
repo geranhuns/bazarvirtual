@@ -71,6 +71,28 @@ export const dataUserBazarFetch = async () => {
 }
 }
 
+export const datesBazarFetch = async () => {
+  try {
+    const token = localStorage.getItem('jwtToken');
+    const decodedToken = jwtDecode(token);
+    const _id = decodedToken._id;
+
+    const response = await fetch(`${MONGO_URL}/datesUser/${_id}`);
+
+    if (!response.ok) {
+        throw new Error('Error al obtener datos del servidor');
+    }
+
+    const data = await response.json();
+   
+    return data; 
+
+} catch (error) {
+    console.error('Error en dataUserBazarFetch:', error);
+    throw error; // Puedes propagar el error para manejarlo en el lugar donde se llama a esta función
+}
+}
+
 
 export const updateProfileBazar = async (userdata, userId) => {
     try {

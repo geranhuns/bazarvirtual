@@ -11,7 +11,7 @@ function FormNewDate(props) {
 
 
     const { register, handleSubmit, reset } = useForm();
-    const { setOpen, open , _idUser} = props;
+    const { setOpen, open , _idUser, fetchDataDates} = props;
     const [showExtraEvent, setShowExtraEvent] = useState(false); //state para monitorear si extra event es true o false
 
     const toggleExtraEvent = () => {
@@ -42,6 +42,7 @@ function FormNewDate(props) {
             };
             console.log(`datos con corte ${JSON.stringify(dataAdjust)}`)
             createDateFetch(dataAdjust)
+            fetchDataDates()
 
         reset();
     };
