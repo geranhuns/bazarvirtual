@@ -104,23 +104,26 @@ function FormMarca() {
           >
             Logo de la marca
           </label>
+
+          <div className="flex justify-center">
+            {previewImagen && (
+              <div className="w-32 h-32 relative">
+                <Image
+                  src={previewImagen}
+                  alt="Logo de la Marca"
+                  layout="fill"
+                  objectFit="none"
+                  className=" overflow-hidden border border-gray-300 rounded-full"
+                />
+              </div>
+            )}
+          </div>
           <input
             type="file"
             id="logoMarca"
             className="border border-raw-sienna-300 p-4"
             onChange={handleImagen}
           />
-          <div className="flex justify-center">
-            {previewImagen && (
-              <Image
-                src={previewImagen}
-                alt="Logo de la Marca"
-                width={300}
-                height={300}
-                className="object-cover overflow-hidden border border-gray-300 rounded-custom1"
-              />
-            )}
-          </div>
         </div>
         <div className="flex flex-col gap-2">
           <label
