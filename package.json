@@ -24,6 +24,7 @@
     "sweetalert2": "^11.12.1"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.3.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",

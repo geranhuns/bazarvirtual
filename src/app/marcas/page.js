@@ -32,7 +32,7 @@ export default function Marcas() {
 
   const getMarcas = async () => {
     try {
-      const response = await fetch("http://localhost:3001/users/marcas");
+      const response = await fetch("http://localhost:3001/marca/usersMarca");
       const data = await response.json();
       setMarcas(data.data);
       setLoading(false);

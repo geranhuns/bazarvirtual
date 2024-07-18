@@ -5,17 +5,16 @@ import RadioButton from "@/components/RadioButton/RadioButton";
 import { registerBazarFetch } from "@/api/bazar/routes";
 import { registerUserFetch } from "@/api/users/routes";
 import { registerMarcaFetch } from "@/api/marcas/routes";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default function page() {
-
   const [option, setOption] = useState("quieroComprar");
-  const [stateForm, setStateForm] = useState(''); //agregado
-  const [role, setRole] = useState('');
+  const [stateForm, setStateForm] = useState(""); //agregado
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     if (option === "quieroComprar") {
-      setRole("comprador");
+      setRole("cliente");
     } else if (stateForm === "bazar") {
       setRole("bazar");
     } else if (stateForm === "marca") {
@@ -24,51 +23,75 @@ export default function page() {
       setRole("");
     }
   }, [option, stateForm]);
-  
+
   const messages = {
     quieroComprar: "¡Gracias por apoyar el comercio local!",
     soyEmprendedor: "¿Cómo quieres registrarte?",
   };
 
-  const dataRegister =( async  (data)=>{
-    console.log(data)
-    
+  const dataRegister = async (data) => {
+    console.log(data);
+
     let validPassword = null;
     if (data.password === data.passwordComparation) {
+      validPassword = data.password;
+      const modifiedData = {
+        ...data,
+        role: role,
+        password: validPassword,
+      };
+      const modifiedDataCliente = {
+        ...data,
+        role: role,
+        password: validPassword,
+      };
+      const modifiedDataMarca = {
+        ...data,
+        role: role,
+        password: validPassword,
+        profilePicture: "https://picsum.photos/200/300",
+        description: "Aquí puedes escribir una descripción de tu marca",
+        slogan: "Tu slogan de tu marca",
+        socialNetworks: [
+          {
+            platform: "facebook",
+            url: "facebook.com",
+          },
+          {
+            platform: "instagram",
+            url: "instagram.com",
+          },
+          {
+            platform: "tiktok",
+            url: "tiktok.com",
+          },
+        ],
+      };
 
-       validPassword = data.password;
-          const modifiedData = {
-            ...data,
-            role: role,
-            password: validPassword, 
-          };
-  
-          delete modifiedData.passwordComparation; 
-          console.log(modifiedData.role)
+      delete modifiedData.passwordComparation;
+      delete modifiedDataCliente.passwordComparation;
+      delete modifiedDataMarca.passwordComparation;
+      console.log(modifiedData.role);
 
-          if(modifiedData.role === 'comprador'){
-            // console.log("registrando como comprador") 
-            console.log(modifiedData)
-            await registerUserFetch(modifiedData)
-          }
-          if(modifiedData.role === 'bazar'){
-             await registerBazarFetch(modifiedData)
-          }
-          if(modifiedData.role === 'marca'){
-            await registerMarcaFetch(modifiedData)
-         }
-         
+      if (modifiedDataCliente.role === "cliente") {
+        // console.log("registrando como comprador")
+        console.log(modifiedData);
+        await registerUserFetch(modifiedDataCliente);
+      }
+      if (modifiedData.role === "bazar") {
+        await registerBazarFetch(modifiedData);
+      }
+      if (modifiedDataMarca.role === "marca") {
+        await registerMarcaFetch(modifiedDataMarca);
+      }
     } else {
-      
       Swal.fire({
         title: "Oops",
         text: "Las contraseñas no coinciden prueba de nuevo!",
-        icon: "error"
+        icon: "error",
       });
     }
-  
-  })
-
+  };
 
   return (
     <>
@@ -101,7 +124,9 @@ export default function page() {
           <h2 className="text-xl text-gray-500 mb-2 lg:w-96 text-center">
             {messages[option]}
           </h2>
-          {option === "soyEmprendedor" && <RadioButton setStateFormProp={setStateForm} />}
+          {option === "soyEmprendedor" && (
+            <RadioButton setStateFormProp={setStateForm} />
+          )}
           <RegisterForm dataRegister={dataRegister} role={role} />
         </div>
       </div>
