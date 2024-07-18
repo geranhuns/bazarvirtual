@@ -69,7 +69,11 @@ function FormMarca({ marcaInfo }) {
         setPreviewImagen(reader.result);
       };
       reader.readAsDataURL(file);
+      handleSetValue(reader);
     }
+  };
+  const handleSetValue = (file) => {
+    setValue("profilePicture", file);
   };
 
   const handleFileChange = (e) => {
@@ -79,7 +83,7 @@ function FormMarca({ marcaInfo }) {
 
   const form = useForm({
     defaultValues: {
-      logoMarca: dataUser.username,
+      profilePicture: dataUser.username,
       nombreMarca: "",
       sloganMarca: dataUser.slogan,
       descriptionMarca: dataUser.description,
@@ -92,6 +96,7 @@ function FormMarca({ marcaInfo }) {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
     reset,
   } = form; //React hook form
@@ -142,36 +147,30 @@ function FormMarca({ marcaInfo }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className=" p-4 mx-auto mt-10">
+      <div className="flex justify-center">
+        {previewImagen && (
+          <div className="w-32 h-32 relative">
+            <Image
+              src={previewImagen}
+              alt="Previsualización de la imagen"
+              layout="fill"
+              objectFit="cover"
+              className=" overflow-hidden border  rounded-full"
+            />
+          </div>
+        )}
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className=" p-4 mx-auto ">
         <div className="flex flex-col gap-4 pb-4">
           <div className="flex flex-col gap-2">
-            <label
-              htmlFor="logoMarca"
-              className="font-semibold text-raw-sienna-900"
-            >
-              Logo de la marca
-            </label>
-            <div className="flex justify-center">
-              {previewImagen && (
-                <div className="w-32 h-32 relative">
-                  <Image
-                    src={previewImagen}
-                    alt="Logo de la Marca"
-                    layout="fill"
-                    objectFit="cover"
-                    className=" overflow-hidden border  rounded-full"
-                  />
-                </div>
-              )}
-            </div>
             <label
               htmlFor="profilePicture"
               className="font-semibold text-raw-sienna-900"
             ></label>
             <input
               type="file"
-              id="logoMarca"
-              name="logoMarca"
+              id="profilePicture"
+              name="profilePicture"
               className="border border-raw-sienna-300 p-4"
               onChange={handleImagen}
               // {...register("profilePicture")}
