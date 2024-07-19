@@ -19,19 +19,19 @@ import { HeaderContext } from "@/components/HContext/HeaderContext";
 function PromotorVista() {
 const router = useRouter()
 const[open, setOpen] = useState(false)
-const[dataUser, setDataUser] = useState({})
-const[datesBazar, setDatesBazar] = useState([])
-const[dataDate, setDataDate] = useState([])
-
+const[dataUser, setDataUser] = useState({})//contiene los datos de peril del user
+const[datesBazar, setDatesBazar] = useState([]) //contiene las fechas del bazarUser
+const[dataDate, setDataDate] = useState([])//contiene un aray con los eventos especiales de la fecha que se selecciona
+const[idDate, setIdDate] = useState('') //state que almacena el id de la date seleccionada, es para pasarselo a los events
 const { active, setActive } = useContext(HeaderContext);
 
+console.log(datesBazar)
 const redesSociales = dataUser.socialNetworks
 
 const fetchData = async () => {
     try {
       const userData = await dataUserBazarFetch();
       setDataUser(userData.data);
-    //   console.log(userData.data);
     } catch (error) {
       console.error('Error al obtener datos del usuario:', error);
     }
@@ -42,13 +42,15 @@ const fetchData = async () => {
       const bazarDates = await datesBazarFetch();
       console.log(bazarDates.data)
       setDatesBazar(bazarDates.data);
-    
+
     } catch (error) {
       console.error('Error al obtener las fechas del bazar:', error);
     }
   };
 
-useEffect(() => {
+
+
+useEffect( () => {
     const token = localStorage.getItem('jwtToken');
     if (!token) {
       router.push('/login');
@@ -56,23 +58,26 @@ useEffect(() => {
     }else{
         fetchData();
         fetchDataDates()
-     
-        
-    }
+       
+         }
 }, []);
 
 useEffect(()=>{
     fetchDataDates()
 },[open])
 
+
 useEffect(() => {
     fetchData();
     console.log("ejecutando por cierre")
 }, [active]);
     
-useEffect(()=>{
-    console.log(dataDate)
-},[dataDate])
+
+
+
+
+
+
    
 
    
@@ -83,7 +88,7 @@ useEffect(()=>{
 
     return (
         <section className="relative w-full bg-raw-sienna-200  min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
-              {open && <FormNewDate fetchDataDates={fetchDataDates} _idUser={dataUser._id} open={open} setOpen={setOpen} />}
+              {open && <FormNewDate  datesBazar={datesBazar} fetchDataDates={fetchDataDates} _idUser={dataUser._id} open={open} setOpen={setOpen} />}
               {active && <FormEditProfileBazar dataUserP={dataUser}  _idUser={dataUser._id} active={active} setActive={setActive} />}
 
              <div className="bg-raw-sienna-500  w-10/12 flex  items-center justify-around  p-10 mx-auto max-md:flex-col max-sm:w-11/12 ">
@@ -131,9 +136,10 @@ useEffect(()=>{
                         </div>
 
                         <div className="bg-avocado-500 rounded-md w-full flex text-center items-center text-black gap-2  p-3">
-                            {datesBazar.map(date =>{
-                              return  <CardEventDetail setDataDate={setDataDate} events={date.events} date={date.date} key={date._id}  />
-                            })}
+                        {datesBazar.map(date => (
+                            <CardEventDetail key={date._id} dateID={date._id} setIdDate={setIdDate} setDataDate={setDataDate} events={date.events} fecha={date.date} />
+                        ))}
+                            
                             
                             
                             <button className="bg-raw-sienna-500 w-1/12 h-3/6 rounded-lg  text-base font-medium " onClick={() => setOpen(!open)} ><CiSquarePlus className="text-white w-full h-full" /></button>
@@ -145,11 +151,10 @@ useEffect(()=>{
 
              <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
                 <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12">
-                   {dataDate && dataDate.map(date=>{
-                         return <CardEvent key={date._id} eventName={date.eventName} description={date.description} timeEvent={date.timeEvent}/>
-                   })}
-                    {/* <CardEvent/>
-                    <CardEvent/> */}
+                {dataDate.map(date => (
+                        <CardEvent key={date._id} setDatesBazar={setDatesBazar} fetchDataDates={fetchDataDates} setDataDate={setDataDate} eventID={date._id} idDate={idDate} eventName={date.eventName} description={date.description} timeEvent={date.timeEvent}  />
+                    ))}
+                 
                 </div>
              </div>
 

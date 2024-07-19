@@ -5,23 +5,39 @@ import InputNewEvent from "./InputsNewEvent";
 import { MdClose } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { createDateFetch } from "@/api/bazar/routes";
+import Swal from 'sweetalert2'
 
 function FormNewDate(props) {
     const [currentDate, setCurrentDate] = useState(''); //state para precedente de tiempo
-
-
-    const { register, handleSubmit, reset } = useForm();
-    const { setOpen, open , _idUser, fetchDataDates} = props;
+    const {register, handleSubmit, reset } = useForm();
+    const {setOpen, open , _idUser, fetchDataDates, datesBazar} = props;
     const [showExtraEvent, setShowExtraEvent] = useState(false); //state para monitorear si extra event es true o false
+    const [dateCount, setDateCount]= useState([])
+    
 
+    useEffect(() => {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed.
+        const dd = String(today.getDate()).padStart(2, '0');
+    
+        setCurrentDate(`${yyyy}-${mm}-${dd}`);
+        setDateCount(datesBazar)
+        
+      }, []);
+
+      useEffect(()=>{
+        setDateCount(datesBazar)
+      },[datesBazar])
+
+      console.log(dateCount.length)
+    
     const toggleExtraEvent = () => {
         setShowExtraEvent(!showExtraEvent);
     };
 
 
     const onSubmit = (data) => {
-        console.log(`datos sin corte ${JSON.stringify(data)}`);
-
         const events = [
             { eventName: data.event, description:data.description,  timeEvent:data.timeEvent },
         ];
@@ -40,8 +56,16 @@ function FormNewDate(props) {
             time:data.time,
             events:events,
             };
-            console.log(`datos con corte ${JSON.stringify(dataAdjust)}`)
-            createDateFetch(dataAdjust)
+           
+        dateCount.length < 3 ? createDateFetch(dataAdjust) : Swal.fire({
+                                                            title: "Alcansaste el numero maximo de fechas!",
+                                                            text: "Espera a que culmine la fecha mas proxima o elimina alguna.",
+                                                            icon: "warning", 
+                                                            });
+            fetchDataDates ();                                                 
+            setDateCount(datesBazar)                                                    
+            console.log(dateCount.length)
+            // createDateFetch(dataAdjust)
             fetchDataDates()
 
         reset();
@@ -51,15 +75,7 @@ function FormNewDate(props) {
 
    
 
-    useEffect(() => {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed.
-        const dd = String(today.getDate()).padStart(2, '0');
-    
-        setCurrentDate(`${yyyy}-${mm}-${dd}`);
-      }, []);
-
+   
 
 
 

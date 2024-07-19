@@ -49,7 +49,7 @@ export const registerBazarFetch = async (data) => {
 
 
 
-export const dataUserBazarFetch = async () => {
+export const dataUserBazarFetch = async () => { //extre los datos del user(Bazar)
   try {
     const token = localStorage.getItem('jwtToken');
     const decodedToken = jwtDecode(token);
@@ -71,7 +71,7 @@ export const dataUserBazarFetch = async () => {
 }
 }
 
-export const datesBazarFetch = async () => {
+export const datesBazarFetch = async () => { //extrae fechas de los bazares segun el usuario(Bazar)
   try {
     const token = localStorage.getItem('jwtToken');
     const decodedToken = jwtDecode(token);
@@ -133,6 +133,39 @@ export const updateProfileBazar = async (userdata, userId) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
+        });
+  
+        if (response.ok) {
+            const responseData = await response.json();
+            Swal.fire({
+              title: "Listo!",
+              text: responseData.msg,
+              icon: "success",
+              
+            });
+        } else {
+            const errorData = await response.json();
+            Swal.fire({
+              title: "Oops!",
+              text: errorData.msg,
+              icon: "error",
+              
+            });
+        }
+    } catch (error) {
+        alert('Error al realizar la solicitud: ' + error.message);  // Mostrar error de solicitud
+    }
+  };
+  
+
+  export const deleteEspecialEvent = async (bazarID, specialEventID) => {
+    try {
+        const response = await fetch(`${MONGO_URL}/datesBazares/${bazarID}/events/${specialEventID}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+           
         });
   
         if (response.ok) {
