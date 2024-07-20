@@ -17,6 +17,7 @@ function FormMarca({ marcaInfo }) {
   const [previewImagen, setPreviewImagen] = useState(null);
   const [isLoading, setIsLoading] = useState(true); //verifica el status de carga de los datos del usuario
 
+  const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState();
 
   const redesSociales = dataUser.socialNetworks || []; //variable contenedora de las redes sociales del user
@@ -40,6 +41,8 @@ function FormMarca({ marcaInfo }) {
         username: data.data.username,
         slogan: data.data.slogan,
         description: data.data.description,
+        profilePicture: data.data.profilePicture,
+
         facebook:
           data.data.socialNetworks?.find(
             (network) => network.platform === "facebook"
@@ -76,9 +79,25 @@ function FormMarca({ marcaInfo }) {
     setValue("profilePicture", file);
   };
 
-  const handleFileChange = (e) => {
-    console.log(e);
-    setSelectedImage(e);
+  // const handleFileChange = (e) => {
+  //   setSelectedImage(e.target.files[0]);
+  // };
+
+  const handleS3Submit = async (e) => {
+    setUploading(true);
+    const formData = new FormData();
+    try {
+      const response = await fetch(" http://localhost:3000/api/s3", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      console.log(data.staus);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
   };
 
   const form = useForm({
@@ -108,13 +127,41 @@ function FormMarca({ marcaInfo }) {
     setPreviewImagen(marcaInfo.profilePicture);
   }, []);
 
-  useEffect(() => {
-    if (selectedImage) setPreviewImagen(selectedImage);
-  }, [selectedImage]);
+  const imageToS3 = async () => {
+    try {
+      if (previewImagen) {
+        const formData = new FormData();
+        formData.append("image", previewImagen); // "image" es el nombre del campo que S3 espera recibir
+        const { data } = await axios.post(
+          "http://localhost:3000/api/s3",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        if (data.success) {
+          console.log("URL de la imagen en S3:", data.data.url);
+          setPreviewImagen(data.data.url); // Actualizar la URL de previsualización si es necesario
+        } else {
+          console.error("Error al subir la imagen a S3:", data.error);
+        }
+      }
+    } catch (error) {
+      console.error("Error al subir la imagen a S3:", error);
+    }
+  };
+
   const onSubmit = async (data) => {
     //funcion que se ejecuta al enviar el formulario
 
-    console.log(`datos de entrada del formulario: ${data}`);
+    await imageToS3(); // Subir la imagen antes de enviar el formulario
+    await handleS3Submit();
+    console.log(
+      `Datos de entrada del formulario: ${JSON.stringify(data, null, 2)}`
+    );
     const socialNetworks = [
       //con los datos enviados se crea un array de objetos apartir de las redes sociales del form
       { platform: "facebook", url: data.facebook },

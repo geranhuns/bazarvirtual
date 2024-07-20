@@ -1,6 +1,13 @@
 import classNames from "classnames";
 import Link from "next/link";
-export default function Button({ text, href, variant, className, onClick }) {
+export default function Button({
+  text,
+  href,
+  variant,
+  className,
+  onClick,
+  type,
+}) {
   const buttonClassNames = classNames(
     "flex items-center justify-center p-1 rounded-lg text-lg text-gray-800 font-medium h-9",
     {
@@ -18,9 +25,18 @@ export default function Button({ text, href, variant, className, onClick }) {
     },
     className
   );
+
   return (
-    <button className={buttonClassNames} onClick={onClick}>
-      <Link href={href}>{text}</Link>
-    </button>
+    <>
+      {type ? (
+        <button type={type} className={buttonClassNames} onClick={onClick}>
+          {text}
+        </button>
+      ) : (
+        <button className={buttonClassNames} onClick={onClick}>
+          <Link href={href}>{text}</Link>
+        </button>
+      )}
+    </>
   );
 }
