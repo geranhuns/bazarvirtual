@@ -16,13 +16,13 @@ export default function Footer() {
           <div className="footer-links px-6">
             <ul className="flex  flex-wrap justify-center leading-3 gap-6 list-disc pt-6">
               <li>
-                <a href="/landingPage">Acerca de</a>
+                <a href="/">Acerca de</a>
               </li>
               <li>
-                <a href="/bazares"> Bazares Asociados</a>
+                <a href="/bazares"> Bazares Afiliados</a>
               </li>
               <li>
-                <a href="/marcas">Marcas Asociadas</a>
+                <a href="/marcas">Marcas Afiliadas</a>
               </li>
               <li>
                 <a href="/register">Registra tu Bazar</a>

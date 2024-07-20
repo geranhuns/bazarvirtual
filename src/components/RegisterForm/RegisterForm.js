@@ -1,44 +1,124 @@
 "use client";
 import Button from "../Button/Button";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-export default function registerForm() {
+export default function registerForm({ dataRegister, role }) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    // console.log(data)
+    dataRegister(data);
+    reset();
+  };
+
   return (
     <>
-      <form action="">
-        <div className=" flex flex-col gap-3 w-96 mb-3">
-          {/* <div className="flex flex-col gap-1">
-            <label className="text-lg">Nombre de usuario</label>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className=" flex flex-col gap-3  lg:w-96 mb-3  ">
+          <div className="flex flex-col gap-1">
+            <label className="text-lg">
+              {role === "bazar"
+                ? "Nombre del bazar"
+                : role === "marca"
+                ? "Nombre de la marca"
+                : "Nombre del usuario"}
+            </label>
             <input
-              className="w-full border rounded-lg p-3"
+              className={`w-full border rounded-lg p-3 ${
+                errors.username ? "border-red-500" : "border-gray-300"
+              }`}
               type="text"
               placeholder=""
+              {...register("username", { required: "Este campo es requerido" })}
             />
-          </div> */}
+            {errors.username && (
+              <label className="text-red-700  text-xs">
+                {errors.username.message}
+              </label>
+            )}
+          </div>
           <div className="flex flex-col gap-1">
             <label className="text-lg">Correo</label>
             <input
-              className="w-full border rounded-lg p-4"
+              className={`border rounded-lg p-4 ${
+                errors.email ? "border-red-500" : "border-gray-300"
+              }`}
               type="text"
               placeholder=""
+              {...register("email", {
+                required: "Este campo es requerido",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
+                  message: "Correo no valido",
+                },
+              })}
             />
+            {errors.email && (
+              <label className="text-red-700  text-xs">
+                {errors.email.message}
+              </label>
+            )}
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-lg">Contraseña</label>
             <input
-              className="w-full border rounded-lg p-4"
-              type="text"
+              className={` border rounded-lg p-4 ${
+                errors.password ? "border-red-500" : "border-gray-300"
+              } `}
+              type="password"
               placeholder=""
+              {...register("password", {
+                required: "Este campo es requerido",
+                minLength: {
+                  value: 8,
+                  message: "El password debe tener al menos 8 caracteres",
+                },
+              })}
             />
+            {errors.password && (
+              <label className="text-red-700 text-xs">
+                {errors.password.message}
+              </label>
+            )}
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-lg">Confirmar Contraseña</label>
             <input
-              className="w-full border rounded-lg p-4"
+              className={`border rounded-lg p-4 ${
+                errors.passwordComparation
+                  ? "border-red-500"
+                  : "border-gray-300"
+              } `}
               type="password"
               placeholder=""
+              {...register("passwordComparation", {
+                required: "Este campo es requerido",
+                minLength: {
+                  value: 8,
+                  message: "El password debe tener al menos 8 caracteres",
+                },
+              })}
             />
+            {errors.passwordComparation && (
+              <label className="text-red-700  text-xs">
+                {errors.passwordComparation.message}
+              </label>
+            )}
           </div>
-          <Button text="Crear cuenta" href="/" variant="raw-sienna-500" />
+          {/* <button
+            type="submit"
+            className="bg-raw-sienna-500 text-raw-sienna-50 flex items-center justify-center p-1 rounded-lg text-lg  font-medium h-9"
+          >
+            Crear cuenta
+          </button> */}
+          <Button type="submit" text="Crear cuenta" variant="raw-sienna-500" />
         </div>
         <div className="flex items-center gap-2">
           <p className="text-gray-500"> ¿Ya tienes una cuenta?</p>

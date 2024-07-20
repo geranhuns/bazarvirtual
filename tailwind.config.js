@@ -35,7 +35,7 @@ module.exports = {
         "avocado-200": "#D4DBBB",
         "avocado-500": "#76854C",
         "avocado-900": "#373E29",
-        customGreen: "#2C4440",
+        "customGreen": "#2C4440",
         "patina-50": "#F5F8F7",
         "patina-100": "#DDEAE6",
         "patina-200": "#BBD4CD",
@@ -45,11 +45,32 @@ module.exports = {
         "color-btnUnete": "#99461A",
         KombuGreen: "#4A532F",
         Eggshell: "#F4F0E5",
+        "facebook": '#1877F2',
+        "customBlue": '#3E635E',
+        "raw-sienna-custom": '#DD8E64', 
+        "form-newDate-green": '#76854C',
+        "instagram": {
+          pink: '#E4405F',
+          purple: '#C13584',
+          gradient: 'linear-gradient(45deg, #833AB4, #E1306C, #F77737)',
+        },
+        tiktok: {
+          turquoise: '#69C9D0',
+          red: '#EE1D52',
+          gradient: 'linear-gradient(45deg, #69C9D0, #EE1D52)',
+        },
       },
+      screens: {
+        'custom': '1120px',
+        
+      },
+      
       height: {
         custom1: "575px",
+        custom2: "495px",
         "85vh": "85vh",
         "65vh": "65vh",
+        '95vh': '95vh',
       },
       fontSize: {
         sm: "0.8rem",
@@ -69,9 +90,12 @@ module.exports = {
         custom4: "41.6px",
       },
       borderRadius: {
-        custom1: "56px",
+        "custom1": "56px",
+        "custom2":"100%",
       },
     },
   },
-  plugins: [],
+  plugins: [
+   
+  ],
 };
