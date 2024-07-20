@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.614.0",
+    "@aws-sdk/s3-request-presigner": "^3.614.0",
+    "axios": "^1.7.2",
     "classnames": "^2.5.1",
     "jwt-decode": "^4.0.0",
+    "multer": "^1.4.5-lts.1",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
@@ -21,6 +25,7 @@
     "sweetalert2": "^11.12.1"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.3.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",

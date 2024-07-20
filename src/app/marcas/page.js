@@ -32,7 +32,7 @@ export default function Marcas() {
 
   const getMarcas = async () => {
     try {
-      const response = await fetch("http://localhost:3001/users/marcas");
+      const response = await fetch("http://localhost:3001/marca/usersMarca");
       const data = await response.json();
       setMarcas(data.data);
       setLoading(false);
@@ -43,7 +43,6 @@ export default function Marcas() {
 
   useEffect(() => {
     getMarcas();
-    console.log(marcas);
   }, []);
   if (loading) {
     return <div>Cargando...</div>;
@@ -57,7 +56,6 @@ export default function Marcas() {
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 py-5 w-full">
               {marcas.map((marca) => {
                 const marcaId = marca._id;
-                console.log(marcaId);
                 return <ProductoDestacadoMarca key={marcaId} id={marcaId} />;
               })}
             </div>

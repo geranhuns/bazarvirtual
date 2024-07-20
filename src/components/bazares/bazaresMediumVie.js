@@ -19,8 +19,8 @@ export default function BazarMediumView({ className, item }) {
         <h3>{username}</h3>
         {pathname === "/proximosBazares" && (
           <>
-            <h3>{date}</h3>
-            <h3> {time}</h3>
+            <h3 className="font-bold">{date}</h3>
+            <h3 className="font-bold"> {time}</h3>
           </>
         )}
       </div>
