@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 
-export default function Dropdown({ options, className }) {
+export default function Dropdown({ options, className, setSearchCategory }) {
   const [selectedOption, setSelectedOption] = useState("Todos");
   const handleDropdown = (e) => {
     setSelectedOption(e.target.value);
+    setSearchCategory(e.target.value);
   };
   return (
     <div className="w-20">
