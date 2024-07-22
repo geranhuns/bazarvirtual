@@ -26,7 +26,7 @@ export default function ProductSmallView({ item }) {
           alt={title}
         />
         <h3 className="pt-4  text-sm line-clamp -1 ">{title}</h3>
-        <h3 className="pt-1">{price}</h3>
+        <h3 className="pt-1">${price}</h3>
       </div>
       <Button
         text="Agregar al carrito"

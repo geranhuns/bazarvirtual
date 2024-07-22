@@ -50,8 +50,18 @@ export default function DropdownMenu({ token, setDropdownActive, setToken }) {
         <li className=" border-b-2 border-raw-sienna-300 pb-2 cursor-pointer">
           <a
             onClick={() => {
-              setActive(!active);
-              console.log(active);
+              if (decodedToken && decodedToken.role === "bazar") {
+                setActive(!active);
+                setDropdownActive(false);
+              }
+              if (decodedToken && decodedToken.role === "marca") {
+                router.push(`/editarPerfilMarca/${decodedToken._id}`);
+                setDropdownActive(false);
+              }
+              if (decodedToken && decodedToken.role === "cliente") {
+                router.push(`/editarPerfil/${decodedToken._id}`);
+                setDropdownActive(false);
+              }
             }}
           >
             Editar Perfil
