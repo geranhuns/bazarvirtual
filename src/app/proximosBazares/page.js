@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export default function ProximosBazares() {
   const [eventos, setEventos] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3001/events")
+    fetch("http://localhost:3001/bazar/bazarDates")
       .then((res) => {
         return res.json();
       })
