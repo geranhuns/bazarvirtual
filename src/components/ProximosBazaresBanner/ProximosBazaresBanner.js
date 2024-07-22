@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 export default function ProximosBazares({ className }) {
   const [eventos, setEventos] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3001/events")
+    fetch("http://localhost:3001/bazar/bazarDates")
       .then((res) => {
         return res.json();
       })
