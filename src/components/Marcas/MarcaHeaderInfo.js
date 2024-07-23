@@ -34,48 +34,54 @@ export default function MarcaHeaderInfo({ id }) {
   if (brandInfo) {
     return (
       <>
-        <div className="flex flex-col  md:flex-row justify-center gap-10 py-10">
-          <div className="flex relative h-44 w-44 ">
+        <div className="flex flex-col  md:flex-row justify-between gap-10 py-10 bg-patina-500 rounded-xl px-10 my-10 w-full">
+          <div className="flex relative   h-auto w-3/12">
             <Image
               src={brandInfo.profilePicture}
               alt={brandInfo.username}
               layout="fill"
               objectFit="cover"
-              className=" overflow-hidden   rounded-full"
+              className=" overflow-hidden   rounded-full "
             />
           </div>
-          <div id="infoMarca" className="flex flex-col justify-center pl-10 ">
-            <h2>{brandInfo.username}</h2>
-            <h3 className="pt-2">{brandInfo.slogan}</h3>
-            <p className="pt-6 w-2/3">{brandInfo.description}</p>
-            <div className=" flex justify-center gap-x-4 mb-5">
-              {redesSociales &&
-                redesSociales.map((red) => {
-                  if (red.platform === "facebook" && red.url != "") {
-                    return (
-                      <a key={red._id} href={red.url}>
-                        <FaFacebook className="w-10 h-11 rounded-custom2 text-facebook bg-white max-sm:w-auto" />
-                      </a>
-                    );
-                  }
-                  if (red.platform === "instagram" && red.url != "") {
-                    return (
-                      <a key={red._id} href={red.url}>
-                        <FaInstagramSquare className="w-10 h-11 rounded-custom2  bg-instagram-gradient  max-sm:w-auto" />
-                      </a>
-                    );
-                  }
-                  if (red.platform === "tiktok" && red.url != "") {
-                    return (
-                      <a key={red._id} href={red.url}>
-                        <AiFillTikTok className="w-10 h-11 rounded-custom2 text-black bg-tiktok-gradient max-sm:w-auto " />
-                      </a>
-                    );
-                  }
-                })}
+          <div className="flex flex-col items-center w-9/12">
+            <div
+              id="infoMarca"
+              className="flex flex-col items-center justify-center w-2/3 bg-patina-900 rounded-xl text-Eggshell"
+            >
+              <h2 className="text-4xl">{brandInfo.username}</h2>
+              <h3 className="pt-2">{brandInfo.slogan}</h3>
+              <div className=" flex justify-center gap-x-4 my-5 ">
+                {redesSociales &&
+                  redesSociales.map((red) => {
+                    if (red.platform === "facebook" && red.url != "") {
+                      return (
+                        <a key={red._id} href={red.url}>
+                          <FaFacebook className="w-10 h-11 rounded-custom2 text-facebook bg-white max-sm:w-auto" />
+                        </a>
+                      );
+                    }
+                    if (red.platform === "instagram" && red.url != "") {
+                      return (
+                        <a key={red._id} href={red.url}>
+                          <FaInstagramSquare className="w-10 h-11 rounded-custom2  bg-instagram-gradient  max-sm:w-auto" />
+                        </a>
+                      );
+                    }
+                    if (red.platform === "tiktok" && red.url != "") {
+                      return (
+                        <a key={red._id} href={red.url}>
+                          <AiFillTikTok className="w-10 h-11 rounded-custom2 text-black bg-tiktok-gradient max-sm:w-auto " />
+                        </a>
+                      );
+                    }
+                  })}
+              </div>
             </div>
+            <p className="pt-6 w-2/3 text-lg text-Eggshell">
+              {brandInfo.description}
+            </p>
           </div>
-          <SocialMedia />
         </div>
       </>
     );

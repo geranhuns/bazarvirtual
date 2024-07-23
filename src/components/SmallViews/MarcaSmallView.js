@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-export default function MarcaSmallView({ className, brand, id }) {
+export default function MarcaSmallView({ className, brand, id, createdBy }) {
   const router = useRouter();
   return (
     <div
       onClick={() => {
-        router.push(`/marcas/${id}`);
+        router.push(`/marcas/${createdBy._id}`);
       }}
       className={`flex gap-2 items-center ${className}`}
     >
@@ -19,7 +19,7 @@ export default function MarcaSmallView({ className, brand, id }) {
       />
       <div className="text-center text-xs w-24">
         {id && <h3>{id}</h3>}
-        {brand && <h3>{brand}</h3>}
+        <h3>{createdBy.username}</h3>
       </div>
     </div>
   );

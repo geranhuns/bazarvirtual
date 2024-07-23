@@ -2,7 +2,18 @@ import { usePathname } from "next/navigation";
 
 export default function BazarMediumView({ className, item }) {
   const pathname = usePathname();
-  const { image, time, date, username } = item;
+  const { createdBy, time, date, username } = item;
+
+  const obtenerFechaFormateada = (fechaCompleta) => {
+    // Extrae la parte de la fecha 'yyyy-MM-dd' de la cadena 'yyyy-MM-ddTHH:mm:ss.sssZ'
+    if (!fechaCompleta) return "";
+
+    const fecha = new Date(fechaCompleta);
+    const dia = fecha.getDate();
+    const mes = fecha.toLocaleString("es-ES", { month: "short" });
+
+    return `${dia}-${mes}`;
+  };
   return (
     <a
       href="promotorBazarView"
@@ -10,7 +21,7 @@ export default function BazarMediumView({ className, item }) {
     >
       <img
         className="rounded-full"
-        src={image}
+        src={createdBy.profilePicture}
         width="100px"
         heigth="100px"
         alt={username}
@@ -19,7 +30,7 @@ export default function BazarMediumView({ className, item }) {
         <h3>{username}</h3>
         {pathname === "/proximosBazares" && (
           <>
-            <h3 className="font-bold">{date}</h3>
+            <h3 className="font-bold">{obtenerFechaFormateada(date)}</h3>
             <h3 className="font-bold"> {time}</h3>
           </>
         )}

@@ -15,8 +15,8 @@ export default function ProductoDestacadoMarca({ id }) {
       const response = await fetch(
         `http://localhost:3001/products/brand/${id}`
       );
-
       const data = await response.json();
+      console.log(data);
       setBrandProducts(data.data);
       console.log(brandProducts);
       setLoading(false);

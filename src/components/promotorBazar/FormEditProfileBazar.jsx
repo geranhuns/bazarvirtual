@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import React  from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { dataUserBazarFetch } from "@/api/bazar/routes";
 import { updateProfileBazar } from "@/api/bazar/routes";
@@ -8,16 +8,16 @@ import { updateProfileBazar } from "@/api/bazar/routes";
 
 
 
-function FormEditProfileBazar({active, setActive, _idUser}){
+function FormEditProfileBazar({ active, setActive, _idUser }) {
 
-  const[dataUser, setDataUser] = useState({}) //almacena los datos del usuario al cargar el form
+  const [dataUser, setDataUser] = useState({}) //almacena los datos del usuario al cargar el form
   const [isLoading, setIsLoading] = useState(true); //verifica el status de carga de los datos del usuario
- 
+
   const redesSociales = dataUser.socialNetworks || []; //variable contenedora de las redes sociales del user
   const facebookObject = redesSociales.find(network => network.platform === 'facebook') || { platform: 'facebook', url: '' }; //variable que contiene la red social buscada en redesSociales, si no encuentra una crea un obj con la plataforma y la url  vacia
   const instagramObject = redesSociales.find(network => network.platform === 'instagram') || { platform: 'instagram', url: '' };
   const tiktokObject = redesSociales.find(network => network.platform === 'tiktok') || { platform: 'tiktok', url: '' };
- 
+
 
   const fetchData = async () => {  //funcion para traer los datos del usuario al state dataUser
     try {
@@ -36,51 +36,51 @@ function FormEditProfileBazar({active, setActive, _idUser}){
   useEffect(() => { //effect que se ejecuta cuando el componente se carga, poniendo en accion a la funcion fetch, basicamente cuando carga el componente se trae los datos del user
     fetchData();
     console.log("datos cargados")
-}, []);
+  }, []);
 
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm(); //React hook form
 
-  const onSubmit = async  (data) =>{ //funcion que se ejecuta al enviar el formulario
-    
+  const onSubmit = async (data) => { //funcion que se ejecuta al enviar el formulario
+
     console.log(`datos de entrada del formulario: ${data}`)
     const socialNetworks = [ //con los datos enviados se crea un array de objetos apartir de las redes sociales del form
       { platform: 'facebook', url: data.facebook },
       { platform: 'instagram', url: data.instagram },
       { platform: 'tiktok', url: data.tiktok }
     ];
-   
+
     const dataAdjust = {  //se crea un objeto con los datos del formulario para enviarlos a la peticion fetch para actualizar usuario
       username: data.username,
       wepPage: data.wepPage,
       socialNetworks,
-      _id:_idUser //este se pasara al fetch para hacer la update
+      _id: _idUser //este se pasara al fetch para hacer la update
     };
     console.log(dataAdjust);
 
-   try {
-    const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
-    console.log('Usuario actualizado con éxito:', updatedUser);
-    fetchData(); //cuando termina de actualizar se ejecuta de nuevo el fetch para traer los nuevos valores desde la db y actualizar el value por defecto de los inputs del formulario
-   
+    try {
+      const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
+      console.log('Usuario actualizado con éxito:', updatedUser);
+      fetchData(); //cuando termina de actualizar se ejecuta de nuevo el fetch para traer los nuevos valores desde la db y actualizar el value por defecto de los inputs del formulario
+
     } catch (error) {
       console.error('Error al actualizar el usuario:', error.message);
-      
+
     }
 
     reset();
   }
 
   if (isLoading) {
-   
+
     // return <div>Loading...</div>;
     //colocar alert
   }
 
-  
- 
 
-return(
+
+
+  return (
     <>
     <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh lg:max-w-screen-xl overflow-auto mx-auto backdrop-blur-md mt-16 px-1 ">    
     <button className="bg-raw-sienna-500 w-10 h-10 flex justify-center items-center rounded-2xl " onClick={() => setActive(!active)} >Cerrar</button>
@@ -137,7 +137,7 @@ return(
        </form>
     </div>
     </>
-)
+  )
 }
 
 export default FormEditProfileBazar;
