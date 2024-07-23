@@ -7,7 +7,6 @@ import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
 import { AiFillTikTok } from "react-icons/ai";
 import Image from "next/image";
 export default function MarcaHeaderInfo({ id }) {
-  console.log(id);
   const [brandInfo, setBrandInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [redesSociales, setRedesSociales] = useState(null);
@@ -34,20 +33,20 @@ export default function MarcaHeaderInfo({ id }) {
   if (brandInfo) {
     return (
       <>
-        <div className="flex flex-col  md:flex-row justify-between gap-10 py-10 bg-patina-500 rounded-xl px-10 my-10 w-full">
-          <div className="flex relative   h-auto w-3/12">
-            <Image
+        <div className="flex flex-col  md:flex-row   gap-10  md:px-10 py-10 bg-patina-500 rounded-xl lg:max-w-4xl  my-10 ">
+          <div className="flex items-center mx-auto w-11/12">
+            <img
               src={brandInfo.profilePicture}
               alt={brandInfo.username}
               layout="fill"
               objectFit="cover"
-              className=" overflow-hidden   rounded-full "
+              className=" overflow-hidden   rounded-full px-2 md:px-0"
             />
           </div>
-          <div className="flex flex-col items-center w-9/12">
+          <div className="flex flex-col items-center ">
             <div
               id="infoMarca"
-              className="flex flex-col items-center justify-center w-2/3 bg-patina-900 rounded-xl text-Eggshell"
+              className="flex flex-col items-center justify-center w-full bg-patina-900 md:rounded-xl text-Eggshell "
             >
               <h2 className="text-4xl">{brandInfo.username}</h2>
               <h3 className="pt-2">{brandInfo.slogan}</h3>
@@ -78,7 +77,7 @@ export default function MarcaHeaderInfo({ id }) {
                   })}
               </div>
             </div>
-            <p className="pt-6 w-2/3 text-lg text-Eggshell">
+            <p className="pt-6 text-lg text-Eggshell p-6">
               {brandInfo.description}
             </p>
           </div>

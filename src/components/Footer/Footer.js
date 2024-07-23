@@ -34,10 +34,10 @@ export default function Footer() {
           </div>
           <ul className="pt-8  flex justify-center gap-6 list-disc">
             <li>
-              <Link href="/">Aviso de privacidad</Link>
+              <Link href="/avisoDePrivacidad">Aviso de privacidad</Link>
             </li>
             <li>
-              <Link href="/">Términos y condiciones</Link>
+              <Link href="/terminosYCondiciones">Términos y condiciones</Link>
             </li>
           </ul>
         </div>

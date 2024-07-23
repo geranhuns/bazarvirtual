@@ -16,9 +16,7 @@ export default function ProductoDestacadoMarca({ id }) {
         `http://localhost:3001/products/brand/${id}`
       );
       const data = await response.json();
-      console.log(data);
       setBrandProducts(data.data);
-      console.log(brandProducts);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -26,7 +24,6 @@ export default function ProductoDestacadoMarca({ id }) {
   };
   useEffect(() => {
     getProducts();
-    console.log(brandProducts);
   }, []);
   if (loading) {
     return <div>Cargando...</div>;
