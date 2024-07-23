@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form"
 
 function InputNewEvent(props){
-    const{register, event1, description1, horarioEvent1} = props;
+    const{register, eventName, description, timeEvent} = props;
  
 
     return(
@@ -12,6 +12,7 @@ function InputNewEvent(props){
                 <div className="flex flex-col w-3/12 text-center ">
                     <label className="text-lg text-white">Evento</label>
                     <input className="p-1 rounded-xl text-center" 
+                    defaultValue={eventName? eventName : ''}
                      {...register("eventExtra")}
                      />
                    
@@ -21,6 +22,7 @@ function InputNewEvent(props){
                 <div className="flex flex-col w-5/12 text-center">
                     <label className="text-lg text-white">Descripcion</label>
                     <input className="p-1 rounded-xl text-center"
+                    defaultValue={description? description : ''}
                      {...register("descriptionExtraEvent")}
                       />
                 </div>
@@ -28,6 +30,7 @@ function InputNewEvent(props){
                 <div className="flex flex-col w-3/12 text-center">
                     <label className="text-lg text-white">Horario</label>
                     <input className="p-1 rounded-xl text-center" type="time" 
+                    defaultValue={timeEvent? timeEvent : ''}
                      {...register("timeEventExtra")}
                     />
                 </div>
