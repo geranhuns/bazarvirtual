@@ -73,7 +73,7 @@ function Header() {
               className="rounded-full p-2 bg-raw-sienna-200  "
               onClick={() => setDropdownActive(!dropdownActive)}
             >
-              <CgProfile className="w-full h-full bg-raw-sienna-200" />
+              <CgProfile className="w-full h-full bg-raw-sienna-200 text-raw-sienna-900" />
             </button>
           )}
         </div>

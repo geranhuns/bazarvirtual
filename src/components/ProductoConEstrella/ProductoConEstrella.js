@@ -18,7 +18,7 @@ const ProductoConEstrella = ({ imageUrl, altText }) => {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block w-80">
       <img src={imageUrl} alt={altText} className="w-full h-auto rounded-md" />
       <div className="cursor-pointer" onClick={handleClick}>
         {activeStar === false ? (
