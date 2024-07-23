@@ -5,10 +5,12 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { MdEdit } from "react-icons/md";
 import { jwtDecode } from "jwt-decode";
-
-export default function VistaMarca() {
+import Button from "@/components/Button/Button";
+import NewProductForm from "@/components/miCatalogo/NewProductForm";
+export default function miCatalogo() {
   const [token, setToken] = useState(null);
   const [decodedToken, setDecodedToken] = useState(null);
+  const [activeForm, setActiveForm] = useState(false);
 
   const params = useParams();
   const id = params.id;
@@ -62,27 +64,34 @@ export default function VistaMarca() {
   if (loading) {
     return <div>Cargando...</div>;
   }
-
+  const handleNewProduct = async () => {};
   return (
     <>
       <div className=" flex flex-col w-10/12 items-center  mx-auto  lg:max-w-7xl overflow-auto mb-28">
-        <MarcaHeaderInfo id={id} />
-        <div className="flex items-center justify-center">
-          <h3 className="text-3xl mr-4">Catálogo de productos</h3>
-          {decodedToken._id === id && (
-            <a href={`/miCatalogo/${id}`}>
-              <MdEdit className="text-lg" />
-            </a>
-          )}
-        </div>
-
+        <h3 className="text-3xl mr-4 pt-8">Editar catálogo de productos</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
-          {!brandProducts && <h3>Esta marca no tiene productos</h3>}
+          {!brandProducts && (
+            <>
+              <h3>Esta marca no tiene productos.</h3>
+              <h3>¡Crea tu primer producto ahora!</h3>
+            </>
+          )}
           {brandProducts &&
             brandProducts.map((product) => {
               return <ProductSmallView key={product._id} item={product} />;
             })}
         </div>
+        {!activeForm && (
+          <Button
+            variant={"yellow"}
+            text={"Agregar producto"}
+            onClick={() => {
+              setActiveForm(!activeForm);
+            }}
+            type={"button"}
+          />
+        )}
+        {activeForm && <NewProductForm token={token} id={id} />}
       </div>
     </>
   );
