@@ -190,7 +190,51 @@ export const updateProfileBazar = async (userdata, userId) => {
     }
   };
   
+  export const dateById = async (_idDate) => { //extrae fechas de los bazares segun el usuario(Bazar)
+    try {
+     
   
+      const response = await fetch(`${MONGO_URL}/dateById/${_idDate}`);
+  
+      if (!response.ok) {
+          throw new Error('Error al obtener datos del servidor');
+      }
+  
+      const data = await response.json();
+     
+      return data; 
+  
+  } catch (error) {
+      console.error('Error en dataUserBazarFetch:', error);
+      throw error; // Puedes propagar el error para manejarlo en el lugar donde se llama a esta función
+  }
+  }
+
+  export const updateDateFetch = async (dateID, data) => {
+    console.log(data)
+    try {
+        const response = await fetch(`${MONGO_URL}/updateDateBazar/${dateID}`, {
+            method: 'PUT', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al actualizar datos');      
+        }
+        const updatedData = await response.json(); 
+        Toast.fire({
+          icon: "success",
+          title: "Fecha actualizada."
+        });
+        // return updatedData; 
+    } catch (error) {
+        console.error('Error en la petición de actualización:', error);
+        throw error; 
+    }
+};
  
   
 
