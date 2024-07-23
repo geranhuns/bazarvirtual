@@ -194,7 +194,7 @@ function FormMarca({ marcaInfo }) {
 
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-center ">
         {previewImagen && (
           <div className="w-32 h-32 relative">
             <Image

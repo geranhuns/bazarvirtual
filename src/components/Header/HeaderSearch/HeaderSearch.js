@@ -4,33 +4,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { IoIosSearch } from "react-icons/io";
 
-const options = [
-  "Todo",
-  "Alimentos y Bebidas",
-  "Auto",
-  "Bebé",
-  "Belleza",
-  "Deportes y Aire Libre",
-  "Electrónicos",
-  "Hecho a mano",
-  "Herramientas y Mejoras del Hogar",
-  "Hogar y Cocina",
-  "Industria y Ciencia",
-  "Instrumentos Musicales",
-  "Jardín",
-  "Juegos y juguetes",
-  "Libros",
-  "Mascotas",
-  "Música",
-  "Oficina y Papelería",
-  "Otros productos",
-  "Películas y Series de TV",
-  "Ropa, Zapatos y Accesorios",
-  "Salud y Cuidado Personal",
-  "Software",
-  "Videojuegos",
-];
-
 export default function HeaderSearch() {
   const [categories, setCategories] = useState([]);
   const [searchCategory, setSearchCategory] = useState("Todo");

@@ -7,7 +7,6 @@ export default function DropdownMenu({ token, setDropdownActive, setToken }) {
 
   const router = useRouter();
   const [decodedToken, setDecodedToken] = useState(null);
-  console.log(token);
   const decodeToken = (token) => {
     try {
       return jwtDecode(token);

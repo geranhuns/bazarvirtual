@@ -1,4 +1,3 @@
-import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 export default function ProductSmallView({ item }) {
@@ -31,7 +30,7 @@ export default function ProductSmallView({ item }) {
       <Button
         text="Agregar al carrito"
         variant="yellow"
-        href=""
+        type="button"
         className={"text-sm h-7 mt-auto"}
         onClick={() => {
           // setCarrito(carrito.push("nuevoProductoId"));

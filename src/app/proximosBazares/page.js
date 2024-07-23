@@ -21,7 +21,13 @@ export default function ProximosBazares() {
           <h2 className="self-center pt-4 text-3xl">Próximas Fechas</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-14 py-5 ">
             {eventos.map((item) => {
-              return <BazarMediumView key={item._id} item={item} />;
+              return (
+                <BazarMediumView
+                  key={item._id}
+                  item={item}
+                  createdBy={item.createdBy}
+                />
+              );
             })}
           </div>
           <CreaTuBazarBanner />

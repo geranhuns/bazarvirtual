@@ -11,14 +11,12 @@ export default function vistaDetalladaProducto() {
   const [loading, setLoading] = useState(true);
   const params = useParams();
   const id = params.id;
-  console.log(id);
 
   const getProduct = async () => {
     try {
       const response = await fetch(`http://localhost:3001/products/${id}`);
       const data = await response.json();
       setProduct(data.data);
-      console.log(data.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -27,7 +25,6 @@ export default function vistaDetalladaProducto() {
   };
   useEffect(() => {
     getProduct();
-    console.log(product);
   }, []);
 
   // useEffect(() => {

@@ -33,7 +33,7 @@ export default function EditarMarcaPage() {
     return <div>Cargando...</div>;
   }
   return (
-    <div className="flex flex-col items-center h-screen lg:max-w-screen-xl mx-auto">
+    <div className="flex flex-col items-center h-screen lg:max-w-screen-xl mx-auto mb-28">
       <h1 className="text-3xl font-semibold text-center text-raw-sienna-500 p-5 ">
         Editar Marca
       </h1>

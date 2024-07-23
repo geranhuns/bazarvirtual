@@ -12,7 +12,6 @@ export default function VistaMarca() {
 
   const params = useParams();
   const id = params.id;
-  console.log(id);
 
   const [brandProducts, setBrandProducts] = useState();
   const [loading, setLoading] = useState(true);
@@ -51,9 +50,6 @@ export default function VistaMarca() {
     if (token) {
       const decoded = decodeToken(token);
       setDecodedToken(decoded);
-
-      console.log("Valores de token:", decoded);
-      console.log("Role del usuario:", decoded.role);
     }
   }, [token]);
   useEffect(() => {
