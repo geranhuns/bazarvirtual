@@ -9,6 +9,7 @@ import HeaderSearch from "./HeaderSearch/HeaderSearch";
 import HeaderLogo from "./HeaderLogo/HeaderLogo";
 import DropdownMenu from "./DropdownMenu/DropdownMenu";
 import HeaderLoginHamburguer from "./HeaderLoginHamburguer/HeaderLoginHamburguer";
+import LandingMenu from "./LandingMenu/LandingMenu";
 
 function Header() {
   const [token, setToken] = useState(null);
@@ -41,38 +42,20 @@ function Header() {
           <div className="lg:w-80">
             <HeaderLogo />
           </div>
-          {pathname === "/" && (
-            <div className="md:flex items-center cursor-pointer hidden">
-              <ul className="flex flex-row items-center mr-10 gap-4 text-base text-color-text">
-                <li
-                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                  onClick={() => handleScroll("section3")}
-                >
-                  Acerca de
-                </li>
-                <li
-                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                  onClick={() => handleScroll("section4")}
-                >
-                  Marcas
-                </li>
-                <li
-                  className="flex items-center justify-center  hover:bg-raw-sienna-200 h-10 w-24 rounded-xl hover:text-color-btnUnete "
-                  onClick={() => handleScroll("section2")}
-                >
-                  Bazares
-                </li>
-              </ul>
-            </div>
-          )}
+
           {pathname !== "/login" &&
             pathname !== "/register" &&
             pathname !== "/" && <HeaderSearch />}
           {pathname !== "/login" && pathname !== "/register" && !token && (
-            <div className="lg:w-80">
-              <HeaderLogin />
-              <HeaderLoginHamburguer />
-            </div>
+            <>
+              <div className="flex">
+                <LandingMenu />
+                <div className=" lg:w-80">
+                  <HeaderLogin />
+                  <HeaderLoginHamburguer />
+                </div>
+              </div>
+            </>
           )}
           {pathname !== "/login" && pathname !== "/register" && token && (
             <div className="lg:w-80 flex justify-end  ">
