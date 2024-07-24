@@ -18,15 +18,15 @@ export default function HeaderLoginHamburguer() {
   return (
     <>
       {isSmallScreen && (
-        <menu className="flex relative justify-end ">
+        <menu className="flex relative justify-end right-0">
           <button
-            className="rounded-full p-2   "
+            className="rounded-full p-2  mr-4"
             onClick={() => setHamburguerActive(!hamburguerActive)}
           >
             <IoMdMenu className="w-full h-full  text-raw-sienna-50 text-3xl " />
           </button>
           {hamburguerActive && (
-            <div className="bg-raw-sienna-400 w-44 px-2 py-2 ml-auto rounded-b-sm absolute top-14 ">
+            <div className="bg-raw-sienna-400 w-48 px-2 py-2 ml-auto rounded-b-sm absolute top-14 ">
               <ul>
                 <li className="cursor-pointer">
                   <a href="/login">Iniciar sesión</a>
