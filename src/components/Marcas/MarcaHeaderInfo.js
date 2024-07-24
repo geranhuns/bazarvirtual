@@ -34,7 +34,7 @@ export default function MarcaHeaderInfo({ id }) {
     return (
       <>
         <div className="flex flex-col  md:flex-row   gap-10  md:px-10 py-10 bg-patina-500 rounded-xl lg:max-w-4xl  my-10 ">
-          <div className="flex items-center mx-auto w-11/12">
+          <div className="flex items-center mx-auto ">
             <img
               src={brandInfo.profilePicture}
               alt={brandInfo.username}

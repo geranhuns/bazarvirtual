@@ -8,6 +8,7 @@ import HeaderLogin from "./HeaderLogin/HeaderLogin";
 import HeaderSearch from "./HeaderSearch/HeaderSearch";
 import HeaderLogo from "./HeaderLogo/HeaderLogo";
 import DropdownMenu from "./DropdownMenu/DropdownMenu";
+import HeaderLoginHamburguer from "./HeaderLoginHamburguer/HeaderLoginHamburguer";
 
 function Header() {
   const [token, setToken] = useState(null);
@@ -37,7 +38,9 @@ function Header() {
       {pathname != "/promotorBazarView" && ( */}
       <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50 ">
         <div className="h-full flex justify-between items-center mx-auto   lg:max-w-screen-xl  px-5 ">
-          <HeaderLogo />
+          <div className="lg:w-80">
+            <HeaderLogo />
+          </div>
           {pathname === "/" && (
             <div className="md:flex items-center cursor-pointer hidden">
               <ul className="flex flex-row items-center mr-10 gap-4 text-base text-color-text">
@@ -66,15 +69,20 @@ function Header() {
             pathname !== "/register" &&
             pathname !== "/" && <HeaderSearch />}
           {pathname !== "/login" && pathname !== "/register" && !token && (
-            <HeaderLogin />
+            <div className="lg:w-80">
+              <HeaderLogin />
+              <HeaderLoginHamburguer />
+            </div>
           )}
           {pathname !== "/login" && pathname !== "/register" && token && (
-            <button
-              className="rounded-full p-2 bg-raw-sienna-200  "
-              onClick={() => setDropdownActive(!dropdownActive)}
-            >
-              <CgProfile className="w-full h-full bg-raw-sienna-200 text-raw-sienna-900" />
-            </button>
+            <div className="lg:w-80 flex justify-end  ">
+              <button
+                className="rounded-full p-2 bg-raw-sienna-200  "
+                onClick={() => setDropdownActive(!dropdownActive)}
+              >
+                <CgProfile className="w-full h-full bg-raw-sienna-200 text-raw-sienna-900" />
+              </button>
+            </div>
           )}
         </div>
         {dropdownActive && (
