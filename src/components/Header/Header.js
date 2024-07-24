@@ -49,7 +49,7 @@ function Header() {
           {pathname !== "/login" && pathname !== "/register" && !token && (
             <>
               <div className="flex items-center gap-4">
-                <LandingMenu />
+                <LandingMenu handleScroll={handleScroll} />
                 <div className=" lg:w-80">
                   <HeaderLogin />
                   <HeaderLoginHamburguer />
@@ -58,7 +58,7 @@ function Header() {
             </>
           )}
           {pathname !== "/login" && pathname !== "/register" && token && (
-            <div className="lg:w-80 flex justify-end  ">
+            <div className="lg:w-80 w-40 flex justify-end  ">
               <button
                 className="rounded-full p-2 bg-raw-sienna-200  "
                 onClick={() => setDropdownActive(!dropdownActive)}
