@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-export default function LandingMenu() {
+export default function LandingMenu({ handleScroll }) {
   const pathname = usePathname();
 
   return (

@@ -49,7 +49,7 @@ function Header() {
           {pathname !== "/login" && pathname !== "/register" && !token && (
             <>
               <div className="flex items-center gap-4">
-                <LandingMenu />
+                <LandingMenu handleScroll={handleScroll} />
                 <div className=" lg:w-80">
                   <HeaderLogin />
                   <HeaderLoginHamburguer />
