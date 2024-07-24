@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef  } from "react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { dataUserBazarFetch } from "@/api/bazar/routes";
@@ -18,6 +18,11 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
   const instagramObject = redesSociales.find(network => network.platform === 'instagram') || { platform: 'instagram', url: '' };
   const tiktokObject = redesSociales.find(network => network.platform === 'tiktok') || { platform: 'tiktok', url: '' };
 
+  const fileInputRef = useRef(null);
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click(); // Simular clic en el input de tipo file
+  };
 
   const fetchData = async () => {  //funcion para traer los datos del usuario al state dataUser
     try {
@@ -88,8 +93,12 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-4 flex flex-col items-center max-md:w-10/12 max-sm:w-full"  >
             <div className=" w-11/12 h-full flex flex-col justify-start items-center max-sm:w-full">
                 <div className="  w-full h-2/6 p-15 flex items-center max-sm:rounded-lg">
-                  <div className="  w-auto h-5/6 mx-auto rounded-full  ">
+                  <div className="  w-auto h-5/6 mx-auto rounded-full relative  ">
                     <img className="w-full h-full rounded-full" src={dataUser.profilePicture} alt="" />
+                    <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                      <label className="text-white text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
+                      <input type="file" ref={fileInputRef} style={{ display: 'none' }}/>
+                    </div>
                   </div>
                 </div>
                 {/* <button className="bg-green-300 rounded-lg my-1">cambiar perfil</button> */}
