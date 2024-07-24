@@ -15,7 +15,11 @@ function CardSection4(props) {
               <li >{description1}</li>
               <li>{description2}</li>
             </ul>
-            <button className={`w-2/3 h-11 ${bgButton} text-xl rounded-2  xl font-semibold max-sm:text-sm max-sm:h-8 max-sm:w-10/12 max-sm:mt-1 ${hoverButton}`}>{textButton}</button>
+            <button className={`w-2/3 h-11 ${bgButton} text-xl rounded-2  xl font-semibold max-sm:text-sm max-sm:h-8 max-sm:w-10/12 max-sm:mt-1 ${hoverButton}`}>
+              <a href="/register">
+                {textButton}
+              </a>
+            </button>
           </div>
         </div>
       </div>
