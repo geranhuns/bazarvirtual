@@ -2,16 +2,24 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { MdEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { deleteProduct } from "@/api/marcas/routes";
 
 import NewProductForm from "../miCatalogo/NewProductForm";
 
-export default function ProductEdit({ item, setActiveForm, loadProducts }) {
+export default function ProductEdit({
+  item,
+  setActiveForm,
+  loadProducts,
+  handleDelete,
+}) {
   const router = useRouter();
   const [openProductEditor, setOpenProducteditor] = useState(false);
 
   const { productImage, title, price, description, category, _id } = item;
 
+  // const handleDelete = (_id) => {
+  //   deleteProduct(_id);
+  //   loadProducts();
+  // };
   return (
     <div className="flex flex-col  bg-raw-sienna-50   rounded-md w-full py-5 ">
       {!openProductEditor && (
@@ -53,10 +61,8 @@ export default function ProductEdit({ item, setActiveForm, loadProducts }) {
             />
             <RiDeleteBin6Line
               className={"text-xl h-7  self-start"}
-              loadProducts={loadProducts}
               onClick={() => {
-                deleteProduct(_id);
-                loadProducts();
+                handleDelete(_id);
               }}
             />
           </div>
