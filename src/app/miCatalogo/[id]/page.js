@@ -1,17 +1,20 @@
 "use client";
 import MarcaHeaderInfo from "@/components/Marcas/MarcaHeaderInfo";
-import ProductSmallView from "@/components/SmallViews/ProductSmallView";
+import ProductEdit from "@/components/ProductEdit/ProductEdit";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { MdEdit } from "react-icons/md";
 import { jwtDecode } from "jwt-decode";
-
-export default function VistaMarca() {
+import Button from "@/components/Button/Button";
+import NewProductForm from "@/components/miCatalogo/NewProductForm";
+export default function miCatalogo() {
   const [token, setToken] = useState(null);
   const [decodedToken, setDecodedToken] = useState(null);
+  const [activeForm, setActiveForm] = useState(false);
 
   const params = useParams();
   const id = params.id;
+  console.log(id);
 
   const [brandProducts, setBrandProducts] = useState();
   const [loading, setLoading] = useState(true);
@@ -38,6 +41,10 @@ export default function VistaMarca() {
       setLoading(false);
     }
   };
+  const loadProducts = () => {
+    getProducts();
+  };
+
   const decodeToken = (token) => {
     try {
       return jwtDecode(token);
@@ -50,6 +57,9 @@ export default function VistaMarca() {
     if (token) {
       const decoded = decodeToken(token);
       setDecodedToken(decoded);
+
+      console.log("Valores de token:", decoded);
+      console.log("Role del usuario:", decoded.role);
     }
   }, [token]);
   useEffect(() => {
@@ -58,27 +68,49 @@ export default function VistaMarca() {
   if (loading) {
     return <div>Cargando...</div>;
   }
-
+  const handleNewProduct = async () => {};
   return (
     <>
       <div className=" flex flex-col w-10/12 items-center  mx-auto  lg:max-w-7xl overflow-auto mb-28">
-        <MarcaHeaderInfo id={id} />
-        <div className="flex items-center justify-center">
-          <h3 className="text-3xl mr-4">Catálogo de productos</h3>
-          {decodedToken._id === id && (
-            <a href={`/miCatalogo/${id}`}>
-              <MdEdit className="text-lg" />
-            </a>
-          )}
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
-          {!brandProducts && <h3>Esta marca no tiene productos</h3>}
+        <h3 className="text-3xl mr-4 pt-8">Editar catálogo de productos</h3>
+        {!brandProducts && (
+          <>
+            <h3>Esta marca no tiene productos.</h3>
+            <h3>¡Crea tu primer producto ahora!</h3>
+          </>
+        )}
+        <div className="flex flex-col gap-4 py-5 w-full">
           {brandProducts &&
             brandProducts.map((product) => {
-              return <ProductSmallView key={product._id} item={product} />;
+              return (
+                <ProductEdit
+                  key={product._id}
+                  item={product}
+                  activeForm={activeForm}
+                  setActiveForm={setActiveForm}
+                  loadProducts={loadProducts}
+                />
+              );
             })}
         </div>
+        {!activeForm && (
+          <Button
+            variant={"yellow"}
+            text={"Agregar producto"}
+            onClick={() => {
+              setActiveForm(!activeForm);
+            }}
+            type={"button"}
+          />
+        )}
+        {activeForm && (
+          <NewProductForm
+            token={token}
+            id={id}
+            setActiveForm={setActiveForm}
+            loadProducts={loadProducts}
+          />
+        )}
       </div>
     </>
   );

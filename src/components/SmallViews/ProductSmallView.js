@@ -1,4 +1,3 @@
-import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 export default function ProductSmallView({ item }) {
@@ -18,20 +17,22 @@ export default function ProductSmallView({ item }) {
         className="flex flex-col items-center cursor-pointer"
         // href={`products/${_id}`}
       >
-        <img
-          className="rounded-lg"
-          src={productImage}
-          width="100px"
-          height="100px"
-          alt={title}
-        />
+        <div className="w-24 h-24 overflow-hidden rounded-lg">
+          <img
+            className=" object-contain "
+            src={productImage}
+            width="100px"
+            height="100px"
+            alt={title}
+          />
+        </div>
         <h3 className="pt-4  text-sm line-clamp -1 ">{title}</h3>
         <h3 className="pt-1">${price}</h3>
       </div>
       <Button
         text="Agregar al carrito"
         variant="yellow"
-        href=""
+        type="button"
         className={"text-sm h-7 mt-auto"}
         onClick={() => {
           // setCarrito(carrito.push("nuevoProductoId"));

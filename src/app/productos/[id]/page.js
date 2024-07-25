@@ -11,14 +11,12 @@ export default function vistaDetalladaProducto() {
   const [loading, setLoading] = useState(true);
   const params = useParams();
   const id = params.id;
-  console.log(id);
 
   const getProduct = async () => {
     try {
       const response = await fetch(`http://localhost:3001/products/${id}`);
       const data = await response.json();
       setProduct(data.data);
-      console.log(data.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -27,7 +25,6 @@ export default function vistaDetalladaProducto() {
   };
   useEffect(() => {
     getProduct();
-    console.log(product);
   }, []);
 
   // useEffect(() => {
@@ -48,7 +45,7 @@ export default function vistaDetalladaProducto() {
     <>
       <div className="flex  items-center lg:max-w-screen-xl mx-auto overflow-auto ">
         <div className=" flex flex-col md:flex-row ">
-          <div className="flex flex-col justify-center w-full md:w-7/12 md:justify-center md:inline-block relative p-6 md:pl-10 pt-10 pb-2 md:pb-8 ">
+          <div className="flex flex-col justify-center w-full md:w-7/12 items-center md:inline-block relative p-6 md:pl-10 pt-10 pb-2 md:pb-8 ">
             <ProductoConEstrella
               imageUrl={product.productImage}
               altText={product.text}
@@ -72,11 +69,13 @@ export default function vistaDetalladaProducto() {
             </div>
           </div>
           <div className="  md:pt-10 pr-10  w-full pl-6">
-            <h3>{product.title}</h3>
+            <h3 className=" text-2xl">{product.title}</h3>
             <MarcaSmallView className="pt-4" createdBy={product.createdBy} />
-            <h4 className="text-xl py-4 md:py-8">{`$${product.price}`}</h4>
+            <h4 className="text-2xl py-4 md:py-8">{`$${product.price}`}</h4>
             <h4 className="italic"> Acerca de este artículo</h4>
-            <p className="  pt-2 text-justify pb-10">{product.description}</p>
+            <p className="  pt-2 text-justify pb-10 text-xl">
+              {product.description}
+            </p>
           </div>
         </div>
       </div>

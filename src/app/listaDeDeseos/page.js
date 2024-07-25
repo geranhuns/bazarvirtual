@@ -53,7 +53,7 @@ export default function CarritoDeCompras() {
   return (
     <div className="flex flex-col  md:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto">
       <div className=" flex flex-col pt-4 md:pt-10 pb-8 px-4 mx-auto">
-        <h3 className="text-lg">Lista de Deseos</h3>
+        <h3 className="text-2xl">Lista de Deseos</h3>
         <p className="pb-4 md:pb-8">
           Consulta la página de detalle del producto para ver otras opciones de
           compra.
