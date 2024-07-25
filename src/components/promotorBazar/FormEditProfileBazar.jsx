@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef  } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { dataUserBazarFetch } from "@/api/bazar/routes";
@@ -18,7 +18,7 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
   const instagramObject = redesSociales.find(network => network.platform === 'instagram') || { platform: 'instagram', url: '' };
   const tiktokObject = redesSociales.find(network => network.platform === 'tiktok') || { platform: 'tiktok', url: '' };
 
-  const fileInputRef = useRef(null);
+  // const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
     fileInputRef.current.click(); // Simular clic en el input de tipo file
@@ -97,7 +97,7 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
                     <img className="w-full h-full rounded-full" src={dataUser.profilePicture} alt="" />
                     <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
                       <label className="text-white text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
-                      <input type="file" ref={fileInputRef} style={{ display: 'none' }}/>
+                      {/* <input type="file" ref={fileInputRef} style={{ display: 'none' }}/> */}
                     </div>
                   </div>
                 </div>
