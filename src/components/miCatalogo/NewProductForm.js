@@ -14,7 +14,7 @@ export default function NewProductForm({
   item,
   loadProducts,
 }) {
-  const [previewImagen, setPreviewImagen] = useState(item?  .productImage || "");
+  const [previewImagen, setPreviewImagen] = useState("");
 
   const categories = [
     "Alimentos y Bebidas",
@@ -42,27 +42,21 @@ export default function NewProductForm({
     "Videojuegos",
   ];
 
-  const decodeToken = (token) => {
-    try {
-      return jwtDecode(token);
-    } catch (error) {
-      console.error("Error decoding token:", error);
-      return null;
-    }
-  };
-
   const handleImagen = (e) => {
+    console.log(e.target.files[0]);
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImagen(reader.result);
-        setValue("productImage", reader.result);
       };
       reader.readAsDataURL(file);
+      handleSetValue(reader);
     }
   };
-
+  const handleSetValue = (file) => {
+    setValue("productImage", file);
+  };
   const defaultValues = {
     productImage: item?.productImage || previewImagen,
     createdBy: id,
@@ -71,7 +65,6 @@ export default function NewProductForm({
     title: item?.title || "",
     category: item?.category || "",
   };
-
   const form = useForm({
     defaultValues: defaultValues,
   });
@@ -82,21 +75,23 @@ export default function NewProductForm({
     setValue,
     formState: { errors },
     reset,
-  } = form; // React hook form
+  } = form; //React hook form
 
-  
   useEffect(() => {
+    setPreviewImagen(
+      "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg"
+    );
+    setValue(
+      "productImage",
+      "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg"
+    );
     if (item) {
       setPreviewImagen(item.productImage);
       reset(defaultValues); // Reset the form with the new item values
-    } else {
-      setPreviewImagen(
-        "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg"
-      );
     }
   }, [item, reset]);
-
   const onSubmit = async (data) => {
+    console.log(data);
     const dataAdjust = {
       productImage: data.productImage,
       createdBy: id,
@@ -122,16 +117,15 @@ export default function NewProductForm({
     if (setOpenProducteditor) setOpenProducteditor(false);
     loadProducts();
   };
-
   return (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-col items-center justify-center bg-raw-sienna-50"
+        className="w-full flex flex-col items-center justify-center"
       >
-        <div className="w-full flex py-8 px-6">
+        <div className="w-full flex  bg-raw-sienna-50 py-8 px-6">
           <div className="w-12/12">
-            <div className="flex justify-center pb-3 ">
+            <div className="flex justify-center pb-3">
               {previewImagen && (
                 <div className="w-32 h-32 relative">
                   <Image
@@ -139,7 +133,7 @@ export default function NewProductForm({
                     alt="Previsualización de la imagen"
                     layout="fill"
                     objectFit="cover"
-                    className="overflow-hidden border rounded-lg"
+                    className=" overflow-hidden border  rounded-full"
                   />
                 </div>
               )}
@@ -155,25 +149,25 @@ export default function NewProductForm({
                 name="productImage"
                 className="border border-raw-sienna-300 p-4"
                 onChange={handleImagen}
+                // {...register("productImage")}
               />
             </div>
           </div>
-          <div className="w-full flex flex-row items-center py-5 lg:max-w-screen-lg">
-            <div className="flex flex-col w-full items-start pl-6">
+          <div className="w-full flex flex-row items-center    py-5 pr-4 lg:max-w-screen-lg">
+            <div className=" flex flex-col w-full items-start px-4">
               <label
-                className="text-xl text-right lg:max-w-screen-lg"
+                className="text-xl  text-right  lg:max-w-screen-lg  "
                 htmlFor="title"
               >
                 Nombre del Producto:
               </label>
               <input
-                required
-                className="p-1 rounded-sm w-11/12"
-                type="text"
+                className=" p-1 rounded-sm  w-11/12 "
+                type="string"
                 {...register("title")}
-              />
+              />{" "}
               <label
-                className="text-xl text-right lg:max-w-screen-lg"
+                className="text-xl  text-right pr-4 lg:max-w-screen-lg  "
                 htmlFor="category"
               >
                 Categoría:
@@ -191,7 +185,7 @@ export default function NewProductForm({
                 ))}
               </select>
               <label
-                className="text-xl text-right pr-4 lg:max-w-screen-lg"
+                className="text-xl  text-right pr-4 lg:max-w-screen-lg  "
                 htmlFor="price"
               >
                 Precio:
@@ -207,7 +201,7 @@ export default function NewProductForm({
             </div>
             <div className="h-full">
               <label
-                className="text-xl text-right pr-4 lg:max-w-screen-lg"
+                className="text-xl  text-right pr-4 lg:max-w-screen-lg  "
                 htmlFor="description"
               >
                 Descripción:
@@ -250,7 +244,7 @@ export default function NewProductForm({
               }}
             />
           )}
-        </div>
+        </div>{" "}
       </form>
       <DevTool control={control} />
     </>
