@@ -16,7 +16,7 @@ export default function BazarMediumView({ className, item, createdBy }) {
   };
   return (
     <a
-      href={`bazares/${_id}`}
+      href={`bazares/${createdBy._id}`}
       className={`flex flex-col bg-raw-sienna-200 py-4 rounded-lg gap-2 items-center cursor-pointer w-36 md:w-40 lg:w-48  ${className}`}
     >
       <div className="w-24 h-24 overflow-hidden rounded-full">
