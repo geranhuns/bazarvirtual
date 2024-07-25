@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { dataUserBazarFetch } from "@/api/bazar/routes";
 import { updateProfileBazar } from "@/api/bazar/routes";
-
+import { useParams } from "next/navigation";
 
 
 
@@ -17,8 +17,10 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
   const facebookObject = redesSociales.find(network => network.platform === 'facebook') || { platform: 'facebook', url: '' }; //variable que contiene la red social buscada en redesSociales, si no encuentra una crea un obj con la plataforma y la url  vacia
   const instagramObject = redesSociales.find(network => network.platform === 'instagram') || { platform: 'instagram', url: '' };
   const tiktokObject = redesSociales.find(network => network.platform === 'tiktok') || { platform: 'tiktok', url: '' };
-
   const fileInputRef = useRef(null);
+
+  const params = useParams();
+  const id = params.id;
 
   const handleButtonClick = () => {
     fileInputRef.current.click(); // Simular clic en el input de tipo file
@@ -26,10 +28,10 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
 
   const fetchData = async () => {  //funcion para traer los datos del usuario al state dataUser
     try {
-      const userData = await dataUserBazarFetch();
+      const userData = await dataUserBazarFetch(id);
+      console.log(userData);
       setDataUser(userData.data);
       reset(userData.data);
-      console.log(userData);
     } catch (error) {
       console.error('Error al obtener datos del usuario:', error);
     } finally {
