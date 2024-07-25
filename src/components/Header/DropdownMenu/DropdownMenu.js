@@ -60,8 +60,9 @@ export default function DropdownMenu({ token, setDropdownActive, setToken }) {
           <a
             onClick={() => {
               if (decodedToken && decodedToken.role === "bazar") {
+                router.push(`/bazares/${decodedToken._id}`);
                 setActive(!active);
-                setDropdownActive(false);
+                // setDropdownActive(false);
               }
               if (decodedToken && decodedToken.role === "marca") {
                 router.push(`/editarPerfilMarca/${decodedToken._id}`);

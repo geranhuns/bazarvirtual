@@ -2,8 +2,7 @@ import { usePathname } from "next/navigation";
 
 export default function BazarMediumView({ className, item, createdBy }) {
   const pathname = usePathname();
-  const { profilePicture, time, date, username } = item;
-  console.log(item);
+  const { profilePicture, time, date, username, _id } = item;
 
   const obtenerFechaFormateada = (fechaCompleta) => {
     // Extrae la parte de la fecha 'yyyy-MM-dd' de la cadena 'yyyy-MM-ddTHH:mm:ss.sssZ'
@@ -17,12 +16,12 @@ export default function BazarMediumView({ className, item, createdBy }) {
   };
   return (
     <a
-      href="promotorBazarView"
+      href={`bazares/${_id}`}
       className={`flex flex-col bg-raw-sienna-200 py-4 rounded-lg gap-2 items-center cursor-pointer w-36 md:w-40 lg:w-48  ${className}`}
     >
       <img
         className="rounded-full"
-        src={profilePicture || createdBy.profilePicture}
+        src={createdBy?.profilePicture || item.profilePicture}
         width="100px"
         heigth="100px"
         alt={username}
