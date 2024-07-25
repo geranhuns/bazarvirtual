@@ -87,9 +87,9 @@ function PromotorVistaId() {
       )}
 
       <div className="bg-raw-sienna-500  w-10/12 flex  items-center justify-around  p-10 mx-auto max-md:flex-col max-sm:w-11/12 my-10 rounded-xl">
-        <div className=" w-4/12 mb-1 h-full flex justify-center   max-md:w-5/12 max-sm:w-6/12 ">
+        <div className=" w-72 rounded-full mb-1 h-72 flex justify-center    ">
           <img
-            className=" rounded-custom2 w-full h-full"
+            className=" object-cover rounded-full"
             src={dataUser.profilePicture}
             alt=""
           />

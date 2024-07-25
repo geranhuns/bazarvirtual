@@ -7,19 +7,29 @@ export default function MarcaSmallView({
   id,
   createdBy,
   profilePicture,
+  brandId,
+  logo,
 }) {
+  console.log(createdBy);
   const router = useRouter();
   return (
     <div
       onClick={() => {
-        router.push(`/marcas/${createdBy._id}`);
+        {
+          if (brandId) {
+            router.push(`/marcas/${brandId}`);
+          }
+          if (createdBy) {
+            router.push(`/marcas/${createdBy._id}`);
+          }
+        }
       }}
       className={`flex gap-2 items-center ${className}`}
     >
       <div className="w-12 h-12 overflow-hidden rounded-full">
         <img
           className="object-contain h-full"
-          src={profilePicture}
+          src={logo}
           width="50px"
           heigth="50px"
           alt="logo"

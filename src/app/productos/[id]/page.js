@@ -9,6 +9,7 @@ export default function vistaDetalladaProducto() {
   // const [carrito, setCarrito] = useState([]);
   const [product, setProduct] = useState();
   const [loading, setLoading] = useState(true);
+  const [logo, setLogo] = useState("");
   const params = useParams();
   const id = params.id;
 
@@ -17,6 +18,8 @@ export default function vistaDetalladaProducto() {
       const response = await fetch(`http://localhost:3001/products/${id}`);
       const data = await response.json();
       setProduct(data.data);
+      setLogo(data.data.createdBy.profilePicture);
+
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -70,7 +73,11 @@ export default function vistaDetalladaProducto() {
           </div>
           <div className="  md:pt-10 pr-10  w-full pl-6">
             <h3 className=" text-2xl">{product.title}</h3>
-            <MarcaSmallView className="pt-4" createdBy={product.createdBy} />
+            <MarcaSmallView
+              className="pt-4 cursor-pointer underline "
+              createdBy={product.createdBy}
+              logo={logo}
+            />
             <h4 className="text-2xl py-4 md:py-8">{`$${product.price}`}</h4>
             <h4 className="italic"> Acerca de este artículo</h4>
             <p className="  pt-2 text-justify pb-10 text-xl">
