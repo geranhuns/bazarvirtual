@@ -56,7 +56,14 @@ export default function Marcas() {
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 py-5 w-full">
               {marcas.map((marca) => {
                 const marcaId = marca._id;
-                return <ProductoDestacadoMarca key={marcaId} id={marcaId} />;
+                return (
+                  <ProductoDestacadoMarca
+                    key={marcaId}
+                    id={marcaId}
+                    profilePicture={marca.profilePicture}
+                    brand={marca.username}
+                  />
+                );
               })}
             </div>
           </div>

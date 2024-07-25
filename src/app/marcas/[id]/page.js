@@ -50,6 +50,7 @@ export default function VistaMarca() {
     if (token) {
       const decoded = decodeToken(token);
       setDecodedToken(decoded);
+      console.log(decoded);
     }
   }, [token]);
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function VistaMarca() {
         <MarcaHeaderInfo id={id} />
         <div className="flex items-center justify-center">
           <h3 className="text-3xl mr-4">Catálogo de productos</h3>
-          {decodedToken._id === id && (
+          {decodedToken?._id === id && (
             <a href={`/miCatalogo/${id}`}>
               <MdEdit className="text-lg" />
             </a>

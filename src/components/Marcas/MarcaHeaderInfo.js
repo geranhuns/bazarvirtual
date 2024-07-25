@@ -34,13 +34,11 @@ export default function MarcaHeaderInfo({ id }) {
     return (
       <>
         <div className="flex flex-col  md:flex-row   gap-10  md:px-10 py-10 bg-patina-500 rounded-xl lg:max-w-4xl  my-10 ">
-          <div className="flex items-center mx-auto ">
+          <div className="flex items-center mx-auto w-72 h-72 overflow-hidden rounded-full">
             <img
               src={brandInfo.profilePicture}
               alt={brandInfo.username}
-              layout="fill"
-              objectFit="cover"
-              className=" overflow-hidden   rounded-full px-2 md:px-0"
+              className=" object-none h-full "
             />
           </div>
           <div className="flex flex-col items-center ">

@@ -49,13 +49,8 @@ function PromotorVistaId() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (!token) {
-      router.push("/login");
-    } else {
-      fetchData();
-      fetchDataDates();
-    }
+    fetchData();
+    fetchDataDates();
   }, []);
 
   useEffect(() => {

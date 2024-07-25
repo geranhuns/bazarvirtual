@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import MarcaSmallView from "./MarcaSmallView";
 import Link from "next/link";
-export default function ProductoDestacadoMarca({ id }) {
+export default function ProductoDestacadoMarca({ id, profilePicture, brand }) {
   const router = useRouter();
 
   const [brandProducts, setBrandProducts] = useState();
@@ -40,7 +40,12 @@ export default function ProductoDestacadoMarca({ id }) {
         className="flex flex-col gap-4 items-center cursor-pointer w-full"
         href={`/marcas/${id}`}
       >
-        <MarcaSmallView className={" flex-col"} brandId={id} />
+        <MarcaSmallView
+          className={" flex-col"}
+          brandId={id}
+          profilePicture={profilePicture}
+          brand={brand}
+        />
         <div className="grid grid-cols-2 md:w-full ">
           {brandProducts &&
             brandProducts.slice(0, 4).map((product) => {
