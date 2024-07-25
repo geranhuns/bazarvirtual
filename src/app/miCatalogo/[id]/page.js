@@ -82,6 +82,7 @@ export default function miCatalogo() {
         <div className="flex flex-col gap-4 py-5 w-full">
           {brandProducts &&
             brandProducts.map((product) => {
+              console.log(product);
               return (
                 <ProductEdit
                   key={product._id}
