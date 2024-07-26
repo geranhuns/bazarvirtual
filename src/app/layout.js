@@ -6,8 +6,7 @@ import Header from "@/components/Header/Header";
 import { HeaderProvider } from "@/components/HContext/HeaderContext"; //para acceder a contextos globales, en este caso acceder desde otra pagina a un state
 // import { CartProvider } from "@/components/CartContext/CartContext";
 import { UserProvider } from "@/components/UserContext/UserContext";
-import SuspenseBoundary from "@/components/SuspenseBoundary"; // Ajusta la ruta según tu estructura de carpetas
-import BusquedaProductos from "@/components/BusquedaProductos";
+import SuspenseBoundary from "../components/SuspenseBoundary/SuspenseBounday"; // Ajusta la ruta según tu estructura de carpetas
 
 import "@/app/globals.css";
 
@@ -20,17 +19,13 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body className="inter-class">
         <UserProvider>
-          <SuspenseBoundary>
-            {/* <CartProvider> */}
-            <HeaderProvider>
-              <Header />
-              <main className="flex flex-col h-full min-h-screen">
-                {children}
-              </main>
-              <Footer />
-            </HeaderProvider>
-            {/* </CartProvider> */}
-          </SuspenseBoundary>
+          <HeaderProvider>
+            <Header />
+            <main className="flex flex-col h-full min-h-screen">
+              <SuspenseBoundary>{children}</SuspenseBoundary>
+            </main>
+            <Footer />
+          </HeaderProvider>
         </UserProvider>
       </body>
     </html>
