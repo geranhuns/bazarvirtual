@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function registerForm({ dataRegister, role }) {
+export default function RegisterForm({ dataRegister, role }) {
   const {
     register,
     handleSubmit,

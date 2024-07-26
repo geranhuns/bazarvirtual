@@ -7,7 +7,7 @@ import { registerUserFetch } from "@/api/users/routes";
 import { registerMarcaFetch } from "@/api/marcas/routes";
 import Swal from "sweetalert2";
 
-export default function page() {
+export default function Register() {
   const [option, setOption] = useState("quieroComprar");
   const [stateForm, setStateForm] = useState(""); //agregado
   const [role, setRole] = useState("");

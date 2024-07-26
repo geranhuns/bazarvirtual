@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import HeaderBazar from "../promotorBazar/headerBazar";
+import HeaderBazar from "../promotorBazar/HeaderBazar";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import HeaderLogin from "./HeaderLogin/HeaderLogin";

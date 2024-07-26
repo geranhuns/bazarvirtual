@@ -6,7 +6,7 @@ import {
   useUserContext,
 } from "@/components/UserContext/UserContext";
 import { fetchWishList } from "@/api/users/routes";
-export default function CarritoDeCompras() {
+export default function ListaDeDeseos() {
   const carritoExample = [
     {
       id: 1,

@@ -13,7 +13,7 @@ import {
 } from "@/components/UserContext/UserContext";
 import { updateWishList, updateShoppingCart } from "@/api/users/routes";
 
-export default function vistaDetalladaProducto() {
+export default function VistaDetalladaProducto() {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [wishList, setWishList] = useState([]);
 

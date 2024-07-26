@@ -1,5 +1,5 @@
 "use client";
-import BazarMediumView from "@/components/bazares/bazaresMediumVie";
+import BazarMediumView from "@/components/bazares/BazaresMediumVie";
 import CreaTuBazarBanner from "@/components/CreaTuBazarBanner/CreaTuBazarBanner";
 import { useEffect, useState } from "react";
 
