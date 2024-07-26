@@ -89,7 +89,6 @@ export const updateWishList = async (userId, newWishListProduct) => {
     }
 
     const user = await userResponse.json();
-    console.log(user);
     const currentWishList = user.data.wishList || [];
 
     // Paso 2: Verificar si el producto ya está en la lista
@@ -99,6 +98,12 @@ export const updateWishList = async (userId, newWishListProduct) => {
 
     if (productExists) {
       console.log("El producto ya está en la lista de deseos.");
+      Swal.fire({
+        icon: "success",
+        title: "El producto ya está en lista de deseos",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       return;
     }
 
@@ -123,13 +128,17 @@ export const updateWishList = async (userId, newWishListProduct) => {
 
     const data = await response.json();
     console.log("wishList actualizado:", data);
+    Swal.fire({
+      icon: "success",
+      title: "Producto agregado a lista de deseos",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   } catch (error) {
     console.error("Error al actualizar el wishList:", error);
   }
 };
 export const updateShoppingCart = async (userId, newShoppingCartProduct) => {
-  console.log(userId);
-  console.log(newShoppingCartProduct);
   const newProductToShoppingCart = {
     quantity: 1,
     productId: newShoppingCartProduct,
@@ -152,6 +161,12 @@ export const updateShoppingCart = async (userId, newShoppingCartProduct) => {
 
     if (productExists) {
       console.log("El producto ya está en el carrito de compras.");
+      Swal.fire({
+        icon: "success",
+        title: "El producto ya está en el carrito",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       return;
     }
 
@@ -179,6 +194,12 @@ export const updateShoppingCart = async (userId, newShoppingCartProduct) => {
 
     const data = await response.json();
     console.log("shoppingCart actualizado:", data);
+    Swal.fire({
+      icon: "success",
+      title: "Producto agregado al carrito",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   } catch (error) {
     console.error("Error al actualizar el shoppingCart:", error);
   }

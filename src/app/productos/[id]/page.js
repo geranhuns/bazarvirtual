@@ -1,5 +1,7 @@
 "use client";
 import ProductoConEstrella from "@/components/ProductoConEstrella/ProductoConEstrella";
+import Swal from "sweetalert2";
+
 import MarcaSmallView from "@/components/SmallViews/MarcaSmallView";
 import Button from "@/components/Button/Button";
 import { useState, useEffect, useContext } from "react";
@@ -34,9 +36,18 @@ export default function vistaDetalladaProducto() {
 
     try {
       await updateWishList(user.id, newWishList);
-      console.log("Product added to wishList");
+      Swal.fire({
+        icon: "success",
+        title: "Producto agregado a la lista de deseos",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
-      console.error("Failed to update wishList:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error al agregar a la lista de deseos",
+        text: error.message,
+      });
     }
   };
   const addToShoppingCart = async () => {
@@ -49,10 +60,23 @@ export default function vistaDetalladaProducto() {
     setShoppingCart(newShoppingCart);
 
     try {
-      await updateShoppingCart(user.id, newShoppingCart);
-      console.log("Product added to shoppingCart");
+      // Tu lógica para agregar el producto al carrito
+      const response = await updateShoppingCart(user.id, newShoppingCart);
+
+      // Si la actualización del carrito es exitosa
+      Swal.fire({
+        icon: "success",
+        title: "Producto agregado al carrito",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
-      console.error("Failed to update shoppingCart:", error);
+      console.error("Error al agregar el producto al carrito:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error al agregar al carrito",
+        text: error.message,
+      });
     }
   };
 
@@ -134,7 +158,7 @@ export default function vistaDetalladaProducto() {
             <MarcaSmallView
               className="pt-4 cursor-pointer underline "
               createdBy={product.createdBy}
-              logo={logo}
+              profilePicture={logo}
             />
             <h4 className="text-2xl py-4 md:py-8">{`$${product.price}`}</h4>
             <h4 className="italic"> Acerca de este artículo</h4>
