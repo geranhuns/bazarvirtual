@@ -3,8 +3,8 @@ import Dropdown from "../Dropdown/Dropdown";
 import MarcaSmallView from "../SmallViews/MarcaSmallView";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-export default function ShoppingCartItem({ item }) {
-  const { title, image, price, brand } = item;
+export default function ShoppingCartItem({ item, quantity }) {
+  const { title, productImage, price, createdBy } = item;
   const pathname = usePathname();
 
   const [carrito, setCarrito] = useState([]);
@@ -19,21 +19,30 @@ export default function ShoppingCartItem({ item }) {
   return (
     <>
       <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 lg:max-w-screen-lg">
-        <img
-          className="rounded-sm"
-          src={image}
-          width="100px"
-          heigth="100px"
-          alt="producto"
-        />
+        <div className="w-36 h-36 overflow-hidden flex justify-center items-center rounded-lg">
+          <img
+            className="w-full h-full object-cover"
+            src={productImage}
+            width="100px"
+            heigth="100px"
+            alt="producto"
+          />
+        </div>
 
         <div className="pl-10 flex flex-col w-full ">
           <h3 className="  text-lg ">{title}</h3>
-          <MarcaSmallView brand={brand} />
+          <MarcaSmallView
+            brand={createdBy.username}
+            profilePicture={createdBy.profilePicture}
+          />
           <div className="flex flex-col md:flex-row pt-2">
             <div className="flex items-center mb-4 md:mb-0">
               <h4>Cantidad</h4>
-              <Dropdown className="rounded-md" options={[1, 2, 3, 4, 5, 6]} />
+              <Dropdown
+                className="rounded-md"
+                options={[1, 2, 3, 4, 5, 6]}
+                quantity={quantity}
+              />
             </div>
             {pathname !== "/carritoDeCompras" ? (
               <p className="flex gap-3">

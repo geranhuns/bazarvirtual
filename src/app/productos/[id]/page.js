@@ -1,17 +1,96 @@
 "use client";
 import ProductoConEstrella from "@/components/ProductoConEstrella/ProductoConEstrella";
+import Swal from "sweetalert2";
+
 import MarcaSmallView from "@/components/SmallViews/MarcaSmallView";
 import Button from "@/components/Button/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
+import {
+  UserContext,
+  useUserContext,
+} from "@/components/UserContext/UserContext";
+import { updateWishList, updateShoppingCart } from "@/api/users/routes";
+
 export default function vistaDetalladaProducto() {
-  // const [carrito, setCarrito] = useState([]);
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const [wishList, setWishList] = useState([]);
+
   const [product, setProduct] = useState();
   const [loading, setLoading] = useState(true);
   const [logo, setLogo] = useState("");
   const params = useParams();
   const id = params.id;
+
+  const { user, setUser } = useUserContext();
+
+  const addToWishList = async () => {
+    if (!user.id) {
+      console.log("No user logged in");
+      return;
+    }
+
+    const newWishList = [...wishList, id];
+    setWishList(newWishList);
+
+    try {
+      await updateWishList(user.id, newWishList);
+      Swal.fire({
+        icon: "success",
+        title: "Producto agregado a la lista de deseos",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error al agregar a la lista de deseos",
+        text: error.message,
+      });
+    }
+  };
+  const addToShoppingCart = async () => {
+    if (!user.id) {
+      console.log("No user logged in");
+      return;
+    }
+
+    const newShoppingCart = [...shoppingCart, id];
+    setShoppingCart(newShoppingCart);
+
+    try {
+      // Tu lógica para agregar el producto al carrito
+      const response = await updateShoppingCart(user.id, newShoppingCart);
+
+      // Si la actualización del carrito es exitosa
+      Swal.fire({
+        icon: "success",
+        title: "Producto agregado al carrito",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("Error al agregar el producto al carrito:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error al agregar al carrito",
+        text: error.message,
+      });
+    }
+  };
+
+  const handleAddToShoppingCart = async () => {
+    if (user.id && id) {
+      await updateShoppingCart(user.id, id);
+    } else {
+      console.error("ID de usuario o producto no disponible");
+    }
+  };
+
+  useEffect(() => {
+    console.log("User from context:", user); // Verifica si el valor del usuario se obtiene correctamente
+  }, [user]);
 
   const getProduct = async () => {
     try {
@@ -28,6 +107,10 @@ export default function vistaDetalladaProducto() {
   };
   useEffect(() => {
     getProduct();
+  }, []);
+
+  useEffect(() => {
+    const clientId = user.id;
   }, []);
 
   // useEffect(() => {
@@ -52,6 +135,7 @@ export default function vistaDetalladaProducto() {
             <ProductoConEstrella
               imageUrl={product.productImage}
               altText={product.text}
+              addToWishList={addToWishList}
             />
             <div className="flex gap-1  justify-evenly pt-4">
               <Button
@@ -59,9 +143,7 @@ export default function vistaDetalladaProducto() {
                 text="Agregar al carrito"
                 variant="raw-sienna-50"
                 className={"text-xs lg:text-lg"}
-                onClick={() => {
-                  // setCarrito(carrito.push("nuevoProductoId"));
-                }}
+                onClick={handleAddToShoppingCart}
               />
               <Button
                 href="/carritoDeCompras"
@@ -76,7 +158,7 @@ export default function vistaDetalladaProducto() {
             <MarcaSmallView
               className="pt-4 cursor-pointer underline "
               createdBy={product.createdBy}
-              logo={logo}
+              profilePicture={logo}
             />
             <h4 className="text-2xl py-4 md:py-8">{`$${product.price}`}</h4>
             <h4 className="italic"> Acerca de este artículo</h4>
