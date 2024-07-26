@@ -183,3 +183,45 @@ export const updateShoppingCart = async (userId, newShoppingCartProduct) => {
     console.error("Error al actualizar el shoppingCart:", error);
   }
 };
+
+export const fetchShoppingCart = async (userId) => {
+  console.log("userId", userId);
+  try {
+    const response = await fetch(
+      `http://localhost:3001/users/shoppingCart/${userId}`
+    );
+    console.log(response);
+    if (!response.ok) {
+      throw new Error(`Error fetching shopping cart: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Artículos del carrito obtenidos:", data.shoppingCart);
+    return data; // Devuelve los artículos del carrito
+  } catch (error) {
+    console.error("Error al obtener los artículos del carrito:", error);
+    throw error; // Lanza el error para que pueda ser manejado por quien llame a esta función
+  }
+};
+
+export const fetchWishList = async (userId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3001/users/wishList/${userId}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error fetching wish list: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Artículos de la lista de deseos obtenidos:", data);
+    return data; // Devuelve los artículos de la lista de deseos
+  } catch (error) {
+    console.error(
+      "Error al obtener los artículos de la lista de deseos:",
+      error
+    );
+    throw error; // Lanza el error para que pueda ser manejado por quien llame a esta función
+  }
+};
