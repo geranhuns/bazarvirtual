@@ -2,7 +2,6 @@ const MONGO_URL = "http://localhost:3001/users";
 import Swal from "sweetalert2";
 
 export const registerUserFetch = async (data) => {
-  console.log(data);
   try {
     const response = await fetch(`${MONGO_URL}/register`, {
       method: "POST",
@@ -97,7 +96,6 @@ export const updateWishList = async (userId, newWishListProduct) => {
     );
 
     if (productExists) {
-      console.log("El producto ya está en la lista de deseos.");
       Swal.fire({
         icon: "success",
         title: "El producto ya está en lista de deseos",
@@ -127,7 +125,6 @@ export const updateWishList = async (userId, newWishListProduct) => {
     }
 
     const data = await response.json();
-    console.log("wishList actualizado:", data);
     Swal.fire({
       icon: "success",
       title: "Producto agregado a lista de deseos",
@@ -160,7 +157,6 @@ export const updateShoppingCart = async (userId, newShoppingCartProduct) => {
     );
 
     if (productExists) {
-      console.log("El producto ya está en el carrito de compras.");
       Swal.fire({
         icon: "success",
         title: "El producto ya está en el carrito",
@@ -193,7 +189,6 @@ export const updateShoppingCart = async (userId, newShoppingCartProduct) => {
     }
 
     const data = await response.json();
-    console.log("shoppingCart actualizado:", data);
     Swal.fire({
       icon: "success",
       title: "Producto agregado al carrito",
@@ -206,18 +201,15 @@ export const updateShoppingCart = async (userId, newShoppingCartProduct) => {
 };
 
 export const fetchShoppingCart = async (userId) => {
-  console.log("userId", userId);
   try {
     const response = await fetch(
       `http://localhost:3001/users/shoppingCart/${userId}`
     );
-    console.log(response);
     if (!response.ok) {
       throw new Error(`Error fetching shopping cart: ${response.statusText}`);
     }
 
     const data = await response.json();
-    console.log("Artículos del carrito obtenidos:", data.shoppingCart);
     return data; // Devuelve los artículos del carrito
   } catch (error) {
     console.error("Error al obtener los artículos del carrito:", error);
@@ -236,7 +228,6 @@ export const fetchWishList = async (userId) => {
     }
 
     const data = await response.json();
-    console.log("Artículos de la lista de deseos obtenidos:", data);
     return data; // Devuelve los artículos de la lista de deseos
   } catch (error) {
     console.error(

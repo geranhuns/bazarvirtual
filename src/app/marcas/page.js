@@ -35,7 +35,6 @@ export default function Marcas() {
       const response = await fetch("http://localhost:3001/marca/usersMarca");
       const data = await response.json();
       setMarcas(data.data);
-      console.log(data.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -56,11 +55,10 @@ export default function Marcas() {
             <h3 className="pt-8 text-2xl">Conoce nuestras marcas afiliadas</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6  py-5 w-full ml-8 md:ml-0">
               {marcas.map((marca) => {
-                const marcaId = marca._id;
                 return (
                   <ProductoDestacadoMarca
-                    key={marcaId}
-                    id={marcaId}
+                    key={marca._id}
+                    id={marca._id}
                     profilePicture={marca.profilePicture}
                     brand={marca.username}
                   />

@@ -34,7 +34,6 @@ export default function VistaMarca() {
       setBrandProducts(data.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
@@ -50,7 +49,6 @@ export default function VistaMarca() {
     if (token) {
       const decoded = decodeToken(token);
       setDecodedToken(decoded);
-      console.log(decoded);
     }
   }, [token]);
   useEffect(() => {

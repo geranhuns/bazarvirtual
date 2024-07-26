@@ -81,7 +81,6 @@ export const UserProvider = ({ children }) => {
       const storedToken = localStorage.getItem("jwtToken");
       if (storedToken) {
         setToken(storedToken);
-        console.log("Stored token found:", storedToken); // Verifica si el token se obtiene correctamente
       }
     }
   }, [token]);
@@ -99,16 +98,11 @@ export const UserProvider = ({ children }) => {
       const decoded = decodeToken(token);
       if (decoded) {
         setUser({ id: decoded._id, role: decoded.role });
-        console.log("Decoded token:", decoded); // Verifica si el token se decodifica correctamente
       } else {
         console.log("Decoded token is null");
       }
     }
   }, [token]);
-
-  useEffect(() => {
-    console.log("User state has been updated:", user); // Verifica si el estado del usuario se actualiza
-  }, [user]);
 
   return (
     <UserContext.Provider

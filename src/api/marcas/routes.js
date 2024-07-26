@@ -13,7 +13,6 @@ const Toast = Swal.mixin({
   },
 });
 export const registerMarcaFetch = async (data) => {
-  console.log(data);
   try {
     const response = await fetch(`${MONGO_URL}/register`, {
       method: "POST",
@@ -45,7 +44,6 @@ export const registerMarcaFetch = async (data) => {
 };
 
 export const updateProfileMarca = async (userdata, userId) => {
-  console.log(userdata);
   try {
     const response = await fetch(`${MONGO_URL}/updateProfile/${userId}`, {
       method: "PUT",
@@ -61,7 +59,6 @@ export const updateProfileMarca = async (userdata, userId) => {
     }
 
     const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Usuario actualizado con éxito:", data);
     Toast.fire({
       icon: "success",
       title: "Perfil actualizado.",
@@ -75,7 +72,6 @@ export const updateProfileMarca = async (userdata, userId) => {
 };
 
 export const postNewProduct = async (userdata, marcaId) => {
-  console.log(userdata);
   try {
     const response = await fetch(`http://localhost:3001/products/newProduct`, {
       method: "POST",
@@ -88,7 +84,6 @@ export const postNewProduct = async (userdata, marcaId) => {
       throw new Error("Error al crear nuevo producto");
     }
     const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Nuevo producto creado con éxito:", data);
     Toast.fire({
       icon: "success",
       title: "Nuevo producto en catálogo",
@@ -101,7 +96,6 @@ export const postNewProduct = async (userdata, marcaId) => {
   }
 };
 export const editProduct = async (userdata, productId) => {
-  console.log(userdata);
   try {
     const response = await fetch(
       `http://localhost:3001/products/${productId}`,
@@ -117,7 +111,6 @@ export const editProduct = async (userdata, productId) => {
       throw new Error("Error al actualizar el producto");
     }
     const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Producto actualizado con éxito:", data);
     Toast.fire({
       icon: "success",
       title: "Producto actualizdo en catálogo",
@@ -152,7 +145,6 @@ export const deleteProduct = async (productId) => {
     }
 
     const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Producto eliminado con éxito:", data);
     Toast.fire({
       icon: "success",
       title: "Producto eliminado",
@@ -177,7 +169,6 @@ export const getProductById = async (productId) => {
     }
 
     const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Producto obtenido con éxito:", data);
 
     return data;
   } catch (error) {

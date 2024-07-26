@@ -88,10 +88,6 @@ export default function vistaDetalladaProducto() {
     }
   };
 
-  useEffect(() => {
-    console.log("User from context:", user); // Verifica si el valor del usuario se obtiene correctamente
-  }, [user]);
-
   const getProduct = async () => {
     try {
       const response = await fetch(`http://localhost:3001/products/${id}`);

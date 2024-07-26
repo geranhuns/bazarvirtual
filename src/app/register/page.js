@@ -30,8 +30,6 @@ export default function page() {
   };
 
   const dataRegister = async (data) => {
-    console.log(data);
-
     let validPassword = null;
     if (data.password === data.passwordComparation) {
       validPassword = data.password;
@@ -77,11 +75,9 @@ export default function page() {
       delete modifiedData.passwordComparation;
       delete modifiedDataCliente.passwordComparation;
       delete modifiedDataMarca.passwordComparation;
-      console.log(modifiedData);
 
       if (modifiedDataCliente.role === "cliente") {
         // console.log("registrando como comprador")
-        console.log(modifiedData);
         await registerUserFetch(modifiedDataCliente);
       }
       if (modifiedData.role === "bazar") {

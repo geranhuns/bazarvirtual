@@ -64,7 +64,6 @@ export default function BusquedaProductos() {
         <div className=" pt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
           {filteredProducts &&
             filteredProducts.map((item) => {
-              console.log(item);
               return <ProductSmallView key={item._id} item={item} />;
             })}
         </div>

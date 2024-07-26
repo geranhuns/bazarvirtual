@@ -10,7 +10,6 @@ export default function MarcaSmallView({
   brandId,
   logo,
 }) {
-  console.log(createdBy);
   const router = useRouter();
   return (
     <div
