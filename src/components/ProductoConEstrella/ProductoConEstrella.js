@@ -3,14 +3,13 @@
 import { FaRegStar, FaStar } from "react-icons/fa6";
 
 import { useState } from "react";
-const ProductoConEstrella = ({ imageUrl, altText }) => {
+const ProductoConEstrella = ({ imageUrl, altText, addToWishList }) => {
   const [activeStar, setActiveStar] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
-  const [addToWishList, setAddToWishList] = useState([]);
-
   const handleClick = () => {
     setActiveStar(!activeStar);
+    addToWishList();
     setShowMessage(true);
     setTimeout(() => {
       setShowMessage(false);
