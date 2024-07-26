@@ -33,17 +33,15 @@ export default function MarcaHeaderInfo({ id }) {
   if (brandInfo) {
     return (
       <>
-        <div className="flex flex-col  md:flex-row   gap-10  md:px-10 py-10 bg-patina-500 rounded-xl lg:max-w-4xl  my-10 ">
-          <div className="flex items-center mx-auto ">
+        <div className="flex flex-col  md:flex-row   gap-10  md:px-10 py-10 bg-patina-500 rounded-xl w-full lg:max-w-4xl  my-10 items-center">
+          <div className="flex items-center justify-center w-72 h-72 rounded-full">
             <img
               src={brandInfo.profilePicture}
               alt={brandInfo.username}
-              layout="fill"
-              objectFit="cover"
-              className=" overflow-hidden   rounded-full px-2 md:px-0"
+              className=" object-cover rounded-full"
             />
           </div>
-          <div className="flex flex-col items-center ">
+          <div className="flex flex-col items-center w-full md:w-3/4 h-80">
             <div
               id="infoMarca"
               className="flex flex-col items-center justify-center w-full bg-patina-900 md:rounded-xl text-Eggshell "

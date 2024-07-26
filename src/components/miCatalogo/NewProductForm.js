@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 import Image from "next/image";
 import { DevTool } from "@hookform/devtools";
 import { postNewProduct, editProduct } from "@/api/marcas/routes";
+
 export default function NewProductForm({
   id,
   token,
@@ -14,8 +15,6 @@ export default function NewProductForm({
   loadProducts,
 }) {
   const [previewImagen, setPreviewImagen] = useState("");
-
-  const [decodedToken, setDecodedToken] = useState(null);
 
   const categories = [
     "Alimentos y Bebidas",
@@ -42,14 +41,7 @@ export default function NewProductForm({
     "Software",
     "Videojuegos",
   ];
-  const decodeToken = (token) => {
-    try {
-      return jwtDecode(token);
-    } catch (error) {
-      console.error("Error decoding token:", error);
-      return null;
-    }
-  };
+
   const handleImagen = (e) => {
     console.log(e.target.files[0]);
     const file = e.target.files[0];
@@ -65,16 +57,14 @@ export default function NewProductForm({
   const handleSetValue = (file) => {
     setValue("productImage", file);
   };
-
   const defaultValues = {
-    productImage: previewImagen,
+    productImage: item?.productImage || previewImagen,
     createdBy: id,
     price: item?.price || "",
     description: item?.description || "",
     title: item?.title || "",
     category: item?.category || "",
   };
-
   const form = useForm({
     defaultValues: defaultValues,
   });
@@ -88,67 +78,54 @@ export default function NewProductForm({
   } = form; //React hook form
 
   useEffect(() => {
-    if (token) {
-      const decoded = decodeToken(token);
-      setDecodedToken(decoded);
-      console.log("Info Token del usuario:", decoded);
-    }
-  }, [token]);
-
-  useEffect(() => {
     setPreviewImagen(
       "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg"
     );
-  }, []);
-
-  const onSubmit = async (data) => {
-    //funcion que se ejecuta al enviar el formulario
-
-    console.log(
-      `Datos de entrada del formulario: ${JSON.stringify(data, null, 2)}`
+    setValue(
+      "productImage",
+      "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg"
     );
-
+    if (item) {
+      setPreviewImagen(item.productImage);
+      reset(defaultValues); // Reset the form with the new item values
+    }
+  }, [item, reset]);
+  const onSubmit = async (data) => {
+    console.log(data);
     const dataAdjust = {
-      productImage:
-        "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg",
+      productImage: data.productImage,
       createdBy: id,
       price: data.price,
       description: data.description,
       title: data.title,
       category: data.category,
     };
-    console.log(dataAdjust);
 
     try {
       if (item) {
         const changedProduct = await editProduct(dataAdjust, item._id);
         console.log("Producto actualizado con éxito:", changedProduct);
+      } else {
+        const newProduct = await postNewProduct(dataAdjust, id);
+        console.log("Producto creado con éxito:", newProduct);
       }
-      const newProduct = await postNewProduct(dataAdjust, id);
-      console.log("Producto creado con éxito:", newProduct);
-
-      // router.push(`/marcas/${id}`);
     } catch (error) {
-      if (item) {
-        console.error("Error al actualizar el producto:", error.message);
-      }
-      console.error("Error al crear el producto:", error.message);
+      console.error("Error al guardar el producto:", error.message);
     }
 
     if (setActiveForm) setActiveForm(false);
     if (setOpenProducteditor) setOpenProducteditor(false);
     loadProducts();
   };
-
   return (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-col items-center justify-center bg-raw-sienna-50"
+        className="w-full flex flex-col items-center justify-center"
       >
-        <div className="w-full flex   py-8 px-6">
+        <div className="w-full flex  bg-raw-sienna-50 py-8 px-6">
           <div className="w-12/12">
-            <div className="flex justify-center pb-3 ">
+            <div className="flex justify-center pb-3">
               {previewImagen && (
                 <div className="w-32 h-32 relative">
                   <Image
@@ -167,7 +144,6 @@ export default function NewProductForm({
                 className="font-semibold text-raw-sienna-900"
               ></label>
               <input
-                // required
                 type="file"
                 id="productImage"
                 name="productImage"
@@ -177,8 +153,8 @@ export default function NewProductForm({
               />
             </div>
           </div>
-          <div className="w-full flex flex-row items-center    py-5  lg:max-w-screen-lg">
-            <div className=" flex flex-col w-full items-start pl-6">
+          <div className="w-full flex flex-row items-center    py-5 pr-4 lg:max-w-screen-lg">
+            <div className=" flex flex-col w-full items-start px-4">
               <label
                 className="text-xl  text-right  lg:max-w-screen-lg  "
                 htmlFor="title"
@@ -186,13 +162,12 @@ export default function NewProductForm({
                 Nombre del Producto:
               </label>
               <input
-                required
-                className=" p-1 rounded-sm  w-11/12  "
+                className=" p-1 rounded-sm  w-11/12 "
                 type="string"
                 {...register("title")}
               />{" "}
               <label
-                className="text-xl  text-right  lg:max-w-screen-lg  "
+                className="text-xl  text-right pr-4 lg:max-w-screen-lg  "
                 htmlFor="category"
               >
                 Categoría:
@@ -200,7 +175,7 @@ export default function NewProductForm({
               <select
                 required
                 id="dropdown"
-                className={`h-8 w-11/12 pl-1 bg-raw-sienna-100 text-raw-sienna-900`}
+                className="h-8 w-11/12 pl-1 bg-raw-sienna-100 text-raw-sienna-900"
                 {...register("category")}
               >
                 {categories.map((option, index) => (
@@ -220,7 +195,7 @@ export default function NewProductForm({
                 type="number"
                 step="0.01"
                 min="0"
-                className="p-1 rounded-sm  w-11/12 "
+                className="p-1 rounded-sm w-11/12"
                 {...register("price")}
               />
             </div>
@@ -233,26 +208,26 @@ export default function NewProductForm({
               </label>
               <textarea
                 required
-                type="string"
-                className="  w-full h-full resize-none overflow-y-auto"
+                type="text"
+                className="w-full h-full resize-none overflow-y-auto"
                 {...register("description")}
               />
             </div>
           </div>
         </div>
-        <div className="flex gap-10  items-center justify-center pb-8">
+        <div className="flex gap-10 items-center justify-center pb-8">
           <Button
-            type={"submit"}
-            variant={"yellow"}
-            text={"Publicar"}
-            className={"px-3"}
+            type="submit"
+            variant="yellow"
+            text="Publicar"
+            className="px-3"
           />
           {setOpenProducteditor && (
             <Button
-              type={"button"}
-              variant={"raw-sienna-50"}
-              className={"px-3"}
-              text={"Cancelar"}
+              type="button"
+              variant="raw-sienna-50"
+              className="px-3"
+              text="Cancelar"
               onClick={() => {
                 setOpenProducteditor(false);
               }}
@@ -260,16 +235,16 @@ export default function NewProductForm({
           )}
           {setActiveForm && (
             <Button
-              type={"button"}
-              variant={"raw-sienna-50"}
-              className={"px-3"}
-              text={"Cancelar"}
+              type="button"
+              variant="raw-sienna-50"
+              className="px-3"
+              text="Cancelar"
               onClick={() => {
                 setActiveForm(false);
               }}
             />
           )}
-        </div>
+        </div>{" "}
       </form>
       <DevTool control={control} />
     </>

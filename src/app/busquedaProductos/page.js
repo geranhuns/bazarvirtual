@@ -4,6 +4,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 export default function BusquedaProductos() {
   const params = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   const search = params.get("search");
   const category = params.get("category");
@@ -30,6 +31,7 @@ export default function BusquedaProductos() {
           setFilteredProducts(resCategory);
         }
       });
+    setIsLoading(false);
   }, []);
 
   return (
@@ -52,15 +54,18 @@ export default function BusquedaProductos() {
           Consulta la página de detalle del producto para ver otras opciones de
           compra.
         </h4>
-        {(!filteredProducts || filteredProducts.length === 0) && (
+        {isLoading ? (
+          <div>Cargando...</div>
+        ) : !filteredProducts || filteredProducts.length === 0 ? (
           <h2 className="pt-6 text-xl w-full">
-            {`No tenemos productos de "${search}" en esta categoría`}
+            {`No se encontraron productos con ese nombre`}
           </h2>
-        )}
+        ) : null}
         <div className=" pt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
           {filteredProducts &&
             filteredProducts.map((item) => {
-              return <ProductSmallView key={item.id} item={item} />;
+              console.log(item);
+              return <ProductSmallView key={item._id} item={item} />;
             })}
         </div>
       </div>

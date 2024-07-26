@@ -1,6 +1,5 @@
 export default function BazarSmallView({ className, item }) {
   const { date, time, createdBy } = item;
-
   const obtenerFechaFormateada = (fechaCompleta) => {
     // Extrae la parte de la fecha 'yyyy-MM-dd' de la cadena 'yyyy-MM-ddTHH:mm:ss.sssZ'
     if (!fechaCompleta) return "";
@@ -14,7 +13,7 @@ export default function BazarSmallView({ className, item }) {
 
   return (
     <a
-      href="promotorBazarView"
+      href={`bazares/${createdBy._id}`}
       className={`flex flex-col lg:flex-row  gap-2 items-center ${className}`}
     >
       <img

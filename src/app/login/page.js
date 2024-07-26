@@ -20,7 +20,7 @@ export default function Login() {
       if (userRole === "marca") {
         router.push(`/marcas/${id}`); //NOTA cambiarle aqui la ruta
       } else if (userRole === "bazar") {
-        router.push("/promotorBazarView");
+        router.push(`/bazares/${id}`);
       } else {
         router.push("/home");
       }

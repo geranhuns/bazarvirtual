@@ -146,15 +146,15 @@ function FormNewDate(props) {
                 <div className="bg-customGreen w-7/12 h-5/6 flex flex-col  justify-center mx-auto   max-sm:w-full">
                     <button className="bg-raw-sienna-500 w-10 h-10 flex justify-center items-center rounded-2xl" onClick={() => { setOpen(false), setOpenEdDate(false) }} ><MdClose className="w-full h-full" /></button>
                     <form onSubmit={handleSubmit(onSubmit)} className="bg-form-newDate-green w-11/12 h-5/6 mx-auto rounded-lg flex flex-col items-center text-customGreen px-2 ">
-                        <div className=" border flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
+                        <div className="  flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
                             <label className="text-lg text-white  " htmlFor="">Lugar</label>
                             <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="text"
                                 defaultValue={dataDate ? dataDate.place : ''}
                                 {...register("place")}
                             />
                         </div>
-                        <div className=" border w-full flex px-2">
-                            <div className=" border flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
+                        <div className="  w-full flex px-2">
+                            <div className="  flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
                                 <label className="text-lg text-white  " htmlFor="">Fecha</label>
                                 <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="date"
                                     min={currentDate}
@@ -162,7 +162,7 @@ function FormNewDate(props) {
                                     {...register("date")}
                                 />
                             </div>
-                            <div className=" border flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12 ">
+                            <div className="  flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12 ">
                                 <label className="text-lg text-white  " htmlFor="">Hora</label>
                                 <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="time"
                                     defaultValue={dataDate ? dataDate.time : ''}
@@ -172,7 +172,7 @@ function FormNewDate(props) {
                         </div>
 
                         <h3 className="text-2xl text-white p-1">Eventos especiales</h3>
-                        <div className=" border w-full flex justify-around mt-2  ">
+                        <div className="  w-full flex justify-around mt-2  ">
 
                             <div className="flex flex-col w-3/12 text-center ">
                                 <label className="text-lg text-white">Evento</label>

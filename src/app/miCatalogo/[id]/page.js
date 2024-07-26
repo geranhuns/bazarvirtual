@@ -7,6 +7,8 @@ import { MdEdit } from "react-icons/md";
 import { jwtDecode } from "jwt-decode";
 import Button from "@/components/Button/Button";
 import NewProductForm from "@/components/miCatalogo/NewProductForm";
+import { deleteProduct } from "@/api/marcas/routes";
+
 export default function miCatalogo() {
   const [token, setToken] = useState(null);
   const [decodedToken, setDecodedToken] = useState(null);
@@ -18,6 +20,16 @@ export default function miCatalogo() {
 
   const [brandProducts, setBrandProducts] = useState();
   const [loading, setLoading] = useState(true);
+
+  const handleDelete = async (_id) => {
+    try {
+      await deleteProduct(_id);
+      loadProducts();
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("jwtToken");
@@ -68,7 +80,6 @@ export default function miCatalogo() {
   if (loading) {
     return <div>Cargando...</div>;
   }
-  const handleNewProduct = async () => {};
   return (
     <>
       <div className=" flex flex-col w-10/12 items-center  mx-auto  lg:max-w-7xl overflow-auto mb-28">
@@ -82,6 +93,7 @@ export default function miCatalogo() {
         <div className="flex flex-col gap-4 py-5 w-full">
           {brandProducts &&
             brandProducts.map((product) => {
+              console.log(product);
               return (
                 <ProductEdit
                   key={product._id}
@@ -89,6 +101,7 @@ export default function miCatalogo() {
                   activeForm={activeForm}
                   setActiveForm={setActiveForm}
                   loadProducts={loadProducts}
+                  handleDelete={handleDelete}
                 />
               );
             })}
