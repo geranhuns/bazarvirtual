@@ -42,12 +42,12 @@ export default function BusquedaProductos() {
             Resultados de la búsqueda para
           </h2>
           {search && (
-            <h2 className="ml-1 pt-6 text-xl self-start  md:pl-0">{`"${search}" en`}</h2>
+            <h2 className="ml-1 pt-6 text-xl self-start  md:pl-0">{`&quot;${search}&quot; en`}</h2>
           )}
           <h2 className="ml-1 pt-6 text-xl self-start  md:pl-0">
             la categoría:
           </h2>
-          <h2 className="ml-1 pt-6 text-xl self-start  md:pl-0">{`"${category}"`}</h2>
+          <h2 className="ml-1 pt-6 text-xl self-start  md:pl-0">{`&quot;${category}&quot;`}</h2>
         </div>
 
         <h4 className=" text-sm self-start md:pl-0">
