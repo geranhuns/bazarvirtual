@@ -30,8 +30,6 @@ export default function page() {
   };
 
   const dataRegister = async (data) => {
-    console.log(data);
-
     let validPassword = null;
     if (data.password === data.passwordComparation) {
       validPassword = data.password;
@@ -39,19 +37,25 @@ export default function page() {
         ...data,
         role: role,
         password: validPassword,
+        profilePicture:
+          "https://i.pinimg.com/564x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg",
       };
       const modifiedDataCliente = {
         ...data,
         role: role,
         password: validPassword,
+        profilePicture:
+          "https://i.pinimg.com/564x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg",
       };
       const modifiedDataMarca = {
         ...data,
         role: role,
         password: validPassword,
-        profilePicture: "https://picsum.photos/200/300",
-        description: "Aquí puedes escribir una descripción de tu marca",
-        slogan: "Tu slogan de tu marca",
+        profilePicture:
+          "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg",
+        description:
+          "Aquí puedes escribir una descripción de tu marca para invitar a tu clientela a conocer más sobre tu proyecto",
+        slogan: "Escribe aquí el slogan de tu marca",
         socialNetworks: [
           {
             platform: "facebook",
@@ -71,11 +75,9 @@ export default function page() {
       delete modifiedData.passwordComparation;
       delete modifiedDataCliente.passwordComparation;
       delete modifiedDataMarca.passwordComparation;
-      console.log(modifiedData.role);
 
       if (modifiedDataCliente.role === "cliente") {
         // console.log("registrando como comprador")
-        console.log(modifiedData);
         await registerUserFetch(modifiedDataCliente);
       }
       if (modifiedData.role === "bazar") {

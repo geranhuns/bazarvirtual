@@ -1,5 +1,5 @@
 import Button from "../Button/Button";
-export default function ProfileEdit() {
+export default function ProfileEdit({ userData }) {
   return (
     <>
       <form action="">
@@ -10,7 +10,7 @@ export default function ProfileEdit() {
               disabled
               className="w-full border rounded-lg p-3"
               type="text"
-              placeholder="nombreDelUsuario"
+              placeholder={userData.username}
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -19,7 +19,7 @@ export default function ProfileEdit() {
               disabled
               className="w-full border rounded-lg p-4"
               type="text"
-              placeholder="correoDelUsuario@mail.com"
+              placeholder={userData.email}
             />
           </div>
           <div className="flex flex-col gap-1">

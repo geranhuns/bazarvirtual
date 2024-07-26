@@ -15,12 +15,11 @@ export default function Login() {
       const decodedToken = jwtDecode(token.data);
       const id = decodedToken._id;
       const userRole = decodedToken.role;
-      console.log(userRole);
 
       if (userRole === "marca") {
         router.push(`/marcas/${id}`); //NOTA cambiarle aqui la ruta
       } else if (userRole === "bazar") {
-        router.push("/promotorBazarView");
+        router.push(`/bazares/${id}`);
       } else {
         router.push("/home");
       }

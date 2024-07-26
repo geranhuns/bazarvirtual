@@ -7,7 +7,6 @@ export default function DropdownMenu({ token, setDropdownActive, setToken }) {
 
   const router = useRouter();
   const [decodedToken, setDecodedToken] = useState(null);
-  console.log(token);
   const decodeToken = (token) => {
     try {
       return jwtDecode(token);
@@ -37,21 +36,42 @@ export default function DropdownMenu({ token, setDropdownActive, setToken }) {
         {decodedToken && decodedToken.role === "cliente" && (
           <>
             <li className="cursor-pointer">
-              <a>Lista de Deseos</a>
+              <a href="/listaDeDeseos">Lista de Deseos</a>
             </li>
             <li className="cursor-pointer">
-              <a>Carrito de Compras</a>
+              <a href="/carritoDeCompras">Carrito de Compras</a>
             </li>
             <li>
-              <a>Mis pedidos</a>
+              <a href="/misPedidos">Mis pedidos</a>
+            </li>
+          </>
+        )}
+        {decodedToken && decodedToken.role === "marca" && (
+          <>
+            <li className="cursor-pointer">
+              <a href={`/marcas/${decodedToken._id}`}>Ver mi Marca</a>
+            </li>
+            <li className="cursor-pointer">
+              <a href={`/miCatalogo/${decodedToken._id}`}>Editar mi catálogo</a>
             </li>
           </>
         )}
         <li className=" border-b-2 border-raw-sienna-300 pb-2 cursor-pointer">
           <a
             onClick={() => {
-              setActive(!active);
-              console.log(active);
+              if (decodedToken && decodedToken.role === "bazar") {
+                router.push(`/bazares/${decodedToken._id}`);
+                setActive(!active);
+                // setDropdownActive(false);
+              }
+              if (decodedToken && decodedToken.role === "marca") {
+                router.push(`/editarPerfilMarca/${decodedToken._id}`);
+                // setDropdownActive(false);
+              }
+              if (decodedToken && decodedToken.role === "cliente") {
+                router.push(`/editarPerfil/${decodedToken._id}`);
+                // setDropdownActive(false);
+              }
             }}
           >
             Editar Perfil

@@ -70,7 +70,7 @@ function Section6Landing() {
           <CardSection6
             bg={'bg-raw-sienna-900'}
             photo={'https://picsum.photos/100/100'}
-            testimonio={"Usar Bazaar Virtual ha sido un cambio de juego para mi negocio. La interfaz es amigable y las ventas han aumentado significativamente"}
+            testimonio={"Usar Bazar Virtual ha sido un cambio de juego para mi negocio. La interfaz es amigable y las ventas han aumentado significativamente"}
             namePerson={"María López"}
             bazarName={"Trendy Bazaar"}
           />
@@ -78,14 +78,14 @@ function Section6Landing() {
           <CardSection6
             bg={'bg-customGreen'}
             photo={'https://picsum.photos/100/100'}
-            testimonio={"Gracias a la plataforma de Bazaar Connect, llegamos a más clientes. La facilidad de uso y las herramientas de marketing son excelentes."}
+            testimonio={"Gracias a la plataforma de Bazar Virtual, llegamos a más clientes. La facilidad de uso y las herramientas de marketing son excelentes."}
             namePerson={"Carlos García"}
             bazarName={"MarketPlace Wonders"}
           />
           <CardSection6
             bg={'bg-patina-500'}
             photo={'https://picsum.photos/100/100'}
-            testimonio={"Desde que empecé a usar Bazaar Hub, la gestión de inventarios es más sencilla. La atención al cliente también es destacable."}
+            testimonio={"Desde que empecé a usar Bazar Virtual, la gestión de inventarios es más sencilla. La atención al cliente también es destacable."}
             namePerson={"Ana Martínez"}
             bazarName={"Style Bazaar"}
           />
@@ -93,7 +93,7 @@ function Section6Landing() {
           <CardSection6
             bg={'bg-raw-sienna-500'}
             photo={'https://picsum.photos/100/100'}
-            testimonio={"La plataforma de Bazaar Market Pro nos ha permitido expandirnos rápidamente. La integración con redes sociales ha sido especialmente útil."}
+            testimonio={"La plataforma de Bazar Virtual nos ha permitido expandirnos rápidamente. La integración con redes sociales ha sido especialmente útil."}
             namePerson={"Laura Rodríguez"}
             bazarName={"Unique Finds Bazaar"}
           />
@@ -101,7 +101,7 @@ function Section6Landing() {
           <CardSection6
             bg={'bg-patina-900'}
             photo={'https://picsum.photos/100/100'}
-            testimonio={"Con Bazaar Central, he podido optimizar mi tiempo y aumentar mis ingresos. La herramienta de análisis es muy útil para tomar decisiones."}
+            testimonio={"Con Bazar Virtual, he podido optimizar mi tiempo y aumentar mis ingresos. La herramienta de análisis es muy útil para tomar decisiones."}
             namePerson={"Miguel Hernández"}
             bazarName={"Craft Bazaar"}
           />

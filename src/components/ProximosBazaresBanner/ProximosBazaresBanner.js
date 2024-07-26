@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 export default function ProximosBazares({ className }) {
   const [eventos, setEventos] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3001/events")
+    fetch("http://localhost:3001/bazar/bazarDates")
       .then((res) => {
         return res.json();
       })
@@ -21,13 +21,16 @@ export default function ProximosBazares({ className }) {
         <h2 className="text-center text-lg pb-4">Próximos Bazares</h2>
         <div className="flex flex-col items-center justify-center ">
           <div className=" flex w-full py-4 gap-8 flex-wrap  lg:flex-nowrap justify-center ">
-            {eventos.slice(0, 4).map((item) => {
-              return (
-                <article key={item._id}>
-                  <BazarSmallView item={item} />
-                </article>
-              );
-            })}
+            {eventos
+              .sort((a, b) => new Date(a.date) - new Date(b.date))
+              .slice(0, 4)
+              .map((item) => {
+                return (
+                  <article key={item._id}>
+                    <BazarSmallView item={item} />
+                  </article>
+                );
+              })}
           </div>
           <Button
             text={"Ver todos"}

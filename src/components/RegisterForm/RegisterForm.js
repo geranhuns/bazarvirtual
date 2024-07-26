@@ -13,7 +13,11 @@ export default function registerForm({ dataRegister, role }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    // console.log(data)
+    console.log(data);
+    data.shoppingCart = [];
+    data.wishList = [];
+    data.purchaseHistory = [];
+
     dataRegister(data);
     reset();
   };
@@ -34,7 +38,7 @@ export default function registerForm({ dataRegister, role }) {
               className={`w-full border rounded-lg p-3 ${
                 errors.username ? "border-red-500" : "border-gray-300"
               }`}
-              type="text"
+              type="string"
               placeholder=""
               {...register("username", { required: "Este campo es requerido" })}
             />
@@ -50,7 +54,7 @@ export default function registerForm({ dataRegister, role }) {
               className={`border rounded-lg p-4 ${
                 errors.email ? "border-red-500" : "border-gray-300"
               }`}
-              type="text"
+              type="email"
               placeholder=""
               {...register("email", {
                 required: "Este campo es requerido",

@@ -1,4 +1,11 @@
+"use client";
 import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
+import { useContext, useState, useEffect } from "react";
+import {
+  UserContext,
+  useUserContext,
+} from "@/components/UserContext/UserContext";
+import { fetchWishList } from "@/api/users/routes";
 export default function CarritoDeCompras() {
   const carritoExample = [
     {
@@ -46,22 +53,27 @@ export default function CarritoDeCompras() {
     },
   ];
 
-  const totalPrice = carritoExample.reduce(
-    (total, product) => total + product.price,
-    0
-  );
+  const { user, wishListDetails } = useUserContext();
+
   return (
     <div className="flex flex-col  md:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto">
       <div className=" flex flex-col pt-4 md:pt-10 pb-8 px-4 mx-auto">
-        <h3 className="text-lg">Lista de Deseos</h3>
+        <h3 className="text-2xl">Lista de Deseos</h3>
         <p className="pb-4 md:pb-8">
           Consulta la página de detalle del producto para ver otras opciones de
           compra.
         </p>
 
         <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
-        {carritoExample.map((item) => {
-          return <ShoppingCartItem key={item.id} item={item} />;
+        {wishListDetails.map((item) => {
+          return (
+            <ShoppingCartItem
+              key={item._id}
+              item={item}
+              product={item.product}
+              quantity={item.quantity}
+            />
+          );
         })}
       </div>
     </div>
