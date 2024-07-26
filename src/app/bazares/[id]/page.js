@@ -29,38 +29,28 @@ function PromotorVistaId() {
   const params = useParams();
   const id = params.id;
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const userData = await dataUserBazarFetch(id);
       setDataUser(userData.data);
     } catch (error) {
       console.error("Error al obtener datos del usuario:", error);
     }
-  };
+  }, [id]);
 
-  const fetchDataDates = async () => {
+  const fetchDataDates = useCallback(async () => {
     try {
       const bazarDates = await datesBazarFetch(id);
-      //   console.log(bazarDates.data)
       setDatesBazar(bazarDates.data);
     } catch (error) {
       console.error("Error al obtener las fechas del bazar:", error);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchData();
     fetchDataDates();
-  }, []);
-
-  useEffect(() => {
-    fetchDataDates();
-  }, [open]);
-
-  useEffect(() => {
-    fetchData();
-    console.log("ejecutando por cierre");
-  }, [active]);
+  }, [fetchData, fetchDataDates]);
 
   return (
     <section className="relative w-full bg-raw-sienna-200  min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
