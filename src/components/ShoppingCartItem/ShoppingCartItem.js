@@ -3,7 +3,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import MarcaSmallView from "../SmallViews/MarcaSmallView";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-export default function ShoppingCartItem({ item }) {
+export default function ShoppingCartItem({ item, product, quantity }) {
   const { title, image, price, brand } = item;
   const pathname = usePathname();
 

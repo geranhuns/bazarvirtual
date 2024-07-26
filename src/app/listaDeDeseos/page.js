@@ -1,4 +1,11 @@
+"use client";
 import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
+import { useContext, useState, useEffect } from "react";
+import {
+  UserContext,
+  useUserContext,
+} from "@/components/UserContext/UserContext";
+import { fetchWishList } from "@/api/users/routes";
 export default function CarritoDeCompras() {
   const carritoExample = [
     {
@@ -46,10 +53,16 @@ export default function CarritoDeCompras() {
     },
   ];
 
-  const totalPrice = carritoExample.reduce(
-    (total, product) => total + product.price,
-    0
-  );
+  const { user, wishList } = useUserContext();
+  // const [wishList, setWishList] = useState([]);
+
+  // useEffect(() => {
+  //   if (user.id) {
+  //     // Obtener los datos de la wishList
+  //     fetchWishList(user.id).then((data) => setWishList(data.wishList));
+  //   }
+  // }, [user.id]);
+
   return (
     <div className="flex flex-col  md:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto">
       <div className=" flex flex-col pt-4 md:pt-10 pb-8 px-4 mx-auto">
@@ -60,8 +73,15 @@ export default function CarritoDeCompras() {
         </p>
 
         <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
-        {carritoExample.map((item) => {
-          return <ShoppingCartItem key={item.id} item={item} />;
+        {wishList.map((item) => {
+          return (
+            <ShoppingCartItem
+              key={item._id}
+              item={item}
+              product={item.product}
+              quantity={item.quantity}
+            />
+          );
         })}
       </div>
     </div>
