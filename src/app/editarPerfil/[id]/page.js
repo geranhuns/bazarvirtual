@@ -4,7 +4,7 @@ import ProfileEdit from "@/components/ProfileEdit/ProfileEdit";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { useEffect, useState } from "react";
 
-export default function editarPerfil() {
+export default function EditarPerfil() {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const { user } = useUserContext(); // Asume que obtienes el id del usuario desde un contexto

@@ -9,7 +9,7 @@ import Button from "@/components/Button/Button";
 import NewProductForm from "@/components/miCatalogo/NewProductForm";
 import { deleteProduct } from "@/api/marcas/routes";
 
-export default function miCatalogo() {
+export default function MiCatalogo() {
   const [token, setToken] = useState(null);
   const [decodedToken, setDecodedToken] = useState(null);
   const [activeForm, setActiveForm] = useState(false);
