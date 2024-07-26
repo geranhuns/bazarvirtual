@@ -16,11 +16,10 @@ export const UserProvider = ({ children }) => {
   const [wishListDetails, setWishListDetails] = useState([]);
 
   const getShoppingCartWithDetails = async (shoppingCart) => {
-    console.log("ShoppingCart", shoppingCart);
     try {
       const productPromises = shoppingCart.map(async (item) => {
         const product = await getProductById(item.productId);
-        return { ...product, quantity: item.quantity };
+        return { ...product.data, quantity: item.quantity }; // Accede a la propiedad `data`
       });
 
       const productsWithDetails = await Promise.all(productPromises);
@@ -35,7 +34,7 @@ export const UserProvider = ({ children }) => {
     try {
       const productPromises = wishList.map(async (item) => {
         const product = await getProductById(item.productId);
-        return { ...product, quantity: item.quantity };
+        return product.data; // Accede a la propiedad `data`
       });
 
       const productsWithDetails = await Promise.all(productPromises);
@@ -112,7 +111,9 @@ export const UserProvider = ({ children }) => {
   }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, shoppingCart, wishList }}>
+    <UserContext.Provider
+      value={{ user, shoppingCartDetails, wishListDetails }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -53,15 +53,7 @@ export default function CarritoDeCompras() {
     },
   ];
 
-  const { user, wishList } = useUserContext();
-  // const [wishList, setWishList] = useState([]);
-
-  // useEffect(() => {
-  //   if (user.id) {
-  //     // Obtener los datos de la wishList
-  //     fetchWishList(user.id).then((data) => setWishList(data.wishList));
-  //   }
-  // }, [user.id]);
+  const { user, wishListDetails } = useUserContext();
 
   return (
     <div className="flex flex-col  md:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto">
@@ -73,7 +65,7 @@ export default function CarritoDeCompras() {
         </p>
 
         <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
-        {wishList.map((item) => {
+        {wishListDetails.map((item) => {
           return (
             <ShoppingCartItem
               key={item._id}
