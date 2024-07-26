@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import { dataUserBazarFetch } from "@/api/bazar/routes";
 import { updateProfileBazar } from "@/api/bazar/routes";
 import { useParams } from "next/navigation";
-
-
+ 
 
 
 function FormEditProfileBazar({ active, setActive, _idUser }) {
@@ -23,10 +22,28 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
   const params = useParams();
   const id = params.id;
   
-
+ 
   const handleButtonClick = () => {
-    fileInputRef.current.click(); // Simular clic en el input de tipo file
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
+
+  const handleImagen = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            handleSetValue(reader.result);
+        };
+        reader.readAsDataURL(file);
+    }
+};
+  
+const handleSetValue = (imageDataUrl) => {
+  setValue("profilePicture", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
+};
+
 
   const fetchData = async () => {  //funcion para traer los datos del usuario al state dataUser
     try {
@@ -48,10 +65,11 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
   }, []);
 
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm(); //React hook form
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm(); //React hook form
 
   const onSubmit = async (data) => { //funcion que se ejecuta al enviar el formulario
 
+  
     console.log(`datos de entrada del formulario: ${data}`)
     const socialNetworks = [ //con los datos enviados se crea un array de objetos apartir de las redes sociales del form
       { platform: 'facebook', url: data.facebook },
@@ -60,7 +78,6 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
     ];
 
     const dataAdjust = {  //se crea un objeto con los datos del formulario para enviarlos a la peticion fetch para actualizar usuario
-
       profilePicture: data.profilePicture,
       username: data.username,
       wepPage: data.wepPage,
@@ -69,25 +86,26 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
     };
     console.log(dataAdjust);
 
-    // try {
-    //   const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
-    //   console.log('Usuario actualizado con éxito:', updatedUser);
-    //   fetchData(); //cuando termina de actualizar se ejecuta de nuevo el fetch para traer los nuevos valores desde la db y actualizar el value por defecto de los inputs del formulario
+    try {
+      const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
+      console.log('Usuario actualizado con éxito:', updatedUser);
+      fetchData(); //cuando termina de actualizar se ejecuta de nuevo el fetch para traer los nuevos valores desde la db y actualizar el value por defecto de los inputs del formulario
 
-    // } catch (error) {
-    //   console.error('Error al actualizar el usuario:', error.message);
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error.message);
 
-    // }
+    }
 
     reset();
   }
 
+ 
   if (isLoading) {
 
     // return <div>Loading...</div>;
     //colocar alert
   }
-
+ 
 
 
 
@@ -103,7 +121,7 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
                 <img className="w-full h-full rounded-full" src={dataUser.profilePicture} alt="" />
                 <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
                   <label className="text-white text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
-                  <input type="file" ref={fileInputRef} style={{ display: 'none' }} {...register("profilePicture")}/>
+                  <input type="file" ref={fileInputRef} style={{ display: 'none' }}  onChange={handleImagen}  />
                 </div>
               </div>
             </div>
