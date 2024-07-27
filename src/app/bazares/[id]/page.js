@@ -29,23 +29,22 @@ function PromotorVistaId() {
   const params = useParams();
   const id = params.id;
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     try {
       const userData = await dataUserBazarFetch(id);
       setDataUser(userData.data);
     } catch (error) {
       console.error("Error al obtener datos del usuario:", error);
     }
-  }, [id]);
-
-  const fetchDataDates = useCallback(async () => {
+  };
+  const fetchDataDates = async () => {
     try {
       const bazarDates = await datesBazarFetch(id);
       setDatesBazar(bazarDates.data);
     } catch (error) {
       console.error("Error al obtener las fechas del bazar:", error);
     }
-  }, [id]);
+  };
 
   useEffect(() => {
     fetchData();
