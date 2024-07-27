@@ -25,6 +25,8 @@ function PromotorVistaId() {
   const [openEdDate, setOpenEdDate] = useState(false);
   const { active, setActive } = useContext(HeaderContext);
   const [editButtonsActive, setEditButtonsActive] = useState(false);
+  const [place, setPlace] = useState("");
+  const [time, setTime] = useState("");
 
   // console.log(datesBazar)
   const redesSociales = dataUser.socialNetworks;
@@ -34,22 +36,23 @@ function PromotorVistaId() {
   const { user } = useUserContext();
   const loggedUserId = user._id;
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const userData = await dataUserBazarFetch(id);
       setDataUser(userData.data);
     } catch (error) {
       console.error("Error al obtener datos del usuario:", error);
     }
-  };
-  const fetchDataDates = async () => {
+  }, [id]);
+
+  const fetchDataDates = useCallback(async () => {
     try {
       const bazarDates = await datesBazarFetch(id);
       setDatesBazar(bazarDates.data);
     } catch (error) {
       console.error("Error al obtener las fechas del bazar:", error);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchData();
@@ -57,7 +60,14 @@ function PromotorVistaId() {
     if (id === loggedUserId) {
       setEditButtonsActive(true);
     }
-  }, [fetchData, fetchDataDates]);
+  }, [fetchData, fetchDataDates, id, loggedUserId]);
+
+  useEffect(() => {
+    if (datesBazar.length > 0) {
+      setIdDate(datesBazar[0]._id);
+      setDataDate(datesBazar[0].events);
+    }
+  }, [datesBazar]);
 
   return (
     <section className="relative w-full   min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
@@ -129,28 +139,42 @@ function PromotorVistaId() {
             </div>
           </div>
 
-          <div className="bg-patina-900 rounded-md w-full flex text-center items-center text-black gap-2  p-3">
-            {datesBazar.map((date) => (
-              <CardEventDetail
-                key={date._id}
-                dateID={date._id}
-                setIdDate={setIdDate}
-                setDataDate={setDataDate}
-                events={date.events}
-                fecha={date.date}
-                openEdDate={openEdDate}
-                editButtonsActive={editButtonsActive}
-                setOpenEdDate={setOpenEdDate}
-              />
-            ))}
-            {editButtonsActive && (
-              <button
-                className="bg-patina-500 w-1/12 h-3/6 rounded-lg  text-base font-medium "
-                onClick={() => setOpen(!open)}
-              >
-                <CiSquarePlus className="text-white w-full h-full" />
-              </button>
-            )}
+          <div className="bg-patina-900 rounded-md w-full flex flex-col text-center  text-black gap-2  p-3">
+            <div className="flex  justify-start gap-3">
+              {datesBazar.map((date) => (
+                <>
+                  <CardEventDetail
+                    key={date._id}
+                    dateID={date._id}
+                    setIdDate={setIdDate}
+                    setDataDate={setDataDate}
+                    events={date.events}
+                    fecha={date.date}
+                    openEdDate={openEdDate}
+                    editButtonsActive={editButtonsActive}
+                    setOpenEdDate={setOpenEdDate}
+                    idDate={idDate}
+                    place={date.place}
+                    time={date.time}
+                    date={date}
+                    setPlace={setPlace}
+                    setTime={setTime}
+                  />
+                </>
+              ))}
+              {editButtonsActive && (
+                <button
+                  className="bg-patina-500 w-1/12 h-3/6 rounded-lg  text-base font-medium "
+                  onClick={() => setOpen(!open)}
+                >
+                  <CiSquarePlus className="text-white w-full h-full" />
+                </button>
+              )}
+            </div>
+            <div className="flex flex-col text-patina-100 w-full text-xl mt-4">
+              <h3>Lugar: {place}</h3>
+              <h3>Hora: {time} hrs</h3>
+            </div>
           </div>
         </div>
       </div>
@@ -158,22 +182,25 @@ function PromotorVistaId() {
       <Carrucel />
 
       <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
-        <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12">
-          <h3 className="text-3xl text-patina-50">Eventos especiales</h3>
+        <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12">
+          <h3 className="text-3xl text-patina-50 pb-8">Eventos especiales</h3>
           {/* //poner un state con el lugar para precentarlo aqui */}
-          {dataDate.map((date) => (
-            <CardEvent
-              key={date._id}
-              setDatesBazar={setDatesBazar}
-              fetchDataDates={fetchDataDates}
-              setDataDate={setDataDate}
-              eventID={date._id}
-              idDate={idDate}
-              eventName={date.eventName}
-              description={date.description}
-              timeEvent={date.timeEvent}
-            />
-          ))}
+          <div>
+            {dataDate.map((date) => (
+              <CardEvent
+                key={date._id}
+                setDatesBazar={setDatesBazar}
+                fetchDataDates={fetchDataDates}
+                setDataDate={setDataDate}
+                eventID={date._id}
+                idDate={idDate}
+                eventName={date.eventName}
+                description={date.description}
+                timeEvent={date.timeEvent}
+                editButtonsActive={editButtonsActive}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

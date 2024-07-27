@@ -1,7 +1,8 @@
 import { React, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 
-function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, openEdDate, setOpenEdDate, editButtonsActive }) {
+function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, setPlace, setTime, date }) {
+    const [bgButton, setBgButton] = useState("bg-raw-sienna-200 ")
     //  console.log(`ID del la fecha ${fecha}: ${dateID}`)
     // console.log(events)
     const obtenerFechaFormateada = (fechaCompleta) => {
@@ -17,17 +18,40 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, openEd
 
     return (
         <>
-            <span className="flex flex-row w-3/12  bg-raw-sienna-200 items-center justify-around cursor-pointer  rounded-lg p-1"
-                // onClick={()=>console.log(dateID)}
-                onClick={() => { setDataDate(events), setIdDate(dateID) }}
-            >
-                <h5 className="text-lg font-medium">{obtenerFechaFormateada(fecha)}</h5>
-                {editButtonsActive &&
-                    <button className="w-3/12 h-5/6 rounded-2xl text-base font-medium" onClick={() => { setIdDate(dateID), setOpenEdDate(!openEdDate) }} >
-                        <FaRegEdit className="w-full h-full " />
-                    </button>
-                }
-            </span>
+            <div className="flex flex-col ">
+
+                <span
+                    key={dateID}
+                    className={`flex flex-row  ${idDate === dateID
+                        ? "bg-raw-sienna-400 text-raw-sienna-50"
+                        : "bg-raw-sienna-200"
+                        } w-36 items-start justify-around cursor-pointer rounded-lg p-1`}
+                    onClick={() => {
+                        setDataDate(events);
+                        setIdDate(dateID);
+                        setPlace(date.place)
+                        setTime(date.time)
+                    }}
+                >
+                    <h5 className="text-lg font-medium">
+                        {obtenerFechaFormateada(fecha)}
+                    </h5>
+                    {editButtonsActive && (
+                        <button
+                            className="w-3/12 h-5/6 rounded-2xl text-base font-medium"
+                            onClick={() => {
+                                setIdDate(dateID);
+                                setOpenEdDate(!openEdDate);
+                            }}
+                        >
+                            <FaRegEdit className="w-full h-full" />
+                        </button>
+                    )}
+                </span>
+
+
+
+            </div>
         </>
     )
 }
