@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { dataUserBazarFetch } from "@/api/bazar/routes";
 import { datesBazarFetch } from "@/api/bazar/routes";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
+import { useUserContext } from "@/components/UserContext/UserContext";
 
 function PromotorVistaId() {
   const router = useRouter();
@@ -23,11 +24,15 @@ function PromotorVistaId() {
   const [idDate, setIdDate] = useState(""); //state que almacena el id de la date seleccionada, es para pasarselo a los events
   const [openEdDate, setOpenEdDate] = useState(false);
   const { active, setActive } = useContext(HeaderContext);
+  const [editButtonsActive, setEditButtonsActive] = useState(false);
 
   // console.log(datesBazar)
   const redesSociales = dataUser.socialNetworks;
   const params = useParams();
   const id = params.id;
+
+  const { user } = useUserContext();
+  const loggedUserId = user._id;
 
   const fetchData = async () => {
     try {
@@ -49,10 +54,13 @@ function PromotorVistaId() {
   useEffect(() => {
     fetchData();
     fetchDataDates();
+    if (id === loggedUserId) {
+      setEditButtonsActive(true);
+    }
   }, [fetchData, fetchDataDates]);
 
   return (
-    <section className="relative w-full bg-raw-sienna-200  min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
+    <section className="relative w-full   min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
       {(openEdDate || open) && (
         <FormNewDate
           idDate={idDate}
@@ -121,7 +129,7 @@ function PromotorVistaId() {
             </div>
           </div>
 
-          <div className="bg-avocado-500 rounded-md w-full flex text-center items-center text-black gap-2  p-3">
+          <div className="bg-patina-900 rounded-md w-full flex text-center items-center text-black gap-2  p-3">
             {datesBazar.map((date) => (
               <CardEventDetail
                 key={date._id}
@@ -131,16 +139,18 @@ function PromotorVistaId() {
                 events={date.events}
                 fecha={date.date}
                 openEdDate={openEdDate}
+                editButtonsActive={editButtonsActive}
                 setOpenEdDate={setOpenEdDate}
               />
             ))}
-
-            <button
-              className="bg-raw-sienna-500 w-1/12 h-3/6 rounded-lg  text-base font-medium "
-              onClick={() => setOpen(!open)}
-            >
-              <CiSquarePlus className="text-white w-full h-full" />
-            </button>
+            {editButtonsActive && (
+              <button
+                className="bg-patina-500 w-1/12 h-3/6 rounded-lg  text-base font-medium "
+                onClick={() => setOpen(!open)}
+              >
+                <CiSquarePlus className="text-white w-full h-full" />
+              </button>
+            )}
           </div>
         </div>
       </div>
