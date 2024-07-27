@@ -1,8 +1,10 @@
 "use client";
 import { useState, React, useEffect, useContext, useCallback } from "react";
 import { useParams } from "next/navigation";
-import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
-import { AiFillTikTok } from "react-icons/ai";
+import { FaFacebookF } from "react-icons/fa";
+import { AiFillInstagram } from "react-icons/ai";
+
+import { IoLogoTiktok } from "react-icons/io5";
 import { CiSquarePlus } from "react-icons/ci";
 import Carrucel from "@/components/promotorBazar/Carrucel";
 import FormNewDate from "@/components/promotorBazar/FormNewDate";
@@ -35,6 +37,13 @@ function PromotorVistaId() {
 
   const { user } = useUserContext();
   const loggedUserId = user._id;
+
+  const [isSubscribed, setIsSubscribed] = useState(false); // Estado para la suscripción de marca al evento
+
+  const handleSubscriptionToggle = () => {
+    setIsSubscribed(!isSubscribed);
+    // Aquí falta agregar la lógica para inscribirse/desinscribirse
+  };
 
   const fetchData = useCallback(async () => {
     try {
@@ -111,27 +120,27 @@ function PromotorVistaId() {
               <span>{dataUser.wepPage}</span>
               {/* meter en un <a> */}
             </div>
-            <div className=" flex justify-center gap-x-4 mb-5">
+            <div className=" flex justify-center items-center gap-x-4 mb-5 mt-2">
               {redesSociales &&
                 redesSociales.map((red) => {
                   if (red.platform === "facebook" && red.url != "") {
                     return (
                       <a key={red._id} href={red.url}>
-                        <FaFacebook className="w-10 h-11 rounded-custom2 text-facebook bg-white max-sm:w-auto" />
+                        <FaFacebookF className="w-9 h-9  max-sm:w-auto " />
                       </a>
                     );
                   }
                   if (red.platform === "instagram" && red.url != "") {
                     return (
                       <a key={red._id} href={red.url}>
-                        <FaInstagramSquare className="w-10 h-11 rounded-custom2  bg-instagram-gradient  max-sm:w-auto" />
+                        <AiFillInstagram className="w-11 h-11     max-sm:w-auto" />
                       </a>
                     );
                   }
                   if (red.platform === "tiktok" && red.url != "") {
                     return (
                       <a key={red._id} href={red.url}>
-                        <AiFillTikTok className="w-10 h-11 rounded-custom2 text-black bg-tiktok-gradient max-sm:w-auto " />
+                        <IoLogoTiktok className="w-10 h-10  max-sm:w-auto " />
                       </a>
                     );
                   }
@@ -171,12 +180,10 @@ function PromotorVistaId() {
                 </button>
               )}
             </div>
-            {place && (
-              <div className="flex flex-col text-patina-100 w-full text-xl mt-4">
-                <h3>Lugar: {place}</h3>
-                <h3>Hora: {time} hrs</h3>
-              </div>
-            )}
+            <div className="flex flex-col text-patina-100 w-full text-xl ">
+              <h3>Lugar: {place}</h3>
+              <h3>Hora: {time} hrs</h3>
+            </div>
           </div>
         </div>
       </div>
