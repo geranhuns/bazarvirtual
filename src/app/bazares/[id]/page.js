@@ -171,10 +171,12 @@ function PromotorVistaId() {
                 </button>
               )}
             </div>
-            <div className="flex flex-col text-patina-100 w-full text-xl mt-4">
-              <h3>Lugar: {place}</h3>
-              <h3>Hora: {time} hrs</h3>
-            </div>
+            {place && (
+              <div className="flex flex-col text-patina-100 w-full text-xl mt-4">
+                <h3>Lugar: {place}</h3>
+                <h3>Hora: {time} hrs</h3>
+              </div>
+            )}
           </div>
         </div>
       </div>

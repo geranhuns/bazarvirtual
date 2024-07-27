@@ -3,8 +3,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CardMarcas from "@/components/promotorBazar/CardMarcas";
+import Button from "../Button/Button";
+import { IoAddCircleSharp } from "react-icons/io5";
+import { CiCircleMinus } from "react-icons/ci";
+import { useUserContext } from "../UserContext/UserContext";
+
 
 function Carrucel() {
+  const { user } = useUserContext()
   const settings = {
     dots: false,
     infinite: true,
@@ -57,6 +63,20 @@ function Carrucel() {
           </Slider>
         </div>
 
+        {user.role === "marca" &&
+          <div className="flex items-center justify-center gap-6 pt-6">
+
+            <div className="flex items-center bg-yellow-bazar rounded-md px-3">
+
+              <Button text="Participar" variant="yellow" type="button" className={"px-3 text-yellow-800"} /><IoAddCircleSharp className="text-2xl text-yellow-700" />
+            </div>
+            <div className="flex items-center rounded-md border border-patina-500 px-3">
+
+              <Button text="Cancelar" variant="transparent" type="button" className={"px-3 text-patina-500"} /><CiCircleMinus className="text-2xl text-patina-500" />
+            </div>
+
+          </div>
+        }
       </section>
     </>
   )
