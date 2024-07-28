@@ -10,9 +10,11 @@ import HeaderLogo from "./HeaderLogo/HeaderLogo";
 import DropdownMenu from "./DropdownMenu/DropdownMenu";
 import HeaderLoginHamburguer from "./HeaderLoginHamburguer/HeaderLoginHamburguer";
 import LandingMenu from "./LandingMenu/LandingMenu";
-
+import { useUserContext } from "../UserContext/UserContext";
 function Header() {
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
+  const { user } = useUserContext();
+  console.log(user);
   const [dropdownActive, setDropdownActive] = useState(false);
 
   const pathname = usePathname();
@@ -23,14 +25,14 @@ function Header() {
     }
   };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedToken = localStorage.getItem("jwtToken");
-      if (storedToken) {
-        setToken(storedToken);
-      }
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const storedToken = localStorage.getItem("jwtToken");
+  //     if (storedToken) {
+  //       setToken(storedToken);
+  //     }
+  //   }
+  // }, [token]);
   return (
     <>
       {/* {pathname === "/promotorBazarView" && <HeaderBazar />}
@@ -45,7 +47,7 @@ function Header() {
           {pathname !== "/login" &&
             pathname !== "/register" &&
             pathname !== "/" && <HeaderSearch />}
-          {pathname !== "/login" && pathname !== "/register" && !token && (
+          {pathname !== "/login" && pathname !== "/register" && !user.id && (
             <>
               <div className="flex items-center gap-4">
                 <LandingMenu handleScroll={handleScroll} />
@@ -56,7 +58,7 @@ function Header() {
               </div>
             </>
           )}
-          {pathname !== "/login" && pathname !== "/register" && token && (
+          {pathname !== "/login" && pathname !== "/register" && user.id && (
             <div className="lg:w-80 w-40 flex justify-end  ">
               <button
                 className="rounded-full p-2 bg-raw-sienna-200  "
@@ -69,9 +71,9 @@ function Header() {
         </div>
         {dropdownActive && (
           <DropdownMenu
-            token={token}
+            id={user._id}
             setDropdownActive={setDropdownActive}
-            setToken={setToken}
+            role={user.role}
           />
         )}
       </nav>

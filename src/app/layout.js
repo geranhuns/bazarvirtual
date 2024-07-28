@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { HeaderProvider } from "@/components/HContext/HeaderContext"; //para acceder a contextos globales, en este caso acceder desde otra pagina a un state
-// import { CartProvider } from "@/components/CartContext/CartContext";
 import { UserProvider } from "@/components/UserContext/UserContext";
 import SuspenseBoundary from "../components/SuspenseBoundary/SuspenseBounday"; // Ajusta la ruta según tu estructura de carpetas
 
