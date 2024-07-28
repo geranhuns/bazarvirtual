@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { fetchShoppingCart, fetchWishList } from "@/api/users/routes";
 import { getProductById } from "@/api/marcas/routes";
 
@@ -74,7 +74,7 @@ export const UserProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [user.id]);
+  }, [user.id, user.role]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -83,23 +83,16 @@ export const UserProvider = ({ children }) => {
         setToken(storedToken);
       }
     }
-  }, [token]);
+  }, []);
 
-  const decodeToken = (token) => {
-    try {
-      return jwtDecode(token);
-    } catch (error) {
-      console.error("Error decoding token:", error);
-      return null;
-    }
-  };
   useEffect(() => {
     if (token) {
-      const decoded = decodeToken(token);
-      if (decoded) {
+      try {
+        const decoded = jwtDecode(token);
         setUser({ id: decoded._id, role: decoded.role });
-      } else {
-        console.log("Decoded token is null");
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        setToken(null);
       }
     }
   }, [token]);
@@ -107,7 +100,7 @@ export const UserProvider = ({ children }) => {
   // if (user.role === "client") {
   return (
     <UserContext.Provider
-      value={{ user, shoppingCartDetails, wishListDetails }}
+      value={{ user, setUser, shoppingCartDetails, wishListDetails }}
     >
       {children}
     </UserContext.Provider>

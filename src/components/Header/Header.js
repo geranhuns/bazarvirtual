@@ -11,19 +11,36 @@ import DropdownMenu from "./DropdownMenu/DropdownMenu";
 import HeaderLoginHamburguer from "./HeaderLoginHamburguer/HeaderLoginHamburguer";
 import LandingMenu from "./LandingMenu/LandingMenu";
 import { useUserContext } from "../UserContext/UserContext";
+import { jwtDecode } from "jwt-decode";
 function Header() {
   // const [token, setToken] = useState(null);
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
   console.log(user);
   const [dropdownActive, setDropdownActive] = useState(false);
 
   const pathname = usePathname();
+
   const handleScroll = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("jwtToken");
+      if (storedToken) {
+        try {
+          const decodedUser = jwtDecode(storedToken);
+          setUser({ id: decodedUser._id, role: decodedUser.role });
+        } catch (error) {
+          console.error("Error decoding token:", error);
+          setUser({ id: null, role: null });
+        }
+      }
+    }
+  }, [setUser]);
 
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
