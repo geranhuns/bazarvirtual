@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import CardMarcas from "@/components/promotorBazar/CardMarcas";
 import Button from "../Button/Button";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { CiCircleMinus } from "react-icons/ci";
 import { useUserContext } from "../UserContext/UserContext";
+import { subscribeToEvent } from "@/api/bazar/routes";
+import { getSubscribedBrands } from "@/api/bazar/routes";
+import { getBrandById } from "@/api/marcas/routes";
+import ProductoDestacadoMarca from "../SmallViews/ProductoDestacadoMarca";
 
 
-function Carrucel() {
-  const { user } = useUserContext()
+function Carrucel({ eventId, bazarDates }) {
+  const [loading, setLoading] = useState(true);
+  const [subscribedBrands, setSubscribedBrands] = useState([]);
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    console.log("bazarDates:", bazarDates);
+    if (Array.isArray(bazarDates) && bazarDates.length > 0) {
+      const allSubscribedBrands = bazarDates.flatMap(date => date.marcasCurso || []);
+      console.log("allSubscribedBrands:", allSubscribedBrands);
+      setSubscribedBrands(allSubscribedBrands);
+    } else {
+      console.log("bazarDates is not an array or is empty");
+    }
+    setLoading(false);
+  }, [bazarDates]);
+
+
   const settings = {
     dots: false,
     infinite: true,
@@ -49,16 +68,27 @@ function Carrucel() {
 
     ]
   };
+  const handleSubscribe = () => {
+    const brandId = { brandId: user._id }
+    getSubscribedBrands(eventId, brandId)
+  }
+  useEffect(() => {
+    setLoading(false)
 
+  }, [])
+
+  if (loading) return <h3>Loading...</h3>
   return (
     <>
-      <section className="w-full pb-6 bg-patina-200 flex flex-col lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl">
-        <h2 className="font-medium text-3xl text-patina-900 pt-5">Marcas participantes</h2>
+      <section className="w-full pb-10 bg-patina-200 flex flex-col lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl ">
+        <h2 className="font-medium text-3xl text-patina-900 pt-5 mb-8">Marcas participantes</h2>
         <div className=" relative slider-container flex justify-center w-11/12 h-5/6 mx-auto  ">
           <Slider {...settings} className="  w-11/12 h-full flex justify-center items-center mx-auto  ">
-            <CardMarcas />
-            <CardMarcas />
-            <CardMarcas />
+            {subscribedBrands.map((event) => {
+              return (<ProductoDestacadoMarca key={event._id} id={event.brandId} profilePicture={event.profilePicture} brand={event.username} />)
+
+            })}
+
 
           </Slider>
         </div>
@@ -68,7 +98,7 @@ function Carrucel() {
 
             <div className="flex items-center bg-yellow-bazar rounded-md px-3">
 
-              <Button text="Participar" variant="yellow" type="button" className={"px-3 text-yellow-800"} /><IoAddCircleSharp className="text-2xl text-yellow-700" />
+              <Button text="Participar" variant="yellow" type="button" className={"px-3 text-yellow-800"} onClick={() => { subscribeToEvent() }} /><IoAddCircleSharp className="text-2xl text-yellow-700" />
             </div>
             <div className="flex items-center rounded-md border border-patina-500 px-3">
 

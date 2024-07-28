@@ -151,25 +151,23 @@ function PromotorVistaId() {
           <div className="bg-patina-900 rounded-md w-full flex flex-col text-center  text-black gap-2  p-3">
             <div className="flex  justify-start gap-3">
               {datesBazar.map((date) => (
-                <>
-                  <CardEventDetail
-                    key={date._id}
-                    dateID={date._id}
-                    setIdDate={setIdDate}
-                    setDataDate={setDataDate}
-                    events={date.events}
-                    fecha={date.date}
-                    openEdDate={openEdDate}
-                    editButtonsActive={editButtonsActive}
-                    setOpenEdDate={setOpenEdDate}
-                    idDate={idDate}
-                    place={date.place}
-                    time={date.time}
-                    date={date}
-                    setPlace={setPlace}
-                    setTime={setTime}
-                  />
-                </>
+                <CardEventDetail
+                  key={date._id}
+                  dateID={date._id}
+                  setIdDate={setIdDate}
+                  setDataDate={setDataDate}
+                  events={date.events}
+                  fecha={date.date}
+                  openEdDate={openEdDate}
+                  editButtonsActive={editButtonsActive}
+                  setOpenEdDate={setOpenEdDate}
+                  idDate={idDate}
+                  place={date.place}
+                  time={date.time}
+                  date={date}
+                  setPlace={setPlace}
+                  setTime={setTime}
+                />
               ))}
               {editButtonsActive && (
                 <button
@@ -188,7 +186,7 @@ function PromotorVistaId() {
         </div>
       </div>
 
-      <Carrucel />
+      <Carrucel eventId={idDate} bazarDates={datesBazar} />
 
       <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
         <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12">

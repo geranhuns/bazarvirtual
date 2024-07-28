@@ -176,3 +176,17 @@ export const getProductById = async (productId) => {
     throw error; // Propaga el error para manejo adicional si es necesario
   }
 };
+
+export const getBrandById = async (brandId) => {
+  try {
+    const response = await fetch(`http://localhost:3001/marca/${brandId}`);
+    if (!response.ok) {
+      throw new Error("Error al obtener la marca");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener la marca;", error.message);
+    throw error;
+  }
+};

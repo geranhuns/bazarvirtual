@@ -22,9 +22,11 @@ export default function ProductoDestacadoMarca({ id, profilePicture, brand }) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getProducts();
   }, []);
+
   if (loading) {
     return <div>Cargando...</div>;
   }
