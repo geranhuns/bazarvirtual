@@ -56,7 +56,7 @@ function Section6Landing() {
   };
   return (
     <>
-      <section className="w-full lg:max-w-screen-xl mx-auto px-8 py-20 flex flex-col items-center justify-center gap-1 ">
+      <section className="w-full lg:max-w-screen-xl mx-auto px-8  flex flex-col items-center justify-center gap-1 h-[65vh]">
         <h2 className="text-customGreen text-5xl font-semibold max-sm:text-3xl">Testimonios</h2>
         <Slider {...settings} className="  w-11/12 h-4/6 flex justify-center items-center ">
           <CardSection6

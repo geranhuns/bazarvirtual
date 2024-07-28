@@ -4,7 +4,7 @@ function CardSection3(props) {
   const { bgClass, bgImageClass, title, description, src } = props;
   return (
 
-    <div className={`w-full h-full rounded-3xl ${bgClass} grid grid-cols-1   items-center justify-center   py-10 px-6 `}>
+    <div className={`w-full  rounded-3xl ${bgClass} grid grid-cols-1   items-center justify-center   py-10 px-6 `}>
       <div className="row-start-1">
 
         <img src={src} alt="image" className="w-full h-full" />
