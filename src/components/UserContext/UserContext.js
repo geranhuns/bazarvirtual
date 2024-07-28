@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { fetchShoppingCart, fetchWishList } from "@/api/users/routes";
 import { getProductById } from "@/api/marcas/routes";
 
