@@ -12,8 +12,12 @@ import HeaderLoginHamburguer from "./HeaderLoginHamburguer/HeaderLoginHamburguer
 import LandingMenu from "./LandingMenu/LandingMenu";
 import { useUserContext } from "../UserContext/UserContext";
 import { jwtDecode } from "jwt-decode";
+import { getUserById } from "@/api/users/routes";
+import { getBrandById } from "@/api/marcas/routes";
+import { getBazarById } from "@/api/bazar/routes";
 function Header() {
   // const [token, setToken] = useState(null);
+  const [userProfilePicture, setUserProfilePicture] = useState(null);
   const { user, setUser } = useUserContext();
   console.log(user);
   const [dropdownActive, setDropdownActive] = useState(false);
@@ -41,6 +45,44 @@ function Header() {
       }
     }
   }, [setUser]);
+
+  useEffect(() => {
+    const fetchUserProfilePicture = async () => {
+      console.log(user.role);
+      console.log(user.id);
+      try {
+        let userData;
+        if (user.id) {
+          switch (user.role) {
+            case "cliente":
+              userData = await getUserById(user.id);
+              break;
+            case "marca":
+              userData = await getBrandById(user.id);
+              break;
+            case "bazar":
+              userData = await getBazarById(user.id);
+              break;
+            default:
+              userData = null;
+          }
+          console.log(userData);
+          if (userData && userData.data.profilePicture) {
+            console.log(userData.data.profilePicture);
+            setUserProfilePicture(userData.data.profilePicture);
+          } else {
+            setUserProfilePicture(null); // Para mostrar el ícono si no hay imagen
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user profile picture:", error);
+      }
+    };
+
+    if (user.id) {
+      fetchUserProfilePicture();
+    }
+  }, [user]);
 
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
@@ -78,10 +120,18 @@ function Header() {
           {pathname !== "/login" && pathname !== "/register" && user.id && (
             <div className="lg:w-80 w-40 flex justify-end  ">
               <button
-                className="rounded-full p-2 bg-raw-sienna-200  "
+                className="rounded-full p-2  "
                 onClick={() => setDropdownActive(!dropdownActive)}
               >
-                <CgProfile className="w-full h-full bg-raw-sienna-200 text-raw-sienna-900" />
+                {userProfilePicture ? (
+                  <img
+                    src={userProfilePicture}
+                    className="h-9 w-9 object-contain rounded-full"
+                    alt="User Profile"
+                  />
+                ) : (
+                  <CgProfile className="w-full h-full bg-raw-sienna-200 text-raw-sienna-900 p-2 rounded-full text-xl" />
+                )}
               </button>
             </div>
           )}

@@ -237,3 +237,18 @@ export const fetchWishList = async (userId) => {
     throw error; // Lanza el error para que pueda ser manejado por quien llame a esta función
   }
 };
+
+export const getUserById = async (userId) => {
+  try {
+    const response = await fetch(`http://localhost:3001/users/${userId}`);
+
+    if (!response.ok) {
+      throw new Error(`Error fetching user: ${userId}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener usuario", error);
+    throw error;
+  }
+};
