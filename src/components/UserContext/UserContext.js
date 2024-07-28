@@ -50,7 +50,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user.id) {
+      if (user.role === "client") {
         try {
           const shoppingCartData = await fetchShoppingCart(user.id);
           setShoppingCart(shoppingCartData.shoppingCart);
@@ -104,6 +104,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [token]);
 
+  // if (user.role === "client") {
   return (
     <UserContext.Provider
       value={{ user, shoppingCartDetails, wishListDetails }}
@@ -111,6 +112,12 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+  // }
+  // if (!user.role === "client") {
+  //   return (
+  //     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+  //   );
+  // }
 };
 
 export function useUserContext() {

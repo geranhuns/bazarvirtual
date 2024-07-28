@@ -223,3 +223,50 @@ export const updateDateFetch = async (dateID, data) => {
     throw error;
   }
 };
+
+export const subscribeToEvent = async (eventId, data) => {
+  try {
+    const response = await fetch(`${MONGO_URL}/updateMarcasCurso/${eventId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error("Error al inscribirse al bazar");
+    }
+    const brandToSubscribe = await response.json();
+    Toast.fire({
+      icon: "success",
+      title: "Ya estás participando en el bazar",
+    });
+  } catch (error) {
+    console.error("Error en la petición para participar", error);
+    throw error;
+  }
+};
+
+export const getSubscribedBrands = async (eventId) => {
+  try {
+    const response = await fetch(`${MONGO_URL}/getMarcasCurso/${eventId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener las marcas suscritas");
+    }
+
+    const subscribedBrands = await response.json();
+    return subscribedBrands;
+  } catch (error) {
+    console.error(
+      "Error en la petición para obtener las marcas suscritas",
+      error
+    );
+    throw error;
+  }
+};
