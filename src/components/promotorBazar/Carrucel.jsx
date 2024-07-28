@@ -32,24 +32,26 @@ function Carrucel({ eventId, bazarDates }) {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: (subscribedBrands.length > 3),
     speed: 500,
+    rows: 1,
+    slidesPerRow: 1,
     slidesToShow: 3,
     slidesToScroll: 3,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 3.1,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true
+          infinite: (subscribedBrands.length > 3),
+          dots: false
         }
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 2.09,
           slidesToScroll: 1,
           infinite: true,
           dots: false
@@ -58,7 +60,7 @@ function Carrucel({ eventId, bazarDates }) {
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1.05,
           slidesToScroll: 1,
           infinite: true,
           dots: false
@@ -80,12 +82,12 @@ function Carrucel({ eventId, bazarDates }) {
   if (loading) return <h3>Loading...</h3>
   return (
     <>
-      <section className="w-full pb-10 bg-patina-200 flex flex-col lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl ">
+      <section className="w-full pb-10 bg-patina-200 flex flex-col lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] lg:h-[59vh] ">
         <h2 className="font-medium text-3xl text-patina-900 pt-5 mb-8">Marcas participantes</h2>
         <div className=" relative slider-container flex justify-center w-11/12 h-5/6 mx-auto  ">
           <Slider {...settings} className="  w-11/12 h-full flex justify-center items-center mx-auto  ">
             {subscribedBrands.map((event) => {
-              return (<ProductoDestacadoMarca key={event._id} id={event.brandId} profilePicture={event.profilePicture} brand={event.username} />)
+              return (<ProductoDestacadoMarca key={event._id} id={event.brandId} profilePicture={event.profilePicture} brand={event.username} className={"h-[80vh"} />)
 
             })}
 

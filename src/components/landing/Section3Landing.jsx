@@ -11,7 +11,7 @@ function Section3Landing() {
                 arrows: false,
                 infinite: true,
                 speed: 500,
-                slidesToShow: 3,
+                slidesToShow: 3.09,
                 slidesToScroll: 0,
                 // nextArrow: <SampleNextArrow />,
                 // prevArrow: <SamplePrevArrow />,
