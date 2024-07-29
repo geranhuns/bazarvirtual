@@ -93,7 +93,7 @@ function Carrucel({ eventId, bazarDates }) {
         </div>
 
         {user.role === "marca" &&
-          <div className="flex items-center justify-center gap-6 pt-6">
+          <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl">
 
             <div className="flex items-center bg-yellow-bazar rounded-md px-3">
 

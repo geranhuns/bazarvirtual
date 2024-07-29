@@ -16,7 +16,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
     };
 
     return (
-        <div className="bg-raw-sienna-500  w-80 rounded-lg flex items-center justify-around max-md:h-2/6 max-md:w-7/12 max-sm:w-11/12 max-sm:flex-col">
+        <div className="bg-raw-sienna-500 rounded-lg flex items-center justify-around ">
             {editButtonsActive &&
                 <div className="w-2/12 h-full flex justify-center">
                     <button className="bg-red-500 rounded-lg p-2 hover:p-4 hover:border-red-600" onClick={handleDelete}>

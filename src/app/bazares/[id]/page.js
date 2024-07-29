@@ -188,10 +188,10 @@ function PromotorVistaId() {
       <Carrucel eventId={idDate} bazarDates={datesBazar} />
 
       <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
-        <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12">
+        <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 mt-14 md:mt-20">
           <h3 className="text-3xl text-patina-50 pb-8">Eventos especiales</h3>
           {/* //poner un state con el lugar para precentarlo aqui */}
-          <div>
+          <div className="grid grid-cols-1 w-full items-center justify-center px-8">
             {dataDate.map((date) => (
               <CardEvent
                 key={date._id}
