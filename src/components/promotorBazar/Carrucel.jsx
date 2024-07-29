@@ -6,8 +6,7 @@ import Button from "../Button/Button";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { CiCircleMinus } from "react-icons/ci";
 import { useUserContext } from "../UserContext/UserContext";
-import { subscribeToEvent } from "@/api/bazar/routes";
-import { getSubscribedBrands } from "@/api/bazar/routes";
+import { subscribeToEvent, getSubscribedBrands } from "@/api/bazar/routes";
 import { getBrandById } from "@/api/marcas/routes";
 import ProductoDestacadoMarca from "../SmallViews/ProductoDestacadoMarca";
 
@@ -18,10 +17,8 @@ function Carrucel({ eventId, bazarDates }) {
   const { user } = useUserContext();
 
   useEffect(() => {
-    console.log("bazarDates:", bazarDates);
     if (Array.isArray(bazarDates) && bazarDates.length > 0) {
       const allSubscribedBrands = bazarDates.flatMap(date => date.marcasCurso || []);
-      console.log("allSubscribedBrands:", allSubscribedBrands);
       setSubscribedBrands(allSubscribedBrands);
     } else {
       console.log("bazarDates is not an array or is empty");
@@ -96,7 +93,7 @@ function Carrucel({ eventId, bazarDates }) {
         </div>
 
         {user.role === "marca" &&
-          <div className="flex items-center justify-center gap-6 pt-6">
+          <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl">
 
             <div className="flex items-center bg-yellow-bazar rounded-md px-3">
 

@@ -2,8 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { dataUserBazarFetch } from "@/api/bazar/routes";
-import { updateProfileBazar } from "@/api/bazar/routes";
+import { dataUserBazarFetch, updateProfileBazar } from "@/api/bazar/routes";
 import { useParams } from "next/navigation";
 import { IoCloseOutline } from "react-icons/io5";
 

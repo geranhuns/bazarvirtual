@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
-import { updateShoppingCart } from "@/api/users/routes";
+import { updateShoppingCart } from "@/api/users/productLists/routes";
 import Swal from "sweetalert2";
 
 export default function ProductSmallView({ item }) {
@@ -16,7 +16,6 @@ export default function ProductSmallView({ item }) {
   const redirectProductView = () => router.push(`/productos/${_id}`);
   const addToShoppingCart = async () => {
     if (!user.id) {
-      console.log("No user logged in");
       return;
     }
 

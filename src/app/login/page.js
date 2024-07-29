@@ -4,10 +4,11 @@ import { loginUserFetch } from "@/api/users/routes";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useUserContext } from "@/components/UserContext/UserContext";
+import { useEffect } from "react";
 
 export default function Login() {
   const router = useRouter();
-  const { setUser } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   const dataLogin = async (data) => {
     try {
@@ -31,6 +32,12 @@ export default function Login() {
       console.error(error.message);
     }
   };
+
+  useEffect(() => {
+    if (user.id) {
+      router.push("/home");
+    }
+  }, [user, router]);
 
   return (
     <div className=" flex justify-center items-center h-screen lg:max-w-screen-xl mx-auto">

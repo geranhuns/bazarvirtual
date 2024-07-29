@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 export default function DropdownMenu({ setDropdownActive, id, role }) {

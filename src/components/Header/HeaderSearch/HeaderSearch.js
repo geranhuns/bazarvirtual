@@ -10,16 +10,23 @@ export default function HeaderSearch() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3001/products")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/products");
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+        const data = await response.json();
         const allCategories = data.data.map((product) => product.category);
         const uniqueCategories = [...new Set(allCategories)];
         uniqueCategories.sort().unshift("Todo");
         setCategories(uniqueCategories);
-      });
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   const handleSearch = (e) => {

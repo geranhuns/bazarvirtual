@@ -4,10 +4,7 @@ import { useForm } from "react-hook-form"
 import InputNewEvent from "./InputsNewEvent";
 import { MdClose } from "react-icons/md";
 import { useState, useEffect } from "react";
-import { createDateFetch } from "@/api/bazar/routes";
-import { updateDateFetch } from "@/api/bazar/routes";
-import { dateById } from "@/api/bazar/routes";
-
+import { createDateFetch, updateDateFetch, dateById } from "@/api/bazar/routes";
 import Swal from 'sweetalert2'
 
 function FormNewDate(props) {
@@ -48,13 +45,11 @@ function FormNewDate(props) {
 
         setCurrentDate(`${yyyy}-${mm}-${dd}`);
         setDateCount(datesBazar.length)
-        console.log(`fechas posteadas al cargar el form:${datesBazar.length} `)
 
-        openEdDate ? dataFecha(idDate) : console.log("no se detecto el ID de la fecha"); //si el form se abrio con boton editar se hace el fetch para traer los datos de la fecha
+        openEdDate ? dataFecha(idDate) : console.error("No se detecto el ID de la fecha"); //si el form se abrio con boton editar se hace el fetch para traer los datos de la fecha
 
     }, []);
 
-    console.log(dateCount)
 
 
 
@@ -66,12 +61,11 @@ function FormNewDate(props) {
 
         setCurrentDate(`${yyyy}-${mm}-${dd}`);
         setDataDate(datesBazar.length); // Actualiza dataDate con la longitud de datesBazar
-        console.log(`Fechas posteadas al cargar el formulario: ${datesBazar.length}`);
 
         if (openEdDate) {
             dataFecha(idDate);
         } else {
-            console.log("No se detectó el ID de la fecha");
+            console.error("No se detectó el ID de la fecha");
         }
     }, [datesBazar, openEdDate, idDate]);
 
@@ -80,7 +74,6 @@ function FormNewDate(props) {
     }, [datesBazar]);
 
     const onSubmit = async (data) => {
-        console.log(data)
         const events = [
             { eventName: data.event, description: data.description, timeEvent: data.timeEvent },
         ];
@@ -100,7 +93,6 @@ function FormNewDate(props) {
             time: data.time,
             events: events,
         };
-        console.log(dataAdjust)
 
         if (!openEdDate && dateCount < 3) {
             try {
@@ -117,8 +109,6 @@ function FormNewDate(props) {
                 icon: "warning",
             });
         } else if (openEdDate) {
-            console.log("Data para editar:", dataAdjust);
-            console.log("ID de la fecha:", idDate);
             await updateDateFetch(idDate, dataAdjust)
             await dataFecha(idDate)
             await fetchDataDates();

@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function RegisterForm({ dataRegister, role }) {
+export default function RegisterForm({ dataRegister, role, loginRedirect }) {
   const {
     register,
     handleSubmit,
@@ -20,6 +20,7 @@ export default function RegisterForm({ dataRegister, role }) {
 
     dataRegister(data);
     reset();
+    // loginRedirect();
   };
 
   return (
