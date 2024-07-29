@@ -35,7 +35,7 @@ function PromotorVistaId() {
   const id = params.id;
 
   const { user } = useUserContext();
-  const loggedUserId = user._id;
+  const loggedUserId = user.id;
 
   const [isSubscribed, setIsSubscribed] = useState(false); // Estado para la suscripción de marca al evento
 
