@@ -1,7 +1,6 @@
 require("dotenv").config();
 const USERS_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/users`;
 
-const MONGO_URL = "http://localhost:3001/users";
 import Swal from "sweetalert2";
 
 export const registerUserFetch = async (data) => {
