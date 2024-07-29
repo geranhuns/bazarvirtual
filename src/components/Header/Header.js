@@ -15,7 +15,11 @@ import { jwtDecode } from "jwt-decode";
 import { getUserById } from "@/api/users/routes";
 import { getBrandById } from "@/api/marcas/routes";
 import { getBazarById } from "@/api/bazar/routes";
+import { useRouter } from "next/navigation";
+
 function Header() {
+  const router = useRouter();
+
   // const [token, setToken] = useState(null);
   const [userProfilePicture, setUserProfilePicture] = useState(null);
   const { user, setUser } = useUserContext();
@@ -29,7 +33,13 @@ function Header() {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+  function handleLogout() {
+    localStorage.removeItem("jwtToken");
+    setUser({ id: null, role: null });
 
+    router.push("/login");
+    setDropdownActive(false);
+  }
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("jwtToken");
@@ -79,19 +89,8 @@ function Header() {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const storedToken = localStorage.getItem("jwtToken");
-  //     if (storedToken) {
-  //       setToken(storedToken);
-  //     }
-  //   }
-  // }, [token]);
   return (
     <>
-      {/* {pathname === "/promotorBazarView" && <HeaderBazar />}
-
-      {pathname != "/promotorBazarView" && ( */}
       <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50 ">
         <div className="h-full flex justify-between items-center mx-auto   lg:max-w-screen-xl  px-5 ">
           <div className="lg:w-80">
@@ -101,18 +100,7 @@ function Header() {
           {pathname !== "/login" &&
             pathname !== "/register" &&
             pathname !== "/" && <HeaderSearch />}
-          {pathname !== "/login" && pathname !== "/register" && !user.id && (
-            <>
-              <div className="flex items-center gap-4">
-                <LandingMenu handleScroll={handleScroll} />
-                <div className=" lg:w-80">
-                  <HeaderLogin />
-                  <HeaderLoginHamburguer />
-                </div>
-              </div>
-            </>
-          )}
-          {pathname !== "/login" && pathname !== "/register" && user.id && (
+          {user.id && pathname !== "/login" && pathname !== "/register" ? (
             <div className="lg:w-80 w-40 flex justify-end  ">
               <button
                 className="rounded-full p-2  "
@@ -129,6 +117,16 @@ function Header() {
                 )}
               </button>
             </div>
+          ) : (
+            <>
+              <div className="flex items-center gap-4">
+                <LandingMenu handleScroll={handleScroll} />
+                <div className=" lg:w-80">
+                  <HeaderLogin />
+                  <HeaderLoginHamburguer />
+                </div>
+              </div>
+            </>
           )}
         </div>
         <div className="w-full flex justify-between items-center mx-auto   lg:max-w-screen-xl  ">
@@ -137,11 +135,11 @@ function Header() {
               id={user.id}
               setDropdownActive={setDropdownActive}
               role={user.role}
+              handleLogout={handleLogout}
             />
           )}
         </div>
       </nav>
-      {/* )} */}
     </>
   );
 }
