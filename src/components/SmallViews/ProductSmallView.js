@@ -16,7 +16,6 @@ export default function ProductSmallView({ item }) {
   const redirectProductView = () => router.push(`/productos/${_id}`);
   const addToShoppingCart = async () => {
     if (!user.id) {
-      console.log("No user logged in");
       return;
     }
 

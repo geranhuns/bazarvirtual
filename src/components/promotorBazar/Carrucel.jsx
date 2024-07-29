@@ -17,10 +17,8 @@ function Carrucel({ eventId, bazarDates }) {
   const { user } = useUserContext();
 
   useEffect(() => {
-    console.log("bazarDates:", bazarDates);
     if (Array.isArray(bazarDates) && bazarDates.length > 0) {
       const allSubscribedBrands = bazarDates.flatMap(date => date.marcasCurso || []);
-      console.log("allSubscribedBrands:", allSubscribedBrands);
       setSubscribedBrands(allSubscribedBrands);
     } else {
       console.log("bazarDates is not an array or is empty");

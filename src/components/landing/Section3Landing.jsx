@@ -11,7 +11,7 @@ function Section3Landing() {
                 arrows: false,
                 infinite: true,
                 speed: 500,
-                slidesToShow: 3.09,
+                slidesToShow: 3.08,
                 slidesToScroll: 0,
                 // nextArrow: <SampleNextArrow />,
                 // prevArrow: <SamplePrevArrow />,
@@ -24,7 +24,7 @@ function Section3Landing() {
                         {
                                 breakpoint: 1024,
                                 settings: {
-                                        slidesToShow: 2,
+                                        slidesToShow: 2.06,
                                         slidesToScroll: 1,
                                         infinite: true,
                                         dots: false,
@@ -36,7 +36,7 @@ function Section3Landing() {
                         {
                                 breakpoint: 768,
                                 settings: {
-                                        slidesToShow: 1,
+                                        slidesToShow: 1.02,
                                         slidesToScroll: 1,
                                         infinite: true,
                                         dots: false,

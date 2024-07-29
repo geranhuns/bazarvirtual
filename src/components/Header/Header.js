@@ -19,7 +19,6 @@ function Header() {
   // const [token, setToken] = useState(null);
   const [userProfilePicture, setUserProfilePicture] = useState(null);
   const { user, setUser } = useUserContext();
-  console.log(user);
   const [dropdownActive, setDropdownActive] = useState(false);
 
   const pathname = usePathname();
@@ -48,8 +47,6 @@ function Header() {
 
   useEffect(() => {
     const fetchUserProfilePicture = async () => {
-      console.log(user.role);
-      console.log(user.id);
       try {
         let userData;
         if (user.id) {
@@ -66,9 +63,7 @@ function Header() {
             default:
               userData = null;
           }
-          console.log(userData);
           if (userData && userData.data.profilePicture) {
-            console.log(userData.data.profilePicture);
             setUserProfilePicture(userData.data.profilePicture);
           } else {
             setUserProfilePicture(null); // Para mostrar el ícono si no hay imagen
