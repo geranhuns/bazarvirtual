@@ -14,37 +14,50 @@ export default function ProductSmallView({ item }) {
   // const [carrito, setCarrito] = useState([]);
   const { productImage, title, price, _id } = item;
   const redirectProductView = () => router.push(`/productos/${_id}`);
-  const addToShoppingCart = async () => {
-    if (!user.id) {
-      return;
-    }
+  // const addToShoppingCart = async () => {
+  //   if (!user.id) {
+  //     return;
+  //   }
 
-    const newShoppingCart = [...shoppingCart, id];
-    setShoppingCart(newShoppingCart);
+  //   const newShoppingCart = [...shoppingCart, id];
+  //   setShoppingCart(newShoppingCart);
 
-    try {
-      // Tu lógica para agregar el producto al carrito
-      const response = await updateShoppingCart(userId, productId);
+  //   try {
+  //     // Tu lógica para agregar el producto al carrito
+  //     const response = await updateShoppingCart(userId, productId);
 
-      // Si la actualización del carrito es exitosa
-      Swal.fire({
-        icon: "success",
-        title: "Producto agregado al carrito",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
-      console.error("Error al agregar el producto al carrito:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error al agregar al carrito",
-        text: error.message,
-      });
-    }
-  };
+  //     // Si la actualización del carrito es exitosa
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Producto agregado al carrito",
+  //       showConfirmButton: false,
+  //       timer: 1500,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error al agregar el producto al carrito:", error);
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error al agregar al carrito",
+  //       text: error.message,
+  //     });
+  //   }
+  // };
 
   const handleAddToShoppingCart = async (id) => {
-    if (user.id && id) {
+    if (!user.id) {
+      console.log("No user logged in");
+      Swal.fire({
+        icon: "warning",
+        title: "Inicia sesión para crear tu carrito de compras",
+      });
+      return;
+    } else if (user.role !== "cliente") {
+      Swal.fire({
+        icon: "warning",
+        title: "Crea una cuenta de cliente para crear tu carrito de compras",
+      });
+      return;
+    } else if (user.id && id) {
       await updateShoppingCart(user.id, id);
     } else {
       console.error("ID de usuario o producto no disponible");
