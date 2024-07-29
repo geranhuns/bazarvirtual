@@ -133,9 +133,9 @@ function FormNewDate(props) {
         <>
             <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
 
-                <div className="bg-customGreen w-7/12 h-5/6 flex flex-col  justify-center mx-auto   max-sm:w-full">
-                    <button className="bg-raw-sienna-500 w-10 h-10 flex justify-center items-center rounded-2xl" onClick={() => { setOpen(false), setOpenEdDate(false) }} ><MdClose className="w-full h-full" /></button>
-                    <form onSubmit={handleSubmit(onSubmit)} className="bg-form-newDate-green w-11/12 h-5/6 mx-auto rounded-lg flex flex-col items-center text-customGreen px-2 ">
+                <div className="bg-customGreen w-7/12  mt-8 flex flex-col  justify-center mx-auto   max-sm:w-full pb-16 rounded-xl">
+                    <button className="bg-raw-sienna-500 w-8 h-8 flex justify-center items-center rounded-full ml-4 my-4" onClick={() => { setOpen(false), setOpenEdDate(false) }} ><MdClose className="w-full h-full" /></button>
+                    <form onSubmit={handleSubmit(onSubmit)} className="bg-form-newDate-green w-11/12 h-5/6 mx-auto rounded-lg flex flex-col items-center text-customGreen px-2 pt-4 pb-10">
                         <div className="  flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
                             <label className="text-lg text-white  " htmlFor="">Lugar</label>
                             <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="text"

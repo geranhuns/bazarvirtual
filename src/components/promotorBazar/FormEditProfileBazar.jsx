@@ -109,7 +109,7 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
     <>
       <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh lg:max-w-screen-xl overflow-auto mx-auto backdrop-blur-md mt-16 px-1 ">
 
-        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-4 flex flex-col items-center max-md:w-10/12 max-sm:w-full"  >
+        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-4 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-8 pb-10"  >
           <button className="bg-raw-sienna-500 p-1 mt-3 flex justify-center items-center self-start  rounded-full " onClick={() => setActive(!active)} ><IoCloseOutline className="text-2xl rounded full" /></button>
           <div className=" w-11/12 h-full flex flex-col justify-start items-center max-sm:w-full">
             <div className="  w-full h-2/6 p-15 flex items-center max-sm:rounded-lg">
