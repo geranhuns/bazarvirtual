@@ -14,6 +14,19 @@ const Toast = Swal.mixin({
   },
 });
 
+export const getBazarById = async (bazarId) => {
+  try {
+    const response = await fetch(`${MONGO_URL}/bazarUser/${bazarId}`);
+    if (!response.ok) {
+      throw new Error("Error al obtener datos del bazar");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener datos del bazar", error);
+    throw error;
+  }
+};
 export const registerBazarFetch = async (data) => {
   try {
     const response = await fetch(`${MONGO_URL}/register`, {
