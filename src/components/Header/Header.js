@@ -131,13 +131,15 @@ function Header() {
             </div>
           )}
         </div>
-        {dropdownActive && (
-          <DropdownMenu
-            id={user.id}
-            setDropdownActive={setDropdownActive}
-            role={user.role}
-          />
-        )}
+        <div className="w-full flex justify-between items-center mx-auto   lg:max-w-screen-xl  ">
+          {dropdownActive && (
+            <DropdownMenu
+              id={user.id}
+              setDropdownActive={setDropdownActive}
+              role={user.role}
+            />
+          )}
+        </div>
       </nav>
       {/* )} */}
     </>
