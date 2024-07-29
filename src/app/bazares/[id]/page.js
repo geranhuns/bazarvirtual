@@ -12,8 +12,7 @@ import CardEventDetail from "@/components/promotorBazar/CardEventDetail";
 import FormEditProfileBazar from "@/components/promotorBazar/FormEditProfileBazar";
 import CardEvent from "@/components/promotorBazar/CardEvent";
 import { useRouter } from "next/navigation";
-import { dataUserBazarFetch } from "@/api/bazar/routes";
-import { datesBazarFetch } from "@/api/bazar/routes";
+import { dataUserBazarFetch, datesBazarFetch } from "@/api/bazar/routes";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 import { useUserContext } from "@/components/UserContext/UserContext";
 

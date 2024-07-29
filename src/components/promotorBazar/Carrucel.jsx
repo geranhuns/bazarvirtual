@@ -6,8 +6,7 @@ import Button from "../Button/Button";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { CiCircleMinus } from "react-icons/ci";
 import { useUserContext } from "../UserContext/UserContext";
-import { subscribeToEvent } from "@/api/bazar/routes";
-import { getSubscribedBrands } from "@/api/bazar/routes";
+import { subscribeToEvent, getSubscribedBrands } from "@/api/bazar/routes";
 import { getBrandById } from "@/api/marcas/routes";
 import ProductoDestacadoMarca from "../SmallViews/ProductoDestacadoMarca";
 

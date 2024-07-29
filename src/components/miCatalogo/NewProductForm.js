@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import Image from "next/image";
 import { DevTool } from "@hookform/devtools";
-import { postNewProduct, editProduct } from "@/api/marcas/routes";
+import { postNewProduct, editProduct } from "@/api/marcas/products/routes";
 
 export default function NewProductForm({
   id,

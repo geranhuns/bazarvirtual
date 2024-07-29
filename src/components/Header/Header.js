@@ -138,7 +138,7 @@ function Header() {
         </div>
         {dropdownActive && (
           <DropdownMenu
-            id={user._id}
+            id={user.id}
             setDropdownActive={setDropdownActive}
             role={user.role}
           />

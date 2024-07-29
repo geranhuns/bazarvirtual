@@ -1,13 +1,8 @@
 "use client";
-import SocialMedia from "@/components/SocialMedia/SocialMedia";
-import { Asul } from "next/font/google";
 import { useEffect, useState } from "react";
-import Section1Landing from "../landing/Section1Land";
 import { FaFacebookF } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
-
 import { IoLogoTiktok } from "react-icons/io5";
-import Image from "next/image";
 export default function MarcaHeaderInfo({ id }) {
   const [brandInfo, setBrandInfo] = useState({});
   const [loading, setLoading] = useState(true);

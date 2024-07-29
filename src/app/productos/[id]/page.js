@@ -7,11 +7,11 @@ import Button from "@/components/Button/Button";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
+import { useUserContext } from "@/components/UserContext/UserContext";
 import {
-  UserContext,
-  useUserContext,
-} from "@/components/UserContext/UserContext";
-import { updateWishList, updateShoppingCart } from "@/api/users/routes";
+  updateWishList,
+  updateShoppingCart,
+} from "@/api/users/productLists/routes";
 
 export default function VistaDetalladaProducto() {
   const [shoppingCart, setShoppingCart] = useState([]);

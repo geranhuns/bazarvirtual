@@ -7,7 +7,7 @@ import { MdEdit } from "react-icons/md";
 import { jwtDecode } from "jwt-decode";
 import Button from "@/components/Button/Button";
 import NewProductForm from "@/components/miCatalogo/NewProductForm";
-import { deleteProduct } from "@/api/marcas/routes";
+import { deleteProduct } from "@/api/marcas/products/routes";
 
 export default function MiCatalogo() {
   const [token, setToken] = useState(null);

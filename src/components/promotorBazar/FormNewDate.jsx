@@ -4,10 +4,7 @@ import { useForm } from "react-hook-form"
 import InputNewEvent from "./InputsNewEvent";
 import { MdClose } from "react-icons/md";
 import { useState, useEffect } from "react";
-import { createDateFetch } from "@/api/bazar/routes";
-import { updateDateFetch } from "@/api/bazar/routes";
-import { dateById } from "@/api/bazar/routes";
-
+import { createDateFetch, updateDateFetch, dateById } from "@/api/bazar/routes";
 import Swal from 'sweetalert2'
 
 function FormNewDate(props) {

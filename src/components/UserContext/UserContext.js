@@ -1,8 +1,12 @@
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { jwtDecode } from "jwt-decode";
-import { fetchShoppingCart, fetchWishList } from "@/api/users/routes";
-import { getProductById } from "@/api/marcas/routes";
+
+import {
+  fetchWishList,
+  fetchShoppingCart,
+} from "@/api/users/productLists/routes";
+import { getProductById } from "@/api/marcas/products/routes";
 
 const UserContext = createContext();
 
@@ -18,6 +22,7 @@ export const UserProvider = ({ children }) => {
   const getShoppingCartWithDetails = async (shoppingCart) => {
     try {
       const productPromises = shoppingCart.map(async (item) => {
+        console.log(item);
         const product = await getProductById(item.productId);
         return { ...product.data, quantity: item.quantity }; // Accede a la propiedad `data`
       });
@@ -50,7 +55,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user.role === "client") {
+      if (user.role === "cliente") {
         try {
           const shoppingCartData = await fetchShoppingCart(user.id);
           setShoppingCart(shoppingCartData.shoppingCart);
