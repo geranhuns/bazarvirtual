@@ -1,11 +1,8 @@
 "use client";
-import SocialMedia from "@/components/SocialMedia/SocialMedia";
-import { Asul } from "next/font/google";
 import { useEffect, useState } from "react";
-import Section1Landing from "../landing/Section1Land";
-import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
-import { AiFillTikTok } from "react-icons/ai";
-import Image from "next/image";
+import { FaFacebookF } from "react-icons/fa";
+import { AiFillInstagram } from "react-icons/ai";
+import { IoLogoTiktok } from "react-icons/io5";
 export default function MarcaHeaderInfo({ id }) {
   const [brandInfo, setBrandInfo] = useState({});
   const [loading, setLoading] = useState(true);
@@ -53,22 +50,37 @@ export default function MarcaHeaderInfo({ id }) {
                   redesSociales.map((red) => {
                     if (red.platform === "facebook" && red.url != "") {
                       return (
-                        <a key={red._id} href={red.url}>
-                          <FaFacebook className="w-10 h-11 rounded-custom2 text-facebook bg-white max-sm:w-auto" />
+                        <a
+                          key={red._id}
+                          href={`http://${red.url}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <FaFacebookF className="w-9 h-9  " />
                         </a>
                       );
                     }
                     if (red.platform === "instagram" && red.url != "") {
                       return (
-                        <a key={red._id} href={red.url}>
-                          <FaInstagramSquare className="w-10 h-11 rounded-custom2  bg-instagram-gradient  max-sm:w-auto" />
+                        <a
+                          key={red._id}
+                          href={`http://${red.url}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <AiFillInstagram className="w-10 h-10     max-sm:w-auto" />
                         </a>
                       );
                     }
                     if (red.platform === "tiktok" && red.url != "") {
                       return (
-                        <a key={red._id} href={red.url}>
-                          <AiFillTikTok className="w-10 h-11 rounded-custom2 text-black bg-tiktok-gradient max-sm:w-auto " />
+                        <a
+                          key={red._id}
+                          href={`http://${red.url}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <IoLogoTiktok className="w-11 h-11  max-sm:w-auto " />
                         </a>
                       );
                     }

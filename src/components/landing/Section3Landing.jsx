@@ -12,6 +12,7 @@ function Section3Landing() {
                 infinite: true,
                 speed: 500,
                 slidesToShow: 3,
+                slidesPerRow: 1,
                 slidesToScroll: 0,
                 // nextArrow: <SampleNextArrow />,
                 // prevArrow: <SamplePrevArrow />,
@@ -50,10 +51,10 @@ function Section3Landing() {
         };
         return (
 
-                <section className="lg:max-w-screen-xl mx-auto w-full mb-20  flex flex-col justify-around items-center max-sm:justify-center  px-8 ">
+                <section className="lg:max-w-screen-xl mx-auto w-full mb-20  flex flex-col justify-center items-center max-sm:justify-center md:mt-14  h-full">
 
 
-                        <Slider {...settings} className="Slider flex justify-between items-center  w-11/12 ">
+                        <Slider {...settings} className="Slider flex justify-between items-center   w-11/12 ">
                                 <CardSection3
                                         bgClass="bg-KombuGreen"
                                         bgImageClass="bg-ecoShopping"

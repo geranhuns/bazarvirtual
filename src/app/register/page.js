@@ -6,8 +6,13 @@ import { registerBazarFetch } from "@/api/bazar/routes";
 import { registerUserFetch } from "@/api/users/routes";
 import { registerMarcaFetch } from "@/api/marcas/routes";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+import { useUserContext } from "@/components/UserContext/UserContext";
 
-export default function page() {
+export default function Register() {
+  const router = useRouter();
+  const { user, setUser } = useUserContext();
+
   const [option, setOption] = useState("quieroComprar");
   const [stateForm, setStateForm] = useState(""); //agregado
   const [role, setRole] = useState("");
@@ -30,8 +35,6 @@ export default function page() {
   };
 
   const dataRegister = async (data) => {
-    console.log(data);
-
     let validPassword = null;
     if (data.password === data.passwordComparation) {
       validPassword = data.password;
@@ -77,11 +80,9 @@ export default function page() {
       delete modifiedData.passwordComparation;
       delete modifiedDataCliente.passwordComparation;
       delete modifiedDataMarca.passwordComparation;
-      console.log(modifiedData);
 
       if (modifiedDataCliente.role === "cliente") {
         // console.log("registrando como comprador")
-        console.log(modifiedData);
         await registerUserFetch(modifiedDataCliente);
       }
       if (modifiedData.role === "bazar") {
@@ -98,6 +99,16 @@ export default function page() {
       });
     }
   };
+
+  const loginRedirect = () => {
+    router.push("/login");
+  };
+
+  useEffect(() => {
+    if (user.id) {
+      router.push("/home");
+    }
+  }, [user, router]);
 
   return (
     <>
@@ -133,7 +144,11 @@ export default function page() {
           {option === "soyEmprendedor" && (
             <RadioButton setStateFormProp={setStateForm} />
           )}
-          <RegisterForm dataRegister={dataRegister} role={role} />
+          <RegisterForm
+            dataRegister={dataRegister}
+            role={role}
+            loginRedirect={loginRedirect}
+          />
         </div>
       </div>
     </>

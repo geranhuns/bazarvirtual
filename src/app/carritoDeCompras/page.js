@@ -1,13 +1,10 @@
 "use client";
 import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
 import PaymentTotalButton from "@/components/paymentTotalButton/PaymentTotalButton";
-import { fetchShoppingCart } from "@/api/users/routes";
+import { fetchShoppingCart } from "@/api/users/productLists/routes";
 import { useContext, useState, useEffect } from "react";
-import {
-  UserContext,
-  useUserContext,
-} from "@/components/UserContext/UserContext";
-import { getProductById } from "@/api/marcas/routes";
+import { useUserContext } from "@/components/UserContext/UserContext";
+import { getProductById } from "@/api/marcas/products/routes";
 export default function CarritoDeCompras() {
   const carritoExample = [
     {

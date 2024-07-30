@@ -1,4 +1,7 @@
-const MONGO_URL = "http://localhost:3001/bazar";
+require("dotenv").config();
+
+const BAZAR_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/bazar`;
+
 import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
 
@@ -14,9 +17,22 @@ const Toast = Swal.mixin({
   },
 });
 
+export const getBazarById = async (bazarId) => {
+  try {
+    const response = await fetch(`${BAZAR_URL}/bazarUser/${bazarId}`);
+    if (!response.ok) {
+      throw new Error("Error al obtener datos del bazar");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener datos del bazar", error);
+    throw error;
+  }
+};
 export const registerBazarFetch = async (data) => {
   try {
-    const response = await fetch(`${MONGO_URL}/register`, {
+    const response = await fetch(`${BAZAR_URL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +68,7 @@ export const dataUserBazarFetch = async (id) => {
     // const decodedToken = jwtDecode(token);
     // const _id = decodedToken._id;
 
-    const response = await fetch(`${MONGO_URL}/bazarUser/${id}`);
+    const response = await fetch(`${BAZAR_URL}/bazarUser/${id}`);
 
     if (!response.ok) {
       throw new Error("Error al obtener datos del servidor");
@@ -74,7 +90,7 @@ export const datesBazarFetch = async (id) => {
     // const decodedToken = jwtDecode(token);
     // const _id = decodedToken._id;
 
-    const response = await fetch(`${MONGO_URL}/datesUser/${id}`);
+    const response = await fetch(`${BAZAR_URL}/datesUser/${id}`);
 
     if (!response.ok) {
       throw new Error("Error al obtener datos del servidor");
@@ -91,7 +107,7 @@ export const datesBazarFetch = async (id) => {
 
 export const updateProfileBazar = async (userdata, userId) => {
   try {
-    const response = await fetch(`${MONGO_URL}/updateProfile/${userId}`, {
+    const response = await fetch(`${BAZAR_URL}/updateProfile/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +136,7 @@ export const updateProfileBazar = async (userdata, userId) => {
 
 export const createDateFetch = async (data) => {
   try {
-    const response = await fetch(`${MONGO_URL}/createDate`, {
+    const response = await fetch(`${BAZAR_URL}/createDate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -151,7 +167,7 @@ export const createDateFetch = async (data) => {
 export const deleteEspecialEvent = async (bazarID, specialEventID) => {
   try {
     const response = await fetch(
-      `${MONGO_URL}/datesBazares/${bazarID}/events/${specialEventID}`,
+      `${BAZAR_URL}/datesBazares/${bazarID}/events/${specialEventID}`,
       {
         method: "DELETE",
         headers: {
@@ -183,7 +199,7 @@ export const deleteEspecialEvent = async (bazarID, specialEventID) => {
 export const dateById = async (_idDate) => {
   //extrae fechas de los bazares segun el usuario(Bazar)
   try {
-    const response = await fetch(`${MONGO_URL}/dateById/${_idDate}`);
+    const response = await fetch(`${BAZAR_URL}/dateById/${_idDate}`);
 
     if (!response.ok) {
       throw new Error("Error al obtener datos del servidor");
@@ -201,7 +217,7 @@ export const dateById = async (_idDate) => {
 export const updateDateFetch = async (dateID, data) => {
   console.log(data);
   try {
-    const response = await fetch(`${MONGO_URL}/updateDateBazar/${dateID}`, {
+    const response = await fetch(`${BAZAR_URL}/updateDateBazar/${dateID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -220,6 +236,53 @@ export const updateDateFetch = async (dateID, data) => {
     // return updatedData;
   } catch (error) {
     console.error("Error en la petición de actualización:", error);
+    throw error;
+  }
+};
+
+export const subscribeToEvent = async (eventId, data) => {
+  try {
+    const response = await fetch(`${BAZAR_URL}/updateMarcasCurso/${eventId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error("Error al inscribirse al bazar");
+    }
+    const brandToSubscribe = await response.json();
+    Toast.fire({
+      icon: "success",
+      title: "Ya estás participando en el bazar",
+    });
+  } catch (error) {
+    console.error("Error en la petición para participar", error);
+    throw error;
+  }
+};
+
+export const getSubscribedBrands = async (eventId) => {
+  try {
+    const response = await fetch(`${BAZAR_URL}/getMarcasCurso/${eventId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener las marcas suscritas");
+    }
+
+    const subscribedBrands = await response.json();
+    return subscribedBrands;
+  } catch (error) {
+    console.error(
+      "Error en la petición para obtener las marcas suscritas",
+      error
+    );
     throw error;
   }
 };

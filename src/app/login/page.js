@@ -1,21 +1,25 @@
 "use client";
 import LoginForm from "@/components/LoginForm/LoginForm";
 import { loginUserFetch } from "@/api/users/routes";
-import { loginBazarFetch } from "@/api/bazar/routes";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
+import { useUserContext } from "@/components/UserContext/UserContext";
+import { useEffect } from "react";
 
 export default function Login() {
   const router = useRouter();
+  const { user, setUser } = useUserContext();
 
   const dataLogin = async (data) => {
     try {
-      const token = await loginUserFetch(data);
-      const decodedToken = jwtDecode(token.data);
+      const response = await loginUserFetch(data);
+      const token = response.data;
+      localStorage.setItem("jwtToken", token);
+
+      const decodedToken = jwtDecode(token);
       const id = decodedToken._id;
       const userRole = decodedToken.role;
-      console.log(userRole);
+      setUser({ id, role: userRole });
 
       if (userRole === "marca") {
         router.push(`/marcas/${id}`); //NOTA cambiarle aqui la ruta
@@ -28,6 +32,12 @@ export default function Login() {
       console.error(error.message);
     }
   };
+
+  useEffect(() => {
+    if (user.id) {
+      router.push("/home");
+    }
+  }, [user, router]);
 
   return (
     <div className=" flex justify-center items-center h-screen lg:max-w-screen-xl mx-auto">

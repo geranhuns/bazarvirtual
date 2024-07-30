@@ -1,4 +1,5 @@
-const MONGO_URL = "http://localhost:3001/marca";
+require("dotenv").config();
+const MARCA_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/marca`;
 import Swal from "sweetalert2";
 
 const Toast = Swal.mixin({
@@ -13,9 +14,8 @@ const Toast = Swal.mixin({
   },
 });
 export const registerMarcaFetch = async (data) => {
-  console.log(data);
   try {
-    const response = await fetch(`${MONGO_URL}/register`, {
+    const response = await fetch(`${MARCA_URL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,9 +45,8 @@ export const registerMarcaFetch = async (data) => {
 };
 
 export const updateProfileMarca = async (userdata, userId) => {
-  console.log(userdata);
   try {
-    const response = await fetch(`${MONGO_URL}/updateProfile/${userId}`, {
+    const response = await fetch(`${MARCA_URL}/updateProfile/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +60,6 @@ export const updateProfileMarca = async (userdata, userId) => {
     }
 
     const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Usuario actualizado con éxito:", data);
     Toast.fire({
       icon: "success",
       title: "Perfil actualizado.",
@@ -74,114 +72,16 @@ export const updateProfileMarca = async (userdata, userId) => {
   }
 };
 
-export const postNewProduct = async (userdata, marcaId) => {
-  console.log(userdata);
+export const getBrandById = async (brandId) => {
   try {
-    const response = await fetch(`http://localhost:3001/products/newProduct`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userdata), // Convierte el objeto a formato JSON
-    });
+    const response = await fetch(`http://localhost:3001/marca/${brandId}`);
     if (!response.ok) {
-      throw new Error("Error al crear nuevo producto");
+      throw new Error("Error al obtener la marca");
     }
-    const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Nuevo producto creado con éxito:", data);
-    Toast.fire({
-      icon: "success",
-      title: "Nuevo producto en catálogo",
-    });
+    const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error al crear el producto:", error.message);
-    // Puedes manejar el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
-    throw error; // Propaga el error para manejo adicional si es necesario
-  }
-};
-export const editProduct = async (userdata, productId) => {
-  console.log(userdata);
-  try {
-    const response = await fetch(
-      `http://localhost:3001/products/${productId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userdata), // Convierte el objeto a formato JSON
-      }
-    );
-    if (!response.ok) {
-      throw new Error("Error al actualizar el producto");
-    }
-    const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Producto actualizado con éxito:", data);
-    Toast.fire({
-      icon: "success",
-      title: "Producto actualizdo en catálogo",
-    });
-    return data;
-  } catch (error) {
-    console.error("Error al actualizar el producto:", error.message);
-    Toast.fire({
-      icon: "error",
-      title: "Error al actualizar el producto",
-    });
-
-    // Puedes manejar el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
-    throw error; // Propaga el error para manejo adicional si es necesario
-  }
-};
-
-export const deleteProduct = async (productId) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3001/products/${productId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Error al eliminar el producto");
-    }
-
-    const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Producto eliminado con éxito:", data);
-    Toast.fire({
-      icon: "success",
-      title: "Producto eliminado",
-    });
-    return data;
-  } catch (error) {
-    console.error("Error al eliminar el producto:", error.message);
-    Toast.fire({
-      icon: "error",
-      title: "Error al eliminar el producto",
-    });
-    throw error; // Propaga el error para manejo adicional si es necesario
-  }
-};
-
-export const getProductById = async (productId) => {
-  try {
-    const response = await fetch(`http://localhost:3001/products/${productId}`);
-
-    if (!response.ok) {
-      throw new Error("Error al obtener el producto");
-    }
-
-    const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Producto obtenido con éxito:", data);
-
-    return data;
-  } catch (error) {
-    console.error("Error al obtener el producto:", error.message);
-    throw error; // Propaga el error para manejo adicional si es necesario
+    console.error("Error al obtener la marca;", error.message);
+    throw error;
   }
 };

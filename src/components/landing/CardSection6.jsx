@@ -9,7 +9,7 @@ function CardSection6(props) {
                     <img src={photo} alt="" className="rounded-bl-custom1 rounded-tr-3xl" />
                 </div>
                 <div className="  w-10/12 h-3/6 flex flex-col gap-y-10 ">
-                    <p className="text-lg font-light italic leading-6 ">"{testimonio}"</p>
+                    <p className="text-lg font-light italic leading-6 ">&quot;{testimonio}&quot;</p>
                     <div className="flex flex-col gap-y-1 leading-5 ">
                         <span>{namePerson}</span>
                         <span>{bazarName}</span>

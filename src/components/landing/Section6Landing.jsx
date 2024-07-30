@@ -43,12 +43,25 @@ function Section6Landing() {
     cssEase: "linear",
     responsive: [
       {
-        breakpoint: 640,
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+          arrows: true
+        }
+
+      },
+
+      {
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           infinite: true,
-          dots: false
+          dots: false,
+
         }
       },
     ]
@@ -56,9 +69,9 @@ function Section6Landing() {
   };
   return (
     <>
-      <section className="w-full lg:max-w-screen-xl mx-auto px-8 py-20 flex flex-col items-center justify-center gap-1 ">
-        <h2 className="text-customGreen text-5xl font-semibold max-sm:text-3xl">Testimonios</h2>
-        <Slider {...settings} className="  w-11/12 h-4/6 flex justify-center items-center ">
+      <section className="w-full  lg:max-w-screen-xl mx-auto px-8  flex flex-col items-center justify-center gap-1 mt-8 mb-20">
+        <h2 className="text-customGreen text-5xl font-semibold max-sm:text-3xl ">Testimonios</h2>
+        <Slider {...settings} className="  w-11/12  flex justify-center items-center ">
           <CardSection6
             bg={'bg-KombuGreen'}
             photo={'https://picsum.photos/100/100'}

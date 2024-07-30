@@ -9,25 +9,24 @@ import CardEventDetail from "@/components/promotorBazar/CardEventDetail";
 import FormEditProfileBazar from "@/components/promotorBazar/FormEditProfileBazar";
 import CardEvent from "@/components/promotorBazar/CardEvent";
 import { useRouter } from 'next/navigation'
-import { dataUserBazarFetch } from "@/api/bazar/routes";
-import { datesBazarFetch } from "@/api/bazar/routes";
+import { dataUserBazarFetch, datesBazarFetch } from "@/api/bazar/routes";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 
 
 
 
 function PromotorVista() {
-const router = useRouter()
-const[open, setOpen] = useState(false)
-const[dataUser, setDataUser] = useState({})//contiene los datos de peril del user
-const[datesBazar, setDatesBazar] = useState([]) //contiene las fechas del bazarUser
-const[dataDate, setDataDate] = useState([])//contiene un aray con los eventos especiales de la fecha que se selecciona
-const[idDate, setIdDate] = useState('') //state que almacena el id de la date seleccionada, es para pasarselo a los events
-const[openEdDate, setOpenEdDate]= useState(false)
-const { active, setActive } = useContext(HeaderContext);
+    const router = useRouter()
+    const [open, setOpen] = useState(false)
+    const [dataUser, setDataUser] = useState({})//contiene los datos de peril del user
+    const [datesBazar, setDatesBazar] = useState([]) //contiene las fechas del bazarUser
+    const [dataDate, setDataDate] = useState([])//contiene un aray con los eventos especiales de la fecha que se selecciona
+    const [idDate, setIdDate] = useState('') //state que almacena el id de la date seleccionada, es para pasarselo a los events
+    const [openEdDate, setOpenEdDate] = useState(false)
+    const { active, setActive } = useContext(HeaderContext);
 
-// console.log(datesBazar)
-const redesSociales = dataUser.socialNetworks
+    // console.log(datesBazar)
+    const redesSociales = dataUser.socialNetworks
 
     const fetchData = async () => {
         try {
@@ -38,11 +37,11 @@ const redesSociales = dataUser.socialNetworks
         }
     };
 
-  const fetchDataDates = async () => {
-    try {
-      const bazarDates = await datesBazarFetch();
-    //   console.log(bazarDates.data)
-      setDatesBazar(bazarDates.data);
+    const fetchDataDates = async () => {
+        try {
+            const bazarDates = await datesBazarFetch();
+            //   console.log(bazarDates.data)
+            setDatesBazar(bazarDates.data);
 
         } catch (error) {
             console.error('Error al obtener las fechas del bazar:', error);
@@ -89,8 +88,8 @@ const redesSociales = dataUser.socialNetworks
 
     return (
         <section className="relative w-full bg-raw-sienna-200  min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
-              {(openEdDate || open) && <FormNewDate idDate={idDate}  datesBazar={datesBazar} fetchDataDates={fetchDataDates} _idUser={dataUser._id} open={open} setOpen={setOpen} openEdDate={openEdDate} setOpenEdDate={setOpenEdDate} updateSelectDate={setDataDate} />}
-              { active && <FormEditProfileBazar dataUserP={dataUser}  _idUser={dataUser._id} active={active} setActive={setActive} />}
+            {(openEdDate || open) && <FormNewDate idDate={idDate} datesBazar={datesBazar} fetchDataDates={fetchDataDates} _idUser={dataUser._id} open={open} setOpen={setOpen} openEdDate={openEdDate} setOpenEdDate={setOpenEdDate} updateSelectDate={setDataDate} />}
+            {active && <FormEditProfileBazar dataUserP={dataUser} _idUser={dataUser._id} active={active} setActive={setActive} />}
 
             <div className="bg-raw-sienna-500  w-10/12 flex  items-center justify-around  p-10 mx-auto max-md:flex-col max-sm:w-11/12 my-10 rounded-xl">
 
@@ -138,7 +137,7 @@ const redesSociales = dataUser.socialNetworks
 
                     <div className="bg-avocado-500 rounded-md w-full flex text-center items-center text-black gap-2  p-3">
                         {datesBazar.map(date => (
-                            <CardEventDetail key={date._id} dateID={date._id} setIdDate={setIdDate} setDataDate={setDataDate} events={date.events} fecha={date.date} openEdDate={openEdDate} setOpenEdDate={setOpenEdDate}/>
+                            <CardEventDetail key={date._id} dateID={date._id} setIdDate={setIdDate} setDataDate={setDataDate} events={date.events} fecha={date.date} openEdDate={openEdDate} setOpenEdDate={setOpenEdDate} />
                         ))}
 
 
@@ -150,12 +149,12 @@ const redesSociales = dataUser.socialNetworks
 
             <Carrucel />
 
-             <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
+            <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
                 <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12">
-                {/* //poner un state con el lugar para precentarlo aqui */}
-                {dataDate.map(date => (
-                        
-                        <CardEvent key={date._id} setDatesBazar={setDatesBazar} fetchDataDates={fetchDataDates} setDataDate={setDataDate} eventID={date._id} idDate={idDate} eventName={date.eventName} description={date.description} timeEvent={date.timeEvent}  />
+                    {/* //poner un state con el lugar para precentarlo aqui */}
+                    {dataDate.map(date => (
+
+                        <CardEvent key={date._id} setDatesBazar={setDatesBazar} fetchDataDates={fetchDataDates} setDataDate={setDataDate} eventID={date._id} idDate={idDate} eventName={date.eventName} description={date.description} timeEvent={date.timeEvent} />
                     ))}
 
                 </div>

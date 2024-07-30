@@ -7,13 +7,13 @@ import Button from "@/components/Button/Button";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
+import { useUserContext } from "@/components/UserContext/UserContext";
 import {
-  UserContext,
-  useUserContext,
-} from "@/components/UserContext/UserContext";
-import { updateWishList, updateShoppingCart } from "@/api/users/routes";
+  updateWishList,
+  updateShoppingCart,
+} from "@/api/users/productLists/routes";
 
-export default function vistaDetalladaProducto() {
+export default function VistaDetalladaProducto() {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [wishList, setWishList] = useState([]);
 
@@ -28,6 +28,16 @@ export default function vistaDetalladaProducto() {
   const addToWishList = async () => {
     if (!user.id) {
       console.log("No user logged in");
+      Swal.fire({
+        icon: "warning",
+        title: "Inicia sesión para crear tu lista de deseos",
+      });
+      return;
+    } else if (user.role !== "cliente") {
+      Swal.fire({
+        icon: "warning",
+        title: "Crea una cuenta de cliente para crear tu lista de deseos",
+      });
       return;
     }
 
@@ -50,47 +60,66 @@ export default function vistaDetalladaProducto() {
       });
     }
   };
-  const addToShoppingCart = async () => {
-    if (!user.id) {
-      console.log("No user logged in");
-      return;
-    }
+  // const addToShoppingCart = async () => {
+  //   if (!user.id) {
+  //     console.log("No user logged in");
+  //     Swal.fire({
+  //       icon: "warning",
+  //       title: "Inicia sesión para crear tu carrito de compras",
+  //     });
+  //     return;
+  //   } else if (user.role !== "cliente") {
+  //     Swal.fire({
+  //       icon: "warning",
+  //       title: "Crea una cuenta de cliente para crear tu carrito de compras",
+  //     });
+  //     return;
+  //   }
 
-    const newShoppingCart = [...shoppingCart, id];
-    setShoppingCart(newShoppingCart);
+  //   const newShoppingCart = [...shoppingCart, id];
+  //   setShoppingCart(newShoppingCart);
 
-    try {
-      // Tu lógica para agregar el producto al carrito
-      const response = await updateShoppingCart(user.id, newShoppingCart);
+  //   try {
+  //     // Tu lógica para agregar el producto al carrito
+  //     const response = await updateShoppingCart(user.id, newShoppingCart);
 
-      // Si la actualización del carrito es exitosa
-      Swal.fire({
-        icon: "success",
-        title: "Producto agregado al carrito",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
-      console.error("Error al agregar el producto al carrito:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error al agregar al carrito",
-        text: error.message,
-      });
-    }
-  };
+  //     // Si la actualización del carrito es exitosa
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Producto agregado al carrito",
+  //       showConfirmButton: false,
+  //       timer: 1500,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error al agregar el producto al carrito:", error);
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error al agregar al carrito",
+  //       text: error.message,
+  //     });
+  //   }
+  // };
 
   const handleAddToShoppingCart = async () => {
-    if (user.id && id) {
+    if (!user.id) {
+      console.log("No user logged in");
+      Swal.fire({
+        icon: "warning",
+        title: "Inicia sesión para crear tu carrito de compras",
+      });
+      return;
+    } else if (user.role !== "cliente") {
+      Swal.fire({
+        icon: "warning",
+        title: "Crea una cuenta de cliente para crear tu carrito de compras",
+      });
+      return;
+    } else if (user.id && id) {
       await updateShoppingCart(user.id, id);
     } else {
       console.error("ID de usuario o producto no disponible");
     }
   };
-
-  useEffect(() => {
-    console.log("User from context:", user); // Verifica si el valor del usuario se obtiene correctamente
-  }, [user]);
 
   const getProduct = async () => {
     try {

@@ -2,10 +2,11 @@
 import { useEffect, useState, useRef } from "react";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { dataUserBazarFetch } from "@/api/bazar/routes";
-import { updateProfileBazar } from "@/api/bazar/routes";
+import { dataUserBazarFetch, updateProfileBazar } from "@/api/bazar/routes";
 import { useParams } from "next/navigation";
- 
+import { IoCloseOutline } from "react-icons/io5";
+
+
 
 
 function FormEditProfileBazar({ active, setActive, _idUser }) {
@@ -21,8 +22,8 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
 
   const params = useParams();
   const id = params.id;
-  
- 
+
+
   const handleButtonClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -32,23 +33,22 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
   const handleImagen = (e) => {
     const file = e.target.files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            handleSetValue(reader.result);
-        };
-        reader.readAsDataURL(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        handleSetValue(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
-};
-  
-const handleSetValue = (imageDataUrl) => {
-  setValue("profilePicture", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
-};
+  };
+
+  const handleSetValue = (imageDataUrl) => {
+    setValue("profilePicture", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
+  };
 
 
   const fetchData = async () => {  //funcion para traer los datos del usuario al state dataUser
     try {
       const userData = await dataUserBazarFetch(id);
-      console.log(userData);
       setDataUser(userData.data);
       reset(userData.data);
     } catch (error) {
@@ -61,7 +61,6 @@ const handleSetValue = (imageDataUrl) => {
 
   useEffect(() => { //effect que se ejecuta cuando el componente se carga, poniendo en accion a la funcion fetch, basicamente cuando carga el componente se trae los datos del user
     fetchData();
-    console.log("datos cargados")
   }, []);
 
 
@@ -69,8 +68,7 @@ const handleSetValue = (imageDataUrl) => {
 
   const onSubmit = async (data) => { //funcion que se ejecuta al enviar el formulario
 
-  
-    console.log(`datos de entrada del formulario: ${data}`)
+
     const socialNetworks = [ //con los datos enviados se crea un array de objetos apartir de las redes sociales del form
       { platform: 'facebook', url: data.facebook },
       { platform: 'instagram', url: data.instagram },
@@ -84,11 +82,9 @@ const handleSetValue = (imageDataUrl) => {
       socialNetworks,
       _id: _idUser //este se pasara al fetch para hacer la update
     };
-    console.log(dataAdjust);
 
     try {
       const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
-      console.log('Usuario actualizado con éxito:', updatedUser);
       fetchData(); //cuando termina de actualizar se ejecuta de nuevo el fetch para traer los nuevos valores desde la db y actualizar el value por defecto de los inputs del formulario
 
     } catch (error) {
@@ -99,29 +95,29 @@ const handleSetValue = (imageDataUrl) => {
     reset();
   }
 
- 
+
   if (isLoading) {
 
     // return <div>Loading...</div>;
     //colocar alert
   }
- 
+
 
 
 
   return (
     <>
       <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh lg:max-w-screen-xl overflow-auto mx-auto backdrop-blur-md mt-16 px-1 ">
-        <button className="bg-raw-sienna-500 w-10 h-10 flex justify-center items-center rounded-2xl " onClick={() => setActive(!active)} >Cerrar</button>
 
-        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-4 flex flex-col items-center max-md:w-10/12 max-sm:w-full"  >
+        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-4 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-8 pb-10"  >
+          <button className="bg-raw-sienna-500 p-1 mt-3 flex justify-center items-center self-start  rounded-full " onClick={() => setActive(!active)} ><IoCloseOutline className="text-2xl rounded full" /></button>
           <div className=" w-11/12 h-full flex flex-col justify-start items-center max-sm:w-full">
             <div className="  w-full h-2/6 p-15 flex items-center max-sm:rounded-lg">
               <div className="  w-auto h-5/6 mx-auto rounded-full relative  ">
                 <img className="w-full h-full rounded-full" src={dataUser.profilePicture} alt="" />
                 <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
                   <label className="text-white text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
-                  <input type="file" ref={fileInputRef} style={{ display: 'none' }}  onChange={handleImagen}  />
+                  <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImagen} />
                 </div>
               </div>
             </div>
@@ -163,8 +159,8 @@ const handleSetValue = (imageDataUrl) => {
                     />
                   </div>
                 </div>
+                <button className="bg-raw-sienna-500 w-9/12 rounded-lg p-1 mt-10" type="submit">Guardar</button>
               </div>
-              <button className="bg-raw-sienna-500 w-9/12 rounded-lg p-1" type="submit">Guardar</button>
             </div>
           </div>
         </form>

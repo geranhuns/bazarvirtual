@@ -4,7 +4,12 @@ import { useRouter } from "next/navigation";
 
 import MarcaSmallView from "./MarcaSmallView";
 import Link from "next/link";
-export default function ProductoDestacadoMarca({ id, profilePicture, brand }) {
+export default function ProductoDestacadoMarca({
+  id,
+  profilePicture,
+  brand,
+  className,
+}) {
   const router = useRouter();
 
   const [brandProducts, setBrandProducts] = useState();
@@ -22,9 +27,11 @@ export default function ProductoDestacadoMarca({ id, profilePicture, brand }) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getProducts();
   }, []);
+
   if (loading) {
     return <div>Cargando...</div>;
   }
@@ -34,7 +41,7 @@ export default function ProductoDestacadoMarca({ id, profilePicture, brand }) {
       // onClick={() => {
       //   router.push(`marcas/${id}`);
       // }}
-      className="flex flex-col self-start bg-raw-sienna-50  py-5  rounded-md    h-[60vh] md:h-96 "
+      className={`flex flex-col  self-start bg-raw-sienna-50  py-5  rounded-md    h-[60vh] md:h-96 ${className}`}
     >
       <Link
         className="flex flex-col gap-4 items-center cursor-pointer w-full"
@@ -52,9 +59,8 @@ export default function ProductoDestacadoMarca({ id, profilePicture, brand }) {
             {brandProducts &&
               brandProducts.slice(0, 4).map((product) => {
                 return (
-                  <div>
+                  <div key={product._id}>
                     <img
-                      key={product._id}
                       className="w-full h-[20vh] md:h-32  object-cover overflow-hidden"
                       src={product.productImage}
                       width="200px"
