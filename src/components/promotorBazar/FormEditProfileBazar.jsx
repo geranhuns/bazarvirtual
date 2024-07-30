@@ -82,6 +82,7 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
       socialNetworks,
       _id: _idUser //este se pasara al fetch para hacer la update
     };
+    console.log(dataAdjust)
 
     try {
       const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
