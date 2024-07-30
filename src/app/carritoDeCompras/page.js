@@ -6,6 +6,7 @@ import { useContext, useState, useEffect } from "react";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { getProductById } from "@/api/marcas/products/routes";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 export default function CarritoDeCompras() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +20,20 @@ export default function CarritoDeCompras() {
   const handlePaymentClick = () => {
     router.push(`/payment?amount=${totalPrice}`);
   };
+
+  if (user.role === null) {
+    Swal.fire({
+      icon: "warning",
+      title: "Inicia sesión para crear tu carrito de compras",
+    });
+    router.push("/home");
+  } else if (user.role !== "client") {
+    Swal.fire({
+      icon: "warning",
+      title: "Inicia sesión como cliente para ver tu carrito de compras",
+    });
+    router.push("/home");
+  }
 
   if (isLoading) <div>loading...</div>;
   return (
