@@ -11,7 +11,8 @@ function Section3Landing() {
                 arrows: false,
                 infinite: true,
                 speed: 500,
-                slidesToShow: 3.08,
+                slidesToShow: 3,
+                slidesPerRow: 1,
                 slidesToScroll: 0,
                 // nextArrow: <SampleNextArrow />,
                 // prevArrow: <SamplePrevArrow />,
@@ -24,7 +25,7 @@ function Section3Landing() {
                         {
                                 breakpoint: 1024,
                                 settings: {
-                                        slidesToShow: 2.06,
+                                        slidesToShow: 2,
                                         slidesToScroll: 1,
                                         infinite: true,
                                         dots: false,
@@ -36,7 +37,7 @@ function Section3Landing() {
                         {
                                 breakpoint: 768,
                                 settings: {
-                                        slidesToShow: 1.02,
+                                        slidesToShow: 1,
                                         slidesToScroll: 1,
                                         infinite: true,
                                         dots: false,
@@ -50,10 +51,10 @@ function Section3Landing() {
         };
         return (
 
-                <section className="lg:max-w-screen-xl mx-auto w-full mb-20  flex flex-col justify-center items-center max-sm:justify-center md:mt-14  md:h-[75vh] ">
+                <section className="lg:max-w-screen-xl mx-auto w-full mb-20  flex flex-col justify-center items-center max-sm:justify-center md:mt-14  h-full">
 
 
-                        <Slider {...settings} className="Slider flex justify-between items-center  w-11/12 h-[90vh]">
+                        <Slider {...settings} className="Slider flex justify-between items-center   w-11/12 ">
                                 <CardSection3
                                         bgClass="bg-KombuGreen"
                                         bgImageClass="bg-ecoShopping"

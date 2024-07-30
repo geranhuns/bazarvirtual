@@ -1,11 +1,17 @@
 import { jwtDecode } from "jwt-decode";
 import { useContext } from "react";
-import { useRouter } from "next/navigation";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
-export default function DropdownMenu({ setDropdownActive, id, role }) {
-  const { active, setActive } = useContext(HeaderContext);
+import { useRouter } from "next/navigation";
 
+export default function DropdownMenu({
+  setDropdownActive,
+  id,
+  role,
+  handleLogout,
+}) {
+  const { active, setActive } = useContext(HeaderContext);
   const router = useRouter();
+
   // const [decodedToken, setDecodedToken] = useState(null);
   // const decodeToken = (token) => {
   //   try {
@@ -15,12 +21,7 @@ export default function DropdownMenu({ setDropdownActive, id, role }) {
   //     return null;
   //   }
   // };
-  function handleLogout() {
-    localStorage.removeItem("jwtToken");
 
-    router.push("/login");
-    setDropdownActive(false);
-  }
   // useEffect(() => {
   //   if (token) {
   //     const decoded = decodeToken(token);
@@ -61,15 +62,15 @@ export default function DropdownMenu({ setDropdownActive, id, role }) {
               if (role === "bazar") {
                 router.push(`/bazares/${id}`);
                 setActive(!active);
-                // setDropdownActive(false);
+                setDropdownActive(false);
               }
               if (role === "marca") {
                 router.push(`/editarPerfilMarca/${id}`);
-                // setDropdownActive(false);
+                setDropdownActive(false);
               }
               if (role === "cliente") {
                 router.push(`/editarPerfil/${id}`);
-                // setDropdownActive(false);
+                setDropdownActive(false);
               }
             }}
           >

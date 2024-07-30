@@ -35,7 +35,7 @@ function PromotorVistaId() {
   const id = params.id;
 
   const { user } = useUserContext();
-  const loggedUserId = user._id;
+  const loggedUserId = user.id;
 
   const [isSubscribed, setIsSubscribed] = useState(false); // Estado para la suscripción de marca al evento
 
@@ -124,21 +124,36 @@ function PromotorVistaId() {
                 redesSociales.map((red) => {
                   if (red.platform === "facebook" && red.url != "") {
                     return (
-                      <a key={red._id} href={red.url}>
+                      <a
+                        key={red._id}
+                        href={`http://${red.url}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <FaFacebookF className="w-9 h-9  max-sm:w-auto " />
                       </a>
                     );
                   }
                   if (red.platform === "instagram" && red.url != "") {
                     return (
-                      <a key={red._id} href={red.url}>
+                      <a
+                        key={red._id}
+                        href={`http://${red.url}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <AiFillInstagram className="w-11 h-11     max-sm:w-auto" />
                       </a>
                     );
                   }
                   if (red.platform === "tiktok" && red.url != "") {
                     return (
-                      <a key={red._id} href={red.url}>
+                      <a
+                        key={red._id}
+                        href={`http://${red.url}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <IoLogoTiktok className="w-10 h-10  max-sm:w-auto " />
                       </a>
                     );

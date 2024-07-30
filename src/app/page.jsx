@@ -8,15 +8,22 @@ import Section6Landing from "@/components/landing/Section6Landing";
 
 export default function Home() {
   return (
-    <div className=" flex flex-col ">
+    <div className=" flex flex-col  ">
+
+
+
       {/* Primera Seccion */}
       <Section1Landing id="section1" />
       {/* Segunda Seccion*/}
-      <div id="section2"><Section2Landing /></div>
+
+      <Section2Landing id="section2" />
+
       {/* Tercera Seccion*/}
-      <div id="section3"><Section3Landing /></div>
+      <Section3Landing id="section3" />
+
       {/* Cuarta Seccion*/}
-      <div id="section4"><Section4Landing /></div>
+      <Section4Landing id="section4" />
+
       {/* Quinta Seccion*/}
       <Section5Landing id="section5" />
       {/* Sexta Seccion*/}
