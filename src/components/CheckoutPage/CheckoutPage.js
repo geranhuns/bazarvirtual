@@ -16,20 +16,33 @@ const CheckoutPage = ({ amount }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("/api/create-payment-intent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ amount: convertToSubcurrency(amount) }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setClientSecret(data.clientSecret);
+    if (amount) {
+      fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: convertToSubcurrency(amount) }),
       })
-      .catch((error) => {
-        console.error("Error fetching client secret:", error);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Network response was not ok: ${response.statusText}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.clientSecret) {
+            setClientSecret(data.clientSecret);
+          } else {
+            console.error("Client secret is missing from response:", data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching client secret:", error);
+        });
+    }
   }, [amount]);
 
   const handleSubmit = async (event) => {
@@ -65,7 +78,7 @@ const CheckoutPage = ({ amount }) => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-2 rounded-md w-full">
-      <PaymentElement id="payment-element" />
+      {/* <PaymentElement id="payment-element" /> */}
 
       {clientSecret && <PaymentElement id="payment-element" />}
       {errorMessage && <div>{errorMessage}</div>}

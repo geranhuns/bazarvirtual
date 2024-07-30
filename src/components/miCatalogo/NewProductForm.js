@@ -194,7 +194,7 @@ export default function NewProductForm({
                 required
                 type="number"
                 step="0.01"
-                min="0"
+                min="10"
                 className="p-1 rounded-sm w-11/12"
                 {...register("price")}
               />

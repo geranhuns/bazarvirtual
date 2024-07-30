@@ -20,10 +20,17 @@ export default function VistaDetalladaProducto() {
   const [product, setProduct] = useState();
   const [loading, setLoading] = useState(true);
   const [logo, setLogo] = useState("");
+  const router = useRouter();
   const params = useParams();
   const id = params.id;
+  const [amount, setAmount] = useState();
 
   const { user, setUser } = useUserContext();
+
+  // const handleBuyNow = () => {
+  //   const amount = product.price;
+  //   router.push(`/payment/${product.price}`);
+  // };
 
   const addToWishList = async () => {
     if (!user.id) {
@@ -60,45 +67,6 @@ export default function VistaDetalladaProducto() {
       });
     }
   };
-  // const addToShoppingCart = async () => {
-  //   if (!user.id) {
-  //     console.log("No user logged in");
-  //     Swal.fire({
-  //       icon: "warning",
-  //       title: "Inicia sesión para crear tu carrito de compras",
-  //     });
-  //     return;
-  //   } else if (user.role !== "cliente") {
-  //     Swal.fire({
-  //       icon: "warning",
-  //       title: "Crea una cuenta de cliente para crear tu carrito de compras",
-  //     });
-  //     return;
-  //   }
-
-  //   const newShoppingCart = [...shoppingCart, id];
-  //   setShoppingCart(newShoppingCart);
-
-  //   try {
-  //     // Tu lógica para agregar el producto al carrito
-  //     const response = await updateShoppingCart(user.id, newShoppingCart);
-
-  //     // Si la actualización del carrito es exitosa
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Producto agregado al carrito",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //   } catch (error) {
-  //     console.error("Error al agregar el producto al carrito:", error);
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Error al agregar al carrito",
-  //       text: error.message,
-  //     });
-  //   }
-  // };
 
   const handleAddToShoppingCart = async () => {
     if (!user.id) {
@@ -127,6 +95,7 @@ export default function VistaDetalladaProducto() {
       const data = await response.json();
       setProduct(data.data);
       setLogo(data.data.createdBy.profilePicture);
+      setAmount(data.data.price);
 
       setLoading(false);
     } catch (error) {
@@ -138,20 +107,6 @@ export default function VistaDetalladaProducto() {
     getProduct();
   }, []);
 
-  useEffect(() => {
-    const clientId = user.id;
-  }, []);
-
-  // useEffect(() => {
-  //   fetch(`http://localhost:3001/products/${params.id}`).then((res) => {
-  //     return res.json().then((data) => {
-  //       console.log(data.data);
-  //       setProduct(data.data);
-  //       setLoading(false);
-  //     });
-  //   });
-  // }, []);
-  // console.log(product);
   if (loading) {
     return <div>Cargando...</div>;
   }
@@ -175,10 +130,17 @@ export default function VistaDetalladaProducto() {
                 onClick={handleAddToShoppingCart}
               />
               <Button
-                href="/carritoDeCompras"
+                href=""
                 text="Comprar Ahora"
                 variant="raw-sienna-50"
                 className={"text-xs lg:text-lg"}
+                onClick={() => {
+                  if (amount > 0) {
+                    router.push(`/payment?amount=${amount}`);
+                  } else {
+                    console.error("Amount must be a positive number");
+                  }
+                }}
               />
             </div>
           </div>
