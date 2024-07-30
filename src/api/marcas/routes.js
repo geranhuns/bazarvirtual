@@ -167,3 +167,21 @@ export const deleteProduct = async (productId) => {
     throw error; // Propaga el error para manejo adicional si es necesario
   }
 };
+
+export const getProductById = async (productId) => {
+  try {
+    const response = await fetch(`http://localhost:3001/products/${productId}`);
+
+    if (!response.ok) {
+      throw new Error("Error al obtener el producto");
+    }
+
+    const data = await response.json(); // Si esperas una respuesta JSON del servidor
+    console.log("Producto obtenido con éxito:", data);
+
+    return data;
+  } catch (error) {
+    console.error("Error al obtener el producto:", error.message);
+    throw error; // Propaga el error para manejo adicional si es necesario
+  }
+};

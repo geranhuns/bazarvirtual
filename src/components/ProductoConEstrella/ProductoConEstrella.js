@@ -3,18 +3,17 @@
 import { FaRegStar, FaStar } from "react-icons/fa6";
 
 import { useState } from "react";
-const ProductoConEstrella = ({ imageUrl, altText }) => {
+const ProductoConEstrella = ({ imageUrl, altText, addToWishList }) => {
   const [activeStar, setActiveStar] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
-
-  const [addToWishList, setAddToWishList] = useState([]);
+  // const [showMessage, setShowMessage] = useState(false);
 
   const handleClick = () => {
     setActiveStar(!activeStar);
-    setShowMessage(true);
-    setTimeout(() => {
-      setShowMessage(false);
-    }, 3000);
+    addToWishList();
+    // setShowMessage(true);
+    // setTimeout(() => {
+    //   // setShowMessage(false);
+    // }, 3000);
   };
 
   return (
@@ -27,7 +26,7 @@ const ProductoConEstrella = ({ imageUrl, altText }) => {
           <FaStar className="absolute md:bottom-6 md:left-6 bottom-2 left-2 text-yellow-bazar text-xl md:text-4xl" />
         )}
       </div>
-      {showMessage && activeStar && (
+      {/* {showMessage && activeStar && (
         <div className="leading-6 absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-1 text-xs md:text-xl">
           Haz agregado este producto a tu lista de deseos
         </div>
@@ -36,7 +35,7 @@ const ProductoConEstrella = ({ imageUrl, altText }) => {
         <div className=" leading-6 absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-center py-1 text-xs md:text-xl">
           Haz eliminado este producto de tu lista de deseos
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -46,6 +46,8 @@ export default function page() {
         ...data,
         role: role,
         password: validPassword,
+        profilePicture:
+          "https://i.pinimg.com/564x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg",
       };
       const modifiedDataMarca = {
         ...data,
