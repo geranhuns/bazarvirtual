@@ -5,17 +5,20 @@ import { fetchShoppingCart } from "@/api/users/productLists/routes";
 import { useContext, useState, useEffect } from "react";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { getProductById } from "@/api/marcas/products/routes";
+import { useRouter } from "next/navigation";
 export default function CarritoDeCompras() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { user, shoppingCartDetails } = useUserContext();
   console.log(shoppingCartDetails);
-
-  useEffect(() => {}, []);
 
   const totalPrice = shoppingCartDetails.reduce(
     (total, product) => total + parseFloat(product.price),
     0
   );
+  const handlePaymentClick = () => {
+    router.push(`/payment?amount=${totalPrice}`);
+  };
 
   if (isLoading) <div>loading...</div>;
   return (
@@ -26,7 +29,11 @@ export default function CarritoDeCompras() {
           Consulta la página de detalle del producto para ver otras opciones de
           compra.
         </p>
-        <PaymentTotalButton total={totalPrice} className="self-end " />
+        <PaymentTotalButton
+          total={totalPrice}
+          className="self-end"
+          handlePaymentClick={handlePaymentClick}
+        />
 
         <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
         {shoppingCartDetails.map((item) => {
@@ -39,7 +46,11 @@ export default function CarritoDeCompras() {
             />
           );
         })}
-        <PaymentTotalButton total={totalPrice} className={"pt-8"} />
+        <PaymentTotalButton
+          total={totalPrice}
+          className={"pt-8"}
+          handlePaymentClick={handlePaymentClick}
+        />
       </div>
     </div>
   );

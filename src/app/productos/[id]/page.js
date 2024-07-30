@@ -107,6 +107,25 @@ export default function VistaDetalladaProducto() {
     getProduct();
   }, []);
 
+  const handleBuyNow = () => {
+    if (!user.role) {
+      Swal.fire({
+        icon: "warning",
+        title: "Debes crear una cuenta para poder comprar",
+      });
+    } else if (user.role === "marca" || user.role === "bazar") {
+      Swal.fire({
+        icon: "warning",
+        title: "Inicia sesión como cliente",
+      });
+    } else if (user.role === "cliente") {
+      if (amount > 0) {
+        router.push(`/payment?amount=${amount}`);
+      } else {
+        console.error("Amount must be a positive number");
+      }
+    }
+  };
   if (loading) {
     return <div>Cargando...</div>;
   }
@@ -134,13 +153,7 @@ export default function VistaDetalladaProducto() {
                 text="Comprar Ahora"
                 variant="raw-sienna-50"
                 className={"text-xs lg:text-lg"}
-                onClick={() => {
-                  if (amount > 0) {
-                    router.push(`/payment?amount=${amount}`);
-                  } else {
-                    console.error("Amount must be a positive number");
-                  }
-                }}
+                onClick={handleBuyNow}
               />
             </div>
           </div>
