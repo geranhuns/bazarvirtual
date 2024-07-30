@@ -4,7 +4,7 @@ function CardSection4(props) {
   const { bgClass, iconCard, title, description1, description2, textButton, bgButton, hoverButton } = props;
   return (
     <>
-      <div className={`${bgClass}  w-full lg:w-1/2 justify-center h-full flex py-10 `}>
+      <div className={`${bgClass}  w-full lg:w-1/2 justify-center h-[70vh] flex py-10 `}>
         <div className="  flex flex-col items-center justify-center px-12 ">
           <div className=" w-full  flex flex-col items-center">
             {iconCard}
