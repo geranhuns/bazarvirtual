@@ -13,8 +13,10 @@ export default function Dropdown({
       <label htmlFor="dropdown"></label>
       <select
         id="dropdown"
-        defaultValue={quantity}
-        onChange={handleDropdown}
+        value={quantity} // Asegúrate de que 'quantity' sea un valor primitivo
+        onChange={(e) => {
+          handleDropdown(e); // Pasar el valor como string
+        }}
         className={`h-8 w-16 pl-1  bg-raw-sienna-200 text-raw-sienna-900 ${className}`}
       >
         {options.map((option, index) => (

@@ -32,13 +32,17 @@ export default function HeaderSearch() {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
+  const handleDropdown = (e) => {
+    setSearchCategory(e.target.value);
+  };
 
   return (
     <div className="md:flex  items-center  w-4/12 gap-0  hidden ">
       <Dropdown
         className="rounded-l-lg"
         options={categories}
-        setSearchCategory={setSearchCategory}
+        quantity={searchCategory}
+        handleDropdown={handleDropdown}
       />
       <input
         type="text"
