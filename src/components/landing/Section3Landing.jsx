@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CardSection3 from "./CardSection3";
 
-function Section3Landing() {
+function Section3Landing({ id }) {
         const settings = {
                 dots: false, //Puntos de debajo del carrucel off(false)
                 arrows: false,
@@ -51,7 +51,7 @@ function Section3Landing() {
         };
         return (
 
-                <section className="lg:max-w-screen-xl mx-auto w-full mb-20  flex flex-col justify-center items-center max-sm:justify-center md:mt-14  h-full">
+                <section id={id} className="lg:max-w-screen-xl mx-auto w-full mb-20  flex flex-col justify-center items-center max-sm:justify-center md:mt-14  h-full">
 
 
                         <Slider {...settings} className="Slider flex justify-between items-center   w-11/12 ">
