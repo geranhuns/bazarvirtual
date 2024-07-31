@@ -126,14 +126,18 @@ export const updateProfileBazar = async (userdata, userId) => {
       body: JSON.stringify(userdata),
     });
 
+    
+
     Swal.close();
 
     if (!response.ok) {
+      const errorData = await response.json();
       Swal.fire({
         title: "Error",
-        text: response.msg,
+        text: errorData.msg || "Error al actualizar el perfil.",
         icon: "error",
       });
+      return; // Salimos del bloque si hubo un error
     }
 
     const data = await response.json();
