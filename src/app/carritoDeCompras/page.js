@@ -23,7 +23,9 @@ export default function CarritoDeCompras() {
       (total, item) => total + parseFloat(item.price * item.quantity),
       0
     );
-    setTotalPrice(newTotalPrice);
+    const roundedTotalPrice = Math.round(newTotalPrice * 100) / 100;
+
+    setTotalPrice(roundedTotalPrice);
   }, [cartItems]);
 
   useEffect(() => {
