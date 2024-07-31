@@ -50,7 +50,7 @@ export default function Register() {
         role: role,
         password: validPassword,
         profilePicture:
-          "https://i.pinimg.com/564x/57/00/c0/5700c04197ee9a4372a35ef16eb78f4e.jpg",
+          "https://i.pinimg.com/564x/ae/b1/1b/aeb11beacadba9b52bede423eeefeea5.jpg",
       };
       const modifiedDataMarca = {
         ...data,

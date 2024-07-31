@@ -2,20 +2,35 @@
 import Dropdown from "../Dropdown/Dropdown";
 import MarcaSmallView from "../SmallViews/MarcaSmallView";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-export default function ShoppingCartItem({ item, quantity }) {
+import { useState, useEffect } from "react";
+export default function ShoppingCartItem({ item, quantity, onQuantityChange }) {
   const { title, productImage, price, createdBy } = item;
+  const [currentQuantity, setCurrentQuantity] = useState(quantity);
+
   const pathname = usePathname();
+  const [selectedOption, setSelectedOption] = useState("Todos");
 
   const [carrito, setCarrito] = useState([]);
   const [wish, setWish] = useState([]);
 
+  useEffect(() => {
+    setCurrentQuantity(quantity);
+  }, [quantity]);
+
+  const handleQuantityChange = (event) => {
+    const newQuantity = parseInt(event.target.value, 10);
+    setCurrentQuantity(newQuantity);
+    if (onQuantityChange) {
+      onQuantityChange(item._id, newQuantity);
+    }
+  };
+
   const handleRemoveWish = (e) => {
     setWish(wish.slice(wish.indexOf(e.target.name, 1)));
   };
-  const handleItemToCart = (e) => {
-    setCarrito(carrito.push(e.target));
-  };
+  // const handleItemToCart = (e) => {
+  //   setCarrito(carrito.push(e.target));
+  // };
   return (
     <>
       <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 lg:max-w-screen-lg">
@@ -42,6 +57,7 @@ export default function ShoppingCartItem({ item, quantity }) {
                 className="rounded-md"
                 options={[1, 2, 3, 4, 5, 6]}
                 quantity={quantity}
+                handleDropdown={handleQuantityChange}
               />
             </div>
             {pathname !== "/carritoDeCompras" ? (

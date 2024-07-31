@@ -6,12 +6,8 @@ export default function Dropdown({
   className,
   setSearchCategory,
   quantity,
+  handleDropdown,
 }) {
-  const [selectedOption, setSelectedOption] = useState("Todos");
-  const handleDropdown = (e) => {
-    setSelectedOption(e.target.value);
-    setSearchCategory(e.target.value);
-  };
   return (
     <div className="w-20">
       <label htmlFor="dropdown"></label>
