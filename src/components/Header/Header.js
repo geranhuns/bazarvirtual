@@ -1,5 +1,5 @@
 "use client";
-
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import HeaderBazar from "../promotorBazar/HeaderBazar";
 import { useEffect, useState } from "react";
@@ -40,6 +40,10 @@ function Header() {
     router.push("/login");
     setDropdownActive(false);
   }
+  const handleDropdown = (e) => {
+    setSelectedOption(e.target.value);
+    setSearchCategory(e.target.value);
+  };
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("jwtToken");
@@ -100,34 +104,43 @@ function Header() {
           {pathname !== "/login" &&
             pathname !== "/register" &&
             pathname !== "/" && <HeaderSearch />}
-          {user.id && pathname !== "/login" && pathname !== "/register" ? (
-            <div className="lg:w-80 w-40 flex justify-end  ">
-              <button
-                className="rounded-full p-2  "
-                onClick={() => setDropdownActive(!dropdownActive)}
-              >
-                {userProfilePicture ? (
-                  <img
-                    src={userProfilePicture}
-                    className="h-9 w-9 object-contain rounded-full"
-                    alt="User Profile"
-                  />
-                ) : (
-                  <CgProfile className="w-full h-full bg-raw-sienna-200 text-raw-sienna-900 p-2 rounded-full text-xl" />
-                )}
-              </button>
-            </div>
-          ) : (
-            <>
-              <div className="flex items-center gap-4">
-                <LandingMenu handleScroll={handleScroll} />
-                <div className=" lg:w-80">
-                  <HeaderLogin />
-                  <HeaderLoginHamburguer />
+          <div className="lg:w-80 w-40 flex justify-end items-center ">
+            {user.id && pathname !== "/login" && pathname !== "/register" ? (
+              <>
+                <button
+                  className="rounded-full p-2  "
+                  onClick={() => setDropdownActive(!dropdownActive)}
+                >
+                  {userProfilePicture ? (
+                    <img
+                      src={userProfilePicture}
+                      className="h-9 w-9 object-contain rounded-full"
+                      alt="User Profile"
+                    />
+                  ) : (
+                    <CgProfile className="w-full h-full bg-raw-sienna-200 text-raw-sienna-900 p-2 rounded-full text-xl" />
+                  )}
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-4">
+                  <LandingMenu handleScroll={handleScroll} />
+                  <div className=" lg:w-80">
+                    <HeaderLogin />
+                    <HeaderLoginHamburguer />
+                  </div>
                 </div>
+              </>
+            )}
+            {user.role === "cliente" && (
+              <div className="p-2 text-raw-sienna-50 cursor-pointer">
+                <a href="/carritoDeCompras">
+                  <MdOutlineShoppingCart size={25} />
+                </a>
               </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
         <div className="w-full flex justify-between items-center mx-auto   lg:max-w-screen-xl  ">
           {dropdownActive && (
@@ -136,6 +149,7 @@ function Header() {
               setDropdownActive={setDropdownActive}
               role={user.role}
               handleLogout={handleLogout}
+              handleDropdown={handleDropdown}
             />
           )}
         </div>

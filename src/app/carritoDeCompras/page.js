@@ -2,7 +2,7 @@
 import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
 import PaymentTotalButton from "@/components/paymentTotalButton/PaymentTotalButton";
 import { fetchShoppingCart } from "@/api/users/productLists/routes";
-import { useContext, useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { getProductById } from "@/api/marcas/products/routes";
 import { useRouter } from "next/navigation";
@@ -11,31 +11,70 @@ export default function CarritoDeCompras() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { user, shoppingCartDetails } = useUserContext();
-  console.log(shoppingCartDetails);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const totalPrice = shoppingCartDetails.reduce(
-    (total, product) => total + parseFloat(product.price),
-    0
-  );
+  const [cartItems, setCartItems] = useState(shoppingCartDetails);
+  useEffect(() => {
+    setCartItems(shoppingCartDetails);
+  }, [shoppingCartDetails]);
+
+  const calculateTotalPrice = useCallback(() => {
+    const newTotalPrice = cartItems.reduce(
+      (total, item) => total + parseFloat(item.price * item.quantity),
+      0
+    );
+    const roundedTotalPrice = Math.round(newTotalPrice * 100) / 100;
+
+    setTotalPrice(roundedTotalPrice);
+  }, [cartItems]);
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cartItems, calculateTotalPrice]);
+
+  const handleQuantityChange = async (itemId, newQuantity) => {
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.map((item) =>
+        item._id === itemId ? { ...item, quantity: newQuantity } : item
+      );
+      return updatedItems;
+    });
+    calculateTotalPrice();
+  };
+
   const handlePaymentClick = () => {
     router.push(`/payment?amount=${totalPrice}`);
   };
 
-  if (user.role === null) {
-    Swal.fire({
-      icon: "warning",
-      title: "Inicia sesión para crear tu carrito de compras",
-    });
-    router.push("/home");
-  } else if (user.role !== "client") {
-    Swal.fire({
-      icon: "warning",
-      title: "Inicia sesión como cliente para ver tu carrito de compras",
-    });
-    router.push("/home");
-  }
+  useEffect(() => {
+    if (user !== undefined) {
+      setIsLoading(false);
+    }
+  }, [user]);
 
-  if (isLoading) <div>loading...</div>;
+  // Este useEffect maneja la lógica de alerta después de la carga inicial
+  useEffect(() => {
+    if (!isLoading && user) {
+      if (user.role === null) {
+        Swal.fire({
+          icon: "warning",
+          title: "Inicia sesión para crear tu carrito de compras",
+        }).then(() => {
+          router.push("/home");
+        });
+      } else if (user.role !== "cliente") {
+        Swal.fire({
+          icon: "warning",
+          title: "Inicia sesión como cliente para ver tu carrito de compras",
+        }).then(() => {
+          router.push("/home");
+        });
+      }
+    }
+  }, [isLoading, user, router]);
+
+  if (isLoading) return <div>Cargando...</div>;
+
   return (
     <div className="flex flex-col   lg:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto ">
       <div className=" flex flex-col pt-4 md:pt-10 pb-8 mx-full lg:max-w-screen-lg mx-auto">
@@ -51,13 +90,14 @@ export default function CarritoDeCompras() {
         />
 
         <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
-        {shoppingCartDetails.map((item) => {
+        {cartItems.map((item) => {
           console.log(item);
           return (
             <ShoppingCartItem
               key={item._id}
               item={item}
               quantity={item.quantity}
+              onQuantityChange={handleQuantityChange}
             />
           );
         })}
