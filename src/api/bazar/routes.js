@@ -1,9 +1,10 @@
+import Swal from "sweetalert2";
+// import withReactContent from "sweetalert2-react-content";
 require("dotenv").config();
 
 const BAZAR_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/bazar`;
 
-import Swal from "sweetalert2";
-import { jwtDecode } from "jwt-decode";
+
 
 const Toast = Swal.mixin({
   toast: true,
@@ -16,6 +17,8 @@ const Toast = Swal.mixin({
     toast.onmouseleave = Swal.resumeTimer;
   },
 });
+
+
 
 export const getBazarById = async (bazarId) => {
   try {
@@ -86,9 +89,7 @@ export const dataUserBazarFetch = async (id) => {
 export const datesBazarFetch = async (id) => {
   //extrae fechas de los bazares segun el usuario(Bazar)
   try {
-    // const token = localStorage.getItem("jwtToken");
-    // const decodedToken = jwtDecode(token);
-    // const _id = decodedToken._id;
+
 
     const response = await fetch(`${BAZAR_URL}/datesUser/${id}`);
 
@@ -106,31 +107,52 @@ export const datesBazarFetch = async (id) => {
 };
 
 export const updateProfileBazar = async (userdata, userId) => {
+
   try {
+  
+   let loadingToast = Swal.fire({
+      title: "Actualizando perfil...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false,
+    });
+
     const response = await fetch(`${BAZAR_URL}/updateProfile/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        // Puedes incluir otros headers si son necesarios, como tokens de autenticación
       },
-      body: JSON.stringify(userdata), // Convierte el objeto a formato JSON
+      body: JSON.stringify(userdata),
     });
 
+    Swal.close();
+
     if (!response.ok) {
-      throw new Error("Error al actualizar el usuario");
+      Swal.fire({
+        title: "Error",
+        text: response.msg,
+        icon: "error",
+      });
     }
 
-    const data = await response.json(); // Si esperas una respuesta JSON del servidor
-    console.log("Usuario actualizado con éxito:", data);
+    const data = await response.json();
     Toast.fire({
       icon: "success",
       title: "Perfil actualizado.",
     });
-    return data; // Puedes retornar los datos actualizados si lo necesitas
+    return data; 
+
   } catch (error) {
-    console.error("Error al actualizar el usuario:", error.message);
-    // Puedes manejar el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
-    throw error; // Propaga el error para manejo adicional si es necesario
+    if (loadingToast) Swal.close();
+
+    Swal.fire({
+      title: "Error",
+      text: error.message || "Error al actualizar el perfil.",
+      icon: "error",
+    });
+
+    throw error; 
   }
 };
 
