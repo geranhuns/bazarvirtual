@@ -3,10 +3,10 @@ import CardSection4 from "./CardSection4";
 import { BsShop } from "react-icons/bs";
 import { TbWorldSearch } from "react-icons/tb";
 
-function Section4Landing() {
+function Section4Landing({ id }) {
     return (
         <>
-            <section className="w-full h-full flex flex-col lg:flex-row  max-sm:flex-col max-sm:h-85vh  ">
+            <section id={id} className="w-full h-full flex flex-col lg:flex-row  max-sm:flex-col max-sm:h-85vh  ">
                 <CardSection4
                     bgClass="bg-KombuGreen"
                     iconCard={<BsShop className="w-2/12 h-5/6 text-Eggshell " />}

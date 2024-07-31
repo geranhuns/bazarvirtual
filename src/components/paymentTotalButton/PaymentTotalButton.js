@@ -1,10 +1,15 @@
 import Button from "../Button/Button";
-export default function PaymentTotalButton({ className, total }) {
+export default function PaymentTotalButton({
+  className,
+  total,
+  handlePaymentClick,
+}) {
   return (
     <div className={`flex self-end gap-10 text-2xl pb-8 ${className}`}>
       <Button
         text="Proceder al pago"
-        href="/stripeWindow"
+        href=""
+        onClick={handlePaymentClick}
         className={"text-xs md:text-xl"}
         variant={"raw-sienna-900"}
       />

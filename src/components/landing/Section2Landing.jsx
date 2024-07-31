@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-function Section2Landing() {
+function Section2Landing({ id }) {
   return (
     <>
-      <section className="lg:max-w-screen-xl mx-auto  px-8 py-20 w-full  flex justify-center items-center h-full">
+      <section id={id} className="lg:max-w-screen-xl mx-auto  px-8 py-20 w-full  flex justify-center items-center h-full">
         <div className=" w-full rounded-2xl h-custom1 bg-landing2 bg-cover bg-center flex justify-end md:items-center   pr-6 md:pr-0   ">
           <div className="  md:w-3/6  text-customGreen flex flex-col  gap-10   items-end   md:pr-8">
             <h2 className="text-custom1 font-semibold leading-custom3 mt-4 text-right md:text-left ">¡Crea y gestiona tus bazares fácilmente!</h2>

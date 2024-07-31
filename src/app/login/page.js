@@ -35,7 +35,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user.role === "marca") {
-      router.push(`/marcas/${id}`); //NOTA cambiarle aqui la ruta
+      router.push(`/marcas/${user.id}`); //NOTA cambiarle aqui la ruta
     } else if (user.role === "bazar") {
       router.push(`/bazares/${user.id}`);
     } else {

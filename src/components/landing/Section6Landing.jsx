@@ -27,7 +27,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-function Section6Landing() {
+function Section6Landing({ id }) {
   const settings = {
     dots: false, //Puntos de debajo del carrucel off(false)
     arrows: false,
@@ -69,7 +69,7 @@ function Section6Landing() {
   };
   return (
     <>
-      <section className="w-full  lg:max-w-screen-xl mx-auto px-8  flex flex-col items-center justify-center gap-1 mt-8 mb-20">
+      <section id={id} className="w-full  lg:max-w-screen-xl mx-auto px-8  flex flex-col items-center justify-center gap-1 mt-8 mb-20">
         <h2 className="text-customGreen text-5xl font-semibold max-sm:text-3xl ">Testimonios</h2>
         <Slider {...settings} className="  w-11/12  flex justify-center items-center ">
           <CardSection6

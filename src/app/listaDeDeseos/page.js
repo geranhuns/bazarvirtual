@@ -6,9 +6,40 @@ import {
   useUserContext,
 } from "@/components/UserContext/UserContext";
 import { fetchWishList } from "@/api/users/productLists/routes";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 export default function ListaDeDeseos() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   const { user, wishListDetails } = useUserContext();
-  console.log(wishListDetails);
+  useEffect(() => {
+    if (user !== undefined) {
+      setIsLoading(false);
+    }
+  }, [user]);
+
+  // Este useEffect maneja la lógica de alerta después de la carga inicial
+  useEffect(() => {
+    if (!isLoading && user) {
+      if (user.role === null) {
+        Swal.fire({
+          icon: "warning",
+          title: "Inicia sesión para crear tu lista de deseos",
+        }).then(() => {
+          router.push("/home");
+        });
+      } else if (user.role !== "cliente") {
+        Swal.fire({
+          icon: "warning",
+          title: "Inicia sesión como cliente para ver tu lista de deseos",
+        }).then(() => {
+          router.push("/home");
+        });
+      }
+    }
+  }, [isLoading, user, router]);
+
+  if (isLoading) return <div>Cargando...</div>;
 
   return (
     <div className="flex flex-col  md:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto">
