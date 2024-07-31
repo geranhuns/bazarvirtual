@@ -1,0 +1,78 @@
+"use client";
+
+import CheckoutPage from "@/components/CheckoutPage/CheckoutPage";
+import convertToSubcurrency from "@/lib/convertToSubcurrency";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+
+if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
+  throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
+}
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+
+export default function Payment() {
+  const searchParams = useSearchParams();
+  const [parsedAmount, setParsedAmount] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const amountParams = searchParams.get("amount");
+    console.log("Search params:", searchParams.toString()); // Verifica los parámetros
+    console.log("Amount params:", amountParams); // Verifica el parámetro amount
+
+    if (amountParams) {
+      const numAmount = parseFloat(amountParams);
+      if (!isNaN(numAmount) && numAmount > 0) {
+        setParsedAmount(numAmount);
+      } else {
+        console.error("Invalid amount");
+      }
+    } else {
+      console.error("Amount parameter not found");
+    }
+
+    // Asegúrate de que setLoading(false) se llame después de procesar
+    setLoading(false);
+  }, [searchParams]);
+
+  useEffect(() => {
+    console.log("Loading state:", loading); // Depuración
+    console.log("Parsed amount:", parsedAmount); // Depuración
+  }, [loading, parsedAmount]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (parsedAmount === null) {
+    return <p>Amount is not valid or not found</p>;
+  }
+
+  return (
+    <section className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-raw-sienna-400 w-full md:w-1/2">
+      <div className="mb-10">
+        <h1 className="text-4xl font-extrabold mb-2">
+          ¿La cuenta y un policía?
+        </h1>
+        <h2 className="text-2xl">
+          Total de compra:
+          <span className="font-bold"> ${parsedAmount}</span>
+        </h2>
+      </div>
+
+      <Elements
+        stripe={stripePromise}
+        options={{
+          mode: "payment",
+          amount: convertToSubcurrency(parsedAmount),
+          currency: "mxn",
+          locale: "es",
+        }}
+      >
+        <CheckoutPage amount={parsedAmount} />
+      </Elements>
+    </section>
+  );
+}

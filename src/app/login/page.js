@@ -34,8 +34,12 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (user.id) {
-      router.push("/home");
+    if (user.role === "marca") {
+      router.push(`/marcas/${user.id}`); //NOTA cambiarle aqui la ruta
+    } else if (user.role === "bazar") {
+      router.push(`/bazares/${user.id}`);
+    } else {
+      if (user.role === "cliente") router.push("/home");
     }
   }, [user, router]);
 

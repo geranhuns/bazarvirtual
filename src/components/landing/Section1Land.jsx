@@ -2,10 +2,10 @@ import React from "react";
 import Link from "next/link";
 import Button from "../Button/Button";
 
-function Section1Landing() {
+function Section1Landing({ id }) {
     return (
         <>
-            <section className="relative bg-landing1 bg-cover bg-center min-h-screen  w-full h-full">
+            <section id={id} className="relative bg-landing1 bg-cover bg-center min-h-screen  w-full h-full">
                 <div className="  mx-auto absolute inset-0 bg-fill-landing1 flex flex-col items-center pt-32 md:pt-52 lg:justify-center ">
                     <div className=" w-9/12   md:text-start flex flex-col  mt-48 md:mt-20   max-sm:gap-5 ">
                         <h1 className="w-9/12  text-6xl max-sm:text-3xl  font-semibold leading-10 md:leading-custom tracking-wide text-raw-sienna-50">Sí, somos el punto de encuentro</h1>
