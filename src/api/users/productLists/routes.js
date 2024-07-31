@@ -157,3 +157,28 @@ export const fetchWishList = async (userId) => {
     throw error; // Lanza el error para que pueda ser manejado por quien llame a esta función
   }
 };
+
+export const deleteProductFromShoppingCart = async (userId, productId) => {
+  try {
+    const response = await fetch(
+      `${USERS_URL}/deleteShoppingCartItem/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId: productId }),
+      }
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Error al obtener el shoppingCart: ${response.statusText}`
+      );
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al borrar producto del carrito", error);
+    throw error;
+  }
+};

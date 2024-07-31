@@ -3,8 +3,15 @@ import Dropdown from "../Dropdown/Dropdown";
 import MarcaSmallView from "../SmallViews/MarcaSmallView";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-export default function ShoppingCartItem({ item, quantity, onQuantityChange }) {
-  const { title, productImage, price, createdBy } = item;
+import Swal from "sweetalert2";
+export default function ShoppingCartItem({
+  item,
+  quantity,
+  onQuantityChange,
+  userId,
+  deleteItemFromShoppingCart,
+}) {
+  const { title, productImage, price, createdBy, _id } = item;
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
   const pathname = usePathname();
@@ -69,7 +76,7 @@ export default function ShoppingCartItem({ item, quantity, onQuantityChange }) {
               <p className="flex gap-3 pt-2 md:pt-0">
                 <a
                   onClick={() => {
-                    // setCarrito(carrito.push("nuevoProductoId"));
+                    deleteItemFromShoppingCart(userId, _id);
                   }}
                 >
                   Eliminar
