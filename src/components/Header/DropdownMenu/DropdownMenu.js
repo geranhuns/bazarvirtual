@@ -60,6 +60,9 @@ export default function DropdownMenu({
             )}
             {role === "marca" && (
               <>
+                <li>
+                  <a href="/misPedidos">Mis pedidos</a>
+                </li>
                 <li className="cursor-pointer">
                   <a href={`/marcas/${id}`}>Ver mi Marca</a>
                 </li>
@@ -115,6 +118,9 @@ export default function DropdownMenu({
           )}
           {role === "marca" && (
             <>
+              <li>
+                <a href="/misPedidos">Mis pedidos</a>
+              </li>
               <li className="cursor-pointer">
                 <a href={`/marcas/${id}`}>Ver mi Marca</a>
               </li>
