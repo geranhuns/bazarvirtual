@@ -3,7 +3,6 @@ import { useState, React, useEffect, useContext, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { FaFacebookF } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
-
 import { IoLogoTiktok } from "react-icons/io5";
 import { CiSquarePlus } from "react-icons/ci";
 import Carrucel from "@/components/promotorBazar/Carrucel";
@@ -11,20 +10,18 @@ import FormNewDate from "@/components/promotorBazar/FormNewDate";
 import CardEventDetail from "@/components/promotorBazar/CardEventDetail";
 import FormEditProfileBazar from "@/components/promotorBazar/FormEditProfileBazar";
 import CardEvent from "@/components/promotorBazar/CardEvent";
-import { useRouter } from "next/navigation";
 import { dataUserBazarFetch, datesBazarFetch } from "@/api/bazar/routes";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 import { useUserContext } from "@/components/UserContext/UserContext";
 
 function PromotorVistaId() {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [dataUser, setDataUser] = useState({}); //contiene los datos de peril del user
   const [datesBazar, setDatesBazar] = useState([]); //contiene las fechas del bazarUser
   const [dataDate, setDataDate] = useState([]); //contiene un aray con los eventos especiales de la fecha que se selecciona
   const [idDate, setIdDate] = useState(""); //state que almacena el id de la date seleccionada, es para pasarselo a los events
-  const [openEdDate, setOpenEdDate] = useState(false);
-  const { active, setActive } = useContext(HeaderContext);
+  const [openEdDate, setOpenEdDate] = useState(false); //monitorea estado para abrir editarDate
+  const { active, setActive } = useContext(HeaderContext); //monitorea estado para brir form edit profile
   const [editButtonsActive, setEditButtonsActive] = useState(false);
   const [place, setPlace] = useState("");
   const [time, setTime] = useState("");
@@ -94,10 +91,9 @@ function PromotorVistaId() {
       )}
       {active && (
         <FormEditProfileBazar
-          dataUserP={dataUser}
-          _idUser={dataUser._id}
           active={active}
           setActive={setActive}
+          setDataUserMain={setDataUser}
         />
       )}
 
