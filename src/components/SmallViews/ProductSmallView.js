@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
-import { updateShoppingCart } from "@/api/users/productLists/routes";
+import { addOneToShoppingCart } from "@/api/users/productLists/routes";
 import Swal from "sweetalert2";
 
 export default function ProductSmallView({ item }) {
@@ -11,37 +11,8 @@ export default function ProductSmallView({ item }) {
   const { user, setUser } = useUserContext();
 
   const router = useRouter();
-  // const [carrito, setCarrito] = useState([]);
   const { productImage, title, price, _id } = item;
   const redirectProductView = () => router.push(`/productos/${_id}`);
-  // const addToShoppingCart = async () => {
-  //   if (!user.id) {
-  //     return;
-  //   }
-
-  //   const newShoppingCart = [...shoppingCart, id];
-  //   setShoppingCart(newShoppingCart);
-
-  //   try {
-  //     // Tu lógica para agregar el producto al carrito
-  //     const response = await updateShoppingCart(userId, productId);
-
-  //     // Si la actualización del carrito es exitosa
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Producto agregado al carrito",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //   } catch (error) {
-  //     console.error("Error al agregar el producto al carrito:", error);
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Error al agregar al carrito",
-  //       text: error.message,
-  //     });
-  //   }
-  // };
 
   const handleAddToShoppingCart = async (id) => {
     if (!user.id) {
@@ -58,7 +29,7 @@ export default function ProductSmallView({ item }) {
       });
       return;
     } else if (user.id && id) {
-      await updateShoppingCart(user.id, id);
+      await addOneToShoppingCart(user.id, id);
     } else {
       console.error("ID de usuario o producto no disponible");
     }

@@ -2,21 +2,53 @@
 import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
 import PaymentTotalButton from "@/components/paymentTotalButton/PaymentTotalButton";
 import { fetchShoppingCart } from "@/api/users/productLists/routes";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, prevState } from "react";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { getProductById } from "@/api/marcas/products/routes";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import {
+  deleteProductFromShoppingCart,
+  addOneToWishList,
+} from "@/api/users/productLists/routes";
+
 export default function CarritoDeCompras() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const { user, shoppingCartDetails } = useUserContext();
+  const { user, shoppingCartDetails, wishListDetails } = useUserContext();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [wishList, setWishList] = useState([]);
 
-  const [cartItems, setCartItems] = useState(shoppingCartDetails);
+  const [wishListItems, setWishListItems] = useState(wishListDetails || []);
+
+  const [cartItems, setCartItems] = useState(shoppingCartDetails || []);
   useEffect(() => {
-    setCartItems(shoppingCartDetails);
-  }, [shoppingCartDetails]);
+    if (shoppingCartDetails) {
+      setCartItems(shoppingCartDetails);
+    }
+  }, [shoppingCartDetails, setCartItems]);
+
+  const deleteItemFromShoppingCart = async (userId, productId) => {
+    try {
+      await deleteProductFromShoppingCart(userId, productId); // Espera a que la promesa se resuelva
+      setCartItems((prevState) => {
+        console.log("prevState:", prevState); // Verifica el valor aquí
+        if (!prevState) return []; // Maneja el caso donde prevState es undefined
+        const updatedCart = prevState.filter(
+          (product) => product._id !== productId
+        );
+        console.log("Carrito actualizado:", updatedCart); // Verifica el estado aquí
+        return updatedCart;
+      });
+    } catch (error) {
+      console.error("Error al eliminar el producto", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error al eliminar el producto",
+        text: error.message,
+      });
+    }
+  };
 
   const calculateTotalPrice = useCallback(() => {
     const newTotalPrice = cartItems.reduce(
@@ -44,6 +76,8 @@ export default function CarritoDeCompras() {
 
   const handlePaymentClick = () => {
     router.push(`/payment?amount=${totalPrice}`);
+
+    console.log(cartItems);
   };
 
   useEffect(() => {
@@ -91,13 +125,14 @@ export default function CarritoDeCompras() {
 
         <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
         {cartItems.map((item) => {
-          console.log(item);
           return (
             <ShoppingCartItem
               key={item._id}
               item={item}
               quantity={item.quantity}
               onQuantityChange={handleQuantityChange}
+              userId={user.id}
+              deleteItemFromShoppingCart={deleteItemFromShoppingCart}
             />
           );
         })}
