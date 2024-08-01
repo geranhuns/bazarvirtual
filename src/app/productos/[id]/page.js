@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import {
-  updateWishList,
-  updateShoppingCart,
+  addOneToWishList,
+  addOneToShoppingCart,
 } from "@/api/users/productLists/routes";
 
 export default function VistaDetalladaProducto() {
@@ -52,7 +52,7 @@ export default function VistaDetalladaProducto() {
     setWishList(newWishList);
 
     try {
-      await updateWishList(user.id, newWishList);
+      await addOneToWishList(user.id, newWishList);
       Swal.fire({
         icon: "success",
         title: "Producto agregado a la lista de deseos",
@@ -83,7 +83,7 @@ export default function VistaDetalladaProducto() {
       });
       return;
     } else if (user.id && id) {
-      await updateShoppingCart(user.id, id);
+      await addOneToShoppingCart(user.id, id);
     } else {
       console.error("ID de usuario o producto no disponible");
     }

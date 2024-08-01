@@ -3,6 +3,12 @@ import Dropdown from "../Dropdown/Dropdown";
 import MarcaSmallView from "../SmallViews/MarcaSmallView";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import {
+  addOneToShoppingCart,
+  addOneToWishList,
+} from "@/api/users/productLists/routes";
+import { useUserContext } from "../UserContext/UserContext";
+
 import Swal from "sweetalert2";
 export default function ShoppingCartItem({
   item,
@@ -10,6 +16,7 @@ export default function ShoppingCartItem({
   onQuantityChange,
   userId,
   deleteItemFromShoppingCart,
+  deleteItemFromWishList,
 }) {
   const { title, productImage, price, createdBy, _id } = item;
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
@@ -32,16 +39,29 @@ export default function ShoppingCartItem({
     }
   };
 
-  const handleRemoveWish = (e) => {
-    setWish(wish.slice(wish.indexOf(e.target.name, 1)));
+  const handleForLater = async (userId, productId) => {
+    await addOneToWishList(userId, productId);
+    await deleteItemFromShoppingCart(userId, productId);
   };
-  // const handleItemToCart = (e) => {
-  //   setCarrito(carrito.push(e.target));
-  // };
+
+  const handleItemToCart = async (userId, productId) => {
+    await addOneToShoppingCart(userId, productId);
+    await deleteItemFromWishList(userId, productId);
+  };
+
+  const handleRemoveWish = (userId, productId) => {
+    deleteItemFromWishList(userId, productId);
+  };
+  console.log(createdBy);
+  console.log(createdBy.username);
+  console.log(createdBy.profilePicture);
   return (
     <>
       <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 lg:max-w-screen-lg">
-        <div className="w-36 h-36 overflow-hidden flex justify-center items-center rounded-lg">
+        <a
+          className="w-36 h-36 overflow-hidden flex justify-center items-center rounded-lg"
+          href={`/productos/${_id}`}
+        >
           <img
             className="w-full h-full object-cover"
             src={productImage}
@@ -49,31 +69,53 @@ export default function ShoppingCartItem({
             heigth="100px"
             alt="producto"
           />
-        </div>
+        </a>
 
         <div className="pl-10 flex flex-col w-full ">
-          <h3 className="  text-lg ">{title}</h3>
+          <a className="  text-lg " href={`/productos/${_id}`}>
+            {title}
+          </a>
           <MarcaSmallView
             brand={createdBy.username}
             profilePicture={createdBy.profilePicture}
+            brandId={createdBy._id}
           />
           <div className="flex flex-col md:flex-row pt-2">
             <div className="flex items-center mb-4 md:mb-0">
-              <h4>Cantidad</h4>
-              <Dropdown
-                className="rounded-md"
-                options={[1, 2, 3, 4, 5, 6]}
-                quantity={quantity}
-                handleDropdown={handleQuantityChange}
-              />
+              {pathname === "/carritoDeCompras" && (
+                <>
+                  <h4>Cantidad</h4>
+                  <Dropdown
+                    className="rounded-md"
+                    options={[1, 2, 3, 4, 5, 6]}
+                    quantity={quantity}
+                    handleDropdown={handleQuantityChange}
+                  />
+                </>
+              )}
             </div>
             {pathname !== "/carritoDeCompras" ? (
-              <p className="flex gap-3">
-                <a>Agregar al carrito</a>|
-                <a onClick={handleRemoveWish}>Quitar de la lista</a>
+              <p className="flex gap-3 cursor-pointer">
+                <a
+                  onClick={() => {
+                    handleItemToCart(userId, _id);
+                  }}
+                >
+                  Agregar al carrito
+                </a>
+                |
+                <a
+                  onClick={() => {
+                    handleRemoveWish(userId, _id);
+                    console.log(userId);
+                    console.log(_id);
+                  }}
+                >
+                  Quitar de la lista
+                </a>
               </p>
             ) : (
-              <p className="flex gap-3 pt-2 md:pt-0">
+              <p className="flex gap-3 pt-2 md:pt-0 cursor-pointer">
                 <a
                   onClick={() => {
                     deleteItemFromShoppingCart(userId, _id);
@@ -81,7 +123,14 @@ export default function ShoppingCartItem({
                 >
                   Eliminar
                 </a>
-                | <a>Guardar para más tarde</a>
+                |{" "}
+                <a
+                  onClick={() => {
+                    handleForLater(userId, _id);
+                  }}
+                >
+                  Guardar para más tarde
+                </a>
               </p>
             )}
           </div>

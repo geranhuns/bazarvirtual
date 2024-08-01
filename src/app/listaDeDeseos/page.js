@@ -1,22 +1,48 @@
 "use client";
 import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, prevState } from "react";
 import {
   UserContext,
   useUserContext,
 } from "@/components/UserContext/UserContext";
-import { fetchWishList } from "@/api/users/productLists/routes";
+import {
+  addOneToWishList,
+  deleteProductFromWishList,
+} from "@/api/users/productLists/routes";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+
 export default function ListaDeDeseos() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { user, wishListDetails } = useUserContext();
+
+  const [wishListItems, setWishListItems] = useState(wishListDetails || []);
+
   useEffect(() => {
-    if (user !== undefined) {
-      setIsLoading(false);
+    if (wishListDetails) {
+      setWishListItems(wishListDetails);
     }
-  }, [user]);
+  }, [wishListDetails]);
+  const deleteItemFromWishList = async (userId, productId) => {
+    try {
+      await deleteProductFromWishList(userId, productId);
+      setWishListItems((prevState) => {
+        if (!prevState) return [];
+        const updatedWishList = prevState.filter(
+          (product) => product._id !== productId
+        );
+        return updatedWishList;
+      });
+    } catch (error) {
+      console.error("Error al eliminar el producto", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error al eliminar el producto",
+        text: error.message,
+      });
+    }
+  };
 
   // Este useEffect maneja la lógica de alerta después de la carga inicial
   useEffect(() => {
@@ -38,6 +64,11 @@ export default function ListaDeDeseos() {
       }
     }
   }, [isLoading, user, router]);
+  useEffect(() => {
+    if (user !== undefined) {
+      setIsLoading(false);
+    }
+  }, [user]);
 
   if (isLoading) return <div>Cargando...</div>;
 
@@ -51,13 +82,15 @@ export default function ListaDeDeseos() {
         </p>
 
         <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
-        {wishListDetails.map((item) => {
+        {wishListItems.map((item) => {
           return (
             <ShoppingCartItem
               key={item._id}
               item={item}
               product={item.product}
               quantity={item.quantity}
+              userId={user.id}
+              deleteItemFromWishList={deleteItemFromWishList}
             />
           );
         })}

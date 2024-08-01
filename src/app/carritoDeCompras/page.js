@@ -7,13 +7,19 @@ import { useUserContext } from "@/components/UserContext/UserContext";
 import { getProductById } from "@/api/marcas/products/routes";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { deleteProductFromShoppingCart } from "@/api/users/productLists/routes";
+import {
+  deleteProductFromShoppingCart,
+  addOneToWishList,
+} from "@/api/users/productLists/routes";
 
 export default function CarritoDeCompras() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const { user, shoppingCartDetails } = useUserContext();
+  const { user, shoppingCartDetails, wishListDetails } = useUserContext();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [wishList, setWishList] = useState([]);
+
+  const [wishListItems, setWishListItems] = useState(wishListDetails || []);
 
   const [cartItems, setCartItems] = useState(shoppingCartDetails || []);
   useEffect(() => {
@@ -34,18 +40,16 @@ export default function CarritoDeCompras() {
         console.log("Carrito actualizado:", updatedCart); // Verifica el estado aquí
         return updatedCart;
       });
-      Swal.fire({
-        text: "Producto borrado de la lista!",
-        icon: "success",
-      });
     } catch (error) {
       console.error("Error al eliminar el producto", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error al eliminar el producto",
+        text: error.message,
+      });
     }
-    Swal.fire({
-      text: "Producto borrado de la lista!",
-      icon: "success",
-    });
   };
+
   const calculateTotalPrice = useCallback(() => {
     const newTotalPrice = cartItems.reduce(
       (total, item) => total + parseFloat(item.price * item.quantity),
@@ -72,6 +76,8 @@ export default function CarritoDeCompras() {
 
   const handlePaymentClick = () => {
     router.push(`/payment?amount=${totalPrice}`);
+
+    console.log(cartItems);
   };
 
   useEffect(() => {
