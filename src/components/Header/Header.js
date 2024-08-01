@@ -143,16 +143,18 @@ function Header() {
             )}
           </div>
         </div>
-        {dropdownActive && (
-          <DropdownMenu
-            id={user.id}
-            setDropdownActive={setDropdownActive}
-            role={user.role}
-            handleLogout={handleLogout}
-            handleDropdown={handleDropdown}
-            dropdownActive={dropdownActive}
-          />
-        )}
+        <div className=" flex justify-between items-center mx-auto   lg:max-w-screen-xl     ">
+          {dropdownActive && (
+            <DropdownMenu
+              id={user.id}
+              setDropdownActive={setDropdownActive}
+              role={user.role}
+              handleLogout={handleLogout}
+              handleDropdown={handleDropdown}
+              dropdownActive={dropdownActive}
+            />
+          )}
+        </div>
       </nav>
     </>
   );
