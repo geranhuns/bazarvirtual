@@ -32,12 +32,10 @@ export default function CarritoDeCompras() {
     try {
       await deleteProductFromShoppingCart(userId, productId); // Espera a que la promesa se resuelva
       setCartItems((prevState) => {
-        console.log("prevState:", prevState); // Verifica el valor aquí
         if (!prevState) return []; // Maneja el caso donde prevState es undefined
         const updatedCart = prevState.filter(
           (product) => product._id !== productId
         );
-        console.log("Carrito actualizado:", updatedCart); // Verifica el estado aquí
         return updatedCart;
       });
     } catch (error) {
@@ -76,8 +74,6 @@ export default function CarritoDeCompras() {
 
   const handlePaymentClick = () => {
     router.push(`/payment?amount=${totalPrice}`);
-
-    console.log(cartItems);
   };
 
   useEffect(() => {
