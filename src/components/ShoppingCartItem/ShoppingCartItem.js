@@ -52,9 +52,6 @@ export default function ShoppingCartItem({
   const handleRemoveWish = (userId, productId) => {
     deleteItemFromWishList(userId, productId);
   };
-  console.log(createdBy);
-  console.log(createdBy.username);
-  console.log(createdBy.profilePicture);
   return (
     <>
       <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 lg:max-w-screen-lg">
@@ -107,8 +104,6 @@ export default function ShoppingCartItem({
                 <a
                   onClick={() => {
                     handleRemoveWish(userId, _id);
-                    console.log(userId);
-                    console.log(_id);
                   }}
                 >
                   Quitar de la lista
