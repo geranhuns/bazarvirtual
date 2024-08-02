@@ -197,7 +197,7 @@ export const deleteProductFromWishList = async (userId, productId) => {
         `Error al obtener la lista de deseos: ${response.statusText}`
       );
     }
-    const data = (await response).json();
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error al borrar producto de lista de deseos", error);

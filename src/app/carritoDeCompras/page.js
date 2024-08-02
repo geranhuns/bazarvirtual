@@ -1,16 +1,11 @@
 "use client";
 import ShoppingCartItem from "@/components/ShoppingCartItem/ShoppingCartItem";
 import PaymentTotalButton from "@/components/paymentTotalButton/PaymentTotalButton";
-import { fetchShoppingCart } from "@/api/users/productLists/routes";
-import { useCallback, useState, useEffect, prevState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useUserContext } from "@/components/UserContext/UserContext";
-import { getProductById } from "@/api/marcas/products/routes";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import {
-  deleteProductFromShoppingCart,
-  addOneToWishList,
-} from "@/api/users/productLists/routes";
+import { deleteProductFromShoppingCart } from "@/api/users/productLists/routes";
 
 export default function CarritoDeCompras() {
   const router = useRouter();

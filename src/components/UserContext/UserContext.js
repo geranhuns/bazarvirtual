@@ -22,7 +22,6 @@ export const UserProvider = ({ children }) => {
   const getShoppingCartWithDetails = async (shoppingCart) => {
     try {
       const productPromises = shoppingCart.map(async (item) => {
-        console.log(item);
         const product = await getProductById(item.productId);
         return { ...product.data, quantity: item.quantity }; // Accede a la propiedad `data`
       });
