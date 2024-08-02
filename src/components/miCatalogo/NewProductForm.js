@@ -123,8 +123,8 @@ export default function NewProductForm({
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col items-center justify-center"
       >
-        <div className="w-full flex  bg-raw-sienna-50 py-8 px-6">
-          <div className="w-12/12">
+        <div className="w-full flex flex-col lg:flex-row   bg-raw-sienna-50 py-8 px-6 gap-8">
+          <div className="w-12/12 lg:w-1/3">
             <div className="flex justify-center pb-3">
               {previewImagen && (
                 <div className="w-32 h-32 relative">
@@ -153,21 +153,21 @@ export default function NewProductForm({
               />
             </div>
           </div>
-          <div className="w-full flex flex-row items-center    py-5 pr-4 lg:max-w-screen-lg">
-            <div className=" flex flex-col w-full items-start px-4">
+          <div className="flex flex-col lg:flex-row gap-8  lg:w-2/3">
+            <div className=" flex flex-col w-full items-start">
               <label
-                className="text-xl  text-right  lg:max-w-screen-lg  "
+                className="text-lg italic text-right  lg:max-w-screen-lg  "
                 htmlFor="title"
               >
                 Nombre del Producto:
               </label>
               <input
-                className=" p-1 rounded-sm  w-11/12 "
+                className=" p-1 font-medium rounded-sm  w-full "
                 type="string"
                 {...register("title")}
               />{" "}
               <label
-                className="text-xl  text-right pr-4 lg:max-w-screen-lg  "
+                className="text-lg italic text-right pr-4 lg:max-w-screen-lg  "
                 htmlFor="category"
               >
                 Categoría:
@@ -175,7 +175,7 @@ export default function NewProductForm({
               <select
                 required
                 id="dropdown"
-                className="h-8 w-11/12 pl-1 bg-raw-sienna-100 text-raw-sienna-900"
+                className="h-8 w-full pl-1 bg-raw-sienna-100 text-raw-sienna-900 font-medium"
                 {...register("category")}
               >
                 {categories.map((option, index) => (
@@ -185,7 +185,7 @@ export default function NewProductForm({
                 ))}
               </select>
               <label
-                className="text-xl  text-right pr-4 lg:max-w-screen-lg  "
+                className="text-lg italic text-right pr-4 lg:max-w-screen-lg  "
                 htmlFor="price"
               >
                 Precio:
@@ -195,13 +195,13 @@ export default function NewProductForm({
                 type="number"
                 step="0.01"
                 min="10"
-                className="p-1 rounded-sm w-11/12"
+                className="p-1 rounded-sm w-full font-medium"
                 {...register("price")}
               />
             </div>
-            <div className="h-full">
+            <div className="h-full lg:w-full">
               <label
-                className="text-xl  text-right pr-4 lg:max-w-screen-lg  "
+                className="text-lg italic text-right pr-4 lg:max-w-screen-lg  "
                 htmlFor="description"
               >
                 Descripción:
@@ -209,7 +209,7 @@ export default function NewProductForm({
               <textarea
                 required
                 type="text"
-                className="w-full h-full resize-none overflow-y-auto"
+                className="w-full  h-40 resize-none overflow-y-auto font-medium"
                 {...register("description")}
               />
             </div>

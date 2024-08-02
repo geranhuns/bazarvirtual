@@ -19,8 +19,6 @@ export default function Payment() {
 
   useEffect(() => {
     const amountParams = searchParams.get("amount");
-    console.log("Search params:", searchParams.toString()); // Verifica los parámetros
-    console.log("Amount params:", amountParams); // Verifica el parámetro amount
 
     if (amountParams) {
       const numAmount = parseFloat(amountParams);
@@ -37,10 +35,7 @@ export default function Payment() {
     setLoading(false);
   }, [searchParams]);
 
-  useEffect(() => {
-    console.log("Loading state:", loading); // Depuración
-    console.log("Parsed amount:", parsedAmount); // Depuración
-  }, [loading, parsedAmount]);
+  useEffect(() => {}, [loading, parsedAmount]);
 
   if (loading) {
     return <p>Loading...</p>;
