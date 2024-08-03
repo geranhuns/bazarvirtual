@@ -6,10 +6,9 @@ import { useState, useEffect } from "react";
 import {
   addOneToShoppingCart,
   addOneToWishList,
+  quantityProductEdit,
 } from "@/api/users/productLists/routes";
-import { useUserContext } from "../UserContext/UserContext";
 
-import Swal from "sweetalert2";
 export default function ShoppingCartItem({
   item,
   quantity,
@@ -22,18 +21,18 @@ export default function ShoppingCartItem({
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
   const pathname = usePathname();
-  const [selectedOption, setSelectedOption] = useState("Todos");
-
-  const [carrito, setCarrito] = useState([]);
-  const [wish, setWish] = useState([]);
 
   useEffect(() => {
     setCurrentQuantity(quantity);
   }, [quantity]);
 
-  const handleQuantityChange = (event) => {
+  const handleQuantityChange = async (event) => {
     const newQuantity = parseInt(event.target.value, 10);
     setCurrentQuantity(newQuantity);
+
+    // Actualiza la base de datos
+    await quantityProductEdit(userId, item._id, newQuantity);
+
     if (onQuantityChange) {
       onQuantityChange(item._id, newQuantity);
     }
