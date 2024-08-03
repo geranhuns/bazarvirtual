@@ -10,7 +10,8 @@ import { deleteProductFromShoppingCart } from "@/api/users/productLists/routes";
 export default function CarritoDeCompras() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const { user, shoppingCartDetails, wishListDetails } = useUserContext();
+  const { user, shoppingCartDetails, wishListDetails, updateShoppingCart } =
+    useUserContext();
   const [totalPrice, setTotalPrice] = useState(0);
   const [wishList, setWishList] = useState([]);
 
@@ -42,7 +43,10 @@ export default function CarritoDeCompras() {
       });
     }
   };
-
+  const handleDelete = async (userId, productId) => {
+    deleteItemFromShoppingCart(userId, productId);
+    await updateShoppingCart();
+  };
   const calculateTotalPrice = useCallback(() => {
     const newTotalPrice = cartItems.reduce(
       (total, item) => total + parseFloat(item.price * item.quantity),
@@ -65,6 +69,9 @@ export default function CarritoDeCompras() {
       return updatedItems;
     });
     calculateTotalPrice();
+    if (user.id) {
+      await updateShoppingCart();
+    }
   };
 
   const handlePaymentClick = () => {
@@ -123,6 +130,7 @@ export default function CarritoDeCompras() {
               quantity={item.quantity}
               onQuantityChange={handleQuantityChange}
               userId={user.id}
+              handleDelete={handleDelete}
               deleteItemFromShoppingCart={deleteItemFromShoppingCart}
             />
           );

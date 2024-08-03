@@ -26,9 +26,13 @@ export default function ShoppingCartItem({
     setCurrentQuantity(quantity);
   }, [quantity]);
 
-  const handleQuantityChange = (event) => {
+  const handleQuantityChange = async (event) => {
     const newQuantity = parseInt(event.target.value, 10);
     setCurrentQuantity(newQuantity);
+
+    // Actualiza la base de datos
+    await quantityProductEdit(userId, item._id, newQuantity);
+
     if (onQuantityChange) {
       onQuantityChange(item._id, newQuantity);
     }

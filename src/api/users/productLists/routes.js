@@ -203,3 +203,27 @@ export const deleteProductFromWishList = async (userId, productId) => {
     console.error("Error al borrar producto de lista de deseos", error);
   }
 };
+
+export const quantityProductEdit = async (userId, productId, quantity) => {
+  try {
+    const response = await fetch(
+      `${USERS_URL}/updateQuantityShoppingCart/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId, quantity }), // Enviar productId y quantity directamente
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error updating quantity: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Quantity updated:", data);
+  } catch (error) {
+    console.error("Error updating quantity:", error);
+  }
+};

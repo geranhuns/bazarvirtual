@@ -80,6 +80,27 @@ export const UserProvider = ({ children }) => {
     fetchData();
   }, [user.id, user.role]);
 
+  const updateShoppingCart = async () => {
+    if (user.id) {
+      try {
+        const shoppingCartData = await fetchShoppingCart(user.id);
+        setShoppingCart(shoppingCartData.shoppingCart);
+
+        const updatedShoppingCartDetails = await getShoppingCartWithDetails(
+          shoppingCartData.shoppingCart
+        );
+        setShoppingCartDetails(updatedShoppingCartDetails);
+      } catch (error) {
+        console.error("Error updating shopping cart:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Llama a updateShoppingCart cuando el usuario cambie
+    updateShoppingCart();
+  }, [user.id]);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("jwtToken");
@@ -101,20 +122,19 @@ export const UserProvider = ({ children }) => {
     }
   }, [token]);
 
-  // if (user.role === "client") {
   return (
     <UserContext.Provider
-      value={{ user, setUser, shoppingCartDetails, wishListDetails }}
+      value={{
+        user,
+        setUser,
+        shoppingCartDetails,
+        wishListDetails,
+        updateShoppingCart,
+      }}
     >
       {children}
     </UserContext.Provider>
   );
-  // }
-  // if (!user.role === "client") {
-  //   return (
-  //     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
-  //   );
-  // }
 };
 
 export function useUserContext() {

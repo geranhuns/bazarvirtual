@@ -109,6 +109,7 @@ export default function Payment() {
       )}
       {!singleProduct &&
         shoppingCartDetails.map((product) => {
+          console.log(product);
           return (
             <PedidoCliente
               key={product._id}
