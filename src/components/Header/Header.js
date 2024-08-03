@@ -50,6 +50,7 @@ function Header() {
       if (storedToken) {
         try {
           const decodedUser = jwtDecode(storedToken);
+          // console.log(decodedUser);
           setUser({ id: decodedUser._id, role: decodedUser.role });
         } catch (error) {
           console.error("Error decoding token:", error);
@@ -105,7 +106,18 @@ function Header() {
             pathname !== "/register" &&
             pathname !== "/" && <HeaderSearch />}
           <div className="lg:w-80 w-40 flex justify-end items-center ">
-            {user.id && pathname !== "/login" && pathname !== "/register" ? (
+            {pathname !== "/login" && pathname !== "/register" && !user.id && (
+              <>
+                <div className="flex items-center gap-4">
+                  <LandingMenu handleScroll={handleScroll} />
+                  <div className=" lg:w-80">
+                    <HeaderLogin />
+                    <HeaderLoginHamburguer />
+                  </div>
+                </div>
+              </>
+            )}
+            {user.id && pathname !== "/login" && pathname !== "/register" && (
               <>
                 <button
                   className="rounded-full p-2  "
@@ -122,16 +134,6 @@ function Header() {
                   )}
                 </button>
               </>
-            ) : (
-              <>
-                <div className="flex items-center gap-4">
-                  <LandingMenu handleScroll={handleScroll} />
-                  <div className=" lg:w-80">
-                    <HeaderLogin />
-                    <HeaderLoginHamburguer />
-                  </div>
-                </div>
-              </>
             )}
             {user.role === "cliente" && (
               <div className="p-2 text-raw-sienna-50 cursor-pointer">
@@ -142,7 +144,7 @@ function Header() {
             )}
           </div>
         </div>
-        <div className="w-full flex justify-between items-center mx-auto   lg:max-w-screen-xl  ">
+        <div className=" flex justify-between items-center mx-auto   lg:max-w-screen-xl     ">
           {dropdownActive && (
             <DropdownMenu
               id={user.id}
@@ -150,6 +152,7 @@ function Header() {
               role={user.role}
               handleLogout={handleLogout}
               handleDropdown={handleDropdown}
+              dropdownActive={dropdownActive}
             />
           )}
         </div>

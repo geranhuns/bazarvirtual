@@ -4,7 +4,7 @@ const USERS_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/users`;
 const SHOPPING_CART_URL = `${USERS_URL}/shoppingCart`;
 const WISH_LIST_URL = `${USERS_URL}/wishList`;
 
-export const updateWishList = async (userId, newWishListProduct) => {
+export const addOneToWishList = async (userId, newWishListProduct) => {
   const newProductToWishList = {
     quantity: 1,
     productId: newWishListProduct,
@@ -62,7 +62,7 @@ export const updateWishList = async (userId, newWishListProduct) => {
     console.error("Error al actualizar el wishList:", error);
   }
 };
-export const updateShoppingCart = async (userId, newShoppingCartProduct) => {
+export const addOneToShoppingCart = async (userId, newShoppingCartProduct) => {
   const newProductToShoppingCart = {
     quantity: 1,
     productId: newShoppingCartProduct,
@@ -155,5 +155,75 @@ export const fetchWishList = async (userId) => {
       error
     );
     throw error; // Lanza el error para que pueda ser manejado por quien llame a esta función
+  }
+};
+
+export const deleteProductFromShoppingCart = async (userId, productId) => {
+  try {
+    const response = await fetch(
+      `${USERS_URL}/deleteShoppingCartItem/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId: productId }),
+      }
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Error al obtener el carrito de compras: ${response.statusText}`
+      );
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al borrar producto del carrito", error);
+    throw error;
+  }
+};
+
+export const deleteProductFromWishList = async (userId, productId) => {
+  try {
+    const response = await fetch(`${USERS_URL}/deleteWishListItem/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ productId: productId }),
+    });
+    if (!response.ok) {
+      throw new Error(
+        `Error al obtener la lista de deseos: ${response.statusText}`
+      );
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al borrar producto de lista de deseos", error);
+  }
+};
+
+export const quantityProductEdit = async (userId, productId, quantity) => {
+  try {
+    const response = await fetch(
+      `${USERS_URL}/updateQuantityShoppingCart/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId, quantity }), // Enviar productId y quantity directamente
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error updating quantity: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Quantity updated:", data);
+  } catch (error) {
+    console.error("Error updating quantity:", error);
   }
 };

@@ -24,7 +24,7 @@ export default function ProductEdit({
     <div className="flex flex-col  bg-raw-sienna-50   rounded-md w-full py-5 ">
       {!openProductEditor && (
         <div
-          className="flex gap-5 items-center cursor-pointer justify-around px-5 h-36 overflow-auto"
+          className="flex flex-col md:flex-row gap-5 items-center cursor-pointer justify-around px-5 md:h-36 overflow-auto"
           // href={`products/${_id}`}
         >
           <div className="w-36 h-36 overflow-hidden flex justify-center items-center rounded-lg">
@@ -34,37 +34,38 @@ export default function ProductEdit({
               alt={title}
             />
           </div>
+          <div className="flex flex-col md:flex-row items-center justify-between w-full pl-6 md:pl-0 md:gap-6">
+            <div className="w-full">
+              <h3 className="  text-sm italic  ">Nombre del producto</h3>
+              <h3 className="  text-lg font-medium  ">{title}</h3>
+            </div>
+            <div className="w-full md:w-auto">
+              <h3 className="text-sm italic">Precio</h3>
+              <h3 className="text-lg font-medium">${price}</h3>
+            </div>
+            <div className="w-full">
+              <h3 className="text-sm italic">Descripción</h3>
+              <p className="text-lg font-medium">{description}</p>
+            </div>
+            <div className="w-full">
+              <h3 className="text-sm italic">Categoría</h3>
 
-          <div className="w-3/12">
-            <h3 className="  text-sm  ">Nombre del producto</h3>
-            <h3 className="  text-lg  ">{title}</h3>
-          </div>
-          <div className="w-1/12">
-            <h3 className="text-sm">Precio</h3>
-            <h3 className="text-lg">${price}</h3>
-          </div>
-          <div className="w-4/12">
-            <h3 className="text-sm">Descripción</h3>
-            <p>{description}</p>
-          </div>
-          <div className="w-2/12">
-            <h3 className="text-sm">Categoría</h3>
-
-            <h4>{category}</h4>
-          </div>
-          <div className="flex flex-col items-center gap-3 ml-2">
-            <MdEdit
-              className={"text-xl h-7  self-start"}
-              onClick={() => {
-                setOpenProducteditor(!openProductEditor);
-              }}
-            />
-            <RiDeleteBin6Line
-              className={"text-xl h-7  self-start"}
-              onClick={() => {
-                handleDelete(_id);
-              }}
-            />
+              <h4 className="text-lg font-medium">{category}</h4>
+            </div>
+            <div className="flex md:flex-col items-center md:gap-3 w-full md:w-auto justify-between pt-6 md:pt-0 ml-2">
+              <MdEdit
+                className={"text-xl h-7  self-start"}
+                onClick={() => {
+                  setOpenProducteditor(!openProductEditor);
+                }}
+              />
+              <RiDeleteBin6Line
+                className={"text-xl h-7  self-start"}
+                onClick={() => {
+                  handleDelete(_id);
+                }}
+              />
+            </div>
           </div>
           {/* <Button
           text="Editar producto"

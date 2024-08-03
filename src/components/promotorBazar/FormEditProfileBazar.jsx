@@ -9,7 +9,7 @@ import { IoCloseOutline } from "react-icons/io5";
 
 
 
-function FormEditProfileBazar({ active, setActive, _idUser }) {
+function FormEditProfileBazar({ active, setActive, setDataUserMain}) {
 
   const [dataUser, setDataUser] = useState({}) //almacena los datos del usuario al cargar el form
   const [isLoading, setIsLoading] = useState(true); //verifica el status de carga de los datos del usuario
@@ -20,7 +20,7 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
   const tiktokObject = redesSociales.find(network => network.platform === 'tiktok') || { platform: 'tiktok', url: '' };
   const fileInputRef = useRef(null);
 
-  const params = useParams();
+  const params = useParams();// id sale de los params(URl)
   const id = params.id;
 
 
@@ -50,6 +50,7 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
     try {
       const userData = await dataUserBazarFetch(id);
       setDataUser(userData.data);
+      setDataUserMain(userData.data)
       reset(userData.data);
     } catch (error) {
       console.error('Error al obtener datos del usuario:', error);
@@ -75,19 +76,28 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
       { platform: 'tiktok', url: data.tiktok }
     ];
 
+    let profilePicture = '';
+
+      if (data.profilePicture === dataUser.profilePicture) {
+        profilePicture = '';
+      } else {
+        profilePicture = data.profilePicture;
+      }
+
     const dataAdjust = {  //se crea un objeto con los datos del formulario para enviarlos a la peticion fetch para actualizar usuario
-      profilePicture: data.profilePicture,
+     
+      profilePicture: profilePicture,
       username: data.username,
       wepPage: data.wepPage,
-      socialNetworks,
-      _id: _idUser //este se pasara al fetch para hacer la update
+      socialNetworks
+      // _id: _idUser //este se pasara al fetch para hacer la update
     };
     console.log(dataAdjust)
 
     try {
       const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
       fetchData(); //cuando termina de actualizar se ejecuta de nuevo el fetch para traer los nuevos valores desde la db y actualizar el value por defecto de los inputs del formulario
-
+      console.log(dataAdjust)
     } catch (error) {
       console.error('Error al actualizar el usuario:', error.message);
 
@@ -99,7 +109,7 @@ function FormEditProfileBazar({ active, setActive, _idUser }) {
 
   if (isLoading) {
 
-    // return <div>Loading...</div>;
+    return <div>Loading...</div>;
     //colocar alert
   }
 

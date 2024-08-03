@@ -9,12 +9,11 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import {
-  updateWishList,
-  updateShoppingCart,
+  addOneToWishList,
+  addOneToShoppingCart,
 } from "@/api/users/productLists/routes";
 
 export default function VistaDetalladaProducto() {
-  const [shoppingCart, setShoppingCart] = useState([]);
   const [wishList, setWishList] = useState([]);
 
   const [product, setProduct] = useState();
@@ -23,15 +22,21 @@ export default function VistaDetalladaProducto() {
   const router = useRouter();
   const params = useParams();
   const id = params.id;
+  const [price, setPrice] = useState();
   const [amount, setAmount] = useState();
+  const [quantity, setQuantity] = useState(1);
 
+  const options = [1, 2, 3, 4, 5, 6];
   const { user, setUser } = useUserContext();
 
-  // const handleBuyNow = () => {
-  //   const amount = product.price;
-  //   router.push(`/payment/${product.price}`);
-  // };
-
+  const handleDropdown = (quantity) => {
+    setQuantity(quantity); // Pasar el valor como string
+    console.log(quantity);
+    const total = price * quantity;
+    console.log(total);
+    setAmount(total);
+    console.log(amount);
+  };
   const addToWishList = async () => {
     if (!user.id) {
       console.log("No user logged in");
@@ -52,7 +57,7 @@ export default function VistaDetalladaProducto() {
     setWishList(newWishList);
 
     try {
-      await updateWishList(user.id, newWishList);
+      await addOneToWishList(user.id, newWishList);
       Swal.fire({
         icon: "success",
         title: "Producto agregado a la lista de deseos",
@@ -83,7 +88,7 @@ export default function VistaDetalladaProducto() {
       });
       return;
     } else if (user.id && id) {
-      await updateShoppingCart(user.id, id);
+      await addOneToShoppingCart(user.id, id);
     } else {
       console.error("ID de usuario o producto no disponible");
     }
@@ -95,6 +100,7 @@ export default function VistaDetalladaProducto() {
       const data = await response.json();
       setProduct(data.data);
       setLogo(data.data.createdBy.profilePicture);
+      setPrice(data.data.price);
       setAmount(data.data.price);
 
       setLoading(false);
@@ -120,7 +126,9 @@ export default function VistaDetalladaProducto() {
       });
     } else if (user.role === "cliente") {
       if (amount > 0) {
-        router.push(`/payment?amount=${amount}`);
+        router.push(
+          `/payment?amount=${amount}&productId=${id}&quantity=${quantity}`
+        );
       } else {
         console.error("Amount must be a positive number");
       }
@@ -140,6 +148,7 @@ export default function VistaDetalladaProducto() {
               altText={product.text}
               addToWishList={addToWishList}
             />
+
             <div className="flex gap-1  justify-evenly pt-4">
               <Button
                 href=""
@@ -164,7 +173,26 @@ export default function VistaDetalladaProducto() {
               createdBy={product.createdBy}
               profilePicture={logo}
             />
-            <h4 className="text-2xl py-4 md:py-8">{`$${product.price}`}</h4>
+            <div className="flex flex-col my-4 w-16">
+              <h4 className="italic "> Cantidad</h4>
+              <select
+                id="quantity"
+                value={quantity} // Asegúrate de que 'quantity' sea un valor primitivo
+                onChange={(e) => {
+                  console.log(e);
+                  handleDropdown(e.target.value); // Pasar el valor como string
+                }}
+                className={`h-8  pl-1  bg-raw-sienna-200 text-raw-sienna-900 `}
+              >
+                {options.map((option, index) => (
+                  <option value={option} key={index}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <h4 className="text-2xl pb-4 md:pb-8">{`$${product.price}`}</h4>
+
             <h4 className="italic"> Acerca de este artículo</h4>
             <p className="  pt-2 text-justify pb-10 text-xl">
               {product.description}
