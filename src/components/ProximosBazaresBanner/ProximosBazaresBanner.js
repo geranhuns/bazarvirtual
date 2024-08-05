@@ -22,6 +22,17 @@ export default function ProximosBazares({ className }) {
         <div className="flex flex-col items-center justify-center ">
           <div className=" flex w-full py-4 gap-8 flex-wrap  lg:flex-nowrap justify-center ">
             {eventos
+              .filter((evento) => {
+                const eventStartDate = new Date(evento.date);
+                const eventStartDateMinusThreeDays = new Date(eventStartDate);
+                eventStartDateMinusThreeDays.setDate(
+                  eventStartDate.getDate() - 3
+                );
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Eliminar la parte de la hora para comparar solo las fechas
+
+                return eventStartDateMinusThreeDays >= today;
+              })
               .sort((a, b) => new Date(a.date) - new Date(b.date))
               .slice(0, 4)
               .map((item) => {
