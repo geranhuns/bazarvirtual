@@ -18,7 +18,7 @@ function PromotorVistaId() {
   const [open, setOpen] = useState(false);
   const [dataUser, setDataUser] = useState({}); //contiene los datos de peril del user
   const [datesBazar, setDatesBazar] = useState([]); //contiene las fechas del bazarUser
-  const [dataDate, setDataDate] = useState({}); //contiene un aray con los eventos especiales de la fecha que se selecciona
+  const [dataDate, setDataDate] = useState({}); //contiene un obj con los eventos especiales de la fecha que se selecciona
   const [idDate, setIdDate] = useState(""); //state que almacena el id de la date seleccionada, es para pasarselo a los events
   const [openEdDate, setOpenEdDate] = useState(false); //monitorea estado para abrir editarDate
   const { active, setActive } = useContext(HeaderContext); //monitorea estado para brir form edit profile
