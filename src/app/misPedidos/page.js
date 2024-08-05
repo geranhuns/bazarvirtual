@@ -56,10 +56,10 @@ export default function PedidosActivos() {
               producto, da click en el botón Recibido.
             </p>
             <hr className="h-0.5 bg-raw-sienna-800" />
-            <PedidoCliente />
-            <PedidoCliente />
-            <PedidoCliente />
-            <PedidoCliente />
+            {/* <PedidoCliente showButton={true} />
+            <PedidoCliente showButton={true} />
+            <PedidoCliente showButton={true} />
+            <PedidoCliente showButton={true} /> */}
           </>
         )}
       </div>
