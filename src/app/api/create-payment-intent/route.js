@@ -46,7 +46,10 @@ export async function POST(request) {
     console.log("Payment Intent created:", paymentIntent);
 
     // Devolver el client_secret en la respuesta
-    return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+    return NextResponse.json({
+      clientSecret: paymentIntent.client_secret,
+      paymentIntentId: paymentIntent.id, // Devuelve el ID del Payment Intent
+    });
   } catch (error) {
     console.error("Internal Error:", error.message);
     // Manejar otros errores (e.g., problemas de red, errores de análisis)

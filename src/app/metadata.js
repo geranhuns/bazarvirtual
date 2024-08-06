@@ -6,7 +6,6 @@ export const metadata = {
     {
       name: "Gerardo Nuncio",
       name: "Carlos Gastélum",
-      name: "Arturo Zambrano",
     },
   ],
   keywords: [
