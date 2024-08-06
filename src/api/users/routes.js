@@ -50,6 +50,16 @@ export const registerUserFetch = async (data) => {
 
 export async function loginUserFetch(data) {
   try {
+
+    let loadingToast = Swal.fire({
+      title: "Iniciando sesion...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false,
+    });
+
+
     const response = await fetch(`${USERS_URL}/login`, {
       method: "POST",
       headers: {
@@ -58,14 +68,16 @@ export async function loginUserFetch(data) {
       body: JSON.stringify(data),
     });
 
+    
+
     if (response.ok) {
       const data = await response.json();
-      // console.log('Mensaje del servidor:', data.msg);
-      // console.log('Token JWT recibido:', data.data);
-      // Guardar el token JWT en el localStorage
+    
       localStorage.setItem("jwtToken", data.data);
+      Swal.close();
 
       return { success: true, data: data.data }; // Indica éxito y devuelve el token
+      
     } else {
       const errorData = await response.json();
       if (errorData.msg === "user not found") {

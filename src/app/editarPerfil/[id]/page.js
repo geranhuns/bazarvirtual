@@ -8,7 +8,7 @@ export default function EditarPerfil() {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const { user } = useUserContext(); // Asume que obtienes el id del usuario desde un contexto
-  const[isSubmit, setIsSubmit] = useState(false)
+  const[isSubmit, setIsSubmit] = useState(false)//estate para monitorear cuando el fom haga un onsubmit y ejecutar el fetch que trae los datos del usuario
 
   useEffect(() => {
     if (user.id) {

@@ -56,7 +56,11 @@ function PromotorVistaId() {
   const fetchDataDates = useCallback(async () => {
     try {
       const bazarDates = await datesBazarFetch(id);
-      setDatesBazar(bazarDates.data);
+      //ordenar de mas proxima a las vieja
+      const orderDates = bazarDates.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+      console.log(orderDates)
+      //
+      setDatesBazar(orderDates);
     } catch (error) {
       console.error("Error al obtener las fechas del bazar:", error);
     }
