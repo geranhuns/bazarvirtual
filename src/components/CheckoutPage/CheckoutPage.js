@@ -8,7 +8,14 @@ import {
 } from "@stripe/react-stripe-js";
 import convertToSubcurrency from "@/lib/convertToSubcurrency";
 
-const CheckoutPage = ({ amount }) => {
+const CheckoutPage = ({
+  amount,
+  userId,
+  singleProduct,
+  singleQuantity,
+  shoppingCartDetails,
+  userEmail,
+}) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState();
@@ -16,13 +23,29 @@ const CheckoutPage = ({ amount }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (amount) {
+    let items = [];
+
+    if (singleProduct) {
+      const productWithQuantity = {
+        ...singleProduct,
+        quantity: singleQuantity,
+      };
+      items = [productWithQuantity];
+    } else {
+      items = shoppingCartDetails;
+    }
+
+    if (amount && items.length > 0 && userId) {
       fetch("/api/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amount: convertToSubcurrency(amount) }),
+        body: JSON.stringify({
+          amount: convertToSubcurrency(amount),
+          metadata: { items: JSON.stringify(items) },
+          receipt_email: userEmail,
+        }),
       })
         .then((response) => {
           if (!response.ok) {
@@ -43,7 +66,7 @@ const CheckoutPage = ({ amount }) => {
           console.error("Error fetching client secret:", error);
         });
     }
-  }, [amount]);
+  }, [amount, singleProduct, shoppingCartDetails, userId, userEmail]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

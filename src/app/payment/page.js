@@ -21,7 +21,7 @@ export default function Payment() {
   const [loading, setLoading] = useState(true);
   const [productId, setProductId] = useState(null);
   const [quantity, setQuantity] = useState(null);
-  const { user, shoppingCartDetails } = useUserContext();
+  const { user, shoppingCartDetails, userEmail } = useUserContext();
 
   const [purchasedItems, setPurchasedItems] = useState([]);
   const [singleProduct, setSingleProduct] = useState();
@@ -31,6 +31,7 @@ export default function Payment() {
         try {
           const detailedProductObj = await getProductById(productId);
           const detailedProduct = detailedProductObj.data;
+          console.log(detailedProduct);
           setSingleProduct(detailedProduct);
         } catch (error) {
           console.error("Error fetching product:", error);
@@ -96,7 +97,14 @@ export default function Payment() {
             locale: "es",
           }}
         >
-          <CheckoutPage amount={parsedAmount} />
+          <CheckoutPage
+            amount={parsedAmount}
+            userId={user.id}
+            shoppingCartDetails={shoppingCartDetails}
+            singleProduct={singleProduct}
+            singleQuantity={quantity}
+            userEmail={userEmail}
+          />
         </Elements>
       </section>
       {productId && singleProduct && (

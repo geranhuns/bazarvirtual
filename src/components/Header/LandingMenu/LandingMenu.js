@@ -9,24 +9,24 @@ export default function LandingMenu({ handleScroll }) {
     <>
       {pathname === "/" && (
         <div className="md:flex items-center cursor-pointer hidden ">
-          <ul className="flex flex-row items-center  gap-4 text-lg text-color-text">
+          <ul className="flex flex-row items-center  gap-8 text-lg text-color-text">
             <li
-              className="flex items-center justify-center  hover:bg-raw-sienna-200  h-16 w-24  hover:text-color-btnUnete "
+              className="flex items-center justify-center  hover:bg-raw-sienna-200  h-16 w-32  hover:text-color-btnUnete "
               onClick={() => handleScroll("section3")}
             >
-              Acerca de
+              Nosotros
             </li>
             <li
-              className="flex items-center justify-center  hover:bg-raw-sienna-200 h-16 w-24  hover:text-color-btnUnete "
+              className="flex items-center justify-center  hover:bg-raw-sienna-200 h-16 w-32  hover:text-color-btnUnete "
               onClick={() => handleScroll("section4")}
             >
-              Marcas
+              Emprendedores
             </li>
             <li
-              className="flex items-center justify-center  hover:bg-raw-sienna-200 h-16 w-24  hover:text-color-btnUnete "
-              onClick={() => handleScroll("section2")}
+              className="flex items-center justify-center  hover:bg-raw-sienna-200 h-16 w-32  hover:text-color-btnUnete "
+              onClick={() => handleScroll("section6")}
             >
-              Bazares
+              Testimonios
             </li>
           </ul>
         </div>
