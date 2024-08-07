@@ -3,6 +3,20 @@ const USERS_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/users`;
 
 import Swal from "sweetalert2";
 
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
+
+
 export const registerUserFetch = async (data) => {
   try {
     const response = await fetch(`${USERS_URL}/register`, {
@@ -36,6 +50,16 @@ export const registerUserFetch = async (data) => {
 
 export async function loginUserFetch(data) {
   try {
+
+    let loadingToast = Swal.fire({
+      title: "Iniciando sesion...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false,
+    });
+
+
     const response = await fetch(`${USERS_URL}/login`, {
       method: "POST",
       headers: {
@@ -44,14 +68,16 @@ export async function loginUserFetch(data) {
       body: JSON.stringify(data),
     });
 
+    
+
     if (response.ok) {
       const data = await response.json();
-      // console.log('Mensaje del servidor:', data.msg);
-      // console.log('Token JWT recibido:', data.data);
-      // Guardar el token JWT en el localStorage
+    
       localStorage.setItem("jwtToken", data.data);
+      Swal.close();
 
       return { success: true, data: data.data }; // Indica éxito y devuelve el token
+      
     } else {
       const errorData = await response.json();
       if (errorData.msg === "user not found") {
@@ -88,5 +114,60 @@ export const getUserById = async (userId) => {
   } catch (error) {
     console.error("Error al obtener usuario", error);
     throw error;
+  }
+};
+
+
+export const updateProfileUser = async (userdata, userId) => {
+
+  try {
+  
+   let loadingToast = Swal.fire({
+      title: "Actualizando perfil...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false,
+    });
+
+    const response = await fetch(`${USERS_URL}/updateProfileUser/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userdata),
+    });
+
+    
+
+    Swal.close();
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      Swal.fire({
+        title: "Error",
+        text: errorData.msg || "Error al actualizar el perfil.",
+        icon: "error",
+      });
+      return; // Salimos del bloque si hubo un error
+    }
+
+    const data = await response.json();
+    Toast.fire({
+      icon: "success",
+      title: "Perfil actualizado.",
+    });
+    return data; 
+
+  } catch (error) {
+    if (loadingToast) Swal.close();
+
+    Swal.fire({
+      title: "Error",
+      text: error.message || "Error al actualizar el perfil.",
+      icon: "error",
+    });
+
+    throw error; 
   }
 };

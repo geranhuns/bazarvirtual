@@ -1,8 +1,9 @@
 import { React, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 
-function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, setPlace, setTime, date }) {
+function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time }) {
     const [bgButton, setBgButton] = useState("bg-raw-sienna-200 ")
+    console.log(dateID, idDate)
     //  console.log(`ID del la fecha ${fecha}: ${dateID}`)
     // console.log(events)
     const obtenerFechaFormateada = (fechaCompleta) => {
@@ -27,10 +28,9 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                         : "bg-raw-sienna-200"
                         } w-36 items-start justify-around cursor-pointer rounded-lg p-1`}
                     onClick={() => {
-                        setDataDate(events);
+                        setDataDate({events, place, time});
                         setIdDate(dateID);
-                        setPlace(date.place)
-                        setTime(date.time)
+                       
                     }}
                 >
                     <h5 className="text-lg font-medium">

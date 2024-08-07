@@ -8,6 +8,7 @@ export default function EditarPerfil() {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const { user } = useUserContext(); // Asume que obtienes el id del usuario desde un contexto
+  const[isSubmit, setIsSubmit] = useState(false)//estate para monitorear cuando el fom haga un onsubmit y ejecutar el fetch que trae los datos del usuario
 
   useEffect(() => {
     if (user.id) {
@@ -29,7 +30,7 @@ export default function EditarPerfil() {
 
       fetchUserData();
     }
-  }, [user.id]);
+  }, [user.id, isSubmit]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -43,15 +44,15 @@ export default function EditarPerfil() {
     <>
       <div className="flex flex-col items-center h-screen justify-center lg:max-w-screen-xl mx-auto ">
         <div className="bg-white p-10 rounded-md flex flex-col items-center shadow-md">
-          <img
+          {/* <img
             src={userData.profilePicture}
             width={100}
             height={100}
             className="rounded-full"
           />
-          <div className="flex pb-4"></div>
+          <div className="flex pb-4"></div> */}
 
-          <ProfileEdit userData={userData} />
+          <ProfileEdit userData={userData} isSubmit={isSubmit} setIsSubmit={setIsSubmit} />
         </div>
       </div>
     </>
