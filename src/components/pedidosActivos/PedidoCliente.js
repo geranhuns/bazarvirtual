@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 export default function PedidoCliente({ showButton, singleProduct, quantity }) {
   return (
     <>
-      <div className="flex flex-col md:flex-row  bg-raw-sienna-50 py-5 px-4 rounded-md">
+      <div className="flex flex-col md:flex-row  bg-raw-sienna-50 py-5 px-4 ">
         <img
           className="rounded-md self-center"
           src={singleProduct.productImage}

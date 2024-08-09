@@ -158,6 +158,7 @@ export const fetchWishList = async (userId) => {
   }
 };
 
+//Modificar para que busque en el nuevo modelo
 export const fetchPurchaseHistory = async (userId) => {
   try {
     const response = await fetch(`${USERS_URL}/${userId}`);
@@ -245,6 +246,7 @@ export const quantityProductEdit = async (userId, productId, quantity) => {
   }
 };
 
+//Editar para que se vaya al nuevo modelo
 export const purchaseToHistory = async (
   userId,
   purchaseId,

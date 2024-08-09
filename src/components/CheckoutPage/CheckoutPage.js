@@ -16,6 +16,8 @@ const CheckoutPage = ({
   shoppingCartDetails,
   userEmail,
 }) => {
+  console.log("singleProduct", singleProduct);
+  console.log("shoppingCartDetails", shoppingCartDetails);
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState();

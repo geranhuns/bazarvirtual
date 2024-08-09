@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { purchaseToHistory } from "@/api/users/productLists/routes";
+import { createNewPurchase } from "@/api/orders/routes";
+import { getProductById } from "@/api/marcas/products/routes";
 import { useUserContext } from "@/components/UserContext/UserContext";
 
 export default function PaymentSuccess({ searchParams }) {
@@ -9,6 +10,7 @@ export default function PaymentSuccess({ searchParams }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false); // Nuevo estado para controlar la llamada
+  const [productsWithBrands, setProductsWithBrands] = useState([]);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -41,19 +43,57 @@ export default function PaymentSuccess({ searchParams }) {
       setLoading(false);
     }
   }, [payment_intent]);
+  useEffect(() => {
+    if (metadata && metadata.items) {
+      const productStrings = metadata.items.split(",");
+
+      const productDetails = productStrings.map((productString) => {
+        const [productId, quantity] = productString.split(":");
+        return { productId, quantity: parseInt(quantity, 10) };
+      });
+
+      const fetchProductsWithBrands = async () => {
+        try {
+          const productPromises = productDetails.map(async (item) => {
+            const product = await getProductById(item.productId);
+            console.log(product);
+            return {
+              productId: item.productId,
+              quantity: item.quantity,
+              brandId: product.data.createdBy._id, // Suponiendo que getProductById devuelve el brandId
+            };
+          });
+
+          const products = await Promise.all(productPromises);
+          setProductsWithBrands(products);
+        } catch (error) {
+          console.error("Error fetching product details:", error);
+          setError("Failed to fetch product details");
+        }
+      };
+
+      fetchProductsWithBrands();
+    }
+  }, [metadata]);
 
   useEffect(() => {
-    if (metadata && user && user.id && !success) {
-      // Verificar el estado de éxito
-      const items = metadata.items;
-      console.log(items);
-      purchaseToHistory(user.id, payment_intent, items, metadata.purchase_date)
-        .then(() => setSuccess(true)) // Marcar como éxito si la llamada es exitosa
+    if (productsWithBrands.length > 0 && user && user.id && !success) {
+      const purchaseId = payment_intent;
+      const clientId = user.id;
+      const purchaseDate = metadata.purchase_date;
+
+      createNewPurchase({
+        purchaseId,
+        purchaseDate,
+        products: productsWithBrands,
+        clientId,
+      })
+        .then(() => setSuccess(true))
         .catch((error) => {
           console.error("Error adding to purchase history:", error);
         });
     }
-  }, [metadata, user, payment_intent]); // Añadir `success` a las dependencias
+  }, [productsWithBrands, user, payment_intent, success]);
 
   return (
     <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-raw-sienna-400 w-full md:w-1/2">
