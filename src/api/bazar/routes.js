@@ -276,13 +276,21 @@ export const subscribeToEvent = async (eventId, data) => {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw new Error("Error al inscribirse al bazar");
+      const errorData = await response.json();
+      Swal.fire({
+        title: "Oops!",
+        text: errorData.msg,
+        icon: "error",
+      });
+    }else{
+      
+      Toast.fire({
+        icon: "success",
+        title: "Ya estás participando en el bazar",
+      });
     }
-    const brandToSubscribe = await response.json();
-    Toast.fire({
-      icon: "success",
-      title: "Ya estás participando en el bazar",
-    });
+   
+    
   } catch (error) {
     console.error("Error en la petición para participar", error);
     throw error;

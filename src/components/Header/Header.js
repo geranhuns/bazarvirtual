@@ -35,6 +35,8 @@ function Header() {
   };
   function handleLogout() {
     localStorage.removeItem("jwtToken");
+    localStorage.clear();
+
     setUser({ id: null, role: null });
 
     router.push("/login");
