@@ -107,26 +107,28 @@ export default function Payment() {
           />
         </Elements>
       </section>
-      {productId && singleProduct && (
-        <PedidoCliente
-          key={singleProduct._id}
-          showButton={false}
-          singleProduct={singleProduct}
-          quantity={quantity}
-        />
-      )}
-      {!singleProduct &&
-        shoppingCartDetails.map((product) => {
-          console.log(product);
-          return (
-            <PedidoCliente
-              key={product._id}
-              showButton={false}
-              singleProduct={product}
-              quantity={product.quantity}
-            />
-          );
-        })}
+      <div className="mb-20">
+        {productId && singleProduct && (
+          <PedidoCliente
+            key={singleProduct._id}
+            showButton={false}
+            singleProduct={singleProduct}
+            quantity={quantity}
+          />
+        )}
+        {!singleProduct &&
+          shoppingCartDetails.map((product) => {
+            console.log(product);
+            return (
+              <PedidoCliente
+                key={product._id}
+                showButton={false}
+                singleProduct={product}
+                quantity={product.quantity}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 }

@@ -3,8 +3,8 @@ import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { deleteEspecialEvent } from "@/api/bazar/routes";
 
-function CardEvent({ eventName, description, timeEvent, idDate, eventID, setDataDate, fetchDataDates, editButtonsActive }) {
-
+function CardEvent({ eventName, description, timeEvent, idDate, eventID, setDataDate, fetchDataDates, editButtonsActive,eventCount }) {
+    console.log(eventCount.length)
     const handleDelete = async () => {
         try {
             await deleteEspecialEvent(idDate, eventID);
@@ -19,9 +19,17 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
         <div className="bg-raw-sienna-500 rounded-lg flex items-center  ">
             {editButtonsActive &&
                 <div className="w-2/12 h-full flex justify-center">
-                    <button className="bg-red-500 rounded-lg p-2 hover:p-4 hover:border-red-600" onClick={handleDelete}>
+                    {Array.isArray(eventCount) && eventCount.length != 1 && (
+                        <button
+                            className="bg-red-500 rounded-lg p-2 hover:p-4 hover:border-red-600"
+                            onClick={handleDelete}
+                        >
+                            Delete
+                        </button>
+                        )}
+                    {/* <button className="bg-red-500 rounded-lg p-2 hover:p-4 hover:border-red-600" onClick={handleDelete}>
                         Delete
-                    </button>
+                    </button> */}
                 </div>
             }
             <div className="w-8/12 h-full flex flex-col items-center justify-around text-center max-sm:w-9/12">

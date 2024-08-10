@@ -1,7 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { purchaseToHistory } from "@/api/users/productLists/routes";
+import { createNewPurchase } from "@/api/orders/routes";
+import { getProductById } from "@/api/marcas/products/routes";
 import { useUserContext } from "@/components/UserContext/UserContext";
+import { deleteShoppingCart } from "@/api/users/productLists/routes";
 
 export default function PaymentSuccess({ searchParams }) {
   const { amount, payment_intent } = searchParams;
@@ -9,6 +11,7 @@ export default function PaymentSuccess({ searchParams }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false); // Nuevo estado para controlar la llamada
+  const [productsWithBrands, setProductsWithBrands] = useState([]);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -25,6 +28,7 @@ export default function PaymentSuccess({ searchParams }) {
         })
         .then((data) => {
           if (data.metadata) {
+            console.log(data.metadata);
             setMetadata(data.metadata);
           } else {
             setError("No metadata found");
@@ -41,23 +45,65 @@ export default function PaymentSuccess({ searchParams }) {
       setLoading(false);
     }
   }, [payment_intent]);
+  useEffect(() => {
+    if (metadata && metadata.items) {
+      console.log(metadata);
+      const productStrings = metadata.items.split(",");
+
+      const productDetails = productStrings.map((productString) => {
+        const [productId, quantity] = productString.split(":");
+        return { productId, quantity: parseInt(quantity, 10) };
+      });
+
+      const fetchProductsWithBrands = async () => {
+        try {
+          const productPromises = productDetails.map(async (item) => {
+            const product = await getProductById(item.productId);
+            console.log(product);
+            return {
+              productId: item.productId,
+              quantity: item.quantity,
+              brandId: product.data.createdBy._id, // Suponiendo que getProductById devuelve el brandId
+            };
+          });
+
+          const products = await Promise.all(productPromises);
+          setProductsWithBrands(products);
+        } catch (error) {
+          console.error("Error fetching product details:", error);
+          setError("Failed to fetch product details");
+        }
+      };
+
+      fetchProductsWithBrands();
+    }
+  }, [metadata]);
 
   useEffect(() => {
-    if (metadata && user && user.id && !success) {
-      // Verificar el estado de éxito
-      const items = metadata.items;
-      console.log(items);
-      purchaseToHistory(user.id, payment_intent, items, metadata.purchase_date)
-        .then(() => setSuccess(true)) // Marcar como éxito si la llamada es exitosa
+    if (productsWithBrands.length > 0 && user && user.id && !success) {
+      const purchaseId = payment_intent;
+      const clientId = user.id;
+      const purchaseDate = metadata.purchase_date;
+
+      createNewPurchase({
+        purchaseId,
+        purchaseDate,
+        products: productsWithBrands,
+        clientId,
+      })
+        .then(() => setSuccess(true))
         .catch((error) => {
           console.error("Error adding to purchase history:", error);
         });
     }
-  }, [metadata, user, payment_intent]); // Añadir `success` a las dependencias
+    if (productsWithBrands.length > 1 && user && user.id && !success) {
+      deleteShoppingCart(user.id);
+    }
+  }, [productsWithBrands, user, payment_intent, success]);
 
   return (
     <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-raw-sienna-400 w-full md:w-1/2">
-      <div className="mb-10">
+      <div className="">
         <h1 className="text-4xl font-extrabold mb-2">Gracias por tu compra!</h1>
         <h2 className="text-2xl">
           Espera el contacto de la marca para hacerte llegar tu pedido.
@@ -70,20 +116,7 @@ export default function PaymentSuccess({ searchParams }) {
         </div>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        {metadata && (
-          <div className="mt-5">
-            <h3 className="text-2xl font-bold">Detalles de tu pedido:</h3>
-            <pre className="bg-white p-4 rounded-md text-raw-sienna-900 mt-2">
-              {JSON.stringify(metadata.items, null, 2)}
-            </pre>
-            <p className="mt-2">
-              <strong>Fecha de compra:</strong> {metadata.purchase_date}
-            </p>
-            <p className="mt-2">
-              <strong>ID del Pago:</strong> {payment_intent}
-            </p>
-          </div>
-        )}
+        <h4>Puedes ver tu historial de compras en: Mis Pedidos</h4>
       </div>
     </main>
   );

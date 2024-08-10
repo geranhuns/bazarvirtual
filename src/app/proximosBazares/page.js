@@ -25,7 +25,7 @@ export default function ProximosBazares() {
                 const eventStartDate = new Date(evento.date);
                 const eventStartDateMinusThreeDays = new Date(eventStartDate);
                 eventStartDateMinusThreeDays.setDate(
-                  eventStartDate.getDate() - 3
+                  eventStartDate.getDate() + 3
                 );
                 const today = new Date();
                 today.setHours(0, 0, 0, 0); // Eliminar la parte de la hora para comparar solo las fechas
