@@ -16,7 +16,6 @@ export default function PaymentSuccess({ searchParams }) {
 
   useEffect(() => {
     if (payment_intent) {
-      console.log(payment_intent);
       fetch(`/api/get-payment-intent?payment_intent=${payment_intent}`)
         .then((response) => {
           if (!response.ok) {
@@ -28,7 +27,6 @@ export default function PaymentSuccess({ searchParams }) {
         })
         .then((data) => {
           if (data.metadata) {
-            console.log(data.metadata);
             setMetadata(data.metadata);
           } else {
             setError("No metadata found");
@@ -47,7 +45,6 @@ export default function PaymentSuccess({ searchParams }) {
   }, [payment_intent]);
   useEffect(() => {
     if (metadata && metadata.items) {
-      console.log(metadata);
       const productStrings = metadata.items.split(",");
 
       const productDetails = productStrings.map((productString) => {
@@ -59,7 +56,6 @@ export default function PaymentSuccess({ searchParams }) {
         try {
           const productPromises = productDetails.map(async (item) => {
             const product = await getProductById(item.productId);
-            console.log(product);
             return {
               productId: item.productId,
               quantity: item.quantity,

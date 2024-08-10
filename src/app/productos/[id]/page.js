@@ -31,15 +31,11 @@ export default function VistaDetalladaProducto() {
 
   const handleDropdown = (quantity) => {
     setQuantity(quantity); // Pasar el valor como string
-    console.log(quantity);
     const total = price * quantity;
-    console.log(total);
     setAmount(total);
-    console.log(amount);
   };
   const addToWishList = async () => {
     if (!user.id) {
-      console.log("No user logged in");
       Swal.fire({
         icon: "warning",
         title: "Inicia sesión para crear tu lista de deseos",
@@ -75,7 +71,6 @@ export default function VistaDetalladaProducto() {
 
   const handleAddToShoppingCart = async () => {
     if (!user.id) {
-      console.log("No user logged in");
       Swal.fire({
         icon: "warning",
         title: "Inicia sesión para crear tu carrito de compras",
@@ -179,7 +174,6 @@ export default function VistaDetalladaProducto() {
                 id="quantity"
                 value={quantity} // Asegúrate de que 'quantity' sea un valor primitivo
                 onChange={(e) => {
-                  console.log(e);
                   handleDropdown(e.target.value); // Pasar el valor como string
                 }}
                 className={`h-8  pl-1  bg-raw-sienna-200 text-raw-sienna-900 `}

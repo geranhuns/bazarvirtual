@@ -31,7 +31,6 @@ export default function Payment() {
         try {
           const detailedProductObj = await getProductById(productId);
           const detailedProduct = detailedProductObj.data;
-          console.log(detailedProduct);
           setSingleProduct(detailedProduct);
         } catch (error) {
           console.error("Error fetching product:", error);
@@ -118,7 +117,6 @@ export default function Payment() {
         )}
         {!singleProduct &&
           shoppingCartDetails.map((product) => {
-            console.log(product);
             return (
               <PedidoCliente
                 key={product._id}
