@@ -82,7 +82,7 @@ export const UserProvider = ({ children }) => {
   }, [user.id, user.role]);
 
   const updateShoppingCart = async () => {
-    if (user.id) {
+    if (user.id && user.role === "client") {
       try {
         const shoppingCartData = await fetchShoppingCart(user.id);
         setShoppingCart(shoppingCartData.shoppingCart);

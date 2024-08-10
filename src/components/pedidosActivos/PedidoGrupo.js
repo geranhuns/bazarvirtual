@@ -1,8 +1,13 @@
 import { useState } from "react";
 import Button from "../Button/Button";
 import { markProductAsDelivered } from "@/api/orders/routes";
+import { userAgent } from "next/server";
 
-export default function PedidoGrupo({ producto, onProductDelivered }) {
+export default function PedidoGrupo({
+  producto,
+  onProductDelivered,
+  userRole,
+}) {
   const [pendingDelivery, setPendingDelivery] = useState(
     producto.pendingDelivery
   );
@@ -50,7 +55,7 @@ export default function PedidoGrupo({ producto, onProductDelivered }) {
             </h4>
           </div>
         </div>
-        {pendingDelivery && (
+        {pendingDelivery && userRole === "cliente" && (
           <div className="flex flex-col pl-10 md:items-start md:mt-0 items-center md:pt-0 mt-2">
             <Button
               text={"Recibido"}
