@@ -52,7 +52,6 @@ function Header() {
       if (storedToken) {
         try {
           const decodedUser = jwtDecode(storedToken);
-          // console.log(decodedUser);
           setUser({ id: decodedUser._id, role: decodedUser.role });
         } catch (error) {
           console.error("Error decoding token:", error);

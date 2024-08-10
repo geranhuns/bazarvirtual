@@ -5,30 +5,6 @@ import { useState, useEffect } from "react";
 export default function Marcas() {
   const [marcas, setMarcas] = useState(null);
   const [loading, setLoading] = useState(true);
-  // useEffect(async () => {
-  //   const response = await fetch("http://localhost:3001/users/marcas");
-  //   const data = await response.json();
-  //   setMarcas(data.data);
-  //   setLoading(false);
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchMarcas = async () => {
-  //     try {
-  //       const res = await fetch("http://localhost:3001/users/marcas");
-  //       const data = await res.json();
-  //       console.log(data);
-  //       setMarcas(data.data);
-  //       console.log(marcas);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching marcas:", error);
-  //       setLoading(false); // Ensures loading state is updated even if there is an error
-  //     }
-  //   };
-
-  //   fetchMarcas();
-  // }, []);
 
   const getMarcas = async () => {
     try {

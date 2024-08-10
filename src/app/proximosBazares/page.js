@@ -21,6 +21,17 @@ export default function ProximosBazares() {
           <h2 className="self-center pt-4 text-3xl">Próximas Fechas</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-14 py-5 ">
             {eventos
+              .filter((evento) => {
+                const eventStartDate = new Date(evento.date);
+                const eventStartDateMinusThreeDays = new Date(eventStartDate);
+                eventStartDateMinusThreeDays.setDate(
+                  eventStartDate.getDate() + 3
+                );
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Eliminar la parte de la hora para comparar solo las fechas
+
+                return eventStartDateMinusThreeDays >= today;
+              })
               .sort((a, b) => new Date(a.date) - new Date(b.date))
               .map((item) => {
                 return (

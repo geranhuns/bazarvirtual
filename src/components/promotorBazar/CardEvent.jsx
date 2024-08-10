@@ -3,8 +3,7 @@ import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { deleteEspecialEvent } from "@/api/bazar/routes";
 
-function CardEvent({ eventName, description, timeEvent, idDate, eventID, setDataDate, fetchDataDates, editButtonsActive,eventCount }) {
-    console.log(eventCount.length)
+function CardEvent({ eventName, description, timeEvent, idDate, eventID, setDataDate, fetchDataDates, editButtonsActive, eventCount }) {
     const handleDelete = async () => {
         try {
             await deleteEspecialEvent(idDate, eventID);
@@ -26,7 +25,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
                         >
                             Delete
                         </button>
-                        )}
+                    )}
                     {/* <button className="bg-red-500 rounded-lg p-2 hover:p-4 hover:border-red-600" onClick={handleDelete}>
                         Delete
                     </button> */}

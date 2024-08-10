@@ -3,9 +3,6 @@ import { FaRegEdit } from "react-icons/fa";
 
 function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, marcasCurso}) {
     const [bgButton, setBgButton] = useState("bg-raw-sienna-200 ")
-    // console.log(dateID, idDate)
-    //  console.log(`ID del la fecha ${fecha}: ${dateID}`)
-    // console.log(events)
     const obtenerFechaFormateada = (fechaCompleta) => {
         // Extrae la parte de la fecha 'yyyy-MM-dd' de la cadena 'yyyy-MM-ddTHH:mm:ss.sssZ'
         if (!fechaCompleta) return "";
@@ -30,7 +27,7 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                     onClick={() => {
                         setDataDate({events, place, time, marcasCurso});
                         setIdDate(dateID);
-                       
+
                     }}
                 >
                     <h5 className="text-base font-medium">

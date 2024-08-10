@@ -158,6 +158,24 @@ export const fetchWishList = async (userId) => {
   }
 };
 
+//Modificar para que busque en el nuevo modelo
+export const fetchPurchaseHistory = async (userId) => {
+  try {
+    const response = await fetch(`${USERS_URL}/${userId}`);
+    if (!response.ok) {
+      throw new Error(`Error fetching purchase history`);
+    }
+    const data = await response.json();
+    const purchaseHistory = data.data.purchaseHistory;
+    return purchaseHistory;
+  } catch (error) {
+    console.error(
+      "Error al obtener los artículos del historial de pedidos",
+      error
+    );
+    throw error;
+  }
+};
 export const deleteProductFromShoppingCart = async (userId, productId) => {
   try {
     const response = await fetch(
@@ -227,3 +245,83 @@ export const quantityProductEdit = async (userId, productId, quantity) => {
     console.error("Error updating quantity:", error);
   }
 };
+
+export const deleteShoppingCart = async (clientId) => {
+  try {
+    const response = await fetch(
+      `${USERS_URL}/deleteShoppingCart/${clientId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error al borrar el carrito: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Carrito de compras borrado con éxito:", data);
+    return data; // Retorna la respuesta en caso de que la necesites en otra parte de tu código
+  } catch (error) {
+    console.error("Error al intentar borrar el carrito de compras:", error);
+    throw error; // Lanza el error para que pueda ser manejado por la función que llame a esta
+  }
+};
+
+//Editar para que se vaya al nuevo modelo
+// export const purchaseToHistory = async (
+//   userId,
+//   purchaseId,
+//   itemsString,
+//   purchaseDate
+// ) => {
+//   // Convertir la cadena itemsString a un objeto
+//   const items = itemsString.split(",").reduce((acc, item) => {
+//     const [productId, quantity] = item.split(":");
+//     acc[productId.trim()] = parseInt(quantity.trim(), 10);
+//     return acc;
+//   }, {});
+
+//   // Imprimir los items recibidos para depuración
+//   console.log("Converted items:", items);
+
+//   // Transformar items
+//   const transformedItems = Object.keys(items).map((productId) => ({
+//     productId,
+//     quantity: items[productId],
+//   }));
+
+//   // Imprimir los items transformados para depuración
+//   console.log("Transformed items:", transformedItems);
+
+//   const requestBody = { purchaseId, items: transformedItems, purchaseDate };
+//   console.log("Sending request body:", requestBody);
+
+//   try {
+//     const response = await fetch(`${USERS_URL}/purchase-history/${userId}`, {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(requestBody),
+//     });
+
+//     if (!response.ok) {
+//       const errorText = await response.text();
+//       console.error(
+//         `Error updating purchase history: ${response.statusText}, ${errorText}`
+//       );
+//       throw new Error(
+//         `Error updating purchase history: ${response.statusText}`
+//       );
+//     }
+
+//     const data = await response.json();
+//     console.log("Purchase history updated:", data);
+//   } catch (error) {
+//     console.error("Error updating purchase history:", error);
+//   }
+// };

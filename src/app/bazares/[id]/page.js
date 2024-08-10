@@ -23,9 +23,7 @@ function PromotorVistaId() {
   const [openEdDate, setOpenEdDate] = useState(false); //monitorea estado para abrir editarDate
   const { active, setActive } = useContext(HeaderContext); //monitorea estado para brir form edit profile
   const [editButtonsActive, setEditButtonsActive] = useState(false);
-  
 
-  // console.log(datesBazar)
   const redesSociales = dataUser.socialNetworks;
   const params = useParams();
   const id = params.id;
@@ -42,7 +40,6 @@ function PromotorVistaId() {
     try {
       const userData = await dataUserBazarFetch(id);
       setDataUser(userData.data);
-    
     } catch (error) {
       console.error("Error al obtener datos del usuario:", error);
     }
@@ -66,26 +63,21 @@ function PromotorVistaId() {
     }
   }, [id]);
 
-  
-
   useEffect(() => {
     fetchData();
     fetchDataDates();
-    
+
     if (id === loggedUserId) {
       setEditButtonsActive(true);
     }
   }, []);
 
   useEffect(() => {
-
     if (datesBazar.length > 0) {
       const { events, place, time, marcasCurso } = datesBazar[0];
       setDataDate({ events, place, time, marcasCurso });
       setIdDate(datesBazar[0]._id);
-      console.log(dataDate)
     }
-    
   }, [datesBazar]);
 
   return (
@@ -189,7 +181,6 @@ function PromotorVistaId() {
                   editButtonsActive={editButtonsActive}
                   setOpenEdDate={setOpenEdDate}
                   idDate={idDate}
-                
                 />
               ))}
               {editButtonsActive && (
@@ -216,21 +207,23 @@ function PromotorVistaId() {
           <h3 className="text-3xl text-patina-50 pb-8">Eventos especiales</h3>
           {/* //poner un state con el lugar para precentarlo aqui */}
           <div className="grid grid-cols-1 w-full items-center justify-center px-8">
-          {dataDate && Array.isArray(dataDate.events) && dataDate.events.map((date) => (
-              <CardEvent
-                key={date._id}
-                setDatesBazar={setDatesBazar}
-                fetchDataDates={fetchDataDates}
-                setDataDate={setDataDate}
-                eventID={date._id}
-                idDate={idDate}
-                eventName={date.eventName}
-                description={date.description}
-                timeEvent={date.timeEvent}
-                editButtonsActive={editButtonsActive}
-                eventCount={dataDate.events}
-              />
-            ))}
+            {dataDate &&
+              Array.isArray(dataDate.events) &&
+              dataDate.events.map((date) => (
+                <CardEvent
+                  key={date._id}
+                  setDatesBazar={setDatesBazar}
+                  fetchDataDates={fetchDataDates}
+                  setDataDate={setDataDate}
+                  eventID={date._id}
+                  idDate={idDate}
+                  eventName={date.eventName}
+                  description={date.description}
+                  timeEvent={date.timeEvent}
+                  editButtonsActive={editButtonsActive}
+                  eventCount={dataDate.events}
+                />
+              ))}
           </div>
         </div>
       </div>

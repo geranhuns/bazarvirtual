@@ -1,44 +1,52 @@
-export default function Pedido() {
-  return (
-    <>
-      <div className="flex flex-col md:flex-row  bg-raw-sienna-50 py-5 px-4 rounded-md">
-        <img
-          className="rounded-md self-center"
-          src="https://picsum.photos/200/200"
-          width="100px"
-          heigth="100px"
-          alt="producto"
-        />
-        <div className="flex w-full flex-col md:flex-row  mt-6 md:mt-0 ">
-          <div className="pl-10 flex flex-col md:flex-row md:justify-between w-full gap-4">
-            <div>
-              <h3 className="  text-base italic  ">Nombre del Cliente</h3>
-              <h3 className="  text-lg  ">Nombre del Cliente</h3>
-            </div>
+// import { getProductById } from "@/api/marcas/products/routes";
+// import PedidoGrupo from "./PedidoGrupo";
+// import { useEffect, useState } from "react";
 
-            <div>
-              <h3 className="  text-base italic">Producto</h3>
-              <h3 className="  text-lg  ">Título del producto</h3>
-            </div>
+// export default function Pedido({ producto }) {
+//   const [productsArray, setProductsArray] = useState([]);
 
-            <div className="flex  items-center gap-4">
-              <h4 className="  text-base italic">Cantidad </h4>
-              <h4 className="bg-raw-sienna-400 w-9 text-center text-raw-sienna-50 rounded-sm py-1">
-                1
-              </h4>
-            </div>
-            <div className="flex flex-col md:w-auto w-80 md:items-end">
-              <h4 className="  text-base italic md:self-start">Estado:</h4>
-              <h3 className="  text-lg  ">Pedido Activo</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h3 className="bg-raw-sienna-50 text-xl w-full text-right pr-4">
-        {" "}
-        $550.00
-      </h3>
-      <hr className="h-0.5 bg-raw-sienna-800" />
-    </>
-  );
-}
+//   // useEffect(() => {
+//   //   const fetchProducts = async () => {
+//   //     // Crear una lista de promesas para obtener los detalles del producto
+//   //     const productPromises = productGroup.map(async (product) => {
+//   //       const detailedProduct = await getProductById(product.productId);
+//   //       return {
+//   //         detailedProduct: detailedProduct.data,
+//   //         quantity: product.quantity,
+//   //         _id: product._id,
+//   //         pendingDelivery: product.pendingDelivery,
+//   //       };
+//   //     });
+
+//   //     // Esperar a que todas las promesas se resuelvan
+//   //     const products = await Promise.all(productPromises);
+
+//   //     // Actualizar el estado con la lista completa de productos
+//   //     setProductsArray(products);
+//   //   };
+
+//   //   fetchProducts();
+//   // }, [productGroup]); // Ejecutar el efecto cuando `productGroup` cambie
+
+//   return (
+//     <>
+//       <div className="flex flex-col  justify-center bg-raw-sienna-50 md:py-5 px-4 rounded-md">
+//         {productsArray &&
+//           productsArray.length > 0 &&
+//           productsArray.map((item) => {
+//             //if item.pendingdelivery de todos los objetos dentro del pedido grupo es false entonces no se debe renderizar.
+//             return (
+//               <div>
+//                 <PedidoGrupo
+//                   key={item._id}
+//                   showButton={item.pendingDelivery}
+//                   singleProduct={item.detailedProduct}
+//                   quantity={item.quantity}
+//                 />
+//               </div>
+//             );
+//           })}
+//       </div>
+//     </>
+//   );
+// }

@@ -16,7 +16,6 @@ export default function MiCatalogo() {
 
   const params = useParams();
   const id = params.id;
-  console.log(id);
 
   const [brandProducts, setBrandProducts] = useState();
   const [loading, setLoading] = useState(true);
@@ -69,9 +68,6 @@ export default function MiCatalogo() {
     if (token) {
       const decoded = decodeToken(token);
       setDecodedToken(decoded);
-
-      console.log("Valores de token:", decoded);
-      console.log("Role del usuario:", decoded.role);
     }
   }, [token]);
   useEffect(() => {
@@ -93,7 +89,6 @@ export default function MiCatalogo() {
         <div className="flex flex-col gap-4 py-5 w-full">
           {brandProducts &&
             brandProducts.map((product) => {
-              console.log(product);
               return (
                 <ProductEdit
                   key={product._id}
