@@ -27,6 +27,7 @@ export default function PaymentSuccess({ searchParams }) {
         })
         .then((data) => {
           if (data.metadata) {
+            console.log(data.metadata);
             setMetadata(data.metadata);
           } else {
             setError("No metadata found");

@@ -23,19 +23,19 @@ const CheckoutPage = ({
   const [errorMessage, setErrorMessage] = useState();
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    let items = [];
-
     if (singleProduct) {
       const productWithQuantity = {
         ...singleProduct,
         quantity: singleQuantity,
       };
-      items = [productWithQuantity];
-    } else {
-      items = shoppingCartDetails;
+      setItems([productWithQuantity]);
+    } else if (!singleProduct) {
+      setItems(shoppingCartDetails);
     }
+    console.log("Final items to be sent in metadata:", items); // <-- Verifica este log
 
     if (amount && items.length > 0 && userId) {
       fetch("/api/create-payment-intent", {

@@ -110,15 +110,15 @@ export default function PedidosActivos() {
                   </option>
                 ))}
             </select>
-            <p className="pb-8 ">
+            <p className=" ">
               Consulta la página de detalle del pedido para contactar a la marca
               y ponerse de acuerdo para la entrega. Una vez recibido el
               producto, da click en el botón Recibido.
             </p>
-            <hr className="h-0.5 bg-raw-sienna-400" />
+            <hr className="h-0.5 bg-raw-sienna-400 my-4" />
             <div>
               {displayedProducts.map((item) => {
-                console.log(item._id);
+                console.log(item);
                 return (
                   <PedidoGrupo
                     key={item._id}

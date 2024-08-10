@@ -14,21 +14,26 @@ export default function PedidoGrupo({ producto, onProductDelivered }) {
   };
 
   return (
-    <div className="flex flex-row bg-raw-sienna-50 md:py-5 px-4 rounded-md">
-      <img
-        className="rounded-md self-center"
-        src={producto.productId.productImage}
-        width="100px"
-        height="100px"
-        alt="producto"
-      />
+    <div className="flex flex-row bg-raw-sienna-50 md:py-5 px-4 rounded-md mb-3 items-center">
+      <a
+        href={`/productos/${producto.productId._id}`}
+        className="w-28 h-28 overflow-hidden rounded-md"
+      >
+        <img
+          className="rounded-md self-center w-full  object-cover"
+          src={producto.productId.productImage}
+          width="100px"
+          height="100px"
+          alt="producto"
+        />
+      </a>
       <div className="flex w-full flex-col md:flex-row my-2 md:mt-0 items-center">
         <div className="pl-10 flex flex-col md:flex-row md:justify-between w-full md:gap-4">
           <div className="hidden md:flex flex-col">
             <h3 className="text-base italic">Nombre de la Marca</h3>
             <h3 className="text-lg">{producto.brandId.username}</h3>
           </div>
-          <div>
+          <div className="md:w-40">
             <h3 className="text-base italic">Producto</h3>
             <h3 className="md:text-lg">{producto.productId.title}</h3>
           </div>
@@ -36,6 +41,12 @@ export default function PedidoGrupo({ producto, onProductDelivered }) {
             <h4 className="text-base italic">Cantidad</h4>
             <h4 className="bg-raw-sienna-200 w-9 text-center text-raw-sienna-900 rounded-sm py-1">
               {producto.quantity}
+            </h4>
+          </div>
+          <div className="flex flex-col gap-2 md:items-center mt-1">
+            <h4 className="text-base italic">Referencia</h4>
+            <h4 className=" text-center text-raw-sienna-900 rounded-sm py-1 bg-raw-sienna-100">
+              {producto.purchaseId.slice(20)}
             </h4>
           </div>
         </div>
