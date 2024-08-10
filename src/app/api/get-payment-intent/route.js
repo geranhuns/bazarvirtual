@@ -16,8 +16,6 @@ export async function GET(request) {
     // Consultar el Payment Intent usando el ID
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
-    console.log("Payment Intent retrieved:", paymentIntent);
-
     // Devolver la metadata en la respuesta
     return NextResponse.json({ metadata: paymentIntent.metadata });
   } catch (error) {

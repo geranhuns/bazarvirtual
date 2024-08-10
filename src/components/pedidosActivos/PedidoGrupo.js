@@ -66,9 +66,21 @@ export default function PedidoGrupo({
             />
           </div>
         )}
-        {!pendingDelivery && (
+        {!pendingDelivery && userRole === "cliente" && (
           <div className="flex flex-col pl-10 md:items-start md:mt-0 items-center md:pt-0 mt-2">
             <h3 className="text-center">¡Gracias por tu compra!</h3>
+          </div>
+        )}
+        {!pendingDelivery && userRole === "marca" && (
+          <div className="flex flex-col pl-10 md:items-start md:mt-0 items-center md:pt-0 mt-2 w-56">
+            <h3 className="text-center">¡Venta registrada!</h3>
+          </div>
+        )}
+        {pendingDelivery && userRole === "marca" && (
+          <div className="flex flex-col pl-10 md:items-start md:mt-0 items-center md:pt-0 mt-2 w-56">
+            <h3 className="text-center">
+              Contacta al cliente para coordinar la entrega
+            </h3>
           </div>
         )}
       </div>

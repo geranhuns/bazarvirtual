@@ -16,8 +16,6 @@ const CheckoutPage = ({
   shoppingCartDetails,
   userEmail,
 }) => {
-  console.log("singleProduct", singleProduct);
-  console.log("shoppingCartDetails", shoppingCartDetails);
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState();
@@ -35,7 +33,6 @@ const CheckoutPage = ({
     } else if (!singleProduct) {
       setItems(shoppingCartDetails);
     }
-    console.log("Final items to be sent in metadata:", items); // <-- Verifica este log
 
     if (amount && items.length > 0 && userId) {
       fetch("/api/create-payment-intent", {

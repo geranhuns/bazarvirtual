@@ -1,15 +1,14 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function RadioButton({setStateFormProp }) {
+export default function RadioButton({ setStateFormProp }) {
   const [selectedOption, setSelectedOption] = useState("");
 
-  const   handleOptionChange =  (event) => {
-     setSelectedOption(event.target.value);
-    
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
   };
-  useEffect(() => { //useEffect para monitorear cuando cambie el valor del state selectedOption
-    console.log('radio has veen changed of value');
-    setStateFormProp(selectedOption)
+  useEffect(() => {
+    //useEffect para monitorear cuando cambie el valor del state selectedOption
+    setStateFormProp(selectedOption);
   }, [selectedOption]);
 
   return (

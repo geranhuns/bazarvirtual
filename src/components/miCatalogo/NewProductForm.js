@@ -43,7 +43,6 @@ export default function NewProductForm({
   ];
 
   const handleImagen = (e) => {
-    console.log(e.target.files[0]);
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -91,7 +90,6 @@ export default function NewProductForm({
     }
   }, [item, reset]);
   const onSubmit = async (data) => {
-    console.log(data);
     const dataAdjust = {
       productImage: data.productImage,
       createdBy: id,
@@ -104,10 +102,8 @@ export default function NewProductForm({
     try {
       if (item) {
         const changedProduct = await editProduct(dataAdjust, item._id);
-        console.log("Producto actualizado con éxito:", changedProduct);
       } else {
         const newProduct = await postNewProduct(dataAdjust, id);
-        console.log("Producto creado con éxito:", newProduct);
       }
     } catch (error) {
       console.error("Error al guardar el producto:", error.message);

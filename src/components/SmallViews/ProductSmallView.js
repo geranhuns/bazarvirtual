@@ -16,7 +16,6 @@ export default function ProductSmallView({ item }) {
 
   const handleAddToShoppingCart = async (id) => {
     if (!user.id) {
-      console.log("No user logged in");
       Swal.fire({
         icon: "warning",
         title: "Inicia sesión para crear tu carrito de compras",

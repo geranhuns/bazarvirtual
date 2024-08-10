@@ -9,7 +9,7 @@ import { IoCloseOutline } from "react-icons/io5";
 
 
 
-function FormEditProfileBazar({ active, setActive, setDataUserMain}) {
+function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
 
   const [dataUser, setDataUser] = useState({}) //almacena los datos del usuario al cargar el form
   const [isLoading, setIsLoading] = useState(true); //verifica el status de carga de los datos del usuario
@@ -78,26 +78,24 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain}) {
 
     let profilePicture = '';
 
-      if (data.profilePicture === dataUser.profilePicture) {
-        profilePicture = '';
-      } else {
-        profilePicture = data.profilePicture;
-      }
+    if (data.profilePicture === dataUser.profilePicture) {
+      profilePicture = '';
+    } else {
+      profilePicture = data.profilePicture;
+    }
 
     const dataAdjust = {  //se crea un objeto con los datos del formulario para enviarlos a la peticion fetch para actualizar usuario
-     
+
       profilePicture: profilePicture,
       username: data.username,
       wepPage: data.wepPage,
       socialNetworks
       // _id: _idUser //este se pasara al fetch para hacer la update
     };
-    console.log(dataAdjust)
 
     try {
       const updatedUser = await updateProfileBazar(dataAdjust, dataUser._id);
       fetchData(); //cuando termina de actualizar se ejecuta de nuevo el fetch para traer los nuevos valores desde la db y actualizar el value por defecto de los inputs del formulario
-      console.log(dataAdjust)
     } catch (error) {
       console.error('Error al actualizar el usuario:', error.message);
 

@@ -13,7 +13,6 @@ export default function RegisterForm({ dataRegister, role, loginRedirect }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     data.shoppingCart = [];
     data.wishList = [];
     data.purchaseHistory = [];
