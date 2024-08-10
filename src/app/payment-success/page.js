@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { createNewPurchase } from "@/api/orders/routes";
 import { getProductById } from "@/api/marcas/products/routes";
 import { useUserContext } from "@/components/UserContext/UserContext";
+import { deleteShoppingCart } from "@/api/users/productLists/routes";
 
 export default function PaymentSuccess({ searchParams }) {
   const { amount, payment_intent } = searchParams;
@@ -46,6 +47,7 @@ export default function PaymentSuccess({ searchParams }) {
   }, [payment_intent]);
   useEffect(() => {
     if (metadata && metadata.items) {
+      console.log(metadata);
       const productStrings = metadata.items.split(",");
 
       const productDetails = productStrings.map((productString) => {
@@ -94,11 +96,14 @@ export default function PaymentSuccess({ searchParams }) {
           console.error("Error adding to purchase history:", error);
         });
     }
+    if (productsWithBrands.length > 1 && user && user.id && !success) {
+      deleteShoppingCart(user.id);
+    }
   }, [productsWithBrands, user, payment_intent, success]);
 
   return (
     <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-raw-sienna-400 w-full md:w-1/2">
-      <div className="mb-10">
+      <div className="">
         <h1 className="text-4xl font-extrabold mb-2">Gracias por tu compra!</h1>
         <h2 className="text-2xl">
           Espera el contacto de la marca para hacerte llegar tu pedido.
@@ -111,20 +116,7 @@ export default function PaymentSuccess({ searchParams }) {
         </div>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        {metadata && (
-          <div className="mt-5">
-            <h3 className="text-2xl font-bold">Detalles de tu pedido:</h3>
-            <pre className="bg-white p-4 rounded-md text-raw-sienna-900 mt-2">
-              {JSON.stringify(metadata.items, null, 2)}
-            </pre>
-            <p className="mt-2">
-              <strong>Fecha de compra:</strong> {metadata.purchase_date}
-            </p>
-            <p className="mt-2">
-              <strong>ID del Pago:</strong> {payment_intent}
-            </p>
-          </div>
-        )}
+        <h4>Puedes ver tu historial de compras en: Mis Pedidos</h4>
       </div>
     </main>
   );

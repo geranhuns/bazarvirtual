@@ -26,7 +26,7 @@ const CheckoutPage = ({
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if (singleProduct) {
+    if (singleQuantity) {
       const productWithQuantity = {
         ...singleProduct,
         quantity: singleQuantity,
