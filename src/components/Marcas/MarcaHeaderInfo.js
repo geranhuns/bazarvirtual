@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { IoLogoTiktok } from "react-icons/io5";
+
 export default function MarcaHeaderInfo({ id }) {
+
   const [brandInfo, setBrandInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [redesSociales, setRedesSociales] = useState(null);
@@ -14,15 +16,24 @@ export default function MarcaHeaderInfo({ id }) {
       const data = await response.json();
       setBrandInfo(data.data);
       setRedesSociales(data.data.socialNetworks);
+
+      localStorage.setItem("brandProfilePicture", data.data.profilePicture);
+      localStorage.setItem("brandUsername", data.data.username);
+
       setLoading(false);
+     
+      
+
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     getMarca();
+   
   }, []);
 
+ 
   if (loading) {
     <div>Cargando...</div>;
   }

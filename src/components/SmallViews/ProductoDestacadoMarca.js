@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import MarcaSmallView from "./MarcaSmallView";
 import Link from "next/link";
+
 export default function ProductoDestacadoMarca({
   id,
   profilePicture,

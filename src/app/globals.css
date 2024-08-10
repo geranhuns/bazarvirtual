@@ -42,8 +42,8 @@ hr {
 .slick-slide {
   /* margin-right: 5px;
   margin-left: 5px; */
-  overflow: hidden;
-}
+   overflow: hidden; 
+} 
 
 .slick-list {
   height: 100%;

@@ -1,9 +1,9 @@
 import { React, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 
-function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time }) {
+function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, marcasCurso}) {
     const [bgButton, setBgButton] = useState("bg-raw-sienna-200 ")
-    console.log(dateID, idDate)
+    // console.log(dateID, idDate)
     //  console.log(`ID del la fecha ${fecha}: ${dateID}`)
     // console.log(events)
     const obtenerFechaFormateada = (fechaCompleta) => {
@@ -19,21 +19,21 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
 
     return (
         <>
-            <div className="flex flex-col ">
+            <div className="flex flex-col w-4/12 px-1 ">
 
                 <span
                     key={dateID}
                     className={`flex flex-row  ${idDate === dateID
                         ? "bg-raw-sienna-400 text-raw-sienna-50"
                         : "bg-raw-sienna-200"
-                        } w-36 items-start justify-around cursor-pointer rounded-lg p-1`}
+                        } w-full items-start justify-around cursor-pointer rounded-lg p-1 border max-sm:flex-col max-sm:items-center`}
                     onClick={() => {
-                        setDataDate({events, place, time});
+                        setDataDate({events, place, time, marcasCurso});
                         setIdDate(dateID);
                        
                     }}
                 >
-                    <h5 className="text-lg font-medium">
+                    <h5 className="text-base font-medium">
                         {obtenerFechaFormateada(fecha)}
                     </h5>
                     {editButtonsActive && (
