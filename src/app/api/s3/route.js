@@ -22,7 +22,6 @@ export async function GET(req) {
 
 async function uploadFileToS3(file, fileName) {
   const fileBuffer = file.buffer;
-  console.log(fileName);
 
   const params = {
     Bucket: bucketName,

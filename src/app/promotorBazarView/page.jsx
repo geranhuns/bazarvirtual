@@ -25,7 +25,6 @@ function PromotorVista() {
     const [openEdDate, setOpenEdDate] = useState(false)
     const { active, setActive } = useContext(HeaderContext);
 
-    // console.log(datesBazar)
     const redesSociales = dataUser.socialNetworks
 
     const fetchData = async () => {
@@ -40,7 +39,6 @@ function PromotorVista() {
     const fetchDataDates = async () => {
         try {
             const bazarDates = await datesBazarFetch();
-            //   console.log(bazarDates.data)
             setDatesBazar(bazarDates.data);
 
         } catch (error) {
@@ -69,7 +67,6 @@ function PromotorVista() {
 
     useEffect(() => {
         fetchData();
-        console.log("ejecutando por cierre")
     }, [active]);
 
 

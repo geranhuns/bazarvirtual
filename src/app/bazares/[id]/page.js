@@ -18,28 +18,23 @@ function PromotorVistaId() {
   const [open, setOpen] = useState(false);
   const [dataUser, setDataUser] = useState({}); //contiene los datos de peril del user
   const [datesBazar, setDatesBazar] = useState([]); //contiene las fechas del bazarUser
-  const [dataDate, setDataDate] = useState([]); //contiene un aray con los eventos especiales de la fecha que se selecciona
+  const [dataDate, setDataDate] = useState({}); //contiene un obj con los eventos especiales, lugar, fecha y marcasCurso de la fecha que se selecciona
   const [idDate, setIdDate] = useState(""); //state que almacena el id de la date seleccionada, es para pasarselo a los events
   const [openEdDate, setOpenEdDate] = useState(false); //monitorea estado para abrir editarDate
   const { active, setActive } = useContext(HeaderContext); //monitorea estado para brir form edit profile
   const [editButtonsActive, setEditButtonsActive] = useState(false);
-  const [place, setPlace] = useState("");
-  const [time, setTime] = useState("");
 
-  // console.log(datesBazar)
   const redesSociales = dataUser.socialNetworks;
   const params = useParams();
   const id = params.id;
+  console.log(datesBazar) //fechas en curso del bazar
+  console.log(dataDate)//eventos especiales de la fecha selected
+
 
   const { user } = useUserContext();
   const loggedUserId = user.id;
 
-  const [isSubscribed, setIsSubscribed] = useState(false); // Estado para la suscripción de marca al evento
-
-  const handleSubscriptionToggle = () => {
-    setIsSubscribed(!isSubscribed);
-    // Aquí falta agregar la lógica para inscribirse/desinscribirse
-  };
+  
 
   const fetchData = useCallback(async () => {
     try {
@@ -53,7 +48,16 @@ function PromotorVistaId() {
   const fetchDataDates = useCallback(async () => {
     try {
       const bazarDates = await datesBazarFetch(id);
-      setDatesBazar(bazarDates.data);
+      console.log(bazarDates)
+      //ordenar de mas proxima a las vieja
+      const orderDates = bazarDates.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+      console.log(orderDates)
+  
+      setDatesBazar(orderDates);
+      // const marcasCursoArray = orderDates.map(item => item.marcasCurso);
+     
+     
+
     } catch (error) {
       console.error("Error al obtener las fechas del bazar:", error);
     }
@@ -62,15 +66,17 @@ function PromotorVistaId() {
   useEffect(() => {
     fetchData();
     fetchDataDates();
+
     if (id === loggedUserId) {
       setEditButtonsActive(true);
     }
-  }, [fetchData, fetchDataDates, id, loggedUserId]);
+  }, []);
 
   useEffect(() => {
     if (datesBazar.length > 0) {
+      const { events, place, time, marcasCurso } = datesBazar[0];
+      setDataDate({ events, place, time, marcasCurso });
       setIdDate(datesBazar[0]._id);
-      setDataDate(datesBazar[0].events);
     }
   }, [datesBazar]);
 
@@ -158,8 +164,8 @@ function PromotorVistaId() {
             </div>
           </div>
 
-          <div className="bg-patina-900 rounded-md w-full flex flex-col text-center  text-black gap-2  p-3">
-            <div className="flex  justify-start gap-3">
+          <div className="bg-patina-900 rounded-md w-full flex flex-col text-center  text-black gap-2 p-3">
+            <div className="flex  justify-start gap-3 max-sm:flex-col max-sm:items-center ">
               {datesBazar.map((date) => (
                 <CardEventDetail
                   key={date._id}
@@ -168,15 +174,13 @@ function PromotorVistaId() {
                   setDataDate={setDataDate}
                   events={date.events}
                   fecha={date.date}
+                  place={date.place}
+                  time={date.time}
+                  marcasCurso={date.marcasCurso}
                   openEdDate={openEdDate}
                   editButtonsActive={editButtonsActive}
                   setOpenEdDate={setOpenEdDate}
                   idDate={idDate}
-                  place={date.place}
-                  time={date.time}
-                  date={date}
-                  setPlace={setPlace}
-                  setTime={setTime}
                 />
               ))}
               {editButtonsActive && (
@@ -189,34 +193,37 @@ function PromotorVistaId() {
               )}
             </div>
             <div className="flex flex-col text-patina-100 w-full text-xl ">
-              <h3>Lugar: {place}</h3>
-              <h3>Hora: {time} hrs</h3>
+              <h3>Lugar: {dataDate.place}</h3>
+              <h3>Hora: {dataDate.time} hrs</h3>
             </div>
           </div>
         </div>
       </div>
 
-      <Carrucel eventId={idDate} bazarDates={datesBazar} />
+      <Carrucel idDate={idDate} marcasCurso={dataDate.marcasCurso} fetchDataDates={fetchDataDates} />
 
       <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
         <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 mt-14 md:mt-20">
           <h3 className="text-3xl text-patina-50 pb-8">Eventos especiales</h3>
           {/* //poner un state con el lugar para precentarlo aqui */}
           <div className="grid grid-cols-1 w-full items-center justify-center px-8">
-            {dataDate.map((date) => (
-              <CardEvent
-                key={date._id}
-                setDatesBazar={setDatesBazar}
-                fetchDataDates={fetchDataDates}
-                setDataDate={setDataDate}
-                eventID={date._id}
-                idDate={idDate}
-                eventName={date.eventName}
-                description={date.description}
-                timeEvent={date.timeEvent}
-                editButtonsActive={editButtonsActive}
-              />
-            ))}
+            {dataDate &&
+              Array.isArray(dataDate.events) &&
+              dataDate.events.map((date) => (
+                <CardEvent
+                  key={date._id}
+                  setDatesBazar={setDatesBazar}
+                  fetchDataDates={fetchDataDates}
+                  setDataDate={setDataDate}
+                  eventID={date._id}
+                  idDate={idDate}
+                  eventName={date.eventName}
+                  description={date.description}
+                  timeEvent={date.timeEvent}
+                  editButtonsActive={editButtonsActive}
+                  eventCount={dataDate.events}
+                />
+              ))}
           </div>
         </div>
       </div>

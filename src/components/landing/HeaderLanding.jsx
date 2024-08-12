@@ -6,7 +6,6 @@ function HeaderLanding() {
     const handleScroll = (sectionId) => {
         const section = document.getElementById(sectionId);
         if (section) {
-            console.log("click en acerca de")
             section.scrollIntoView({ behavior: "smooth" });
         }
     };

@@ -21,7 +21,7 @@ export default function Payment() {
   const [loading, setLoading] = useState(true);
   const [productId, setProductId] = useState(null);
   const [quantity, setQuantity] = useState(null);
-  const { user, shoppingCartDetails } = useUserContext();
+  const { user, shoppingCartDetails, userEmail } = useUserContext();
 
   const [purchasedItems, setPurchasedItems] = useState([]);
   const [singleProduct, setSingleProduct] = useState();
@@ -96,29 +96,37 @@ export default function Payment() {
             locale: "es",
           }}
         >
-          <CheckoutPage amount={parsedAmount} />
+          <CheckoutPage
+            amount={parsedAmount}
+            userId={user.id}
+            shoppingCartDetails={shoppingCartDetails}
+            singleProduct={singleProduct}
+            singleQuantity={quantity}
+            userEmail={userEmail}
+          />
         </Elements>
       </section>
-      {productId && singleProduct && (
-        <PedidoCliente
-          key={singleProduct._id}
-          showButton={false}
-          singleProduct={singleProduct}
-          quantity={quantity}
-        />
-      )}
-      {!singleProduct &&
-        shoppingCartDetails.map((product) => {
-          console.log(product);
-          return (
-            <PedidoCliente
-              key={product._id}
-              showButton={false}
-              singleProduct={product}
-              quantity={product.quantity}
-            />
-          );
-        })}
+      <div className="mb-20">
+        {productId && singleProduct && (
+          <PedidoCliente
+            key={singleProduct._id}
+            showButton={false}
+            singleProduct={singleProduct}
+            quantity={quantity}
+          />
+        )}
+        {!singleProduct &&
+          shoppingCartDetails.map((product) => {
+            return (
+              <PedidoCliente
+                key={product._id}
+                showButton={false}
+                singleProduct={product}
+                quantity={product.quantity}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 }

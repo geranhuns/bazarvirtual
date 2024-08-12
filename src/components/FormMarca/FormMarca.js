@@ -64,7 +64,6 @@ function FormMarca({ marcaInfo }) {
   };
 
   const handleImagen = (e) => {
-    console.log(e.target.files[0]);
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -92,7 +91,6 @@ function FormMarca({ marcaInfo }) {
         body: formData,
       });
       const data = await response.json();
-      console.log(data.staus);
       setUploading(false);
     } catch (error) {
       console.log(error);
@@ -143,7 +141,6 @@ function FormMarca({ marcaInfo }) {
         );
 
         if (data.success) {
-          console.log("URL de la imagen en S3:", data.data.url);
           setPreviewImagen(data.data.url); // Actualizar la URL de previsualización si es necesario
         } else {
           console.error("Error al subir la imagen a S3:", data.error);
@@ -159,9 +156,7 @@ function FormMarca({ marcaInfo }) {
 
     await imageToS3(); // Subir la imagen antes de enviar el formulario
     await handleS3Submit();
-    console.log(
-      `Datos de entrada del formulario: ${JSON.stringify(data, null, 2)}`
-    );
+
     const socialNetworks = [
       //con los datos enviados se crea un array de objetos apartir de las redes sociales del form
       { platform: "facebook", url: data.facebook },
@@ -179,11 +174,9 @@ function FormMarca({ marcaInfo }) {
       description: data.description,
       _id: id, //este se pasara al fetch para hacer la update
     };
-    console.log(dataAdjust);
 
     try {
       const updatedUser = await updateProfileMarca(dataAdjust, id);
-      console.log("Usuario actualizado con éxito:", updatedUser);
       setDataUser(updatedUser);
       getMarcaInfo(); //cuando termina de actualizar se ejecuta de nuevo el fetch para traer los nuevos valores desde la db y actualizar el value por defecto de los inputs del formulario
       // router.push(`/marcas/${id}`);

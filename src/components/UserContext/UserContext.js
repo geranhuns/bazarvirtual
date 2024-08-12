@@ -13,6 +13,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({ id: null, role: null });
+  const [userEmail, setUserEmail] = useState("");
 
   const [shoppingCart, setShoppingCart] = useState([]);
   const [shoppingCartDetails, setShoppingCartDetails] = useState([]);
@@ -81,7 +82,7 @@ export const UserProvider = ({ children }) => {
   }, [user.id, user.role]);
 
   const updateShoppingCart = async () => {
-    if (user.id) {
+    if (user.id && user.role === "client") {
       try {
         const shoppingCartData = await fetchShoppingCart(user.id);
         setShoppingCart(shoppingCartData.shoppingCart);
@@ -115,6 +116,7 @@ export const UserProvider = ({ children }) => {
       try {
         const decoded = jwtDecode(token);
         setUser({ id: decoded._id, role: decoded.role });
+        setUserEmail(decoded.email);
       } catch (error) {
         console.error("Error decoding token:", error);
         setToken(null);
@@ -126,6 +128,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         user,
+        userEmail,
         setUser,
         shoppingCartDetails,
         wishListDetails,

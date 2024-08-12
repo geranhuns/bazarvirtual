@@ -82,7 +82,6 @@ export default function Register() {
       delete modifiedDataMarca.passwordComparation;
 
       if (modifiedDataCliente.role === "cliente") {
-        // console.log("registrando como comprador")
         await registerUserFetch(modifiedDataCliente);
       }
       if (modifiedData.role === "bazar") {

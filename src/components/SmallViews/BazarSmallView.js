@@ -16,13 +16,15 @@ export default function BazarSmallView({ className, item }) {
       href={`bazares/${createdBy._id}`}
       className={`flex flex-col lg:flex-row  gap-2 items-center ${className}`}
     >
-      <img
-        className="rounded-full h-20 w-20 lg:w-auto"
-        src={createdBy.profilePicture}
-        width="100px"
-        heigth="100px"
-        alt="logo"
-      />
+      <div className=" h-20 w-20">
+        <img
+          className="rounded-full h-full lg:w-auto object-cover"
+          src={createdBy.profilePicture}
+          width="100px"
+          heigth="100px"
+          alt="logo"
+        />
+      </div>
       <div className=" text-center text-xs w-24">
         <h3 className="font-bold">{obtenerFechaFormateada(date)}</h3>
         <h3 className="font-bold"> {time}</h3>

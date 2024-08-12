@@ -16,21 +16,9 @@ export default function Home() {
         return res.json();
       })
       .then((data) => {
-        // console.log(data);
         setProducts(data.data);
       });
   }, []);
-
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     const response = await fetch("http://localhost:3001/products");
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setProducts(data);
-  //   };
-  //   getProducts();
-  //   console.log(products);
-  // }, []);
 
   return (
     <div className="flex flex-col    mx-auto  lg:max-w-screen-xl overflow-auto ">
