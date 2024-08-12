@@ -23,6 +23,7 @@ function PromotorVistaId() {
   const [openEdDate, setOpenEdDate] = useState(false); //monitorea estado para abrir editarDate
   const { active, setActive } = useContext(HeaderContext); //monitorea estado para brir form edit profile
   const [editButtonsActive, setEditButtonsActive] = useState(false);
+  const[isParticipant, setIsParticipant] = useState(false)
 
   const redesSociales = dataUser.socialNetworks;
   const params = useParams();
@@ -54,7 +55,7 @@ function PromotorVistaId() {
       console.log(orderDates)
   
       setDatesBazar(orderDates);
-      // const marcasCursoArray = orderDates.map(item => item.marcasCurso);
+     
      
      
 
@@ -74,11 +75,21 @@ function PromotorVistaId() {
 
   useEffect(() => {
     if (datesBazar.length > 0) {
-      const { events, place, time, marcasCurso } = datesBazar[0];
-      setDataDate({ events, place, time, marcasCurso });
+      const { _id, events, place, time, marcasCurso } = datesBazar[0];
+      setDataDate({_id, events, place, time, marcasCurso });
       setIdDate(datesBazar[0]._id);
     }
   }, [datesBazar]);
+
+  useEffect(()=>{
+   const nameMarca = localStorage.getItem("brandUsername")
+  // console.log(dataDate.marcasCurso)
+  if (Array.isArray(dataDate.marcasCurso)) {
+  const exists = dataDate.marcasCurso.some(obj => obj.nameMarca === nameMarca );
+  setIsParticipant(exists)
+  console.log(isParticipant)
+  }
+  },[dataDate])
 
   return (
     <section className="relative w-full   min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
@@ -181,6 +192,7 @@ function PromotorVistaId() {
                   editButtonsActive={editButtonsActive}
                   setOpenEdDate={setOpenEdDate}
                   idDate={idDate}
+                 
                 />
               ))}
               {editButtonsActive && (
@@ -200,7 +212,7 @@ function PromotorVistaId() {
         </div>
       </div>
 
-      <Carrucel idDate={idDate} marcasCurso={dataDate.marcasCurso} fetchDataDates={fetchDataDates} />
+      <Carrucel idDate={idDate} marcasCurso={dataDate.marcasCurso} fetchDataDates={fetchDataDates}  isParticipant={isParticipant} />
 
       <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
         <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 mt-14 md:mt-20">

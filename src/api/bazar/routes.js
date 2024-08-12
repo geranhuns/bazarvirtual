@@ -297,6 +297,37 @@ export const subscribeToEvent = async (eventId, data) => {
   }
 };
 
+export const deleteSubscription = async (eventId, nameMarca) => {
+  try {
+    const response = await fetch(`${BAZAR_URL}/deleteSubscription/${eventId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({nameMarca}),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      Swal.fire({
+        title: "Oops!",
+        text: errorData.msg,
+        icon: "error",
+      });
+    }else{
+      
+      Toast.fire({
+        icon: "success",
+        title: "Suscripcion cancelada con exito!",
+      });
+    }
+   
+    
+  } catch (error) {
+    console.error("Error en la petición para participar", error);
+    throw error;
+  }
+};
+
 export const getSubscribedBrands = async (eventId) => {
   try {
     const response = await fetch(`${BAZAR_URL}/getMarcasCurso/${eventId}`, {
