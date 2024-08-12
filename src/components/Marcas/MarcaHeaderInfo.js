@@ -1,18 +1,21 @@
 "use client";
+require("dotenv").config();
+
 import { useEffect, useState } from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { IoLogoTiktok } from "react-icons/io5";
 
 export default function MarcaHeaderInfo({ id }) {
-
   const [brandInfo, setBrandInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [redesSociales, setRedesSociales] = useState(null);
 
   const getMarca = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/marca/${id}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca/${id}`
+      );
       const data = await response.json();
       setBrandInfo(data.data);
       setRedesSociales(data.data.socialNetworks);
@@ -21,19 +24,14 @@ export default function MarcaHeaderInfo({ id }) {
       localStorage.setItem("brandUsername", data.data.username);
 
       setLoading(false);
-     
-      
-
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     getMarca();
-   
   }, []);
 
- 
   if (loading) {
     <div>Cargando...</div>;
   }

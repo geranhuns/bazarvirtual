@@ -2,9 +2,7 @@ import Swal from "sweetalert2";
 // import withReactContent from "sweetalert2-react-content";
 require("dotenv").config();
 
-const BAZAR_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/bazar`;
-
-
+const BAZAR_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/bazar`;
 
 const Toast = Swal.mixin({
   toast: true,
@@ -17,8 +15,6 @@ const Toast = Swal.mixin({
     toast.onmouseleave = Swal.resumeTimer;
   },
 });
-
-
 
 export const getBazarById = async (bazarId) => {
   try {
@@ -89,8 +85,6 @@ export const dataUserBazarFetch = async (id) => {
 export const datesBazarFetch = async (id) => {
   //extrae fechas de los bazares segun el usuario(Bazar)
   try {
-
-
     const response = await fetch(`${BAZAR_URL}/datesUser/${id}`);
 
     if (!response.ok) {
@@ -107,10 +101,8 @@ export const datesBazarFetch = async (id) => {
 };
 
 export const updateProfileBazar = async (userdata, userId) => {
-
   try {
-  
-   let loadingToast = Swal.fire({
+    let loadingToast = Swal.fire({
       title: "Actualizando perfil...",
       didOpen: () => {
         Swal.showLoading();
@@ -125,8 +117,6 @@ export const updateProfileBazar = async (userdata, userId) => {
       },
       body: JSON.stringify(userdata),
     });
-
-    
 
     Swal.close();
 
@@ -145,8 +135,7 @@ export const updateProfileBazar = async (userdata, userId) => {
       icon: "success",
       title: "Perfil actualizado.",
     });
-    return data; 
-
+    return data;
   } catch (error) {
     if (loadingToast) Swal.close();
 
@@ -156,7 +145,7 @@ export const updateProfileBazar = async (userdata, userId) => {
       icon: "error",
     });
 
-    throw error; 
+    throw error;
   }
 };
 
@@ -282,15 +271,12 @@ export const subscribeToEvent = async (eventId, data) => {
         text: errorData.msg,
         icon: "error",
       });
-    }else{
-      
+    } else {
       Toast.fire({
         icon: "success",
         title: "Ya estás participando en el bazar",
       });
     }
-   
-    
   } catch (error) {
     console.error("Error en la petición para participar", error);
     throw error;

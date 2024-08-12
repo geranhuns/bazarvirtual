@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import FormMarca from "@/components/FormMarca/FormMarca";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -14,7 +16,9 @@ export default function EditarMarcaPage() {
 
   const getMarcaInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/marca/${id}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca/${id}`
+      );
       const data = await response.json();
       setMarcaInfo(data.data);
       setIsLoading(false);

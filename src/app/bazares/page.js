@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import BazarMediumView from "@/components/bazares/BazaresMediumVie";
 import CreaTuBazarBanner from "@/components/CreaTuBazarBanner/CreaTuBazarBanner";
 import { useEffect, useState } from "react";
@@ -7,7 +9,7 @@ export default function Bazares() {
   const [bazares, setBazares] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3001/bazar/usersBazar")
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bazar/usersBazar`)
       .then((res) => {
         return res.json();
       })

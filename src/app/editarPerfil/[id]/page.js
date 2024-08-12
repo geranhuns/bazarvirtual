@@ -1,4 +1,5 @@
 "use client";
+require("dotenv").config();
 
 import ProfileEdit from "@/components/ProfileEdit/ProfileEdit";
 import { useUserContext } from "@/components/UserContext/UserContext";
@@ -8,14 +9,14 @@ export default function EditarPerfil() {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const { user } = useUserContext(); // Asume que obtienes el id del usuario desde un contexto
-  const[isSubmit, setIsSubmit] = useState(false)//estate para monitorear cuando el fom haga un onsubmit y ejecutar el fetch que trae los datos del usuario
+  const [isSubmit, setIsSubmit] = useState(false); //estate para monitorear cuando el fom haga un onsubmit y ejecutar el fetch que trae los datos del usuario
 
   useEffect(() => {
     if (user.id) {
       const fetchUserData = async () => {
         try {
           const response = await fetch(
-            `http://localhost:3001/users/${user.id}`
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${user.id}`
           );
           if (!response.ok) {
             throw new Error(`Error fetching user data: ${response.statusText}`);
@@ -52,7 +53,11 @@ export default function EditarPerfil() {
           />
           <div className="flex pb-4"></div> */}
 
-          <ProfileEdit userData={userData} isSubmit={isSubmit} setIsSubmit={setIsSubmit} />
+          <ProfileEdit
+            userData={userData}
+            isSubmit={isSubmit}
+            setIsSubmit={setIsSubmit}
+          />
         </div>
       </div>
     </>

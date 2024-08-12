@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import ProductoDestacadoMarca from "@/components/SmallViews/ProductoDestacadoMarca";
 import { useState, useEffect } from "react";
 
@@ -8,7 +10,9 @@ export default function Marcas() {
 
   const getMarcas = async () => {
     try {
-      const response = await fetch("http://localhost:3001/marca/usersMarca");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca/usersMarca`
+      );
       const data = await response.json();
       setMarcas(data.data);
       setLoading(false);

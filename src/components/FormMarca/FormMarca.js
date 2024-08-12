@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -33,7 +35,9 @@ function FormMarca({ marcaInfo }) {
 
   const getMarcaInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/marca/${id}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca/${id}`
+      );
       const data = await response.json();
       setDataUser(data.data);
       setIsLoading(false);

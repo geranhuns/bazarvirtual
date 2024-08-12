@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import ProductSmallView from "@/components/SmallViews/ProductSmallView";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -15,7 +17,9 @@ export default function BusquedaProductos() {
     const fetchProducts = async () => {
       try {
         setIsLoading(true); // Set loading to true when starting to fetch data
-        const res = await fetch("http://localhost:3001/products");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`
+        );
         const data = await res.json();
 
         const results = data.data.filter((product) =>

@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}`);
 import LoginForm from "@/components/LoginForm/LoginForm";
 import { loginUserFetch } from "@/api/users/routes";
 import { jwtDecode } from "jwt-decode";

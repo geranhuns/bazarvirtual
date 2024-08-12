@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import ProductoConEstrella from "@/components/ProductoConEstrella/ProductoConEstrella";
 import Swal from "sweetalert2";
 
@@ -91,7 +93,9 @@ export default function VistaDetalladaProducto() {
 
   const getProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/products/${id}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/${id}`
+      );
       const data = await response.json();
       setProduct(data.data);
       setLogo(data.data.createdBy.profilePicture);

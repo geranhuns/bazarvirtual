@@ -1,6 +1,6 @@
 require("dotenv").config();
 import Swal from "sweetalert2";
-const USERS_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/users`;
+const USERS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
 const SHOPPING_CART_URL = `${USERS_URL}/shoppingCart`;
 const WISH_LIST_URL = `${USERS_URL}/wishList`;
 
