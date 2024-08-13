@@ -88,7 +88,7 @@ const CheckoutPage = ({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment-success?amount=${amount}`,
+        return_url: `https://bazarvirtual.vercel.app//payment-success?amount=${amount}`,
       },
     });
 
