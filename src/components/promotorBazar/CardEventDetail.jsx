@@ -25,6 +25,7 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                         : "bg-raw-sienna-200"
                         } w-full items-start justify-around cursor-pointer rounded-lg p-1 border max-sm:flex-col max-sm:items-center`}
                     onClick={() => {
+                        // setIsParticipant(false)
                         setDataDate({events, place, time, marcasCurso});
                         setIdDate(dateID);
 
