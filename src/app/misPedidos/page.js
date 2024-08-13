@@ -28,22 +28,31 @@ export default function PedidosActivos() {
     if (!user || !user.id) {
       console.error("User ID is not available");
       return;
-    } else if (user.role === "cliente") {
-      try {
-        const productsHistory = await fetchClientPurchases(user.id);
+    }
 
-        setPurchaseHistory(productsHistory.data);
-      } catch (error) {
-        console.error("Error fetching product history:", error);
-      }
-    } else if (user.role === "marca") {
-      try {
-        const productsHistory = await fetchBrandPurchases(user.id);
+    try {
+      let productsHistory;
 
-        setPurchaseHistory(productsHistory.data);
-      } catch (error) {
-        console.error("Error fetching product history:", error);
+      if (user.role === "cliente") {
+        productsHistory = await fetchClientPurchases(user.id);
+      } else if (user.role === "marca") {
+        productsHistory = await fetchBrandPurchases(user.id);
       }
+
+      // Check if data exists before setting the state
+      if (
+        productsHistory &&
+        productsHistory.data &&
+        productsHistory.data.length > 0
+      ) {
+        setPurchaseHistory(productsHistory.data);
+      } else {
+        console.log("No orders found.");
+        setPurchaseHistory([]); // Set an empty array if no orders are found
+      }
+    } catch (error) {
+      console.error("Error fetching product history:", error);
+      setPurchaseHistory([]); // Optional: set an empty array in case of an error
     }
   };
 
@@ -105,16 +114,18 @@ export default function PedidosActivos() {
               producto, solicita al cliente dar click en el botón Recibido.
             </p>
             <hr className="h-0.5 bg-raw-sienna-800 my-4" />
-            {displayedProducts.map((item) => {
-              return (
+            {displayedProducts.length === 0 ? (
+              <div>Aún no tienes pedidos.</div>
+            ) : (
+              displayedProducts.map((item) => (
                 <PedidoGrupo
                   key={item._id}
                   producto={item}
                   onProductDelivered={handleProductDelivered}
                   userRole={user.role}
                 />
-              );
-            })}
+              ))
+            )}
           </>
         )}
         {user.role !== "marca" && (
