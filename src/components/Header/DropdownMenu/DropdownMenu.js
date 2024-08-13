@@ -71,6 +71,13 @@ export default function DropdownMenu({
                 </li>
               </>
             )}
+            {role === "bazar" && (
+              <>
+                <li className="cursor-pointer">
+                  <a href={`/bazares/${id}`}>Ver mi Perfil</a>
+                </li>
+              </>
+            )}
             <li className="border-b-2 border-raw-sienna-300 pb-2 cursor-pointer">
               <a
                 onClick={() => {
@@ -126,6 +133,13 @@ export default function DropdownMenu({
               </li>
               <li className="cursor-pointer">
                 <a href={`/miCatalogo/${id}`}>Editar mi catálogo</a>
+              </li>
+            </>
+          )}
+          {role === "bazar" && (
+            <>
+              <li className="cursor-pointer">
+                <a href={`/bazares/${id}`}>Ver mi Perfil</a>
               </li>
             </>
           )}

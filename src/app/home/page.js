@@ -9,7 +9,6 @@ export default function Home() {
 
   useEffect(() => {
     const apiBaseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`;
-    console.log("API Base URL:", apiBaseUrl);
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products`)
       .then((res) => {
         return res.json();
