@@ -16,7 +16,7 @@ export default function Register() {
   const [option, setOption] = useState("quieroComprar");
   const [stateForm, setStateForm] = useState(""); //agregado
   const [role, setRole] = useState("");
-
+console.log(role)
   useEffect(() => {
     if (option === "quieroComprar") {
       setRole("cliente");
@@ -80,6 +80,11 @@ export default function Register() {
       delete modifiedData.passwordComparation;
       delete modifiedDataCliente.passwordComparation;
       delete modifiedDataMarca.passwordComparation;
+
+      console.log(modifiedData)
+      console.log(modifiedDataCliente)
+      console.log(modifiedDataMarca)
+
 
       if (modifiedDataCliente.role === "cliente") {
         await registerUserFetch(modifiedDataCliente);

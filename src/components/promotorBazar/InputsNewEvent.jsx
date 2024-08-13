@@ -7,7 +7,7 @@ function InputNewEvent(props){
 
     return(
         <>
-        <div className=" border w-full flex justify-around mt-2  ">
+        <div className="  w-full flex justify-around mt-2  ">
 
                 <div className="flex flex-col w-3/12 text-center ">
                     <label className="text-lg text-white">Evento</label>

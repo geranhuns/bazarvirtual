@@ -88,7 +88,7 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
 
       profilePicture: profilePicture,
       username: data.username,
-      wepPage: data.wepPage,
+      webPage: data.webPage,
       socialNetworks
       // _id: _idUser //este se pasara al fetch para hacer la update
     };
@@ -140,8 +140,8 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
                 </div>
                 <div className="  flex flex-col items-center w-1/2 max-sm:w-10/12 ">
                   <label className="text-lg text-white " htmlFor="">wep page</label>
-                  <input className="w-11/12 p-1 rounded-xl  text-center max-sm:w-full" type="text" defaultValue={dataUser.wepPage}
-                    {...register("wepPage")} />
+                  <input className="w-11/12 p-1 rounded-xl  text-center max-sm:w-full" type="text" defaultValue={dataUser.webPage}
+                    {...register("webPage")} />
                 </div>
               </div>
 

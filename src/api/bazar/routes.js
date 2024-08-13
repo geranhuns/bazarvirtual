@@ -34,6 +34,7 @@ export const getBazarById = async (bazarId) => {
   }
 };
 export const registerBazarFetch = async (data) => {
+  console.log(data)
   try {
     const response = await fetch(`${BAZAR_URL}/register`, {
       method: "POST",
@@ -65,12 +66,9 @@ export const registerBazarFetch = async (data) => {
 };
 
 export const dataUserBazarFetch = async (id) => {
-  //extre los datos del user(Bazar)
+ 
   try {
-    // const token = localStorage.getItem('jwtToken');
-    // const decodedToken = jwtDecode(token);
-    // const _id = decodedToken._id;
-
+  
     const response = await fetch(`${BAZAR_URL}/bazarUser/${id}`);
 
     if (!response.ok) {
@@ -351,3 +349,35 @@ export const getSubscribedBrands = async (eventId) => {
     throw error;
   }
 };
+
+export const cancelDate = async (eventId)=>{
+  try{
+  const response = await fetch(`${BAZAR_URL}/deleteDate/${eventId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      Swal.fire({
+        title: "Listo!",
+        text: responseData.msg,
+        icon: "success",
+      });
+    } else {
+      const errorData = await response.json();
+      Swal.fire({
+        title: "Oops!",
+        text: errorData.msg,
+        icon: "error",
+      });
+    }
+  }
+  catch(error){
+    alert("Error al realizar la solicitud: " + error.msg);
+  }
+
+
+}

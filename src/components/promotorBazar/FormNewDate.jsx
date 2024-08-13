@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import InputNewEvent from "./InputsNewEvent";
 import { MdClose } from "react-icons/md";
 import { useState, useEffect } from "react";
-import { createDateFetch, updateDateFetch, dateById } from "@/api/bazar/routes";
+import { createDateFetch, updateDateFetch, dateById , cancelDate} from "@/api/bazar/routes";
 import Swal from 'sweetalert2'
 
 function FormNewDate(props) {
@@ -15,6 +15,8 @@ function FormNewDate(props) {
     const [dataDate, setDataDate] = useState({}) //estado qu almacena los datos de la fecha  editar, se llena cuando se hace el fetch
     const [isLoading, setIsLoading] = useState(true);
     const { register, handleSubmit, reset } = useForm();
+
+    console.log(currentDate)
 
     const toggleExtraEvent = () => {
         setShowExtraEvent(!showExtraEvent);
@@ -46,7 +48,7 @@ function FormNewDate(props) {
         setCurrentDate(`${yyyy}-${mm}-${dd}`);
         setDateCount(datesBazar.length)
 
-        openEdDate ? dataFecha(idDate) : console.error("No se detecto el ID de la fecha"); //si el form se abrio con boton editar se hace el fetch para traer los datos de la fecha
+        // openEdDate ? dataFecha(idDate) : console.error("No se detecto el ID de la fecha"); //si el form se abrio con boton editar se hace el fetch para traer los datos de la fecha
 
     }, []);
 
@@ -61,7 +63,7 @@ function FormNewDate(props) {
 
         setCurrentDate(`${yyyy}-${mm}-${dd}`);
         setDataDate(datesBazar.length); // Actualiza dataDate con la longitud de datesBazar
-
+       
         if (openEdDate) {
             dataFecha(idDate);
         } else {
@@ -94,6 +96,8 @@ function FormNewDate(props) {
             events: events,
         };
 
+    
+
         if (!openEdDate && dateCount < 3) {
             try {
                 await createDateFetch(dataAdjust);
@@ -114,7 +118,7 @@ function FormNewDate(props) {
             await fetchDataDates();
             updateSelectDate([])
         }
-
+        console.log(dataAdjust)
         reset();
     };
 
@@ -126,6 +130,11 @@ function FormNewDate(props) {
             //colocar alert
         }
     }
+ const handleDeleteDate = async  ()=>{
+    console.log("click en boton cancelar")
+   await cancelDate(idDate)
+   fetchDataDates()
+ }
 
 
 
@@ -214,6 +223,8 @@ function FormNewDate(props) {
 
                         <input className="bg-raw-sienna-500 rounded-xl text-xl w-2/12 h-10" type="submit" value="Enviar" />
                     </form>
+                        {openEdDate?(<button className="bg-red-500 w-2/3 mt-5 mx-auto p-2 rounded-lg font-semibold" onClick={()=>{handleDeleteDate()}}>Cancelar fecha</button>):('')}
+                        
                 </div>
             </div>
         </>

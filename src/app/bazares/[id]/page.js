@@ -28,8 +28,8 @@ function PromotorVistaId() {
   const redesSociales = dataUser.socialNetworks;
   const params = useParams();
   const id = params.id;
-  console.log(datesBazar) //fechas en curso del bazar
-  console.log(dataDate)//eventos especiales de la fecha selected
+  // console.log(datesBazar) //fechas en curso del bazar
+  // console.log(dataDate)//eventos especiales de la fecha selected
 
 
   const { user } = useUserContext();
@@ -129,7 +129,7 @@ function PromotorVistaId() {
               {dataUser.username}
             </h2>
             <div className=" text-sm font-medium flex flex-col p-1 justify-center items-center ">
-              <span>{dataUser.wepPage}</span>
+              <span>{dataUser.webPage}</span>
               {/* meter en un <a> */}
             </div>
             <div className=" flex justify-center items-center gap-x-4 mb-5 mt-2">
