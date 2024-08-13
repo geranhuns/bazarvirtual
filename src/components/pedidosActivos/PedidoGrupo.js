@@ -36,7 +36,7 @@ export default function PedidoGrupo({
         <div className="pl-10 flex flex-col md:flex-row md:justify-between w-full md:gap-4">
           <div className="hidden md:flex flex-col">
             <h3 className="text-base italic">Nombre de la Marca</h3>
-            <h3 className="text-lg">{producto.brandId.username}</h3>
+            <h3 className="text-lg">{producto.brandId?.username}</h3>
           </div>
           <div className="md:w-40">
             <h3 className="text-base italic">Producto</h3>

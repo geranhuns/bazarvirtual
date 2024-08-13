@@ -1,17 +1,15 @@
 "use client";
+require("dotenv").config();
+
 import { useEffect, useState } from "react";
 import ProximosBazares from "@/components/ProximosBazaresBanner/ProximosBazaresBanner";
 import ProductSmallView from "@/components/SmallViews/ProductSmallView";
 export default function Home() {
   const [products, setProducts] = useState([]);
-  // useEffect(async () => {
-  //   const response = await fetch("http://localhost:3001/products");
-  //   const data = await response.json();
-  //   setProducts(data.data);
-  // }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3001/products")
+    const apiBaseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`;
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products`)
       .then((res) => {
         return res.json();
       })

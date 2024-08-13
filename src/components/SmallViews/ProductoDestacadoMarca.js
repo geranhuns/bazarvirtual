@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +21,7 @@ export default function ProductoDestacadoMarca({
   const getProducts = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/products/brand/${id}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/brand/${id}`
       );
       const data = await response.json();
       setBrandProducts(data.data);

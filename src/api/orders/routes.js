@@ -1,5 +1,5 @@
 require("dotenv").config();
-const ORDERS_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/orders`;
+const ORDERS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders`;
 export const createNewPurchase = async (purchaseData) => {
   console.log(purchaseData);
   try {

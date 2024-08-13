@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import MarcaHeaderInfo from "@/components/Marcas/MarcaHeaderInfo";
 import ProductEdit from "@/components/ProductEdit/ProductEdit";
 import { useParams } from "next/navigation";
@@ -41,7 +43,7 @@ export default function MiCatalogo() {
   const getProducts = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/products/brand/${id}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/brand/${id}`
       );
 
       const data = await response.json();

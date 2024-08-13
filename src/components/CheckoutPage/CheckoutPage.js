@@ -1,4 +1,5 @@
 "use client";
+require("dotenv").config();
 
 import React, { useEffect, useState } from "react";
 import {
@@ -87,7 +88,7 @@ const CheckoutPage = ({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `http://www.localhost:3000/payment-success?amount=${amount}`,
+        return_url: `https://bazarvirtual.vercel.app//payment-success?amount=${amount}`,
       },
     });
 

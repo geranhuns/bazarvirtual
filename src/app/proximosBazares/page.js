@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import BazarMediumView from "@/components/bazares/BazaresMediumVie";
 import CreaTuBazarBanner from "@/components/CreaTuBazarBanner/CreaTuBazarBanner";
 import { useEffect, useState } from "react";
@@ -6,7 +8,7 @@ import { useEffect, useState } from "react";
 export default function ProximosBazares() {
   const [eventos, setEventos] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3001/bazar/bazarDates")
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bazar/bazarDates`)
       .then((res) => {
         return res.json();
       })

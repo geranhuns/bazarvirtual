@@ -14,7 +14,7 @@ import {getAllProducts} from "@/api/marcas/products/routes"
 
 
 
-function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant}) {
+function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
   const[products, setProducts] = useState([])
@@ -50,8 +50,8 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant}) {
       marcaID: localStorage.getItem("marcaID")
     };
     if (idDate) {
-     await subscribeToEvent(idDate, dataUpdate); // Asumiendo que subscribeToEvent acepta el dataUpdate como segundo parámetro
-     fetchDataDates()
+      await subscribeToEvent(idDate, dataUpdate); // Asumiendo que subscribeToEvent acepta el dataUpdate como segundo parámetro
+      fetchDataDates()
 
     } else {
       console.error("eventId is required");
@@ -59,22 +59,20 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant}) {
   };
 
   const handleCancelSubscription = async () => {
-    // console.log("click detected")
-   const nameMarca = localStorage.getItem("brandUsername")
-    
+    const nameMarca = localStorage.getItem("brandUsername")
+
     if (idDate) {
-     await deleteSubscription(idDate, nameMarca); // Asumiendo que subscribeToEvent acepta el dataUpdate como segundo parámetro
-     fetchDataDates()
+      await deleteSubscription(idDate, nameMarca); // Asumiendo que subscribeToEvent acepta el dataUpdate como segundo parámetro
+      fetchDataDates()
 
     } else {
       console.error("eventId is required");
     }
   };
-  
-  
+
+
   const slidesToShow = marcasCurso && marcasCurso.length < 3 ? marcasCurso.length : 3;
   const infiniteSetting = marcasCurso && marcasCurso.length > 1;
-  console.log(slidesToShow)
   const settings = {
     dots: false,
     infinite: infiniteSetting,
@@ -89,7 +87,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant}) {
           slidesToScroll: 1,
           infinite: infiniteSetting,
           dots: false
-          
+
         }
       },
       {
@@ -114,7 +112,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant}) {
 
     ]
   };
- 
+
 
   useEffect( () => {
 
@@ -154,17 +152,17 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant}) {
         </div>
 
         {user.role === "marca" &&
-          <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl border">
+          <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl ">
 
-            {isParticipant? (<div className="flex items-center rounded-md border-2  border-patina-500 px-3 ">
-              <Button text="Cancelar" variant="transparent" type="button" className={"px-3 text-patina-500"} onClick={()=>{handleCancelSubscription()}}/><CiCircleMinus className="text-2xl text-patina-500" />
+            {isParticipant ? (<div className="flex items-center rounded-md border-2  border-patina-500 px-3 ">
+              <Button text="Cancelar" variant="transparent" type="button" className={"px-3 text-patina-500"} onClick={() => { handleCancelSubscription() }} /><CiCircleMinus className="text-2xl text-patina-500" />
             </div>
-            ): (<div className="flex items-center bg-yellow-bazar rounded-md px-3">
+            ) : (<div className="flex items-center bg-yellow-bazar rounded-md px-3">
               <Button text="Participar" variant="yellow" type="button" className={"px-3 text-yellow-800"} onClick={() => { handleSuscribed() }} /><IoAddCircleSharp className="text-2xl text-yellow-700" />
-              </div>
+            </div>
             )}
-           
-            
+
+
 
           </div>
         }

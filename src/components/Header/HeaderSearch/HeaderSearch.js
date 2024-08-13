@@ -1,4 +1,6 @@
 "use client";
+require("dotenv").config();
+
 import Dropdown from "@/components/Dropdown/Dropdown";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -12,7 +14,9 @@ export default function HeaderSearch() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:3001/products");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch categories");
         }

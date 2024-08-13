@@ -23,19 +23,14 @@ function PromotorVistaId() {
   const [openEdDate, setOpenEdDate] = useState(false); //monitorea estado para abrir editarDate
   const { active, setActive } = useContext(HeaderContext); //monitorea estado para brir form edit profile
   const [editButtonsActive, setEditButtonsActive] = useState(false);
-  const[isParticipant, setIsParticipant] = useState(false)
+  const [isParticipant, setIsParticipant] = useState(false);
 
   const redesSociales = dataUser.socialNetworks;
   const params = useParams();
   const id = params.id;
-  // console.log(datesBazar) //fechas en curso del bazar
-  // console.log(dataDate)//eventos especiales de la fecha selected
-
 
   const { user } = useUserContext();
   const loggedUserId = user.id;
-
-  
 
   const fetchData = useCallback(async () => {
     try {
@@ -49,16 +44,12 @@ function PromotorVistaId() {
   const fetchDataDates = useCallback(async () => {
     try {
       const bazarDates = await datesBazarFetch(id);
-      console.log(bazarDates)
       //ordenar de mas proxima a las vieja
-      const orderDates = bazarDates.data.sort((a, b) => new Date(a.date) - new Date(b.date));
-      console.log(orderDates)
-  
-      setDatesBazar(orderDates);
-     
-     
-     
+      const orderDates = bazarDates.data.sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
 
+      setDatesBazar(orderDates);
     } catch (error) {
       console.error("Error al obtener las fechas del bazar:", error);
     }
@@ -76,20 +67,20 @@ function PromotorVistaId() {
   useEffect(() => {
     if (datesBazar.length > 0) {
       const { _id, events, place, time, marcasCurso } = datesBazar[0];
-      setDataDate({_id, events, place, time, marcasCurso });
+      setDataDate({ _id, events, place, time, marcasCurso });
       setIdDate(datesBazar[0]._id);
     }
   }, [datesBazar]);
 
-  useEffect(()=>{
-   const nameMarca = localStorage.getItem("brandUsername")
-  // console.log(dataDate.marcasCurso)
-  if (Array.isArray(dataDate.marcasCurso)) {
-  const exists = dataDate.marcasCurso.some(obj => obj.nameMarca === nameMarca );
-  setIsParticipant(exists)
-  console.log(isParticipant)
-  }
-  },[dataDate])
+  useEffect(() => {
+    const nameMarca = localStorage.getItem("brandUsername");
+    if (Array.isArray(dataDate.marcasCurso)) {
+      const exists = dataDate.marcasCurso.some(
+        (obj) => obj.nameMarca === nameMarca
+      );
+      setIsParticipant(exists);
+    }
+  }, [dataDate]);
 
   return (
     <section className="relative w-full   min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
@@ -192,7 +183,6 @@ function PromotorVistaId() {
                   editButtonsActive={editButtonsActive}
                   setOpenEdDate={setOpenEdDate}
                   idDate={idDate}
-                 
                 />
               ))}
               {editButtonsActive && (
@@ -212,7 +202,12 @@ function PromotorVistaId() {
         </div>
       </div>
 
-      <Carrucel idDate={idDate} marcasCurso={dataDate.marcasCurso} fetchDataDates={fetchDataDates}  isParticipant={isParticipant} />
+      <Carrucel
+        idDate={idDate}
+        marcasCurso={dataDate.marcasCurso}
+        fetchDataDates={fetchDataDates}
+        isParticipant={isParticipant}
+      />
 
       <div className="flex w-11/12 my-auto  py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
         <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 mt-14 md:mt-20">

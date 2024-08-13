@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const PRODUCTS_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/products`;
+const PRODUCTS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`;
 
 export const postNewProduct = async (userdata, marcaId) => {
   try {

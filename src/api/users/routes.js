@@ -1,8 +1,7 @@
 require("dotenv").config();
-const USERS_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/users`;
+const USERS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
 
 import Swal from "sweetalert2";
-
 
 const Toast = Swal.mixin({
   toast: true,
@@ -15,7 +14,6 @@ const Toast = Swal.mixin({
     toast.onmouseleave = Swal.resumeTimer;
   },
 });
-
 
 export const registerUserFetch = async (data) => {
   try {
@@ -50,7 +48,6 @@ export const registerUserFetch = async (data) => {
 
 export async function loginUserFetch(data) {
   try {
-
     let loadingToast = Swal.fire({
       title: "Iniciando sesion...",
       didOpen: () => {
@@ -58,7 +55,6 @@ export async function loginUserFetch(data) {
       },
       allowOutsideClick: false,
     });
-
 
     const response = await fetch(`${USERS_URL}/login`, {
       method: "POST",
@@ -68,16 +64,13 @@ export async function loginUserFetch(data) {
       body: JSON.stringify(data),
     });
 
-    
-
     if (response.ok) {
       const data = await response.json();
-    
+
       localStorage.setItem("jwtToken", data.data);
       Swal.close();
 
       return { success: true, data: data.data }; // Indica éxito y devuelve el token
-      
     } else {
       const errorData = await response.json();
       if (errorData.msg === "user not found") {
@@ -117,12 +110,9 @@ export const getUserById = async (userId) => {
   }
 };
 
-
 export const updateProfileUser = async (userdata, userId) => {
-
   try {
-  
-   let loadingToast = Swal.fire({
+    let loadingToast = Swal.fire({
       title: "Actualizando perfil...",
       didOpen: () => {
         Swal.showLoading();
@@ -137,8 +127,6 @@ export const updateProfileUser = async (userdata, userId) => {
       },
       body: JSON.stringify(userdata),
     });
-
-    
 
     Swal.close();
 
@@ -157,8 +145,7 @@ export const updateProfileUser = async (userdata, userId) => {
       icon: "success",
       title: "Perfil actualizado.",
     });
-    return data; 
-
+    return data;
   } catch (error) {
     if (loadingToast) Swal.close();
 
@@ -168,6 +155,6 @@ export const updateProfileUser = async (userdata, userId) => {
       icon: "error",
     });
 
-    throw error; 
+    throw error;
   }
 };
