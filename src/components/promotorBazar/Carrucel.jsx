@@ -7,20 +7,15 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import { CiCircleMinus } from "react-icons/ci";
 import { useUserContext } from "../UserContext/UserContext";
 import CardMarcas from "./CardMarcas";
-import { subscribeToEvent, getSubscribedBrands } from "@/api/bazar/routes";
+import { subscribeToEvent, deleteSubscription } from "@/api/bazar/routes";
 
 
 
-function Carrucel({ idDate, marcasCurso, fetchDataDates}) {
+function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant}) {
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
-  // console.log(marcasCurso.length)
-
-  
- 
 
   const handleSuscribed = async () => {
-    console.log("click detected")
     const dataUpdate = {
       profile: localStorage.getItem("brandProfilePicture"),
       nameMarca: localStorage.getItem("brandUsername")
@@ -33,6 +28,20 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates}) {
       console.error("eventId is required");
     }
   };
+
+  const handleCancelSubscription = async () => {
+    // console.log("click detected")
+   const nameMarca = localStorage.getItem("brandUsername")
+    
+    if (idDate) {
+     await deleteSubscription(idDate, nameMarca); // Asumiendo que subscribeToEvent acepta el dataUpdate como segundo parámetro
+     fetchDataDates()
+
+    } else {
+      console.error("eventId is required");
+    }
+  };
+  
   
   const slidesToShow = marcasCurso && marcasCurso.length < 3 ? marcasCurso.length : 3;
   const infiniteSetting = marcasCurso && marcasCurso.length > 1;
@@ -103,14 +112,15 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates}) {
         {user.role === "marca" &&
           <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl border">
 
-            <div className="flex items-center bg-yellow-bazar rounded-md px-3">
-
+            {isParticipant? (<div className="flex items-center rounded-md border-2  border-patina-500 px-3 ">
+              <Button text="Cancelar" variant="transparent" type="button" className={"px-3 text-patina-500"} onClick={()=>{handleCancelSubscription()}}/><CiCircleMinus className="text-2xl text-patina-500" />
+            </div>
+            ): (<div className="flex items-center bg-yellow-bazar rounded-md px-3">
               <Button text="Participar" variant="yellow" type="button" className={"px-3 text-yellow-800"} onClick={() => { handleSuscribed() }} /><IoAddCircleSharp className="text-2xl text-yellow-700" />
-            </div>
-            <div className="flex items-center rounded-md border border-patina-500 px-3">
-
-              <Button text="Cancelar" variant="transparent" type="button" className={"px-3 text-patina-500"} /><CiCircleMinus className="text-2xl text-patina-500" />
-            </div>
+              </div>
+            )}
+           
+            
 
           </div>
         }
