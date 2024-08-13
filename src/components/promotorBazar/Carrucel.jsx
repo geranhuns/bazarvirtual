@@ -30,7 +30,6 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
   };
 
   const handleCancelSubscription = async () => {
-    // console.log("click detected")
     const nameMarca = localStorage.getItem("brandUsername")
 
     if (idDate) {
@@ -45,7 +44,6 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
 
   const slidesToShow = marcasCurso && marcasCurso.length < 3 ? marcasCurso.length : 3;
   const infiniteSetting = marcasCurso && marcasCurso.length > 1;
-  console.log(slidesToShow)
   const settings = {
     dots: false,
     infinite: infiniteSetting,

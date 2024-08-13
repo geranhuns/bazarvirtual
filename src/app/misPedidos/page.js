@@ -22,7 +22,7 @@ export default function PedidosActivos() {
     "Todos los pedidos",
   ];
 
-  const optionsCliente = ["Entrega pendiente", "Todos los pedidos"];
+  const optionsCliente = ["Entrega Pendiente", "Todos los pedidos"];
 
   const getProductHistory = async () => {
     if (!user || !user.id) {
@@ -48,18 +48,18 @@ export default function PedidosActivos() {
   };
 
   useEffect(() => {
-    if (searchCategory === "Entrega Pendiente") {
+    if (user && user.id) getProductHistory();
+  }, [user]);
+
+  useEffect(() => {
+    if (searchCategory === "Todos los pedidos") {
+      setDisplayedProducts(purchaseHistory);
+    } else {
       setDisplayedProducts(
         purchaseHistory.filter((producto) => producto.pendingDelivery)
       );
-    } else {
-      setDisplayedProducts(purchaseHistory);
     }
-  }, [searchCategory, purchaseHistory]);
-
-  useEffect(() => {
-    if (user && user.id) getProductHistory();
-  }, [user]);
+  }, [searchCategory, purchaseHistory.length]);
 
   const handleProductDelivered = (deliveredPurchaseId, deliveredProductId) => {
     setPurchaseHistory((prevProducts) =>
