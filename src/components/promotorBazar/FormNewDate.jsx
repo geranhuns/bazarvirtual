@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import InputNewEvent from "./InputsNewEvent";
 import { MdClose } from "react-icons/md";
 import { useState, useEffect } from "react";
-import { createDateFetch, updateDateFetch, dateById , cancelDate} from "@/api/bazar/routes";
+import { createDateFetch, updateDateFetch, dateById, cancelDate } from "@/api/bazar/routes";
 import Swal from 'sweetalert2'
 
 function FormNewDate(props) {
@@ -16,7 +16,6 @@ function FormNewDate(props) {
     const [isLoading, setIsLoading] = useState(true);
     const { register, handleSubmit, reset } = useForm();
 
-    console.log(currentDate)
 
     const toggleExtraEvent = () => {
         setShowExtraEvent(!showExtraEvent);
@@ -63,7 +62,7 @@ function FormNewDate(props) {
 
         setCurrentDate(`${yyyy}-${mm}-${dd}`);
         setDataDate(datesBazar.length); // Actualiza dataDate con la longitud de datesBazar
-       
+
         if (openEdDate) {
             dataFecha(idDate);
         } else {
@@ -96,7 +95,7 @@ function FormNewDate(props) {
             events: events,
         };
 
-    
+
 
         if (!openEdDate && dateCount < 3) {
             try {
@@ -118,7 +117,6 @@ function FormNewDate(props) {
             await fetchDataDates();
             updateSelectDate([])
         }
-        console.log(dataAdjust)
         reset();
     };
 
@@ -130,11 +128,10 @@ function FormNewDate(props) {
             //colocar alert
         }
     }
- const handleDeleteDate = async  ()=>{
-    console.log("click en boton cancelar")
-   await cancelDate(idDate)
-   fetchDataDates()
- }
+    const handleDeleteDate = async () => {
+        await cancelDate(idDate)
+        fetchDataDates()
+    }
 
 
 
@@ -223,8 +220,8 @@ function FormNewDate(props) {
 
                         <input className="bg-raw-sienna-500 rounded-xl text-xl w-2/12 h-10" type="submit" value="Enviar" />
                     </form>
-                        {openEdDate?(<button className="bg-red-500 w-2/3 mt-5 mx-auto p-2 rounded-lg font-semibold" onClick={()=>{handleDeleteDate()}}>Cancelar fecha</button>):('')}
-                        
+                    {openEdDate ? (<button className="bg-red-500 w-2/3 mt-5 mx-auto p-2 rounded-lg font-semibold" onClick={() => { handleDeleteDate() }}>Cancelar fecha</button>) : ('')}
+
                 </div>
             </div>
         </>

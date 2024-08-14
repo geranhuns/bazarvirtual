@@ -30,7 +30,6 @@ export const getBazarById = async (bazarId) => {
   }
 };
 export const registerBazarFetch = async (data) => {
-  console.log(data)
   try {
     const response = await fetch(`${BAZAR_URL}/register`, {
       method: "POST",
@@ -62,9 +61,7 @@ export const registerBazarFetch = async (data) => {
 };
 
 export const dataUserBazarFetch = async (id) => {
- 
   try {
-  
     const response = await fetch(`${BAZAR_URL}/bazarUser/${id}`);
 
     if (!response.ok) {
@@ -228,7 +225,6 @@ export const dateById = async (_idDate) => {
 };
 
 export const updateDateFetch = async (dateID, data) => {
-  console.log(data);
   try {
     const response = await fetch(`${BAZAR_URL}/updateDateBazar/${dateID}`, {
       method: "PUT",
@@ -288,7 +284,7 @@ export const deleteSubscription = async (eventId, nameMarca) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({nameMarca}),
+      body: JSON.stringify({ nameMarca }),
     });
     if (!response.ok) {
       const errorData = await response.json();
@@ -297,15 +293,12 @@ export const deleteSubscription = async (eventId, nameMarca) => {
         text: errorData.msg,
         icon: "error",
       });
-    }else{
-      
+    } else {
       Toast.fire({
         icon: "success",
         title: "Suscripcion cancelada con exito!",
       });
     }
-   
-    
   } catch (error) {
     console.error("Error en la petición para participar", error);
     throw error;
@@ -336,9 +329,9 @@ export const getSubscribedBrands = async (eventId) => {
   }
 };
 
-export const cancelDate = async (eventId)=>{
-  try{
-  const response = await fetch(`${BAZAR_URL}/deleteDate/${eventId}`, {
+export const cancelDate = async (eventId) => {
+  try {
+    const response = await fetch(`${BAZAR_URL}/deleteDate/${eventId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -360,10 +353,7 @@ export const cancelDate = async (eventId)=>{
         icon: "error",
       });
     }
-  }
-  catch(error){
+  } catch (error) {
     alert("Error al realizar la solicitud: " + error.msg);
   }
-
-
-}
+};
