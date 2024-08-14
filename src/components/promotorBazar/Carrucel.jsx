@@ -14,7 +14,7 @@ import { getAllProducts } from "@/api/marcas/products/routes"
 
 
 
-function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
+function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMessage }) {
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
   const [products, setProducts] = useState([])
@@ -152,7 +152,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
 
           }
           {marcasCurso?.length === 0 && <h3 className="flex w-full justify-center self-start">Aún no hay marcas registradas en esta fecha</h3>}
-          {!idDate && <h3 className="flex w-full justify-center self-start">¡Crea tu siguiente evento para que las marcas puedan inscribirse!</h3>}
+          {showMessage && !idDate && <h3 className="flex w-full justify-center self-start">¡Crea tu siguiente evento para que las marcas puedan inscribirse!</h3>}
         </div>
 
         {user.role === "marca" &&
