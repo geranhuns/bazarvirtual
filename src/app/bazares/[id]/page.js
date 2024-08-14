@@ -172,7 +172,7 @@ function PromotorVistaId() {
                 ¡Dale click al + para agregar tu siguiente fecha!{" "}
               </h3>
             )}
-            <div className="flex  justify-start gap-3 max-sm:flex-col max-sm:items-center ">
+            <div className="flex w-full justify-center gap-3 max-sm:flex-col max-sm:items-center ">
               {datesBazar.map((date) => (
                 <CardEventDetail
                   key={date._id}
