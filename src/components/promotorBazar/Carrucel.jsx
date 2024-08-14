@@ -130,7 +130,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
   return (
     <>
       <section className=" w-full pb-10 bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] lg:h-[59vh] ">
-        <h2 className="  font-medium text-3xl text-patina-900 pt-5 ">Marcas participantes</h2>
+        <h2 className="  font-medium text-3xl text-patina-900 py-5 ">Marcas participantes</h2>
         <div className=" flex items-center w-11/12 h-5/6 mx-auto  ">
           {/* //aqui tenia relative */}
           {marcasCurso && marcasCurso.length > 0 &&
@@ -151,7 +151,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
             </Slider>
 
           }
-          {!marcasCurso && <h3 className="flex w-full justify-center self-start">Aún no hay marcas registradas en esta fecha</h3>}
+          {marcasCurso?.length === 0 && <h3 className="flex w-full justify-center self-start">Aún no hay marcas registradas en esta fecha</h3>}
         </div>
 
         {user.role === "marca" &&

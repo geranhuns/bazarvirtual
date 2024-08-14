@@ -215,7 +215,7 @@ function PromotorVistaId() {
         fetchDataDates={fetchDataDates}
         isParticipant={isParticipant}
       />
-      <div className="flex w-11/12   pb-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
+      <div className="flex w-11/12   py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
         <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 mt-14 md:mt-10">
           <h3 className="text-3xl text-patina-50">Eventos especiales</h3>
           {/* //poner un state con el lugar para precentarlo aqui */}
