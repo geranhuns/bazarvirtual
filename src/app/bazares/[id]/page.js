@@ -171,94 +171,91 @@ function PromotorVistaId() {
                 })}
             </div>
           </div>
-          {id === user.id ||
-            (datesBazar.length !== 0 && (
-              <div className="bg-patina-900 rounded-md w-full flex flex-col text-center items-center text-black gap-2 p-3">
-                {id === user.id && datesBazar.length === 0 && (
-                  <h3 className="text-white">
-                    ¡Dale click al + para agregar tu siguiente fecha!{" "}
-                  </h3>
-                )}
-                <div className="flex w-full justify-center gap-3 max-sm:flex-col max-sm:items-center ">
-                  {datesBazar.map((date) => (
-                    <CardEventDetail
-                      key={date._id}
-                      dateID={date._id}
-                      setIdDate={setIdDate}
-                      setDataDate={setDataDate}
-                      events={date.events}
-                      fecha={date.date}
-                      place={date.place}
-                      time={date.time}
-                      marcasCurso={date.marcasCurso}
-                      openEdDate={openEdDate}
-                      editButtonsActive={editButtonsActive}
-                      setOpenEdDate={setOpenEdDate}
-                      idDate={idDate}
-                    />
-                  ))}
-                  {editButtonsActive && (
-                    <button
-                      className="bg-patina-500  h-9 rounded-lg  text-base font-medium "
-                      onClick={() => setOpen(!open)}
-                    >
-                      <CiSquarePlus className="text-white w-full h-full" />
-                    </button>
-                  )}
-                </div>
-                {datesBazar.length > 0 && (
-                  <div className="flex flex-col text-patina-100 w-full text-xl ">
-                    <h3>Lugar: {dataDate.place}</h3>
-                    <h3>Hora: {dataDate.time} hrs</h3>
-                  </div>
-                )}
-              </div>
-            ))}
-        </div>
-      </div>
-      {id === user.id ||
-        (idDate && (
-          <Carrucel
-            idDate={idDate}
-            marcasCurso={dataDate.marcasCurso}
-            fetchDataDates={fetchDataDates}
-            isParticipant={isParticipant}
-            showMessage={id === user.id}
-          />
-        ))}
-      {id === user.id ||
-        (dataDate.events?.length > 0 && (
-          <div className="flex w-11/12   py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
-            <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 mt-14 md:mt-10">
-              <h3 className="text-3xl text-patina-50">Eventos especiales</h3>
-              {/* //poner un state con el lugar para precentarlo aqui */}
-              {!idDate && (
-                <h3 className="text-white flex justify-center text-center ">
-                  Aquí puedes ver los eventos especiales de tu bazar.
+          {(id === user.id || datesBazar.length !== 0) && (
+            <div className="bg-patina-900 rounded-md w-full flex flex-col text-center items-center text-black gap-2 p-3">
+              {id === user.id && datesBazar.length === 0 && (
+                <h3 className="text-white">
+                  ¡Dale click al + para agregar tu siguiente fecha!{" "}
                 </h3>
               )}
-              <div className="grid grid-cols-1 w-full items-center justify-center px-8 pt-8">
-                {dataDate &&
-                  Array.isArray(dataDate.events) &&
-                  dataDate.events.map((date) => (
-                    <CardEvent
-                      key={date._id}
-                      setDatesBazar={setDatesBazar}
-                      fetchDataDates={fetchDataDates}
-                      setDataDate={setDataDate}
-                      eventID={date._id}
-                      idDate={idDate}
-                      eventName={date.eventName}
-                      description={date.description}
-                      timeEvent={date.timeEvent}
-                      editButtonsActive={editButtonsActive}
-                      eventCount={dataDate.events}
-                    />
-                  ))}
+              <div className="flex w-full justify-center gap-3 max-sm:flex-col max-sm:items-center ">
+                {datesBazar.map((date) => (
+                  <CardEventDetail
+                    key={date._id}
+                    dateID={date._id}
+                    setIdDate={setIdDate}
+                    setDataDate={setDataDate}
+                    events={date.events}
+                    fecha={date.date}
+                    place={date.place}
+                    time={date.time}
+                    marcasCurso={date.marcasCurso}
+                    openEdDate={openEdDate}
+                    editButtonsActive={editButtonsActive}
+                    setOpenEdDate={setOpenEdDate}
+                    idDate={idDate}
+                  />
+                ))}
+                {editButtonsActive && (
+                  <button
+                    className="bg-patina-500  h-9 rounded-lg  text-base font-medium "
+                    onClick={() => setOpen(!open)}
+                  >
+                    <CiSquarePlus className="text-white w-full h-full" />
+                  </button>
+                )}
               </div>
+              {datesBazar.length > 0 && (
+                <div className="flex flex-col text-patina-100 w-full text-xl ">
+                  <h3>Lugar: {dataDate.place}</h3>
+                  <h3>Hora: {dataDate.time} hrs</h3>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+      {(id === user.id || idDate) && (
+        <Carrucel
+          idDate={idDate}
+          marcasCurso={dataDate.marcasCurso}
+          fetchDataDates={fetchDataDates}
+          isParticipant={isParticipant}
+          showMessage={id === user.id}
+        />
+      )}
+      {(id === user.id || dataDate.events?.length > 0) && (
+        <div className="flex w-11/12   py-8 lg:max-w-screen-xl overflow-auto mx-auto  ">
+          <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 mt-14 md:mt-10">
+            <h3 className="text-3xl text-patina-50">Eventos especiales</h3>
+            {/* //poner un state con el lugar para precentarlo aqui */}
+            {!idDate && (
+              <h3 className="text-white flex justify-center text-center ">
+                Aquí puedes ver los eventos especiales de tu bazar.
+              </h3>
+            )}
+            <div className="grid grid-cols-1 w-full items-center justify-center px-8 pt-8">
+              {dataDate &&
+                Array.isArray(dataDate.events) &&
+                dataDate.events.map((date) => (
+                  <CardEvent
+                    key={date._id}
+                    setDatesBazar={setDatesBazar}
+                    fetchDataDates={fetchDataDates}
+                    setDataDate={setDataDate}
+                    eventID={date._id}
+                    idDate={idDate}
+                    eventName={date.eventName}
+                    description={date.description}
+                    timeEvent={date.timeEvent}
+                    editButtonsActive={editButtonsActive}
+                    eventCount={dataDate.events}
+                  />
+                ))}
             </div>
           </div>
-        ))}
+        </div>
+      )}
     </section>
   );
 }
