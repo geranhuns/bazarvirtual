@@ -1,18 +1,17 @@
 import { React, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 
-function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, marcasCurso}) {
-    console.log(fecha)
+function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, marcasCurso }) {
 
     const obtenerFechaFormateada = (fechaCompleta) => {
-    if (!fechaCompleta) return "";
+        if (!fechaCompleta) return "";
 
-    const fecha = new Date(fechaCompleta);
-    const dia = fecha.getUTCDate(); // Obtener el día en UTC
-    const mes = fecha.toLocaleString("es-ES", { month: "short", timeZone: "UTC" }); // Obtener el mes en UTC
+        const fecha = new Date(fechaCompleta);
+        const dia = fecha.getUTCDate(); // Obtener el día en UTC
+        const mes = fecha.toLocaleString("es-ES", { month: "short", timeZone: "UTC" }); // Obtener el mes en UTC
 
-    return `${dia}-${mes}`;
-};
+        return `${dia}-${mes}`;
+    };
 
     return (
         <>
@@ -26,7 +25,7 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                         } w-full items-start justify-around cursor-pointer rounded-lg p-1 border max-sm:flex-col max-sm:items-center`}
                     onClick={() => {
                         // setIsParticipant(false)
-                        setDataDate({events, place, time, marcasCurso});
+                        setDataDate({ events, place, time, marcasCurso });
                         setIdDate(dateID);
 
                     }}

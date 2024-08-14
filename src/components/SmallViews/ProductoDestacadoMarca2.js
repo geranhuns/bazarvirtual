@@ -7,8 +7,6 @@ export default function ProductoDestacadoMarca2({
   nameMarca,
   imageProductos,
 }) {
-  console.log(imageProductos);
-
   return (
     <div
       className={`flex flex-col  self-start bg-raw-sienna-50  py-5  rounded-md    h-[60vh] md:h-96 w-80`}
@@ -23,7 +21,6 @@ export default function ProductoDestacadoMarca2({
         <div className="h-9/12 w-full grid grid-cols-2  ">
           {imageProductos &&
             imageProductos.slice(0, 4).map((product) => {
-              console.log(product);
               return (
                 <div key={product._id}>
                   <img
