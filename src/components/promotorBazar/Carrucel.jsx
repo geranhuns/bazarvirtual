@@ -7,18 +7,47 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import { CiCircleMinus } from "react-icons/ci";
 import { useUserContext } from "../UserContext/UserContext";
 import CardMarcas from "./CardMarcas";
+import ProductoDestacadoMarca2 from "../SmallViews/ProductoDestacadoMarca2";
 import { subscribeToEvent, deleteSubscription } from "@/api/bazar/routes";
+import { getAllProducts } from "@/api/marcas/products/routes"
+
 
 
 
 function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
+  const [products, setProducts] = useState([])
+  const [newMarcasCurso, setNewMarcasCurso] = useState([]);
+
+
+  useEffect(() => {
+    if (Array.isArray(marcasCurso) && marcasCurso.length > 0) {
+      const updatedMarcasCurso = marcasCurso.map((marca) => {
+        if (products) {
+          const productsMarca = products
+            .filter((producto) => producto.createdBy === marca.marcaID)
+            .slice(0, 4)
+            .map((producto) => producto.productImage); // Aquí solo obtenemos la imagen de los productos
+
+          return {
+            ...marca,
+            productos: productsMarca,
+          };
+        }
+        return marca; // En caso de que no haya productos, devolver la marca sin modificar
+      });
+
+      setNewMarcasCurso(updatedMarcasCurso); // Guardar en el estado
+    }
+  }, [marcasCurso, products]);
+
 
   const handleSuscribed = async () => {
     const dataUpdate = {
       profile: localStorage.getItem("brandProfilePicture"),
-      nameMarca: localStorage.getItem("brandUsername")
+      nameMarca: localStorage.getItem("brandUsername"),
+      marcaID: localStorage.getItem("marcaID")
     };
     if (idDate) {
       await subscribeToEvent(idDate, dataUpdate); // Asumiendo que subscribeToEvent acepta el dataUpdate como segundo parámetro
@@ -86,7 +115,14 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
 
 
   useEffect(() => {
-    setLoading(false)
+
+    const fetchProducts = async () => {
+      const products = await getAllProducts();
+      setProducts(products.data);
+    };
+
+    fetchProducts();
+    setLoading(false);
 
   }, [])
 
@@ -95,12 +131,20 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
     <>
       <section className=" w-full pb-10 bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] lg:h-[59vh] ">
         <h2 className="  font-medium text-3xl text-patina-900 pt-5 ">Marcas participantes</h2>
-        <div className=" flex items-center w-11/12 h-5/6 mx-auto   ">
+        <div className=" flex items-center w-11/12 h-5/6 mx-auto  ">
           {/* //aqui tenia relative */}
           <Slider {...settings} className="  w-11/12 h-full flex   mx-auto ">
 
-            {marcasCurso && marcasCurso.length > 0 && marcasCurso.map((marca, index) => (
+            {/* {marcasCurso && marcasCurso.length > 0 && marcasCurso.map((marca, index) => (
               <CardMarcas key={index} profile={marca.profile} nameMarca={marca.nameMarca} />
+            ))} */}
+            {newMarcasCurso && newMarcasCurso.length > 0 && newMarcasCurso.map((marca, index) => (
+              <ProductoDestacadoMarca2
+                key={index}
+                profile={marca.profile}
+                nameMarca={marca.nameMarca}
+                imageProductos={marca.productos}
+              />
             ))}
 
           </Slider>
