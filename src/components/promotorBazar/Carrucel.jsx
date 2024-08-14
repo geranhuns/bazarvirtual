@@ -151,7 +151,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
             </Slider>
 
           }
-          {marcasCurso?.length === 0 && <h3 className="flex w-full justify-center self-start">Aún no hay marcas registradas en esta fecha</h3>}
+          {(marcasCurso?.length === 0 || !idDate) && <h3 className="flex w-full justify-center self-start">Aún no hay marcas registradas en esta fecha</h3>}
         </div>
 
         {user.role === "marca" &&
