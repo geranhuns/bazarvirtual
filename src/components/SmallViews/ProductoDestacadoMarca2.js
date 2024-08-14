@@ -22,7 +22,7 @@ export default function ProductoDestacadoMarca2({
           {imageProductos &&
             imageProductos.slice(0, 4).map((product) => {
               return (
-                <div key={product._id}>
+                <div key={product}>
                   <img
                     className="w-full h-[20vh] md:h-32  object-cover overflow-hidden"
                     src={product}
