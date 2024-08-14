@@ -133,22 +133,25 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant }) {
         <h2 className="  font-medium text-3xl text-patina-900 pt-5 ">Marcas participantes</h2>
         <div className=" flex items-center w-11/12 h-5/6 mx-auto  ">
           {/* //aqui tenia relative */}
-          <Slider {...settings} className="  w-11/12 h-full flex   mx-auto ">
+          {marcasCurso && marcasCurso.length > 0 &&
+            <Slider {...settings} className="  w-11/12 h-full flex   mx-auto ">
 
-            {/* {marcasCurso && marcasCurso.length > 0 && marcasCurso.map((marca, index) => (
+              {/* {marcasCurso && marcasCurso.length > 0 && marcasCurso.map((marca, index) => (
               <CardMarcas key={index} profile={marca.profile} nameMarca={marca.nameMarca} />
             ))} */}
-            {newMarcasCurso && newMarcasCurso.length > 0 && newMarcasCurso.map((marca, index) => (
-              <ProductoDestacadoMarca2
-                key={index}
-                profile={marca.profile}
-                nameMarca={marca.nameMarca}
-                imageProductos={marca.productos}
-              />
-            ))}
+              {newMarcasCurso && newMarcasCurso.length > 0 && newMarcasCurso.map((marca, index) => (
+                <ProductoDestacadoMarca2
+                  key={index}
+                  profile={marca.profile}
+                  nameMarca={marca.nameMarca}
+                  imageProductos={marca.productos}
+                />
+              ))}
 
-          </Slider>
+            </Slider>
 
+          }
+          {!marcasCurso && <h3 className="flex w-full justify-center self-start">Aún no hay marcas registradas en esta fecha</h3>}
         </div>
 
         {user.role === "marca" &&
