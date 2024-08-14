@@ -125,11 +125,13 @@ function Header() {
                   onClick={() => setDropdownActive(!dropdownActive)}
                 >
                   {userProfilePicture ? (
-                    <img
-                      src={userProfilePicture}
-                      className="h-9 w-9 object-contain rounded-full"
-                      alt="User Profile"
-                    />
+                    <div className="h-9 w-9">
+                      <img
+                        src={userProfilePicture}
+                        className="w-full h-full object-cover rounded-full"
+                        alt="User Profile"
+                      />
+                    </div>
                   ) : (
                     <CgProfile className="w-full h-full bg-raw-sienna-200 text-raw-sienna-900 p-2 rounded-full text-xl" />
                   )}
