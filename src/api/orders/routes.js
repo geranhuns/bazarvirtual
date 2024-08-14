@@ -1,7 +1,6 @@
 require("dotenv").config();
 const ORDERS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders`;
 export const createNewPurchase = async (purchaseData) => {
-  console.log(purchaseData);
   try {
     const response = await fetch(`${ORDERS_URL}/newOrder`, {
       method: "POST",
