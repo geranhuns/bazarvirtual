@@ -15,14 +15,14 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
 
     return (
         <>
-            <div className="flex flex-col w-4/12 px-1 ">
+            <div className="flex flex-col w-4/12 px-1 justify-center">
 
                 <span
                     key={dateID}
                     className={`flex flex-row  ${idDate === dateID
-                        ? "bg-raw-sienna-400 text-raw-sienna-50"
+                        ? "bg-raw-sienna-400 text-raw-sienna-50 justify-center"
                         : "bg-raw-sienna-200"
-                        } w-full items-start justify-around cursor-pointer rounded-lg p-1 border max-sm:flex-col max-sm:items-center`}
+                        } w-full items-start justify-center cursor-pointer rounded-lg p-1 border max-sm:flex-col max-sm:items-center pl-2`}
                     onClick={() => {
                         // setIsParticipant(false)
                         setDataDate({ events, place, time, marcasCurso });
@@ -35,13 +35,13 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                     </h5>
                     {editButtonsActive && (
                         <button
-                            className="w-3/12 h-5/6 rounded-2xl text-base font-medium"
+                            className="w-3/12 h-5/6 rounded-2xl text-base font-medium pl-7"
                             onClick={() => {
                                 setIdDate(dateID);
                                 setOpenEdDate(!openEdDate);
                             }}
                         >
-                            <FaRegEdit className="w-full h-full" />
+                            <FaRegEdit className="w-6 h-6" />
                         </button>
                     )}
                 </span>
