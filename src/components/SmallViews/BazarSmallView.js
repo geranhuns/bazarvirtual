@@ -16,9 +16,9 @@ export default function BazarSmallView({ className, item }) {
       href={`bazares/${createdBy._id}`}
       className={`flex flex-col lg:flex-row  gap-2 items-center ${className}`}
     >
-      <div className=" h-20 w-20">
+      <div className=" h-20 w-20  rounded-full">
         <img
-          className="rounded-full h-full lg:w-auto object-cover"
+          className="rounded-full h-full  object-cover"
           src={createdBy.profilePicture}
           width="100px"
           heigth="100px"
