@@ -15,8 +15,8 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
     };
 
     return (
-        <div className="bg-raw-sienna-500 rounded-lg flex items-center  ">
-            {editButtonsActive &&
+        <div className="bg-raw-sienna-500 rounded-lg flex justify-center items-center ">
+            {editButtonsActive && !eventCount &&
                 <div className="w-2/12 h-full flex justify-center">
                     {Array.isArray(eventCount) && eventCount.length != 1 && (
                         <button
@@ -25,7 +25,8 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
                         >
                             Delete
                         </button>
-                    )}
+                    )
+                    }
                     {/* <button className="bg-red-500 rounded-lg p-2 hover:p-4 hover:border-red-600" onClick={handleDelete}>
                         Delete
                     </button> */}
