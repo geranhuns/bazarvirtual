@@ -14,7 +14,7 @@ export default function MarcaHeaderInfo({ id }) {
   const getMarca = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca/${id}`
+        `${process.env.NEXT_PUBLIC_MONGO_URL}/marca/${id}`
       );
       const data = await response.json();
       setBrandInfo(data.data);

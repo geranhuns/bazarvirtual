@@ -8,7 +8,7 @@ import Button from "../Button/Button";
 export default function ProximosBazares({ className }) {
   const [eventos, setEventos] = useState([]);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bazar/bazarDates`)
+    fetch(`${process.env.NEXT_PUBLIC_MONGO_URL}/bazar/bazarDates`)
       .then((res) => {
         return res.json();
       })

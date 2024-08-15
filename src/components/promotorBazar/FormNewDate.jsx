@@ -14,7 +14,7 @@ function FormNewDate(props) {
     const [dateCount, setDateCount] = useState(0) //estado que almacena el numero de fechas que hay en curso
     const [dataDate, setDataDate] = useState({}) //estado qu almacena los datos de la fecha  editar, se llena cuando se hace el fetch
     const [isLoading, setIsLoading] = useState(true);
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
 
     const toggleExtraEvent = () => {
@@ -66,7 +66,7 @@ function FormNewDate(props) {
         if (openEdDate) {
             dataFecha(idDate);
         } else {
-            console.error("No se detectó el ID de la fecha");
+           
         }
     }, [datesBazar, openEdDate, idDate]);
 
@@ -131,6 +131,7 @@ function FormNewDate(props) {
     const handleDeleteDate = async () => {
         await cancelDate(idDate)
         fetchDataDates()
+        setOpenEdDate(false)
     }
 
 
@@ -146,8 +147,15 @@ function FormNewDate(props) {
                             <label className="text-lg text-white  " htmlFor="">Lugar</label>
                             <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="text"
                                 defaultValue={dataDate ? dataDate.place : ''}
-                                {...register("place")}
+                                {...register("place", {
+                                    required: openEdDate === false ? "Este campo es requerido" : false
+                                  })}
                             />
+                            {errors.place && (
+                                <label className="text-red-700  text-xs">
+                                    {errors.place.message}
+                                </label>
+                            )}
                         </div>
                         <div className="  w-full flex px-2">
                             <div className="  flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
@@ -155,15 +163,29 @@ function FormNewDate(props) {
                                 <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="date"
                                     min={currentDate}
                                     defaultValue={dataDate ? obtenerFechaFormateada(dataDate.date) : ''}
-                                    {...register("date")}
+                                    {...register("date", {
+                                        required: openEdDate === false ? "Este campo es requerido" : false
+                                    })}
                                 />
+                                {errors.date && (
+                                <label className="text-red-700  text-xs">
+                                    {errors.date.message}
+                                </label>
+                            )}
                             </div>
                             <div className="  flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12 ">
                                 <label className="text-lg text-white  " htmlFor="">Hora</label>
                                 <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="time"
                                     defaultValue={dataDate ? dataDate.time : ''}
-                                    {...register("time")}
+                                    {...register("time", {
+                                        required: openEdDate === false ? "Este campo es requerido" : false
+                                    })}
                                 />
+                                 {errors.time && (
+                                <label className="text-red-700  text-xs">
+                                    {errors.time.message}
+                                </label>
+                            )}
                             </div>
                         </div>
 
@@ -174,8 +196,15 @@ function FormNewDate(props) {
                                 <label className="text-lg text-white">Evento</label>
                                 <input className="p-1 rounded-xl text-center"
                                     defaultValue={dataDate.events ? dataDate.events[0].eventName : ''}
-                                    {...register("event")}
+                                    {...register("event", {
+                                        required: openEdDate === false ? "Este campo es requerido" : false
+                                    })}
                                 />
+                                {errors.event && (
+                                <label className="text-red-700  text-xs">
+                                    {errors.event.message}
+                                </label>
+                            )}
 
                             </div>
 
@@ -184,8 +213,15 @@ function FormNewDate(props) {
                                 <label className="text-lg text-white">Descripcion</label>
                                 <input className="p-1 rounded-xl text-center"
                                     defaultValue={dataDate.events ? dataDate.events[0].description : ''}
-                                    {...register("description")}
+                                    {...register("description", {
+                                        required: openEdDate === false ? "Este campo es requerido" : false
+                                    })}
                                 />
+                                {errors.description && (
+                                <label className="text-red-700  text-xs">
+                                    {errors.description.message}
+                                </label>
+                            )}
 
                             </div>
 
@@ -193,8 +229,15 @@ function FormNewDate(props) {
                                 <label className="text-lg text-white">Horario</label>
                                 <input className="p-1 rounded-xl text-center" type="time"
                                     defaultValue={dataDate.events ? dataDate.events[0].timeEvent : ''}
-                                    {...register("timeEvent")}
+                                    {...register("timeEvent", {
+                                        required: openEdDate === false ? "Este campo es requerido" : false
+                                    })}
                                 />
+                                {errors.timeEvent && (
+                                <label className="text-red-700  text-xs">
+                                    {errors.timeEvent.message}
+                                </label>
+                                )}
 
                             </div>
 
@@ -204,7 +247,7 @@ function FormNewDate(props) {
 
 
                         {dataDate.events && dataDate.events.length >= 2 && (
-                            <InputNewEvent register={register}
+                            <InputNewEvent register={register} errors={errors}
                                 eventName={dataDate.events[1].eventName}
                                 description={dataDate.events[1].description}
                                 timeEvent={dataDate.events[1].timeEvent}
@@ -212,7 +255,7 @@ function FormNewDate(props) {
                         )}
 
                         {showExtraEvent && (
-                            <InputNewEvent register={register} />
+                            <InputNewEvent register={register} openEdDate={openEdDate} errors={errors}  />
                         )}
                         <div className=" w-full flex ml-10 mt-5" >
                             <button hidden={openEdDate} type="button" className="bg-raw-sienna-500 rounded-lg text-sm w-2/12 h-10" onClick={toggleExtraEvent}>{showExtraEvent ? 'Ocultar' : 'Extra event'}</button>

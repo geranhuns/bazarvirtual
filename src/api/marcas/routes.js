@@ -1,5 +1,5 @@
 require("dotenv").config();
-const MARCA_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca`;
+const MARCA_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/marca`;
 import Swal from "sweetalert2";
 
 const Toast = Swal.mixin({

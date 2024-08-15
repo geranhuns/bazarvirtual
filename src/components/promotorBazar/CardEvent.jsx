@@ -1,6 +1,6 @@
 
 import React from "react";
-import { FaRegEdit } from "react-icons/fa";
+
 import { deleteEspecialEvent } from "@/api/bazar/routes";
 
 function CardEvent({ eventName, description, timeEvent, idDate, eventID, setDataDate, fetchDataDates, editButtonsActive, eventCount }) {
@@ -13,6 +13,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
             console.error('Error al eliminar evento especial:', error);
         }
     };
+    console.log(eventCount)
 
     return (
         <div className="bg-raw-sienna-500 rounded-lg flex justify-center items-center ">
@@ -31,7 +32,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
                         Delete
                     </button> */}
                 </div>
-            }
+             } 
             <div className="w-8/12 h-full flex flex-col items-center justify-around text-center max-sm:w-9/12">
                 <span className="text-2xl font-semibold flex justify-around items-center max-md:text-lg">{eventName}</span>
                 <span className="text-xl font-medium max-md:text-sm">{description}</span>

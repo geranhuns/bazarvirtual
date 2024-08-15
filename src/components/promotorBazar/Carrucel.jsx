@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { CiCircleMinus } from "react-icons/ci";
 import { useUserContext } from "../UserContext/UserContext";
-import CardMarcas from "./CardMarcas";
+import EmptyCard from "./EmptyCard";
 import ProductoDestacadoMarca2 from "../SmallViews/ProductoDestacadoMarca2";
 import { subscribeToEvent, deleteSubscription } from "@/api/bazar/routes";
 import { getAllProducts } from "@/api/marcas/products/routes"
@@ -20,9 +20,11 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   const [products, setProducts] = useState([])
   const [newMarcasCurso, setNewMarcasCurso] = useState([]);
 
-
+console.log(marcasCurso)
   useEffect(() => {
-    if (Array.isArray(marcasCurso) && marcasCurso.length > 0) {
+    console.log("marcasCurso cambio")
+    // if (Array.isArray(marcasCurso) && marcasCurso.length > 0) {
+      if (Array.isArray(marcasCurso) ){
       const updatedMarcasCurso = marcasCurso.map((marca) => {
         if (products) {
           const productsMarca = products
@@ -42,7 +44,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
     }
   }, [marcasCurso, products]);
 
-
+console.log(newMarcasCurso)
   const handleSuscribed = async () => {
     const dataUpdate = {
       profile: localStorage.getItem("brandProfilePicture"),
@@ -71,8 +73,11 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   };
 
 
-  const slidesToShow = marcasCurso && marcasCurso.length < 3 ? marcasCurso.length : 3;
-  const infiniteSetting = marcasCurso && marcasCurso.length > 1;
+  // const slidesToShow = marcasCurso && marcasCurso.length < 3 ? marcasCurso.length : 3;
+  const slidesToShow = (!marcasCurso || marcasCurso.length === 0) ? 1 : (marcasCurso.length < 3 ? marcasCurso.length : 3);
+
+  const infiniteSetting = !marcasCurso || marcasCurso.length > 1;
+
   const settings = {
     dots: false,
     infinite: infiniteSetting,
@@ -130,29 +135,26 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   return (
     <>
       <section className=" w-full pb-10 bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] lg:h-[59vh] ">
-        <h2 className="  font-medium text-3xl text-patina-900 py-5 ">Marcas participantes</h2>
-        <div className=" flex items-center w-11/12 h-5/6 mx-auto  ">
-          {/* //aqui tenia relative */}
-          {marcasCurso && marcasCurso.length > 0 &&
-            <Slider {...settings} className="  w-11/12 h-full flex   mx-auto ">
-
-              {/* {marcasCurso && marcasCurso.length > 0 && marcasCurso.map((marca, index) => (
-              <CardMarcas key={index} profile={marca.profile} nameMarca={marca.nameMarca} />
-            ))} */}
-              {newMarcasCurso && newMarcasCurso.length > 0 && newMarcasCurso.map((marca, index) => (
-                <ProductoDestacadoMarca2
-                  key={index}
-                  profile={marca.profile}
-                  nameMarca={marca.nameMarca}
-                  imageProductos={marca.productos}
-                />
-              ))}
-
-            </Slider>
-
-          }
-          {marcasCurso?.length === 0 && <h3 className="flex w-full justify-center self-start">Aún no hay marcas registradas en esta fecha</h3>}
-          {showMessage && !idDate && <h3 className="flex w-full justify-center self-start">¡Crea tu siguiente evento para que las marcas puedan inscribirse!</h3>}
+        <h2 className="  font-medium text-3xl text-patina-900 py-3 ">Marcas participantes</h2>
+        <div className=" flex  flex-col items-center w-11/12 h-5/6 mx-auto  ">
+        <Slider {...settings} className="w-11/12 h-full flex mx-auto">
+          {newMarcasCurso && newMarcasCurso.length > 0 ? (newMarcasCurso.map((marca, index) => (
+            <ProductoDestacadoMarca2
+              key={index}
+              profile={marca.profile}
+              nameMarca={marca.nameMarca}
+              imageProductos={marca.productos}
+            />))
+          ) : (
+          <>
+            <EmptyCard idDate={idDate} />
+            
+           
+          </>
+            )}
+      </Slider>
+          {marcasCurso?.length === 0 && <h3 className="flex w-full justify-center  self-start">Aún no hay marcas registradas en esta fecha</h3>}
+          {showMessage && !idDate && <h3 className="flex w-full justify-center text-xl self-start">¡Crea tu siguiente evento para que las marcas puedan inscribirse!</h3>}
         </div>
 
         {user.role === "marca" &&

@@ -44,7 +44,7 @@ function PromotorVistaId() {
   const fetchDataDates = useCallback(async () => {
     try {
       const bazarDates = await datesBazarFetch(id);
-      //ordenar de mas proxima a las vieja
+      //ordenar de mas proxima a las remota
       const orderDates = bazarDates.data.sort(
         (a, b) => new Date(a.date) - new Date(b.date)
       );
@@ -179,6 +179,7 @@ function PromotorVistaId() {
                 </h3>
               )}
               <div className="flex w-full justify-center gap-3 max-sm:flex-col max-sm:items-center ">
+                
                 {datesBazar.map((date) => (
                   <CardEventDetail
                     key={date._id}
@@ -196,22 +197,22 @@ function PromotorVistaId() {
                     idDate={idDate}
                   />
                 ))}
-                {editButtonsActive && (
-                  <button
-                    className="bg-patina-500  h-9 rounded-lg  text-base font-medium "
-                    onClick={() => setOpen(!open)}
-                  >
-                    <CiSquarePlus className="text-white w-full h-full" />
-                  </button>
-                )}
+                  {editButtonsActive && (
+                    <button
+                      className="bg-patina-500  h-9 rounded-lg  text-base font-medium "
+                      onClick={() => setOpen(!open)}
+                    >
+                      <CiSquarePlus className="text-white w-full h-full" />
+                    </button>
+                  )}
               </div>
-              {datesBazar.length > 0 && (
-                <div className="flex flex-col text-patina-100 w-full text-xl ">
-                  <h3>Lugar: {dataDate.place}</h3>
-                  <h3>Hora: {dataDate.time} hrs</h3>
+                {datesBazar.length > 0 && (
+                  <div className="flex flex-col text-patina-100 w-full text-xl ">
+                    <h3>Lugar: {dataDate.place}</h3>
+                    <h3>Hora: {dataDate.time} hrs</h3>
+                  </div>
+                )}
                 </div>
-              )}
-            </div>
           )}
         </div>
       </div>
@@ -229,12 +230,13 @@ function PromotorVistaId() {
           <div className="bg-patina-900 gap-2 rounded-md py-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 mt-14 md:mt-10">
             <h3 className="text-3xl text-patina-50">Eventos especiales</h3>
             {/* //poner un state con el lugar para precentarlo aqui */}
+           
+            <div className="grid grid-cols-1 w-full items-center justify-center px-8 pt-8">
             {!idDate && (
-              <h3 className="text-white flex justify-center text-center ">
+              <h3 className="text-white flex justify-center text-center border ">
                 Aquí puedes ver los eventos especiales de tu bazar.
               </h3>
             )}
-            <div className="grid grid-cols-1 w-full items-center justify-center px-8 pt-8">
               {dataDate &&
                 Array.isArray(dataDate.events) &&
                 dataDate.events.map((date) => (

@@ -45,13 +45,6 @@ export default function EditarPerfil() {
     <>
       <div className="flex flex-col items-center h-screen justify-center lg:max-w-screen-xl mx-auto ">
         <div className="bg-white p-10 rounded-md flex flex-col items-center shadow-md">
-          {/* <img
-            src={userData.profilePicture}
-            width={100}
-            height={100}
-            className="rounded-full"
-          />
-          <div className="flex pb-4"></div> */}
 
           <ProfileEdit
             userData={userData}

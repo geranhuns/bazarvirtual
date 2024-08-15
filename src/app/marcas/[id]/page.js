@@ -29,7 +29,7 @@ export default function VistaMarca() {
   const getProducts = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/brand/${id}`
+        `${process.env.NEXT_PUBLIC_MONGO_URL}/products/brand/${id}`
       );
 
       const data = await response.json();
