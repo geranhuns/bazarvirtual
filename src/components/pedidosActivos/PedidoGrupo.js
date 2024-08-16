@@ -13,20 +13,20 @@ export default function PedidoGrupo({
   );
 
   const markProductAsReceived = async () => {
-    await markProductAsDelivered(producto.purchaseId, producto.productId._id);
+    await markProductAsDelivered(producto.purchaseId, producto.productId);
     setPendingDelivery(false);
-    onProductDelivered(producto.purchaseId, producto.productId._id);
+    onProductDelivered(producto.purchaseId, producto.productId);
   };
 
   return (
     <div className="flex flex-row bg-raw-sienna-50 md:py-5 px-4 rounded-md mb-3 items-center">
       <a
-        href={`/productos/${producto.productId._id}`}
+        href={`/productos/${producto.productId}`}
         className="w-28 h-28 overflow-hidden rounded-md"
       >
         <img
           className="rounded-md self-center w-full  object-cover"
-          src={producto.productId.productImage}
+          src={producto.productImage}
           width="100px"
           height="100px"
           alt="producto"
@@ -36,11 +36,15 @@ export default function PedidoGrupo({
         <div className="pl-10 flex flex-col md:flex-row md:justify-between w-full md:gap-4">
           <div className="hidden md:flex flex-col">
             <h3 className="text-base italic">Nombre de la Marca</h3>
-            <h3 className="text-lg">{producto.brandId?.username}</h3>
+            <a href={`/marcas/${producto.brandId}`}>
+              <h3 className="text-lg">{producto.brandUsername}</h3>
+            </a>
           </div>
           <div className="md:w-40">
             <h3 className="text-base italic">Producto</h3>
-            <h3 className="md:text-lg">{producto.productId.title}</h3>
+            <a href={`/productos/${producto.productId}`}>
+              <h3 className="md:text-lg">{producto.productTitle}</h3>
+            </a>
           </div>
           <div className="flex md:flex-col gap-2 items-center">
             <h4 className="text-base italic">Cantidad</h4>
