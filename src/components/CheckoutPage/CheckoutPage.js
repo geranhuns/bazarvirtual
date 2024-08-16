@@ -26,17 +26,22 @@ const CheckoutPage = ({
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // Set items based on singleProduct or shoppingCartDetails
-    if (singleQuantity) {
+    // Set items based on singleProduct and singleQuantity
+    if (singleQuantity && singleProduct) {
       const productWithQuantity = {
         ...singleProduct,
         quantity: singleQuantity,
       };
       setItems([productWithQuantity]);
-    } else if (!singleProduct) {
+    }
+  }, [singleProduct, singleQuantity]);
+
+  useEffect(() => {
+    // Set items based on shoppingCartDetails when singleProduct is not available
+    if (shoppingCartDetails.length > 0) {
       setItems(shoppingCartDetails);
     }
-  }, [singleProduct, singleQuantity, shoppingCartDetails]);
+  }, [singleProduct, shoppingCartDetails]);
 
   useEffect(() => {
     // Trigger fetch only after items are set

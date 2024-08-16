@@ -47,7 +47,6 @@ export default function PedidosActivos() {
       ) {
         setPurchaseHistory(productsHistory.data);
       } else {
-        console.log("No orders found.");
         setPurchaseHistory([]); // Set an empty array if no orders are found
       }
     } catch (error) {
@@ -136,18 +135,22 @@ export default function PedidosActivos() {
               producto, da click en el botón Recibido.
             </p>
             <hr className="h-0.5 bg-raw-sienna-400 my-4" />
-            <div>
-              {displayedProducts.map((item) => {
-                return (
-                  <PedidoGrupo
-                    key={item._id}
-                    producto={item}
-                    onProductDelivered={handleProductDelivered}
-                    userRole={user.role}
-                  />
-                );
-              })}
-            </div>
+            {displayedProducts.length === 0 ? (
+              <div>Aún no has realizado ningún pedido.</div>
+            ) : (
+              <div>
+                {displayedProducts.map((item) => {
+                  return (
+                    <PedidoGrupo
+                      key={item._id}
+                      producto={item}
+                      onProductDelivered={handleProductDelivered}
+                      userRole={user.role}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </>
         )}
       </div>
