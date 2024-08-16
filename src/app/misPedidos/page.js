@@ -47,7 +47,6 @@ export default function PedidosActivos() {
       ) {
         setPurchaseHistory(productsHistory.data);
       } else {
-        console.log("No orders found.");
         setPurchaseHistory([]); // Set an empty array if no orders are found
       }
     } catch (error) {
@@ -68,17 +67,19 @@ export default function PedidosActivos() {
         purchaseHistory.filter((producto) => producto.pendingDelivery)
       );
     }
-  }, [searchCategory, purchaseHistory.length]);
+  }, [searchCategory, purchaseHistory]);
 
   const handleProductDelivered = (deliveredPurchaseId, deliveredProductId) => {
     setPurchaseHistory((prevProducts) =>
-      prevProducts.filter(
-        (product) =>
-          !(
-            product.purchaseId === deliveredPurchaseId &&
-            product.productId._id === deliveredProductId
-          )
-      )
+      prevProducts.map((product) => {
+        if (
+          product.purchaseId === deliveredPurchaseId &&
+          product.productId === deliveredProductId
+        ) {
+          return { ...product, pendingDelivery: false };
+        }
+        return product;
+      })
     );
   };
 
@@ -114,18 +115,22 @@ export default function PedidosActivos() {
               producto, solicita al cliente dar click en el botón Recibido.
             </p>
             <hr className="h-0.5 bg-raw-sienna-800 my-4" />
-            {displayedProducts.length === 0 ? (
-              <div>Aún no tienes pedidos.</div>
-            ) : (
-              displayedProducts.map((item) => (
-                <PedidoGrupo
-                  key={item._id}
-                  producto={item}
-                  onProductDelivered={handleProductDelivered}
-                  userRole={user.role}
-                />
-              ))
-            )}
+            {displayedProducts.length === 0 &&
+              searchCategory ===
+                "Todos los pedidos"(<div>Aún no tienes pedidos.</div>)}
+            {displayedProducts.length === 0 &&
+              searchCategory !==
+                "Todos los pedidos"(
+                  <div>Aún no tienes pedidos con {`${searchCategory}`}</div>
+                )}
+            {displayedProducts.map((item) => (
+              <PedidoGrupo
+                key={item._id}
+                producto={item}
+                onProductDelivered={handleProductDelivered}
+                userRole={user.role}
+              />
+            ))}
           </>
         )}
         {user.role !== "marca" && (
@@ -136,6 +141,14 @@ export default function PedidosActivos() {
               producto, da click en el botón Recibido.
             </p>
             <hr className="h-0.5 bg-raw-sienna-400 my-4" />
+            {displayedProducts.length === 0 &&
+              searchCategory === "Entrega Pendiente" && (
+                <div>No tienes entregas pendientes.</div>
+              )}
+            {displayedProducts.length === 0 &&
+              searchCategory === "Todos los pedidos" && (
+                <div>Aún no has realizado ningún pedido.</div>
+              )}
             <div>
               {displayedProducts.map((item) => {
                 return (
