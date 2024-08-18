@@ -10,9 +10,12 @@ import { IoCloseOutline } from "react-icons/io5";
 
 
 function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
-
+  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm(); //React hook form
   const [dataUser, setDataUser] = useState({}) //almacena los datos del usuario al cargar el form
   const [isLoading, setIsLoading] = useState(true); //verifica el status de carga de los datos del usuario
+  const [preview, setPreview] = useState(null); //almacena la imagen cargada para previsualizacion en perfil
+
+
 
   const redesSociales = dataUser.socialNetworks || []; //variable contenedora de las redes sociales del user
   const facebookObject = redesSociales.find(network => network.platform === 'facebook') || { platform: 'facebook', url: '' }; //variable que contiene la red social buscada en redesSociales, si no encuentra una crea un obj con la plataforma y la url  vacia
@@ -22,6 +25,8 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
 
   const params = useParams();// id sale de los params(URl)
   const id = params.id;
+
+  
 
 
   const handleButtonClick = () => {
@@ -43,7 +48,11 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
 
   const handleSetValue = (imageDataUrl) => {
     setValue("profilePicture", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
+    setPreview(imageDataUrl)
+   
   };
+
+  
 
 
   const fetchData = async () => {  //funcion para traer los datos del usuario al state dataUser
@@ -65,7 +74,7 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
   }, []);
 
 
-  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm(); //React hook form
+
 
   const onSubmit = async (data) => { //funcion que se ejecuta al enviar el formulario
 
@@ -119,11 +128,11 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
       <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh lg:max-w-screen-xl overflow-auto mx-auto backdrop-blur-md mt-16 px-1 ">
 
         <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-4 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-8 pb-10"  >
-          <button className="bg-raw-sienna-500 p-1 mt-3 flex justify-center items-center self-start  rounded-full " onClick={() => setActive(!active)} ><IoCloseOutline className="text-2xl rounded full" /></button>
+          <button className="bg-raw-sienna-500 p-1 mt-3 flex justify-center items-center self-start  rounded-full " onClick={() => setActive(!active && setPreview(null))} ><IoCloseOutline className="text-2xl rounded full" /></button>
           <div className=" w-11/12 h-full flex flex-col justify-start items-center max-sm:w-full">
-            <div className="  w-full h-2/6 p-15 flex items-center max-sm:rounded-lg">
-              <div className="  w-auto h-5/6 mx-auto rounded-full relative  ">
-                <img className="w-full h-full rounded-full" src={dataUser.profilePicture} alt="" />
+            <div className="  w-full h-2/6 p-15 flex items-center max-sm:rounded-lg border">
+              <div className="  w-36 h-5/6 mx-auto rounded-full relative border  ">
+                <img className="w-full h-full rounded-full object-cover" src={preview? preview : dataUser.profilePicture} alt="" />
                 <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
                   <label className="text-white text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
                   <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImagen} />

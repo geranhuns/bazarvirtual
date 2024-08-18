@@ -10,7 +10,7 @@ import FormNewDate from "@/components/promotorBazar/FormNewDate";
 import CardEventDetail from "@/components/promotorBazar/CardEventDetail";
 import FormEditProfileBazar from "@/components/promotorBazar/FormEditProfileBazar";
 import CardEvent from "@/components/promotorBazar/CardEvent";
-import { dataUserBazarFetch, datesBazarFetch } from "@/api/bazar/routes";
+import { dataUserBazarFetch, datesBazarFetch, deletePastDates } from "@/api/bazar/routes";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 import { useUserContext } from "@/components/UserContext/UserContext";
 
@@ -23,7 +23,10 @@ function PromotorVistaId() {
   const [openEdDate, setOpenEdDate] = useState(false); //monitorea estado para abrir editarDate
   const { active, setActive } = useContext(HeaderContext); //monitorea estado para brir form edit profile
   const [editButtonsActive, setEditButtonsActive] = useState(false);
-  const [isParticipant, setIsParticipant] = useState(false);
+  const [isParticipant, setIsParticipant] = useState(false); 
+  const [currentDate, setCurrentDate] = useState('') //almacena la fecha del dia
+  
+
 
   const redesSociales = dataUser.socialNetworks;
   const params = useParams();
@@ -31,6 +34,34 @@ function PromotorVistaId() {
 
   const { user } = useUserContext();
   const loggedUserId = user.id;
+
+
+  const dateToday = ()=>{
+    const today = new Date();
+    const isoLocalDate = today.toLocaleDateString('sv-SE'); // Formato ISO pero en tu zona horaria local
+    setCurrentDate(isoLocalDate);
+  }
+
+  const filterPastDates = (array)=>{
+
+    if (!Array.isArray(array)) {
+      console.error("El valor proporcionado no es un array");
+      return;
+    }
+    const futureDates = [];
+
+    array.forEach(date => {
+      if (new Date(date.date) < new Date(currentDate)) {
+        deletePastDates(date._id)
+        fetchDataDates()
+        // Aquí deberías llamar a la función para eliminar la fecha si es necesario
+      } else {
+        futureDates.push(date);   
+      }
+    });
+    return futureDates;
+  
+  }
 
   const fetchData = useCallback(async () => {
     try {
@@ -58,18 +89,29 @@ function PromotorVistaId() {
   useEffect(() => {
     fetchData();
     fetchDataDates();
+    dateToday()
+
 
     if (id === loggedUserId) {
       setEditButtonsActive(true);
     }
+
+    
   }, []);
 
   useEffect(() => {
+
     if (datesBazar.length > 0) {
       const { _id, events, place, time, marcasCurso } = datesBazar[0];
       setDataDate({ _id, events, place, time, marcasCurso });
       setIdDate(datesBazar[0]._id);
     }
+
+    const filteredDates = filterPastDates(datesBazar);
+    if (JSON.stringify(filteredDates) !== JSON.stringify(datesBazar)) {
+      setDatesBazar(filteredDates);
+    }
+   
   }, [datesBazar]);
 
   useEffect(() => {
@@ -81,6 +123,8 @@ function PromotorVistaId() {
       setIsParticipant(exists);
     }
   }, [dataDate]);
+
+
 
   return (
     <section className="relative w-full   min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
@@ -233,10 +277,11 @@ function PromotorVistaId() {
            
             <div className="grid grid-cols-1 w-full items-center justify-center px-8 pt-8">
             {!idDate && (
-              <h3 className="text-white flex justify-center text-center border ">
+              <h3 className="text-white flex justify-center text-center  ">
                 Aquí puedes ver los eventos especiales de tu bazar.
               </h3>
             )}
+              <div className="flex justify-around items-center max-sm:flex-col">
               {dataDate &&
                 Array.isArray(dataDate.events) &&
                 dataDate.events.map((date) => (
@@ -254,6 +299,7 @@ function PromotorVistaId() {
                     eventCount={dataDate.events}
                   />
                 ))}
+                </div>
             </div>
           </div>
         </div>

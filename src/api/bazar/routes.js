@@ -357,3 +357,31 @@ export const cancelDate = async (eventId) => {
     alert("Error al realizar la solicitud: " + error.msg);
   }
 };
+
+export const deletePastDates = async (eventId) => {
+  try {
+    const response = await fetch(`${BAZAR_URL}/deleteDate/${eventId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      Toast.fire({
+        icon: "success",
+        title: "Tus fechas estan al dia!.",
+      });
+    } else {
+      const errorData = await response.json();
+      Swal.fire({
+        title: "Oops!",
+        text: errorData.msg,
+        icon: "error",
+      });
+    }
+  } catch (error) {
+    // alert("Error al realizar la solicitud: " + error.msg);
+  }
+};

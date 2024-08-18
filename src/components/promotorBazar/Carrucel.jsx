@@ -20,10 +20,9 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   const [products, setProducts] = useState([])
   const [newMarcasCurso, setNewMarcasCurso] = useState([]);
 
-console.log(marcasCurso)
+
   useEffect(() => {
-    console.log("marcasCurso cambio")
-    // if (Array.isArray(marcasCurso) && marcasCurso.length > 0) {
+    
       if (Array.isArray(marcasCurso) ){
       const updatedMarcasCurso = marcasCurso.map((marca) => {
         if (products) {
@@ -44,7 +43,7 @@ console.log(marcasCurso)
     }
   }, [marcasCurso, products]);
 
-console.log(newMarcasCurso)
+
   const handleSuscribed = async () => {
     const dataUpdate = {
       profile: localStorage.getItem("brandProfilePicture"),

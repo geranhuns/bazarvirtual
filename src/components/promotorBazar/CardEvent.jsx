@@ -1,5 +1,6 @@
 
 import React from "react";
+import { MdDeleteSweep } from "react-icons/md";
 
 import { deleteEspecialEvent } from "@/api/bazar/routes";
 
@@ -13,31 +14,33 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
             console.error('Error al eliminar evento especial:', error);
         }
     };
-    console.log(eventCount)
+
 
     return (
-        <div className="bg-raw-sienna-500 rounded-lg flex justify-center items-center ">
-            {editButtonsActive && !eventCount &&
-                <div className="w-2/12 h-full flex justify-center">
-                    {Array.isArray(eventCount) && eventCount.length != 1 && (
-                        <button
-                            className="bg-red-500 rounded-lg p-2 hover:p-4 hover:border-red-600"
-                            onClick={handleDelete}
-                        >
-                            Delete
-                        </button>
-                    )
-                    }
-                    {/* <button className="bg-red-500 rounded-lg p-2 hover:p-4 hover:border-red-600" onClick={handleDelete}>
-                        Delete
-                    </button> */}
-                </div>
-             } 
-            <div className="w-8/12 h-full flex flex-col items-center justify-around text-center max-sm:w-9/12">
+        <div className="bg-patina-500 w-5/12 h-full rounded-lg flex   justify-around items-center my-1 mx-auto max-sm:w-8/12  ">
+           
+            <div className="  w-9/12 h-10/12 flex flex-col text-white items-center justify-around text-center max-sm:w-9/12 ">
                 <span className="text-2xl font-semibold flex justify-around items-center max-md:text-lg">{eventName}</span>
                 <span className="text-xl font-medium max-md:text-sm">{description}</span>
                 <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">{timeEvent}</span>
             </div>
+
+            {editButtonsActive && eventCount &&
+                <div className="  w-2/12 h-full flex justify-center items-end text-gray-300 hover:text-red-400  p-1">
+                    {Array.isArray(eventCount) && eventCount.length != 1 && (
+                        <button
+                            className=" rounded-lg p-2"
+                            onClick={handleDelete}
+                        >
+                           <MdDeleteSweep className=" w-11  h-7 hover:w-11 hover:h-8 p-1" />
+
+
+                        </button>
+                    )
+                    }
+                    
+                </div>
+             } 
         </div>
     );
 }
