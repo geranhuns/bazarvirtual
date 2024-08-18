@@ -1,5 +1,5 @@
 require("dotenv").config();
-const USERS_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/users`;
+const USERS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
 // const USERS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
 
 import Swal from "sweetalert2";

@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 // import withReactContent from "sweetalert2-react-content";
 require("dotenv").config();
 
-const BAZAR_URL = `${process.env.NEXT_PUBLIC_MONGO_URL}/bazar`;
+const BAZAR_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/bazar`;
 
 const Toast = Swal.mixin({
   toast: true,
