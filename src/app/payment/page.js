@@ -64,8 +64,6 @@ export default function Payment() {
     setLoading(false);
   }, [searchParams]);
 
-  useEffect(() => {}, [loading, parsedAmount]);
-
   if (loading) {
     return <p>Loading...</p>;
   }

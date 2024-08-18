@@ -1,5 +1,6 @@
 "use client";
 require("dotenv").config();
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
 
 import React, { useEffect, useState } from "react";
 import {
@@ -25,16 +26,25 @@ const CheckoutPage = ({
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if (singleQuantity) {
+    // Set items based on singleProduct and singleQuantity
+    if (singleQuantity && singleProduct) {
       const productWithQuantity = {
         ...singleProduct,
         quantity: singleQuantity,
       };
       setItems([productWithQuantity]);
-    } else if (!singleProduct) {
+    }
+  }, [singleProduct, singleQuantity]);
+
+  useEffect(() => {
+    // Set items based on shoppingCartDetails when singleProduct is not available
+    if (shoppingCartDetails.length > 0) {
       setItems(shoppingCartDetails);
     }
+  }, [singleProduct, shoppingCartDetails]);
 
+  useEffect(() => {
+    // Trigger fetch only after items are set
     if (amount && items.length > 0 && userId) {
       fetch("/api/create-payment-intent", {
         method: "POST",
@@ -66,7 +76,7 @@ const CheckoutPage = ({
           console.error("Error fetching client secret:", error);
         });
     }
-  }, [amount, singleProduct, shoppingCartDetails, userId, userEmail]);
+  }, [amount, items, userId, userEmail]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -88,7 +98,7 @@ const CheckoutPage = ({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `https://bazarvirtual.vercel.app//payment-success?amount=${amount}`,
+        return_url: `${window.location.origin}/payment-success?amount=${amount}`,
       },
     });
 
