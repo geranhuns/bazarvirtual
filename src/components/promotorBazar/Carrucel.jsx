@@ -29,7 +29,10 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
           const productsMarca = products
             .filter((producto) => producto.createdBy === marca.marcaID)
             .slice(0, 4)
-            .map((producto) => producto.productImage); // Aquí solo obtenemos la imagen de los productos
+            .map((producto) => ({
+              image: producto.productImage,
+              id: producto._id,
+            })); // Aquí solo obtenemos la imagen de los productos
 
           return {
             ...marca,

@@ -22,11 +22,11 @@ export default function ProductoDestacadoMarca2({
           {imageProductos &&
             imageProductos.slice(0, 4).map((product) => {
               return (
-                // <div key={product}> investigar que se puede hacer en este caso que no hay id
-                  <div > 
+                <div key={product.id}> 
+                 
                   <img
                     className="w-full h-[20vh] md:h-32  object-cover overflow-hidden"
-                    src={product}
+                    src={product.image}
                     width="200px"
                     heigth="200px"
                     // alt={pro}

@@ -25,7 +25,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
                 <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">{timeEvent}</span>
             </div>
 
-            {editButtonsActive && eventCount &&
+            {editButtonsActive && eventCount.length>1 &&
                 <div className="  w-2/12 h-full flex justify-center items-end text-gray-300 hover:text-red-400  p-1">
                     {Array.isArray(eventCount) && eventCount.length != 1 && (
                         <button
