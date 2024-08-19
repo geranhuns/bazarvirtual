@@ -40,14 +40,14 @@ export default function MarcaHeaderInfo({ id }) {
     return (
       <>
         <div className="flex flex-col  md:flex-row   gap-10  md:px-10 py-10 bg-patina-500 rounded-xl w-full lg:max-w-4xl  my-10 items-center">
-          <div className="flex items-center justify-center w-72 h-72 rounded-full">
+          <div className="flex items-center justify-center md:w-5/12  rounded-full overflow-hidden">
             <img
               src={brandInfo.profilePicture}
               alt={brandInfo.username}
-              className=" object-cover rounded-full"
+              className=" object-cover  size-64 md:size-80 rounded-full"
             />
           </div>
-          <div className="flex flex-col items-center w-full md:w-3/4 h-80">
+          <div className="flex flex-col items-center w-full md:w-7/12 h-80">
             <div
               id="infoMarca"
               className="flex flex-col items-center justify-center w-full bg-patina-900 md:rounded-xl text-Eggshell "

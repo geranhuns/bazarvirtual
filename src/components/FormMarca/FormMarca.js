@@ -1,18 +1,15 @@
 "use client";
 require("dotenv").config();
 
-import React, { useEffect, useState , useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { updateProfileMarca } from "@/api/marcas/routes";
 import { DevTool } from "@hookform/devtools";
 import Swal from "sweetalert2";
 
 function FormMarca({ marcaInfo }) {
-
-
   const [dataUser, setDataUser] = useState({}); //almacena los datos del usuario al cargar el form
   const id = marcaInfo._id;
-
 
   const [previewImagen, setPreviewImagen] = useState(null);
   const [isLoading, setIsLoading] = useState(true); //verifica el status de carga de los datos del usuario
@@ -74,7 +71,7 @@ function FormMarca({ marcaInfo }) {
     const file = e.target.files[0];
     const maxSizeInMB = 2; // Tamaño máximo permitido en MB
     const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
-  
+
     if (file) {
       if (file.size > maxSizeInBytes) {
         // alert(`El archivo no debe ser mayor a ${maxSizeInMB} MB.`);
@@ -85,7 +82,7 @@ function FormMarca({ marcaInfo }) {
         });
         return;
       }
-  
+
       const reader = new FileReader();
       reader.onloadend = () => {
         handleSetValue(reader.result);
@@ -93,14 +90,11 @@ function FormMarca({ marcaInfo }) {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleSetValue = (imageDataUrl) => {
     setValue("profilePicture", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
-    setPreviewImagen(imageDataUrl)
-   
+    setPreviewImagen(imageDataUrl);
   };
-
- 
 
   const form = useForm({
     defaultValues: {
@@ -126,10 +120,7 @@ function FormMarca({ marcaInfo }) {
     getMarcaInfo();
   }, []);
 
-  
-  
   const onSubmit = async (data) => {
-   
     const socialNetworks = [
       //con los datos enviados se crea un array de objetos apartir de las redes sociales del form
       { platform: "facebook", url: data.facebook },
@@ -137,10 +128,10 @@ function FormMarca({ marcaInfo }) {
       { platform: "tiktok", url: data.tiktok },
     ];
 
-    let profilePicture = '';
+    let profilePicture = "";
 
     if (data.profilePicture === dataUser.profilePicture) {
-      profilePicture = '';
+      profilePicture = "";
     } else {
       profilePicture = data.profilePicture;
     }
@@ -151,10 +142,10 @@ function FormMarca({ marcaInfo }) {
       socialNetworks,
       slogan: data.slogan,
       description: data.description,
-      _id: id, 
+      _id: id,
     };
 
-    console.log(dataAdjust)
+    console.log(dataAdjust);
 
     try {
       const updatedUser = await updateProfileMarca(dataAdjust, id);
@@ -168,17 +159,33 @@ function FormMarca({ marcaInfo }) {
 
   return (
     <>
-      
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-green-500 flex  justify-center w-full p-4 mx-auto ">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className=" flex  justify-center w-full p-4 mx-auto "
+      >
         <div className="flex flex-col w-11/12 gap-4 pb-4">
-          <div className="  w-full h-5/6 p-15 flex items-center max-sm:rounded-lg border border-red-600">
-              <div className="  w-36 h-5/6 mx-auto rounded-full relative border  ">
-                <img className="w-full h-full rounded-full object-cover" src={previewImagen? previewImagen : dataUser.profilePicture} alt="" />
-                <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                  <label className="text-white text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
-                  <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImagen} />
-                </div>
+          <div className="  w-full h-5/6 p-15 flex items-center max-sm:rounded-lg ">
+            <div className="  w-36 h-36 mx-auto rounded-full relative border overflow-hidden ">
+              <img
+                className="w-full h-full rounded-full object-cover"
+                src={previewImagen ? previewImagen : dataUser.profilePicture}
+                alt=""
+              />
+              <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <label
+                  className="text-white text-lg cursor-pointer"
+                  onClick={handleButtonClick}
+                >
+                  Cambiar perfil
+                </label>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  onChange={handleImagen}
+                />
               </div>
+            </div>
           </div>
           <div className="flex flex-col gap-2">
             <label

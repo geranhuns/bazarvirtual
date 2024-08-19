@@ -27,7 +27,7 @@ export default function MarcaSmallView({
     >
       <div className="w-12 h-12 overflow-hidden rounded-full">
         <img
-          className="object-contain h-full cursor-pointer"
+          className="object-cover h-full cursor-pointer"
           src={profilePicture}
           width="50px"
           heigth="50px"
