@@ -29,7 +29,7 @@ export default function VistaMarca() {
   const getProducts = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_MONGO_URL}/products/brand/${id}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products/brand/${id}`
       );
 
       const data = await response.json();
@@ -52,7 +52,7 @@ export default function VistaMarca() {
       const decoded = decodeToken(token);
       setDecodedToken(decoded);
     }
-    localStorage.setItem('marcaID', id);
+    localStorage.setItem("marcaID", id);
   }, [token]);
   useEffect(() => {
     getProducts();
@@ -69,7 +69,6 @@ export default function VistaMarca() {
           <h3 className="text-3xl mr-4">Catálogo de productos</h3>
           {decodedToken?._id === id && (
             <a href={`/miCatalogo/${id}`}>
-
               <MdEdit className="text-lg" />
             </a>
           )}
