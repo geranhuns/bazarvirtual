@@ -116,11 +116,10 @@ export default function PedidosActivos() {
             </p>
             <hr className="h-0.5 bg-raw-sienna-800 my-4" />
             {displayedProducts.length === 0 &&
-              searchCategory ===
-                "Todos los pedidos"(<div>Aún no tienes pedidos.</div>)}
+              searchCategory ==="Todos los pedidos" && (<div>Aún no tienes pedidos.</div>)}
             {displayedProducts.length === 0 &&
               searchCategory !==
-                "Todos los pedidos"(
+                "Todos los pedidos" &&(
                   <div>Aún no tienes pedidos con {`${searchCategory}`}</div>
                 )}
             {displayedProducts.map((item) => (

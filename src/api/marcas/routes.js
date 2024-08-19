@@ -46,6 +46,15 @@ export const registerMarcaFetch = async (data) => {
 
 export const updateProfileMarca = async (userdata, userId) => {
   try {
+
+    let loadingToast = Swal.fire({
+      title: "Actualizando perfil...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false,
+    });
+
     const response = await fetch(`${MARCA_URL}/updateProfile/${userId}`, {
       method: "PUT",
       headers: {
@@ -54,6 +63,8 @@ export const updateProfileMarca = async (userdata, userId) => {
       },
       body: JSON.stringify(userdata), // Convierte el objeto a formato JSON
     });
+
+    Swal.close();
 
     if (!response.ok) {
       throw new Error("Error al actualizar el usuario");

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { dataUserBazarFetch, updateProfileBazar } from "@/api/bazar/routes";
 import { useParams } from "next/navigation";
 import { IoCloseOutline } from "react-icons/io5";
+import Swal from "sweetalert2";
 
 
 
@@ -35,9 +36,31 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
     }
   };
 
+  // const handleImagen = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       handleSetValue(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
   const handleImagen = (e) => {
     const file = e.target.files[0];
+    const maxSizeInMB = 2; // Tamaño máximo permitido en MB
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+  
     if (file) {
+      if (file.size > maxSizeInBytes) {
+        Swal.fire({
+          title: "Oops!",
+          text: `La imagen no debe ser mayor a ${maxSizeInMB} MB.`,
+          icon: "warning",
+        });
+        return;
+      }
+  
       const reader = new FileReader();
       reader.onloadend = () => {
         handleSetValue(reader.result);
