@@ -1,26 +1,23 @@
 "use client";
 require("dotenv").config();
 
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useRef} from "react";
 import { useForm } from "react-hook-form";
 import { updateProfileMarca } from "@/api/marcas/routes";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 import { DevTool } from "@hookform/devtools";
-// import Button from "../Button/Button";
+import Swal from "sweetalert2";
 
 function FormMarca({ marcaInfo }) {
-  const router = useRouter();
+
 
   const [dataUser, setDataUser] = useState({}); //almacena los datos del usuario al cargar el form
   const id = marcaInfo._id;
 
+
   const [previewImagen, setPreviewImagen] = useState(null);
   const [isLoading, setIsLoading] = useState(true); //verifica el status de carga de los datos del usuario
 
-  const [uploading, setUploading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState();
+  const fileInputRef = useRef(null);
 
   const redesSociales = dataUser.socialNetworks || []; //variable contenedora de las redes sociales del user
   const facebookObject = redesSociales.find(
@@ -67,44 +64,47 @@ function FormMarca({ marcaInfo }) {
     }
   };
 
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   const handleImagen = (e) => {
     const file = e.target.files[0];
+    const maxSizeInMB = 2; // Tamaño máximo permitido en MB
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+  
     if (file) {
+      if (file.size > maxSizeInBytes) {
+        // alert(`El archivo no debe ser mayor a ${maxSizeInMB} MB.`);
+        Swal.fire({
+          title: "Oops!",
+          text: `La imagen no debe ser mayor a ${maxSizeInMB} MB.`,
+          icon: "warning",
+        });
+        return;
+      }
+  
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImagen(reader.result);
+        handleSetValue(reader.result);
       };
       reader.readAsDataURL(file);
-      handleSetValue(reader);
     }
   };
-  const handleSetValue = (file) => {
-    setValue("profilePicture", file);
+  
+  const handleSetValue = (imageDataUrl) => {
+    setValue("profilePicture", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
+    setPreviewImagen(imageDataUrl)
+   
   };
 
-  // const handleFileChange = (e) => {
-  //   setSelectedImage(e.target.files[0]);
-  // };
-
-  const handleS3Submit = async (e) => {
-    setUploading(true);
-    const formData = new FormData();
-    try {
-      const response = await fetch(" http://localhost:3000/api/s3", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await response.json();
-      setUploading(false);
-    } catch (error) {
-      console.log(error);
-      setUploading(false);
-    }
-  };
+ 
 
   const form = useForm({
     defaultValues: {
-      profilePicture: dataUser.username,
+      profilePicture: dataUser.profilePicture,
       nombreMarca: "",
       sloganMarca: dataUser.slogan,
       descriptionMarca: dataUser.description,
@@ -125,42 +125,11 @@ function FormMarca({ marcaInfo }) {
   useEffect(() => {
     getMarcaInfo();
   }, []);
-  useEffect(() => {
-    setPreviewImagen(marcaInfo.profilePicture);
-  }, []);
 
-  const imageToS3 = async () => {
-    try {
-      if (previewImagen) {
-        const formData = new FormData();
-        formData.append("image", previewImagen); // "image" es el nombre del campo que S3 espera recibir
-        const { data } = await axios.post(
-          "http://localhost:3000/api/s3",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        if (data.success) {
-          setPreviewImagen(data.data.url); // Actualizar la URL de previsualización si es necesario
-        } else {
-          console.error("Error al subir la imagen a S3:", data.error);
-        }
-      }
-    } catch (error) {
-      console.error("Error al subir la imagen a S3:", error);
-    }
-  };
-
+  
+  
   const onSubmit = async (data) => {
-    //funcion que se ejecuta al enviar el formulario
-
-    await imageToS3(); // Subir la imagen antes de enviar el formulario
-    await handleS3Submit();
-
+   
     const socialNetworks = [
       //con los datos enviados se crea un array de objetos apartir de las redes sociales del form
       { platform: "facebook", url: data.facebook },
@@ -168,16 +137,24 @@ function FormMarca({ marcaInfo }) {
       { platform: "tiktok", url: data.tiktok },
     ];
 
+    let profilePicture = '';
+
+    if (data.profilePicture === dataUser.profilePicture) {
+      profilePicture = '';
+    } else {
+      profilePicture = data.profilePicture;
+    }
+
     const dataAdjust = {
-      //se crea un objeto con los datos del formulario para enviarlos a la peticion fetch para actualizar usuario
       username: data.username,
-      // wepPage: data.wepPage,
-      profilePicture: data.profilePicture,
+      profilePicture: profilePicture,
       socialNetworks,
       slogan: data.slogan,
       description: data.description,
-      _id: id, //este se pasara al fetch para hacer la update
+      _id: id, 
     };
+
+    console.log(dataAdjust)
 
     try {
       const updatedUser = await updateProfileMarca(dataAdjust, id);
@@ -191,34 +168,17 @@ function FormMarca({ marcaInfo }) {
 
   return (
     <>
-      <div className="flex justify-center ">
-        {previewImagen && (
-          <div className="w-32 h-32 relative">
-            <Image
-              src={previewImagen}
-              alt="Previsualización de la imagen"
-              layout="fill"
-              objectFit="cover"
-              className=" overflow-hidden border  rounded-full"
-            />
-          </div>
-        )}
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)} className=" p-4 mx-auto ">
-        <div className="flex flex-col gap-4 pb-4">
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="profilePicture"
-              className="font-semibold text-raw-sienna-900"
-            ></label>
-            <input
-              type="file"
-              id="profilePicture"
-              name="profilePicture"
-              className="border border-raw-sienna-300 p-4"
-              onChange={handleImagen}
-              // {...register("profilePicture")}
-            />
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-green-500 flex  justify-center w-full p-4 mx-auto ">
+        <div className="flex flex-col w-11/12 gap-4 pb-4">
+          <div className="  w-full h-5/6 p-15 flex items-center max-sm:rounded-lg border border-red-600">
+              <div className="  w-36 h-5/6 mx-auto rounded-full relative border  ">
+                <img className="w-full h-full rounded-full object-cover" src={previewImagen? previewImagen : dataUser.profilePicture} alt="" />
+                <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                  <label className="text-white text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
+                  <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImagen} />
+                </div>
+              </div>
           </div>
           <div className="flex flex-col gap-2">
             <label

@@ -1,10 +1,11 @@
 import Button from "../Button/Button";
-import { React, useRef } from "react";
+import { React, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "next/navigation";
 import { updateProfileUser } from "@/api/users/routes";
 
 export default function ProfileEdit({ userData, setIsSubmit, isSubmit }) {
+  const [preview, setPreview] = useState(null); //almacena la imagen cargada para previsualizacion en perfil
   const params = useParams(); // id sale de los params(URl)
   const _id = params.id;
 
@@ -37,6 +38,7 @@ export default function ProfileEdit({ userData, setIsSubmit, isSubmit }) {
 
   const handleSetValue = (imageDataUrl) => {
     setValue("profilePicture", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
+    setPreview(imageDataUrl)
   };
 
   const passwordValue = watch("password", "");
@@ -70,7 +72,8 @@ export default function ProfileEdit({ userData, setIsSubmit, isSubmit }) {
             <div className=" w-2/3 h-2/3 mx-auto rounded-full relative  ">
               <img
                 className="w-full h-full rounded-full object-cover object-center"
-                src={userData.profilePicture}
+                
+                src={preview? preview : userData.profilePicture}
                 alt=""
               />
               <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
