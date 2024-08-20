@@ -122,31 +122,35 @@ export default function CarritoDeCompras() {
           </p>
         )}
 
-        <PaymentTotalButton
-          total={totalPrice}
-          className="self-end"
-          handlePaymentClick={handlePaymentClick}
-        />
-
-        <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
-        {cartItems.map((item) => {
-          return (
-            <ShoppingCartItem
-              key={item._id}
-              item={item}
-              quantity={item.quantity}
-              onQuantityChange={handleQuantityChange}
-              userId={user.id}
-              handleDelete={handleDelete}
-              deleteItemFromShoppingCart={deleteItemFromShoppingCart}
+        {cartItems.length > 0 && (
+          <>
+            <PaymentTotalButton
+              total={totalPrice}
+              className="self-end"
+              handlePaymentClick={handlePaymentClick}
             />
-          );
-        })}
-        <PaymentTotalButton
-          total={totalPrice}
-          className={"pt-8"}
-          handlePaymentClick={handlePaymentClick}
-        />
+
+            <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
+            {cartItems.map((item) => {
+              return (
+                <ShoppingCartItem
+                  key={item._id}
+                  item={item}
+                  quantity={item.quantity}
+                  onQuantityChange={handleQuantityChange}
+                  userId={user.id}
+                  handleDelete={handleDelete}
+                  deleteItemFromShoppingCart={deleteItemFromShoppingCart}
+                />
+              );
+            })}
+            <PaymentTotalButton
+              total={totalPrice}
+              className={"pt-8"}
+              handlePaymentClick={handlePaymentClick}
+            />
+          </>
+        )}
       </div>
     </div>
   );

@@ -92,7 +92,7 @@ export default function PaymentSuccess({ searchParams }) {
           console.error("Error adding to purchase history:", error);
         });
     }
-    if (productsWithBrands.length > 1 && user && user.id && !success) {
+    if (productsWithBrands.length > 0 && user && user.id && !success) {
       deleteShoppingCart(user.id);
     }
   }, [productsWithBrands, user, payment_intent, success]);
