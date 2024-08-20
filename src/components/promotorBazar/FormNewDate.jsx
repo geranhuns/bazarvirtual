@@ -66,7 +66,7 @@ function FormNewDate(props) {
         if (openEdDate) {
             dataFecha(idDate);
         } else {
-           
+
         }
     }, [datesBazar, openEdDate, idDate]);
 
@@ -140,17 +140,21 @@ function FormNewDate(props) {
         <>
             <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
 
-                <div className="bg-customGreen w-7/12  mt-8 flex flex-col  justify-center mx-auto   max-sm:w-full pb-16 rounded-xl">
-                    <button className="bg-raw-sienna-500 w-8 h-8 flex justify-center items-center rounded-full ml-4 my-4" onClick={() => { setOpen(false), setOpenEdDate(false) }} ><MdClose className="w-full h-full" /></button>
-                    <form onSubmit={handleSubmit(onSubmit)} className="bg-form-newDate-green w-11/12 h-5/6 mx-auto rounded-lg flex flex-col items-center text-customGreen px-2 pt-4 pb-10">
+                <div className="bg-customGreen w-7/12  mt-8 flex flex-col   mx-auto   max-sm:w-full pb-16 rounded-sm">
+                    <button className="bg-raw-sienna-500 flex justify-center self-start rounded-full  mt-2 ml-2" onClick={() => { setOpen(false), setOpenEdDate(false) }} ><MdClose className="text-2xl w-8 h-8 " /></button>
+                    <form onSubmit={handleSubmit(onSubmit)} className=" w-11/12 h-5/6 mx-auto rounded-sm flex flex-col items-center text-customGreen px-2  pb-10">
                         <div className="  flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
+                            {open && <h3 className="text-2xl text-white p-1">Nueva fecha de bazar</h3>}
+                            {openEdDate && <h3 className="text-2xl text-white p-1">Editar fecha de bazar</h3>}
+
                             <label className="text-lg text-white  " htmlFor="">Lugar</label>
-                            <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="text"
+                            <input className="w-11/12 p-1 rounded-sm text-center max-sm:w-full" type="text"
                                 defaultValue={dataDate ? dataDate.place : ''}
                                 {...register("place", {
                                     required: openEdDate === false ? "Este campo es requerido" : false
-                                  })}
+                                })}
                             />
+
                             {errors.place && (
                                 <label className="text-red-700  text-xs">
                                     {errors.place.message}
@@ -160,7 +164,7 @@ function FormNewDate(props) {
                         <div className="  w-full flex px-2">
                             <div className="  flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
                                 <label className="text-lg text-white  " htmlFor="">Fecha</label>
-                                <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="date"
+                                <input className="w-11/12 p-1 rounded-sm text-center max-sm:w-full" type="date"
                                     min={currentDate}
                                     defaultValue={dataDate ? obtenerFechaFormateada(dataDate.date) : ''}
                                     {...register("date", {
@@ -168,75 +172,75 @@ function FormNewDate(props) {
                                     })}
                                 />
                                 {errors.date && (
-                                <label className="text-red-700  text-xs">
-                                    {errors.date.message}
-                                </label>
-                            )}
+                                    <label className="text-red-700  text-xs">
+                                        {errors.date.message}
+                                    </label>
+                                )}
                             </div>
                             <div className="  flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12 ">
                                 <label className="text-lg text-white  " htmlFor="">Hora</label>
-                                <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="time"
+                                <input className="w-11/12 p-1 rounded-sm text-center max-sm:w-full" type="time"
                                     defaultValue={dataDate ? dataDate.time : ''}
                                     {...register("time", {
                                         required: openEdDate === false ? "Este campo es requerido" : false
                                     })}
                                 />
-                                 {errors.time && (
-                                <label className="text-red-700  text-xs">
-                                    {errors.time.message}
-                                </label>
-                            )}
+                                {errors.time && (
+                                    <label className="text-red-700  text-xs">
+                                        {errors.time.message}
+                                    </label>
+                                )}
                             </div>
                         </div>
 
-                        <h3 className="text-2xl text-white p-1">Eventos especiales</h3>
+                        <h3 className="text-2xl text-white p-1 mt-10">Eventos especiales</h3>
                         <div className="  w-full flex justify-around mt-2  ">
 
                             <div className="flex flex-col w-3/12 text-center ">
                                 <label className="text-lg text-white">Evento</label>
-                                <input className="p-1 rounded-xl text-center"
+                                <input className="p-1 rounded-sm text-center"
                                     defaultValue={dataDate.events ? dataDate.events[0].eventName : ''}
                                     {...register("event", {
                                         required: openEdDate === false ? "Este campo es requerido" : false
                                     })}
                                 />
                                 {errors.event && (
-                                <label className="text-red-700  text-xs">
-                                    {errors.event.message}
-                                </label>
-                            )}
+                                    <label className="text-red-700  text-xs">
+                                        {errors.event.message}
+                                    </label>
+                                )}
 
                             </div>
 
 
                             <div className="flex flex-col w-5/12 text-center">
                                 <label className="text-lg text-white">Descripcion</label>
-                                <input className="p-1 rounded-xl text-center"
+                                <input className="p-1 rounded-sm text-center"
                                     defaultValue={dataDate.events ? dataDate.events[0].description : ''}
                                     {...register("description", {
                                         required: openEdDate === false ? "Este campo es requerido" : false
                                     })}
                                 />
                                 {errors.description && (
-                                <label className="text-red-700  text-xs">
-                                    {errors.description.message}
-                                </label>
-                            )}
+                                    <label className="text-red-700  text-xs">
+                                        {errors.description.message}
+                                    </label>
+                                )}
 
                             </div>
 
                             <div className="flex flex-col w-3/12 text-center">
                                 <label className="text-lg text-white">Horario</label>
-                                <input className="p-1 rounded-xl text-center" type="time"
+                                <input className="p-1 rounded-sm text-center" type="time"
                                     defaultValue={dataDate.events ? dataDate.events[0].timeEvent : ''}
                                     {...register("timeEvent", {
                                         required: openEdDate === false ? "Este campo es requerido" : false
                                     })}
                                 />
                                 {errors.timeEvent && (
-                                <label className="text-red-700  text-xs">
-                                    {errors.timeEvent.message}
-                                </label>
+                                    <label className="text-red-700  text-xs">
+                                        {errors.timeEvent.message}
+                                    </label>
                                 )}
 
                             </div>
@@ -255,15 +259,15 @@ function FormNewDate(props) {
                         )}
 
                         {showExtraEvent && (
-                            <InputNewEvent register={register} openEdDate={openEdDate} errors={errors}  />
+                            <InputNewEvent register={register} openEdDate={openEdDate} errors={errors} />
                         )}
                         <div className=" w-full flex ml-10 mt-5" >
-                            <button hidden={openEdDate} type="button" className="bg-raw-sienna-500 rounded-lg text-sm w-2/12 h-10" onClick={toggleExtraEvent}>{showExtraEvent ? 'Ocultar' : 'Extra event'}</button>
+                            <button hidden={openEdDate} type="button" className="bg-raw-sienna-500 rounded-sm text-sm py-1 px-3" onClick={toggleExtraEvent}>{showExtraEvent ? 'Ocultar' : 'Evento extra'}</button>
                         </div>
 
-                        <input className="bg-raw-sienna-500 rounded-xl text-xl w-2/12 h-10" type="submit" value="Enviar" />
+                        <input className="bg-raw-sienna-500 rounded-sm text-xl px-8 py-2" type="submit" value="Enviar" />
                     </form>
-                    {openEdDate ? (<button className="bg-red-500 w-2/3 mt-5 mx-auto p-2 rounded-lg font-semibold" onClick={() => { handleDeleteDate() }}>Cancelar fecha</button>) : ('')}
+                    {openEdDate ? (<button className="bg-red-500 w-2/3 mt-5 mx-auto p-2 rounded-sm font-semibold" onClick={() => { handleDeleteDate() }}>Cancelar fecha</button>) : ('')}
 
                 </div>
             </div>
