@@ -46,7 +46,6 @@ export const registerMarcaFetch = async (data) => {
 
 export const updateProfileMarca = async (userdata, userId) => {
   try {
-
     let loadingToast = Swal.fire({
       title: "Actualizando perfil...",
       didOpen: () => {
@@ -85,7 +84,7 @@ export const updateProfileMarca = async (userdata, userId) => {
 
 export const getBrandById = async (brandId) => {
   try {
-    const response = await fetch(`http://localhost:3001/marca/${brandId}`);
+    const response = await fetch(`${MARCA_URL}/${brandId}`);
     if (!response.ok) {
       throw new Error("Error al obtener la marca");
     }
