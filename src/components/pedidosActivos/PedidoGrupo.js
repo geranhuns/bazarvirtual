@@ -33,28 +33,28 @@ export default function PedidoGrupo({
         />
       </a>
       <div className="flex w-full flex-col md:flex-row my-2 md:mt-0 items-center">
-        <div className="pl-10 flex flex-col md:flex-row md:justify-between w-full md:gap-4">
-          <div className="hidden md:flex flex-col">
+        <div className="pl-10 flex flex-col md:flex-row md:justify-between w-full gap-2 md:gap-4">
+          <div className="hidden md:flex flex-col justify-between">
             <h3 className="text-base italic">Nombre de la Marca</h3>
             <a href={`/marcas/${producto.brandId}`}>
               <h3 className="text-lg">{producto.brandUsername}</h3>
             </a>
           </div>
-          <div className="md:w-40">
+          <div className="md:w-40 flex flex-col justify-between">
             <h3 className="text-base italic">Producto</h3>
             <a href={`/productos/${producto.productId}`}>
               <h3 className="md:text-lg">{producto.productTitle}</h3>
             </a>
           </div>
-          <div className="flex md:flex-col gap-2 items-center">
+          <div className="flex md:flex-col gap-2 items-center md:justify-between">
             <h4 className="text-base italic">Cantidad</h4>
             <h4 className="bg-raw-sienna-200 w-9 text-center text-raw-sienna-900 rounded-sm py-1">
               {producto.quantity}
             </h4>
           </div>
-          <div className="flex flex-col gap-2 md:items-center mt-1">
+          <div className="flex md:flex-col gap-2 md:items-center mt-1 md: justify-between">
             <h4 className="text-base italic">Referencia</h4>
-            <h4 className=" text-center text-raw-sienna-900 rounded-sm py-1 bg-raw-sienna-100">
+            <h4 className="  text-raw-sienna-900 rounded-sm  ">
               {producto.purchaseId.slice(20)}
             </h4>
           </div>
