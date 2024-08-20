@@ -4,6 +4,7 @@ import { createNewPurchase } from "@/api/orders/routes";
 import { getProductById } from "@/api/marcas/products/routes";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { deleteShoppingCart } from "@/api/users/productLists/routes";
+import { getPaymentIntent } from "@/api/orders/routes";
 
 export default function PaymentSuccess({ searchParams }) {
   const { amount, payment_intent } = searchParams;
@@ -15,34 +16,21 @@ export default function PaymentSuccess({ searchParams }) {
   const { user } = useUserContext();
 
   useEffect(() => {
-    if (payment_intent) {
-      fetch(`/api/get-payment-intent?payment_intent=${payment_intent}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              `Error fetching payment intent: ${response.statusText}`
-            );
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (data.metadata) {
-            setMetadata(data.metadata);
-          } else {
-            setError("No metadata found");
-          }
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching metadata:", error);
-          setError("Failed to fetch metadata");
-          setLoading(false);
-        });
-    } else {
-      setError("No payment_intent found in query");
-      setLoading(false);
-    }
+    const fetchMetadata = async () => {
+      try {
+        const data = await getPaymentIntent(payment_intent);
+        setMetadata(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching payment intent metadata:", error);
+        setError("Failed to fetch payment intent data");
+        setLoading(false);
+      }
+    };
+
+    fetchMetadata();
   }, [payment_intent]);
+
   useEffect(() => {
     if (metadata && metadata.items) {
       const productStrings = metadata.items.split(",");
