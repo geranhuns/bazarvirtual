@@ -130,23 +130,23 @@ export default function NewProductForm({
       category: data.category,
     };
 
-    console.log(dataAdjust)
+   
 
-    // try {
-    //   if (item) {
-    //     const changedProduct = await editProduct(dataAdjust, item._id);
-    //   } else {
-    //     const newProduct = await postNewProduct(dataAdjust, id);
-    //   }
-    // } catch (error) {
-    //   console.error("Error al guardar el producto:", error.message);
-    // }
+    try {
+      if (item) {
+        const changedProduct = await editProduct(dataAdjust, item._id);
+      } else {
+        const newProduct = await postNewProduct(dataAdjust, id);
+      }
+    } catch (error) {
+      console.error("Error al guardar el producto:", error.message);
+    }
 
-    // if (setActiveForm) setActiveForm(false);
-    // if (setOpenProducteditor) setOpenProducteditor(false);
-    // loadProducts();
+    if (setActiveForm) setActiveForm(false);
+    if (setOpenProducteditor) setOpenProducteditor(false);
+    loadProducts();
     reset()
-    setPreviewImagen("https://cajasgraf.com.ar/productos/images/df.jpg")
+    // setPreviewImagen("https://cajasgraf.com.ar/productos/images/df.jpg")
   };
   return (
     <>
