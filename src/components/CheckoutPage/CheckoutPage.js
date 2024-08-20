@@ -8,7 +8,7 @@ import {
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
-import convertToSubcurrency from "@/lib/convertToSubcurrency";
+import { newPaymentIntent } from "@/api/orders/routes";
 
 const CheckoutPage = ({
   amount,
@@ -26,7 +26,6 @@ const CheckoutPage = ({
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // Set items based on singleProduct and singleQuantity
     if (singleQuantity && singleProduct) {
       const productWithQuantity = {
         ...singleProduct,
@@ -37,44 +36,29 @@ const CheckoutPage = ({
   }, [singleProduct, singleQuantity]);
 
   useEffect(() => {
-    // Set items based on shoppingCartDetails when singleProduct is not available
     if (shoppingCartDetails.length > 0) {
       setItems(shoppingCartDetails);
     }
   }, [singleProduct, shoppingCartDetails]);
 
   useEffect(() => {
-    // Trigger fetch only after items are set
+    const fetchClientSecret = async () => {
+      const paymentData = {
+        amount,
+        items,
+        userId,
+        userEmail,
+      };
+
+      const data = await newPaymentIntent(paymentData);
+
+      if (data?.clientSecret) {
+        setClientSecret(data.clientSecret);
+      }
+    };
+
     if (amount && items.length > 0 && userId) {
-      fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: convertToSubcurrency(amount),
-          metadata: { items: JSON.stringify(items) },
-          receipt_email: userEmail,
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              `Network response was not ok: ${response.statusText}`
-            );
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (data.clientSecret) {
-            setClientSecret(data.clientSecret);
-          } else {
-            console.error("Client secret is missing from response:", data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching client secret:", error);
-        });
+      fetchClientSecret();
     }
   }, [amount, items, userId, userEmail]);
 
