@@ -7,12 +7,14 @@ import { deleteShoppingCart } from "@/api/users/productLists/routes";
 import { getPaymentIntent } from "@/api/orders/routes";
 
 export default function PaymentSuccess({ searchParams }) {
-  const { amount, payment_intent } = searchParams;
+  const { amount, payment_intent, fromCart } = searchParams;
   const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false); // Nuevo estado para controlar la llamada
+  const [success, setSuccess] = useState(false);
   const [productsWithBrands, setProductsWithBrands] = useState([]);
+  const [cartDeleted, setCartDeleted] = useState(false);
+
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function PaymentSuccess({ searchParams }) {
             return {
               productId: item.productId,
               quantity: item.quantity,
-              brandId: product.data.createdBy._id, // Suponiendo que getProductById devuelve el brandId
+              brandId: product.data.createdBy._id,
             };
           });
 
@@ -80,10 +82,20 @@ export default function PaymentSuccess({ searchParams }) {
           console.error("Error adding to purchase history:", error);
         });
     }
-    if (productsWithBrands.length > 0 && user && user.id && !success) {
-      deleteShoppingCart(user.id);
+  }, [productsWithBrands, user, payment_intent, success, metadata]);
+
+  useEffect(() => {
+    if (
+      productsWithBrands.length > 0 &&
+      user &&
+      user.id &&
+      !success &&
+      fromCart === "true" &&
+      !cartDeleted
+    ) {
+      deleteShoppingCart(user.id).then(() => setCartDeleted(true));
     }
-  }, [productsWithBrands, user, payment_intent, success]);
+  }, [productsWithBrands, user, success, fromCart]);
 
   return (
     <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-raw-sienna-400 w-full md:w-1/2">

@@ -74,7 +74,10 @@ export default function CarritoDeCompras() {
     }
   };
 
-  const handlePaymentClick = () => {
+  const handlePaymentClick = async () => {
+    await updateShoppingCart();
+    console.log("Cart items before proceeding to payment:", cartItems);
+
     router.push(`/payment?amount=${totalPrice}`);
   };
 
