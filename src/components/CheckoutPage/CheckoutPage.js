@@ -77,12 +77,13 @@ const CheckoutPage = ({
       setLoading(false);
       return;
     }
+    const fromCart = shoppingCartDetails.length > 0 ? "true" : "false";
 
     const { error } = await stripe.confirmPayment({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${window.location.origin}/payment-success?amount=${amount}`,
+        return_url: `${window.location.origin}/payment-success?amount=${amount}&fromCart=${fromCart}`,
       },
     });
 
