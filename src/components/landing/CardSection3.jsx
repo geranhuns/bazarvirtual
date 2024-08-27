@@ -10,7 +10,7 @@ function CardSection3(props) {
         <img src={src} alt="image" className="w-full h-full" />
       </div>
       <div className=" flex  flex-col justify-around space-y-2 px-4 mt-3 row-start-2 h-60">
-        <h3 className="text-custom2 font-bold text-Eggshell leading-custom4 max-sm:text-2xl max-sm:text-center">{title}</h3>
+        <h3 className="text-32px font-bold text-Eggshell leading-custom4 max-sm:text-2xl max-sm:text-center">{title}</h3>
         <p className="text-left text-base text-Eggshell max-sm:text-base max-sm:text-center">{description}</p>
       </div>
     </div>

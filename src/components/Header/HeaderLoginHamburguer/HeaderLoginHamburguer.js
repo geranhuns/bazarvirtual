@@ -10,7 +10,7 @@ export default function HeaderLoginHamburguer() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 640);
+      setIsSmallScreen(window.innerWidth < 768);
     };
 
     handleResize();
