@@ -22,8 +22,8 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
 
 
   useEffect(() => {
-    
-      if (Array.isArray(marcasCurso) ){
+
+    if (Array.isArray(marcasCurso)) {
       const updatedMarcasCurso = marcasCurso.map((marca) => {
         if (products) {
           const productsMarca = products
@@ -139,23 +139,23 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
       <section className=" w-full pb-10 bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] lg:h-[59vh] ">
         <h2 className="  font-medium text-3xl text-patina-900 py-3 ">Marcas participantes</h2>
         <div className=" flex  flex-col items-center w-11/12 h-5/6 mx-auto  ">
-        <Slider {...settings} className="w-11/12 h-full flex mx-auto">
-          {newMarcasCurso && newMarcasCurso.length > 0 ? (newMarcasCurso.map((marca, index) => (
-            <ProductoDestacadoMarca2
-              key={index}
-              profile={marca.profile}
-              nameMarca={marca.nameMarca}
-              imageProductos={marca.productos}
-            />))
-          ) : (
-          <>
-            <EmptyCard idDate={idDate} />
-            
-           
-          </>
+          <Slider {...settings} className="w-11/12 h-full flex mx-auto">
+            {newMarcasCurso && newMarcasCurso.length > 0 ? (newMarcasCurso.map((marca, index) => (
+              <ProductoDestacadoMarca2
+                key={index}
+                profile={marca.profile}
+                nameMarca={marca.nameMarca}
+                imageProductos={marca.productos}
+              />))
+            ) : (
+              <>
+                <EmptyCard idDate={idDate} />
+
+
+              </>
             )}
-      </Slider>
-          {marcasCurso?.length === 0 && <h3 className="flex w-full justify-center  self-start">Aún no hay marcas registradas en esta fecha</h3>}
+          </Slider>
+
           {showMessage && !idDate && <h3 className="flex w-full justify-center text-xl self-start">¡Crea tu siguiente evento para que las marcas puedan inscribirse!</h3>}
         </div>
 

@@ -1,6 +1,19 @@
 require("dotenv").config();
-
+import Swal from "sweetalert2";
 const PRODUCTS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/products`;
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
+
 
 export const postNewProduct = async (userdata, marcaId) => {
   try {
@@ -28,6 +41,15 @@ export const postNewProduct = async (userdata, marcaId) => {
 };
 export const editProduct = async (userdata, productId) => {
   try {
+
+    let loadingToast = Swal.fire({
+      title: "Actualizando producto...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false,
+    });
+
     const response = await fetch(`${PRODUCTS_URL}/${productId}`, {
       method: "PUT",
       headers: {
@@ -35,6 +57,7 @@ export const editProduct = async (userdata, productId) => {
       },
       body: JSON.stringify(userdata), // Convierte el objeto a formato JSON
     });
+    Swal.close();
     if (!response.ok) {
       throw new Error("Error al actualizar el producto");
     }

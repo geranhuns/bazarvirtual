@@ -24,7 +24,7 @@ export const UserProvider = ({ children }) => {
     try {
       const productPromises = shoppingCart.map(async (item) => {
         const product = await getProductById(item.productId);
-        return { ...product.data, quantity: item.quantity }; // Accede a la propiedad `data`
+        return { ...product.data, quantity: item.quantity };
       });
 
       const productsWithDetails = await Promise.all(productPromises);
@@ -39,7 +39,7 @@ export const UserProvider = ({ children }) => {
     try {
       const productPromises = wishList.map(async (item) => {
         const product = await getProductById(item.productId);
-        return product.data; // Accede a la propiedad `data`
+        return product.data;
       });
 
       const productsWithDetails = await Promise.all(productPromises);
@@ -55,7 +55,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user.role === "cliente") {
+      if (user.id && user.role === "cliente") {
         try {
           const shoppingCartData = await fetchShoppingCart(user.id);
           setShoppingCart(shoppingCartData.shoppingCart);
@@ -82,7 +82,7 @@ export const UserProvider = ({ children }) => {
   }, [user.id, user.role]);
 
   const updateShoppingCart = async () => {
-    if (user.id && user.role === "client") {
+    if (user.id && user.role === "cliente") {
       try {
         const shoppingCartData = await fetchShoppingCart(user.id);
         setShoppingCart(shoppingCartData.shoppingCart);
@@ -98,8 +98,9 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Llama a updateShoppingCart cuando el usuario cambie
-    updateShoppingCart();
+    if (user.id && user.role === "cliente") {
+      updateShoppingCart();
+    }
   }, [user.id]);
 
   useEffect(() => {

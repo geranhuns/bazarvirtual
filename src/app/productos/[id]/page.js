@@ -141,7 +141,7 @@ export default function VistaDetalladaProducto() {
     <>
       <div className="flex  items-center lg:max-w-screen-xl mx-auto overflow-auto ">
         <div className=" flex flex-col md:flex-row ">
-          <div className="flex flex-col justify-center w-full md:w-7/12 items-center md:inline-block relative p-6 md:pl-10 pt-10 pb-2 md:pb-8 ">
+          <div className="flex flex-col justify-center w-full md:w-8/12 items-center md:inline-block relative p-6 md:pl-10 pt-10 pb-2 md:pb-8 ">
             <ProductoConEstrella
               imageUrl={product.productImage}
               altText={product.text}

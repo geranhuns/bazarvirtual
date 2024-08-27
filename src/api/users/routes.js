@@ -112,15 +112,14 @@ export const getUserById = async (userId) => {
 };
 
 export const updateProfileUser = async (userdata, userId) => {
+  let loadingToast = Swal.fire({
+    title: "Actualizando perfil...",
+    didOpen: () => {
+      Swal.showLoading();
+    },
+    allowOutsideClick: false,
+  });
   try {
-    let loadingToast = Swal.fire({
-      title: "Actualizando perfil...",
-      didOpen: () => {
-        Swal.showLoading();
-      },
-      allowOutsideClick: false,
-    });
-
     const response = await fetch(`${USERS_URL}/updateProfileUser/${userId}`, {
       method: "PUT",
       headers: {

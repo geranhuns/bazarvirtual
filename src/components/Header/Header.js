@@ -106,13 +106,13 @@ function Header() {
           {pathname !== "/login" &&
             pathname !== "/register" &&
             pathname !== "/" && <HeaderSearch />}
-          <div className="lg:w-80 w-40 flex justify-end items-center ">
+          <div className="lg:w-80   flex justify-end items-center ">
             {pathname !== "/login" && pathname !== "/register" && !user.id && (
               <>
                 <div className="flex items-center gap-4">
                   <LandingMenu handleScroll={handleScroll} />
                   <div className=" lg:w-80">
-                    <HeaderLogin />
+                    <HeaderLogin userRole={user.role} />
                     <HeaderLoginHamburguer />
                   </div>
                 </div>

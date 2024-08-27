@@ -1,6 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "../Button/Button";
 import Image from "next/image";
 import { DevTool } from "@hookform/devtools";
@@ -15,7 +15,7 @@ export default function NewProductForm({
   loadProducts,
 }) {
   const [previewImagen, setPreviewImagen] = useState("");
-
+  const fileInputRef = useRef(null);
   const categories = [
     "Alimentos y Bebidas",
     "Auto",
@@ -42,19 +42,39 @@ export default function NewProductForm({
     "Videojuegos",
   ];
 
-  const handleImagen = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImagen(reader.result);
-      };
-      reader.readAsDataURL(file);
-      handleSetValue(reader);
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
-  const handleSetValue = (file) => {
-    setValue("productImage", file);
+
+  const handleImagen = (e) => {
+    const file = e.target.files[0];
+    const maxSizeInMB = 2; // Tamaño máximo permitido en MB
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+    if (file) {
+      if (file.size > maxSizeInBytes) {
+        // alert(`El archivo no debe ser mayor a ${maxSizeInMB} MB.`);
+        Swal.fire({
+          title: "Oops!",
+          text: `La imagen no debe ser mayor a ${maxSizeInMB} MB.`,
+          icon: "warning",
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        handleSetValue(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSetValue = (imageDataUrl) => {
+    setValue("productImage", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
+    setPreviewImagen(imageDataUrl);
   };
   const defaultValues = {
     productImage: item?.productImage || previewImagen,
@@ -77,27 +97,40 @@ export default function NewProductForm({
   } = form; //React hook form
 
   useEffect(() => {
-    setPreviewImagen(
-      "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg"
-    );
-    setValue(
-      "productImage",
-      "https://i.pinimg.com/236x/c4/02/5d/c4025d4031edfa78ce3dd60a144f77ed.jpg"
-    );
+    // setPreviewImagen(
+    //   "https://cajasgraf.com.ar/productos/images/df.jpg"
+    // );
+    // setValue(
+    //   "productImage",
+    //   "https://cajasgraf.com.ar/productos/images/df.jpg"
+    // );
     if (item) {
       setPreviewImagen(item.productImage);
       reset(defaultValues); // Reset the form with the new item values
     }
   }, [item, reset]);
+
   const onSubmit = async (data) => {
+
+
+    let productImage = "";
+
+    if (data.productImage === '') {
+      productImage = "https://cajasgraf.com.ar/productos/images/df.jpg";
+    } else {
+      productImage = data.productImage;
+    }
+
     const dataAdjust = {
-      productImage: data.productImage,
+      productImage: productImage,
       createdBy: id,
       price: data.price,
       description: data.description,
       title: data.title,
       category: data.category,
     };
+
+   
 
     try {
       if (item) {
@@ -112,6 +145,8 @@ export default function NewProductForm({
     if (setActiveForm) setActiveForm(false);
     if (setOpenProducteditor) setOpenProducteditor(false);
     loadProducts();
+    reset()
+    // setPreviewImagen("https://cajasgraf.com.ar/productos/images/df.jpg")
   };
   return (
     <>
@@ -121,32 +156,17 @@ export default function NewProductForm({
       >
         <div className="w-full flex flex-col lg:flex-row   bg-raw-sienna-50 py-8 px-6 gap-8">
           <div className="w-12/12 lg:w-1/3">
-            <div className="flex justify-center pb-3">
-              {previewImagen && (
-                <div className="w-32 h-32 relative">
-                  <Image
-                    src={previewImagen}
-                    alt="Previsualización de la imagen"
-                    layout="fill"
-                    objectFit="cover"
-                    className=" overflow-hidden border  rounded-full"
-                  />
+
+            <div className="  w-full h-5/6 p-15 flex items-center max-sm:rounded-lg ">
+              <div className="  w-36 h-36 mx-auto rounded-full relative border overflow-hidden ">
+                <img className="w-full h-full rounded-full object-cover" src={previewImagen ? previewImagen : 'https://cajasgraf.com.ar/productos/images/df.jpg'} alt="" />
+                <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                  <label className="text-white text-lg cursor-pointer text-center" onClick={handleButtonClick} >
+                     + Imagen del producto
+                  </label>
+                  <input type="file" ref={fileInputRef} style={{ display: "none" }} onChange={handleImagen}/>
                 </div>
-              )}
-            </div>
-            <div className="flex flex-col gap-2 self-end ">
-              <label
-                htmlFor="productImage"
-                className="font-semibold text-raw-sienna-900"
-              ></label>
-              <input
-                type="file"
-                id="productImage"
-                name="productImage"
-                className="border border-raw-sienna-300 p-4"
-                onChange={handleImagen}
-                // {...register("productImage")}
-              />
+              </div>
             </div>
           </div>
           <div className="flex flex-col lg:flex-row gap-8  lg:w-2/3">

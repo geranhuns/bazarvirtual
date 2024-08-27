@@ -4,45 +4,35 @@ import { createNewPurchase } from "@/api/orders/routes";
 import { getProductById } from "@/api/marcas/products/routes";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { deleteShoppingCart } from "@/api/users/productLists/routes";
+import { getPaymentIntent } from "@/api/orders/routes";
 
 export default function PaymentSuccess({ searchParams }) {
-  const { amount, payment_intent } = searchParams;
+  const { amount, payment_intent, fromCart } = searchParams;
   const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false); // Nuevo estado para controlar la llamada
+  const [success, setSuccess] = useState(false);
   const [productsWithBrands, setProductsWithBrands] = useState([]);
+  const [cartDeleted, setCartDeleted] = useState(false);
+
   const { user } = useUserContext();
 
   useEffect(() => {
-    if (payment_intent) {
-      fetch(`/api/get-payment-intent?payment_intent=${payment_intent}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              `Error fetching payment intent: ${response.statusText}`
-            );
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (data.metadata) {
-            setMetadata(data.metadata);
-          } else {
-            setError("No metadata found");
-          }
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching metadata:", error);
-          setError("Failed to fetch metadata");
-          setLoading(false);
-        });
-    } else {
-      setError("No payment_intent found in query");
-      setLoading(false);
-    }
+    const fetchMetadata = async () => {
+      try {
+        const data = await getPaymentIntent(payment_intent);
+        setMetadata(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching payment intent metadata:", error);
+        setError("Failed to fetch payment intent data");
+        setLoading(false);
+      }
+    };
+
+    fetchMetadata();
   }, [payment_intent]);
+
   useEffect(() => {
     if (metadata && metadata.items) {
       const productStrings = metadata.items.split(",");
@@ -59,7 +49,7 @@ export default function PaymentSuccess({ searchParams }) {
             return {
               productId: item.productId,
               quantity: item.quantity,
-              brandId: product.data.createdBy._id, // Suponiendo que getProductById devuelve el brandId
+              brandId: product.data.createdBy._id,
             };
           });
 
@@ -92,10 +82,20 @@ export default function PaymentSuccess({ searchParams }) {
           console.error("Error adding to purchase history:", error);
         });
     }
-    if (productsWithBrands.length > 1 && user && user.id && !success) {
-      deleteShoppingCart(user.id);
+  }, [productsWithBrands, user, payment_intent, success, metadata]);
+
+  useEffect(() => {
+    if (
+      productsWithBrands.length > 0 &&
+      user &&
+      user.id &&
+      !success &&
+      fromCart === "true" &&
+      !cartDeleted
+    ) {
+      deleteShoppingCart(user.id).then(() => setCartDeleted(true));
     }
-  }, [productsWithBrands, user, payment_intent, success]);
+  }, [productsWithBrands, user, success, fromCart]);
 
   return (
     <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-raw-sienna-400 w-full md:w-1/2">

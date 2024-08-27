@@ -6,6 +6,7 @@ import { updateProfileUser } from "@/api/users/routes";
 
 export default function ProfileEdit({ userData, setIsSubmit, isSubmit }) {
   const [preview, setPreview] = useState(null); //almacena la imagen cargada para previsualizacion en perfil
+  const [newPassword, setNewPassword] = useState(false);
   const params = useParams(); // id sale de los params(URl)
   const _id = params.id;
 
@@ -38,7 +39,7 @@ export default function ProfileEdit({ userData, setIsSubmit, isSubmit }) {
 
   const handleSetValue = (imageDataUrl) => {
     setValue("profilePicture", imageDataUrl); // Aquí asumimos que profilePicture es la URL de la imagen
-    setPreview(imageDataUrl)
+    setPreview(imageDataUrl);
   };
 
   const passwordValue = watch("password", "");
@@ -69,11 +70,10 @@ export default function ProfileEdit({ userData, setIsSubmit, isSubmit }) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className=" flex flex-col gap-3 w-96 mb-3">
           <div className=" w-full h-2/6   p-15 flex items-center max-sm:rounded-lg">
-            <div className=" w-2/3 h-2/3 mx-auto rounded-full relative  ">
+            <div className=" size-64 mx-auto rounded-full relative  ">
               <img
                 className="w-full h-full rounded-full object-cover object-center"
-                
-                src={preview? preview : userData.profilePicture}
+                src={preview ? preview : userData.profilePicture}
                 alt=""
               />
               <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
@@ -110,48 +110,64 @@ export default function ProfileEdit({ userData, setIsSubmit, isSubmit }) {
               placeholder={userData.email}
             />
           </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-lg">Contraseña</label>
-            <input
-              className="w-full border rounded-lg p-4"
-              type="password"
-              placeholder=""
-              {...register("password", {
-                minLength: {
-                  value: 8,
-                  message: "La contraseña debe tener al menos 8 caracteres",
-                },
-              })}
-            />
-            {errors.password && (
-              <p className="text-red-500">{errors.password.message}</p>
-            )}
-          </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-lg">Confirmar Contraseña</label>
-            <input
-              className="w-full border rounded-lg p-4"
-              type="password"
-              placeholder=""
-              {...register("passwordCheck", {
-                required: passwordValue
-                  ? "Confirmar contraseña es obligatorio cuando se proporciona una contraseña"
-                  : false,
-                minLength: {
-                  value: 8,
-                  message:
-                    "La confirmación de contraseña debe tener al menos 8 caracteres",
-                },
-                validate: (value) =>
-                  passwordValue && value !== passwordValue
-                    ? "Las contraseñas no coinciden"
-                    : true,
-              })}
-            />
-            {errors.passwordCheck && (
-              <p className="text-red-500">{errors.passwordCheck.message}</p>
-            )}
-          </div>
+          {/* <div className="flex flex-col gap-1">
+            <label className="text-lg">Whatsapp</label>
+            <input className="w-full border rounded-lg p-4" type="text" />
+          </div> */}
+          <h3
+            className="text-lg text-blue-500"
+            onClick={() => {
+              setNewPassword(!newPassword);
+            }}
+          >
+            Cambiar contraseña
+          </h3>
+          {newPassword && (
+            <>
+              <div className="flex flex-col gap-1">
+                <label className="text-lg">Nueva Contraseña</label>
+                <input
+                  className="w-full border rounded-lg p-4"
+                  type="password"
+                  placeholder=""
+                  {...register("password", {
+                    minLength: {
+                      value: 8,
+                      message: "La contraseña debe tener al menos 8 caracteres",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-lg">Confirmar Nueva Contraseña</label>
+                <input
+                  className="w-full border rounded-lg p-4"
+                  type="password"
+                  placeholder=""
+                  {...register("passwordCheck", {
+                    required: passwordValue
+                      ? "Confirmar contraseña es obligatorio cuando se proporciona una contraseña"
+                      : false,
+                    minLength: {
+                      value: 8,
+                      message:
+                        "La confirmación de contraseña debe tener al menos 8 caracteres",
+                    },
+                    validate: (value) =>
+                      passwordValue && value !== passwordValue
+                        ? "Las contraseñas no coinciden"
+                        : true,
+                  })}
+                />
+                {errors.passwordCheck && (
+                  <p className="text-red-500">{errors.passwordCheck.message}</p>
+                )}
+              </div>
+            </>
+          )}
           <button
             type="Submit"
             className="flex items-center justify-center p-1 rounded-lg text-lg font-medium h-9 bg-raw-sienna-500 text-raw-sienna-50"
