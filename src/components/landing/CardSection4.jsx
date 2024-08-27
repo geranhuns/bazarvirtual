@@ -11,9 +11,9 @@ function CardSection4(props) {
             <h3 className="text-32px text-Eggshell text-center leading-custom4 font-bold  w-96">{title}</h3>
           </div>
           <div className=" w-full h-3/6 text-2xl font-light text-center text-Eggshell flex flex-col justify-around items-center ">
-            <ul className="list-disc list-inside h-72 flex flex-col justify-center">
-              <li >{description1}</li>
+            <ul className=" h-72 flex flex-col justify-center lg:max-w-2xl space-y-8">
               <li>{description2}</li>
+              <li >{description1}</li>
             </ul>
             <button className={`w-2/3 h-11 ${bgButton} text-xl flex justify-center items-center rounded-sm font-semibold  py-3 ${hoverButton}`}>
               <a href="/register">

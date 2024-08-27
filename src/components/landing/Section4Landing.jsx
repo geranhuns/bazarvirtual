@@ -11,7 +11,7 @@ function Section4Landing({ id }) {
                     bgClass="bg-KombuGreen"
                     iconCard={<BsShop className="w-2/12 h-5/6 text-Eggshell " />}
                     title="¿Impulsas marcas mexicanas con tu bazar?"
-                    description1="Maximiza tu Alcance"
+                    description1="¡Maximiza tu Alcance!"
                     description2="Tus bazares siempre en el radar de los compradores locales."
                     textButton="Regístrate como bazar"
                     bgButton="bg-raw-sienna-500"
@@ -22,7 +22,7 @@ function Section4Landing({ id }) {
                     bgClass="bg-raw-sienna-500"
                     iconCard={<TbWorldSearch className="w-2/12 h-5/6 text-Eggshell" />}
                     title="¿Buscas aumentar tu visibilidad online?"
-                    description1="Crea gratis tu catálogo digital"
+                    description1="¡Crea gratis tu catálogo digital!"
                     description2="Apoyamos a marcas locales a crear su tienda en línea y participar en los mejores bazares mexicanos."
                     textButton="Regístrate como marca"
                     bgButton="bg-KombuGreen "
