@@ -97,7 +97,7 @@ function Header() {
 
   return (
     <>
-      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0 shadow-md z-50 ">
+      <nav className="bg-raw-sienna-500 sticky h-16  left-0 right-0 top-0  z-50 drop-shadow-lg">
         <div className="h-full flex justify-between items-center mx-auto   lg:max-w-screen-xl  px-5 ">
           <div className="lg:w-80">
             <HeaderLogo />

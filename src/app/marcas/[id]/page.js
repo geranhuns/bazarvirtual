@@ -63,13 +63,15 @@ export default function VistaMarca() {
 
   return (
     <>
-      <div className=" flex flex-col w-10/12 items-center  mx-auto  lg:max-w-7xl overflow-auto mb-28">
+      <div className=" flex flex-col w-10/12 items-center  mx-auto  lg:max-w-7xl overflow-auto mb-28 ">
         <MarcaHeaderInfo id={id} />
         <div className="flex items-center justify-center">
-          <h3 className="text-3xl mr-4">Catálogo de productos</h3>
+          <h3 className="text-4xl pt-14 pb-6 text-patina-900 font-semibold">
+            Catálogo de productos
+          </h3>
           {decodedToken?._id === id && (
             <a href={`/miCatalogo/${id}`}>
-              <MdEdit className="text-lg" />
+              <MdEdit className="text-lg ml-4" />
             </a>
           )}
         </div>

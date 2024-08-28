@@ -8,9 +8,9 @@ function CardSection4(props) {
         <div className="  flex flex-col items-center justify-center px-12 ">
           <div className=" w-full  flex flex-col items-center">
             {iconCard}
-            <h3 className="text-32px text-Eggshell text-center leading-custom4 font-bold  w-96">{title}</h3>
+            <h3 className="text-32px text-raw-sienna-50 text-center leading-custom4 font-bold  w-96">{title}</h3>
           </div>
-          <div className=" w-full h-3/6 text-2xl font-light text-center text-Eggshell flex flex-col justify-around items-center ">
+          <div className=" w-full h-3/6 text-2xl font-light text-center text-raw-sienna-50 flex flex-col justify-around items-center ">
             <ul className=" h-72 flex flex-col justify-center lg:max-w-2xl space-y-8">
               <li>{description2}</li>
               <li >{description1}</li>

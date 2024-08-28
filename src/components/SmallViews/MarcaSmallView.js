@@ -23,7 +23,7 @@ export default function MarcaSmallView({
           }
         }
       }}
-      className={`flex gap-2 items-center ${className}`}
+      className={`flex gap-2 items-center ${className} text-gray-700`}
     >
       <div className="w-12 h-12 overflow-hidden rounded-full">
         <img
@@ -34,7 +34,7 @@ export default function MarcaSmallView({
           alt="logo"
         />
       </div>
-      <h3 className="underline cursor-pointer">{brand}</h3>
+      <h3 className="text-raw-sienna-500 cursor-pointer text-lg">{brand}</h3>
       <div className="text-center text-lg w-24">
         {id && <h3>{id}</h3>}
         {createdBy && <h3>{createdBy.username}</h3>}
