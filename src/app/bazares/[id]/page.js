@@ -110,6 +110,7 @@ function PromotorVistaId() {
     const filteredDates = filterPastDates(datesBazar);
     if (JSON.stringify(filteredDates) !== JSON.stringify(datesBazar)) {
       setDatesBazar(filteredDates);
+      //probar aqui borrar dataDate
     }
    
   }, [datesBazar]);

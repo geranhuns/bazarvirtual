@@ -17,6 +17,13 @@ const Toast = Swal.mixin({
 
 export const postNewProduct = async (userdata, marcaId) => {
   try {
+    let loadingToast = Swal.fire({
+      title: "Actualizando catalogo...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false,
+    });
     const response = await fetch(`${PRODUCTS_URL}/newProduct`, {
       method: "POST",
       headers: {

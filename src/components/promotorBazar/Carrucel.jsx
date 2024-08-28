@@ -20,6 +20,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   const [products, setProducts] = useState([])
   const [newMarcasCurso, setNewMarcasCurso] = useState([]);
 
+  
 
   useEffect(() => {
 
@@ -136,10 +137,10 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   if (loading) return <h3>Loading...</h3>
   return (
     <>
-      <section className=" w-full pb-10 bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] lg:h-[59vh] ">
+      <section className=" w-full pb-10 bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[65vh] lg:h-[65vh] ">
         <h2 className="  font-medium text-3xl text-patina-900 py-3 ">Marcas participantes</h2>
         <div className=" flex  flex-col items-center w-11/12 h-5/6 mx-auto  ">
-          <Slider {...settings} className="w-11/12 h-full flex mx-auto">
+          <Slider {...settings} className="w-11/12 h-full flex mx-auto ">
             {newMarcasCurso && newMarcasCurso.length > 0 ? (newMarcasCurso.map((marca, index) => (
               <ProductoDestacadoMarca2
                 key={index}
