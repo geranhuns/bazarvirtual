@@ -32,9 +32,7 @@ module.exports = {
         "raw-sienna-500": "#D37340",
         "raw-sienna-800": "#833A29",
         "raw-sienna-900": "#6A3224",
-        "avocado-200": "#D4DBBB",
-        "avocado-500": "#76854C",
-        "avocado-900": "#373E29",
+
         customGreen: "#2C4440",
         "patina-50": "#F5F8F7",
         "patina-100": "#DDEAE6",
@@ -44,7 +42,6 @@ module.exports = {
         "color-text": "#FFF",
         "color-btnUnete": "#99461A",
         KombuGreen: "#4A532F",
-        Eggshell: "#F4F0E5",
         facebook: "#1877F2",
         customBlue: "#3E635E",
         "raw-sienna-custom": "#DD8E64",

@@ -18,29 +18,29 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
 
     return (
         <div className="bg-patina-500 w-5/12 h-full rounded-lg flex   justify-around items-center my-1 mx-auto max-sm:w-8/12  ">
-           
+
             <div className="  w-9/12 h-10/12 flex flex-col text-white items-center justify-around text-center max-sm:w-9/12 ">
                 <span className="text-2xl font-semibold flex justify-around items-center max-md:text-lg">{eventName}</span>
                 <span className="text-xl font-medium max-md:text-sm">{description}</span>
                 <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">{timeEvent}</span>
             </div>
 
-            {editButtonsActive && eventCount.length>1 &&
+            {editButtonsActive && eventCount.length > 1 &&
                 <div className="  w-2/12 h-full flex justify-center items-end text-gray-300 hover:text-red-400  p-1">
                     {Array.isArray(eventCount) && eventCount.length != 1 && (
                         <button
                             className=" rounded-lg p-2"
                             onClick={handleDelete}
                         >
-                           <MdDeleteSweep className=" w-11  h-7 hover:w-11 hover:h-8 p-1" />
+                            <MdDeleteSweep className=" w-11  h-7 hover:w-11 hover:h-8 p-1" />
 
 
                         </button>
                     )
                     }
-                    
+
                 </div>
-             } 
+            }
         </div>
     );
 }

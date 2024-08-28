@@ -146,7 +146,7 @@ export default function CarritoDeCompras() {
   return (
     <div className="flex flex-col   lg:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto ">
       <div className=" flex flex-col pt-4 md:pt-10 pb-8 mx-full lg:max-w-screen-lg mx-auto">
-        <h3 className="text-2xl">Carrito de Compras</h3>
+        <h3 className="text-4xl font-semibold">Carrito de Compras</h3>
         {cartItems.length === 0 ? (
           <p className="pb-4 md:pb-8">
             Aún no has guardado nada en tu Carrito de Compras{" "}

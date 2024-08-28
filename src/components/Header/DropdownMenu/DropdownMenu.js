@@ -108,8 +108,8 @@ export default function DropdownMenu({
     );
   } else {
     return (
-      <menu className="bg-raw-sienna-400 w-44 px-2 py-2 ml-auto rounded-b-sm">
-        <ul className="flex flex-col text-lg">
+      <menu className="bg-raw-sienna-500 w-52 px-4 py-4 ml-auto rounded-b-sm drop-shadow-md  border-t-2 border-raw-sienna-300">
+        <ul className="flex flex-col text-lg space-y-2 text-raw-sienna-50">
           {role === "cliente" && (
             <>
               <li className="cursor-pointer">

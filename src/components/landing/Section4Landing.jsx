@@ -9,7 +9,7 @@ function Section4Landing({ id }) {
             <section id={id} className="w-full h-full flex flex-col lg:flex-row  max-sm:flex-col max-sm:h-85vh  ">
                 <CardSection4
                     bgClass="bg-KombuGreen"
-                    iconCard={<BsShop className="w-2/12 h-5/6 text-Eggshell " />}
+                    iconCard={<BsShop className="w-2/12 h-5/6 text-raw-sienna-50 " />}
                     title="¿Impulsas marcas mexicanas con tu bazar?"
                     description1="¡Maximiza tu Alcance!"
                     description2="Tus bazares siempre en el radar de los compradores locales."
@@ -20,7 +20,7 @@ function Section4Landing({ id }) {
 
                 <CardSection4
                     bgClass="bg-raw-sienna-500"
-                    iconCard={<TbWorldSearch className="w-2/12 h-5/6 text-Eggshell" />}
+                    iconCard={<TbWorldSearch className="w-2/12 h-5/6 text-raw-sienna-50" />}
                     title="¿Buscas aumentar tu visibilidad online?"
                     description1="¡Crea gratis tu catálogo digital!"
                     description2="Apoyamos a marcas locales a crear su tienda en línea y participar en los mejores bazares mexicanos."

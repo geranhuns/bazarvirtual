@@ -191,7 +191,7 @@ export default function VistaDetalladaProducto() {
             </div>
           </div>
           <div className="  md:pt-10 pr-10  w-full pl-6">
-            <h3 className=" text-2xl">{product.title}</h3>
+            <h3 className=" text-2xl font-semibold">{product.title}</h3>
             <MarcaSmallView
               className="pt-4 cursor-pointer underline "
               createdBy={product.createdBy}
