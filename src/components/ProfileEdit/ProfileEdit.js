@@ -70,7 +70,7 @@ export default function ProfileEdit({ userData, setIsSubmit, isSubmit }) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className=" flex flex-col gap-3 w-96 mb-3">
           <div className=" w-full h-2/6   p-15 flex items-center max-sm:rounded-lg">
-            <div className=" size-64 mx-auto rounded-full relative  ">
+            <div className=" size-64 mx-auto rounded-full relative drop-shadow-lg ">
               <img
                 className="w-full h-full rounded-full object-cover object-center"
                 src={preview ? preview : userData.profilePicture}

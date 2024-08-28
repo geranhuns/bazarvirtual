@@ -35,7 +35,7 @@ export default function ProductSmallView({ item }) {
   };
 
   return (
-    <div className="flex flex-col items-center bg-raw-sienna-50 py-5 px-2 rounded-md w-44">
+    <div className="flex flex-col items-center  bg-raw-sienna-50 py-5 px-2 rounded-md w-44">
       <div
         onClick={() => {
           redirectProductView();
@@ -46,16 +46,10 @@ export default function ProductSmallView({ item }) {
           // href={`products/${_id}`}
         >
           <div className="w-24 h-24 overflow-hidden rounded-lg">
-            <img
-              className=" object-contain "
-              src={productImage}
-              width="100px"
-              height="100px"
-              alt={title}
-            />
+            <img className=" object-cover " src={productImage} alt={title} />
           </div>
-          <h3 className="pt-4  text-sm line-clamp -1 ">{title}</h3>
-          <h3 className="pt-1">${price}</h3>
+          <h3 className="p-2  text-sm text-center overflow-hidden ">{title}</h3>
+          <h3 className="pt-auto">${price}</h3>
         </div>
       </div>
       <Button

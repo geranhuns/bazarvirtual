@@ -136,8 +136,8 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   if (loading) return <h3>Loading...</h3>
   return (
     <>
-      <section className=" w-full  bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] drop-shadow-lg space-y-4 my-8 mb-5">
-        {!newMarcasCurso && <h2 className="  font-semibold text-4xl  text-patina-900 pt-12 pb-4">Marcas participantes</h2>}
+      <section className=" w-full  bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] drop-shadow-lg space-y-4 my-8 mb-20">
+        {newMarcasCurso && <h2 className="  font-semibold text-4xl  text-patina-900 pt-12 pb-4">Marcas participantes</h2>}
         {showMessage && !idDate && (
           <>
             <p className="flex w-full md:w-2/3 mx-auto justify-center pt-12 pb-4 self-start font-semibold text-4xl">Amplía tus horizontes y alcanza nuevos públicos

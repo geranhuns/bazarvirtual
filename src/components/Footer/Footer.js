@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
   return (
-    <footer className="text-center w-full bg-raw-sienna-50 pb-10 pt-3 mt-auto justify-end text-sm md:text-base">
+    <footer className="text-center w-full bg-raw-sienna-50 pb-10 pt-3 mt-auto justify-end text-sm md:text-lg text-zinc-700">
       {pathname !== "/login" && pathname !== "/register" && (
         <div className="footer-content">
           <div className="footer-logo flex justify-center">

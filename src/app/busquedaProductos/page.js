@@ -47,20 +47,16 @@ export default function BusquedaProductos() {
   return (
     <div className="flex flex-col mx-auto lg:max-w-screen-xl overflow-auto">
       <div className="flex flex-col w-full md:mx-auto lg:max-w-screen-xl">
-        <div className="flex">
-          <h2 className="pt-6 text-xl self-start md:pl-0">
+        <div className="flex text-4xl pb-8 pt-16 text-zinc-700">
+          <h2 className="  self-start md:pl-0">
             Resultados de la búsqueda para
           </h2>
-          {search && (
-            <h2 className="ml-1 pt-6 text-xl self-start md:pl-0">{`"${search}" en`}</h2>
-          )}
-          <h2 className="ml-1 pt-6 text-xl self-start md:pl-0">
-            la categoría:
-          </h2>
-          <h2 className="ml-1 pt-6 text-xl self-start md:pl-0">{`"${category}"`}</h2>
+          {search && <h2 className="   self-start ">{`"${search}" en`}</h2>}
+          <h2 className="  self-start ">la categoría:</h2>
+          <h2 className="  self-start ">{`"${category}"`}</h2>
         </div>
 
-        <h4 className="text-sm self-start md:pl-0">
+        <h4 className="text-xl self-start md:pl-0">
           Consulta la página de detalle del producto para ver otras opciones de
           compra.
         </h4>

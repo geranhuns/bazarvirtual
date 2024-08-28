@@ -214,7 +214,7 @@ function FormNewDate(props) {
 
 
                             <div className="flex flex-col w-5/12 text-center">
-                                <label className="text-lg text-white">Descripcion</label>
+                                <label className="text-lg text-white">Descripción</label>
                                 <input className="p-1 rounded-sm text-center"
                                     defaultValue={dataDate.events ? dataDate.events[0].description : ''}
                                     {...register("description", {
