@@ -80,7 +80,6 @@ export const markProductAsDelivered = async (purchaseId, productId) => {
 
 export const newPaymentIntent = async (purchaseData) => {
   const { amount, items, userId, userEmail } = purchaseData;
-  console.log(items);
   if (amount && items.length > 0 && userId) {
     try {
       const response = await fetch(`${ORDERS_URL}/create-payment-intent`, {

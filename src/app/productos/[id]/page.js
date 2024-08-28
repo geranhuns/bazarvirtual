@@ -127,7 +127,6 @@ export default function VistaDetalladaProducto() {
         try {
           const data = await newPaymentIntent(paymentData);
           if (data) {
-            console.log(data);
             setPaymentIntent(data.paymentIntentId);
           }
         } catch (error) {

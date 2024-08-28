@@ -58,7 +58,6 @@ export default function Payment() {
   useEffect(() => {
     const fetchSecret = async () => {
       const secret = await fetchClientSecret(paymentIntentId);
-      console.log(secret);
       if (secret) {
         setClientSecret(secret.clientSecret);
         setParsedAmount(secret.amount / 100);
