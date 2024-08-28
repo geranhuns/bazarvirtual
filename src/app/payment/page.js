@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import PedidoCliente from "@/components/pedidosActivos/PedidoCliente";
 import { useUserContext } from "@/components/UserContext/UserContext";
 import { getProductById } from "@/api/marcas/products/routes";
+import { fetchClientSecret } from "@/api/orders/routes";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
@@ -22,8 +23,11 @@ export default function Payment() {
   const [productId, setProductId] = useState(null);
   const [quantity, setQuantity] = useState(null);
   const { user, shoppingCartDetails, userEmail } = useUserContext();
+  const [paymentIntentId, setPaymentIntentId] = useState();
+  const [clientSecret, setClientSecret] = useState();
 
-  const [purchasedItems, setPurchasedItems] = useState([]);
+  const [fromCart, setFromCart] = useState(false);
+
   const [singleProduct, setSingleProduct] = useState();
   useEffect(() => {
     const fetchProduct = async () => {
@@ -40,32 +44,39 @@ export default function Payment() {
   }, [productId]);
 
   useEffect(() => {
-    const amountParams = searchParams.get("amount");
-    const productIdParams = searchParams.get("productId");
-    const quantityParams = searchParams.get("quantity");
-    if (quantityParams) {
-      setQuantity(quantityParams);
+    if (searchParams.get("paymentIntentId")) {
+      setPaymentIntentId(searchParams.get("paymentIntentId"));
     }
-    if (productIdParams) {
-      setProductId(productIdParams);
+    if (searchParams.get("fromCart")) {
+      setFromCart(searchParams.get("fromCart"));
     }
-    if (amountParams) {
-      const numAmount = parseFloat(amountParams);
-      if (!isNaN(numAmount) && numAmount > 0) {
-        setParsedAmount(numAmount);
-      } else {
-        console.error("Invalid amount");
-      }
-    } else {
-      console.error("Amount parameter not found");
+    if (searchParams.get("productId")) {
+      setProductId(searchParams.get("productId"));
     }
+  }, []);
 
-    // Asegúrate de que setLoading(false) se llame después de procesar
-    setLoading(false);
-  }, [searchParams]);
+  useEffect(() => {
+    const fetchSecret = async () => {
+      const secret = await fetchClientSecret(paymentIntentId);
+      if (secret) {
+        setClientSecret(secret.clientSecret);
+        setParsedAmount(secret.amount / 100);
+        const quantityParts = secret.quantity.split(":");
+        const number = parseInt(quantityParts[1], 10);
+
+        setQuantity(number);
+      } else {
+        setErrorMessage("Failed to fetch client secret");
+      }
+      setLoading(false);
+    };
+    if (paymentIntentId) {
+      fetchSecret();
+    }
+  }, [paymentIntentId]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Loading payment...</p>;
   }
 
   if (parsedAmount === null) {
@@ -95,17 +106,18 @@ export default function Payment() {
           }}
         >
           <CheckoutPage
+            fromCart={fromCart}
+            clientSecret={clientSecret}
             amount={parsedAmount}
-            userId={user.id}
             shoppingCartDetails={shoppingCartDetails}
             singleProduct={singleProduct}
             singleQuantity={quantity}
-            userEmail={userEmail}
+            setLoading={setLoading}
           />
         </Elements>
       </section>
       <div className="mb-20">
-        {productId && singleProduct && (
+        {!fromCart && (
           <PedidoCliente
             key={singleProduct._id}
             showButton={false}
@@ -113,7 +125,7 @@ export default function Payment() {
             quantity={quantity}
           />
         )}
-        {!singleProduct &&
+        {fromCart &&
           shoppingCartDetails.map((product) => {
             return (
               <PedidoCliente

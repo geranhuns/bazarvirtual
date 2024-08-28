@@ -1,6 +1,7 @@
 import { metadata, viewport } from "./metadata";
 
-import { Inter } from "next/font/google";
+import { Inter, Noto_Sans } from "next/font/google";
+
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { HeaderProvider } from "@/components/HContext/HeaderContext"; //para acceder a contextos globales, en este caso acceder desde otra pagina a un state
@@ -9,14 +10,20 @@ import SuspenseBoundary from "../components/SuspenseBoundary/SuspenseBounday"; /
 
 import "@/app/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
+const noto = Noto_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-noto",
+});
 
 export { metadata, viewport };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
-      <body className="inter-class">
+    <html lang="es" className={`${noto.variable}`}>
+      {/* <body className="inter-class"> */}
+      <body>
         <UserProvider>
           <HeaderProvider>
             <Header />

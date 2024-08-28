@@ -53,7 +53,7 @@ export default function ShoppingCartItem({
   };
   return (
     <>
-      <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 lg:max-w-screen-lg">
+      <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 lg:max-w-screen-lg text-gray-700 ">
         <a
           className="w-36 h-36 overflow-hidden flex justify-center items-center rounded-lg"
           href={`/productos/${_id}`}
@@ -67,8 +67,8 @@ export default function ShoppingCartItem({
           />
         </a>
 
-        <div className="pl-10 flex flex-col w-full ">
-          <a className="  text-lg " href={`/productos/${_id}`}>
+        <div className="pl-10 flex flex-col w-full  ">
+          <a className="  text-2xl font-semibold " href={`/productos/${_id}`}>
             {title}
           </a>
           <MarcaSmallView
@@ -80,9 +80,9 @@ export default function ShoppingCartItem({
             <div className="flex items-center mb-4 md:mb-0">
               {pathname === "/carritoDeCompras" && (
                 <>
-                  <h4>Cantidad</h4>
+                  <h4 className="pr-2">Cantidad</h4>
                   <Dropdown
-                    className="rounded-md"
+                    className="rounded-md text-center"
                     options={[1, 2, 3, 4, 5, 6]}
                     quantity={quantity}
                     handleDropdown={handleQuantityChange}
@@ -91,7 +91,7 @@ export default function ShoppingCartItem({
               )}
             </div>
             {pathname !== "/carritoDeCompras" ? (
-              <p className="flex gap-3 cursor-pointer">
+              <p className="flex gap-3 cursor-pointer text-lg text-gray-500 font-medium">
                 <a
                   onClick={() => {
                     handleItemToCart(userId, _id);
@@ -109,7 +109,7 @@ export default function ShoppingCartItem({
                 </a>
               </p>
             ) : (
-              <p className="flex gap-3 pt-2 md:pt-0 cursor-pointer">
+              <p className="flex gap-3 pt-2 md:pt-0 cursor-pointer text-lg text-gray-500 font-medium">
                 <a
                   onClick={() => {
                     deleteItemFromShoppingCart(userId, _id);
@@ -130,7 +130,7 @@ export default function ShoppingCartItem({
           </div>
         </div>
       </div>
-      <h3 className="bg-raw-sienna-50 text-xl w-full text-right pr-4 lg:max-w-screen-lg">
+      <h3 className="bg-raw-sienna-50 text-xl font-medium w-full text-right pr-4 lg:max-w-screen-lg">
         ${price}
       </h3>
 

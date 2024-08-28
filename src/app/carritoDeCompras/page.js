@@ -6,13 +6,20 @@ import { useUserContext } from "@/components/UserContext/UserContext";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { deleteProductFromShoppingCart } from "@/api/users/productLists/routes";
+import { newPaymentIntent } from "@/api/orders/routes";
 
 export default function CarritoDeCompras() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const { user, shoppingCartDetails, wishListDetails, updateShoppingCart } =
-    useUserContext();
+  const {
+    user,
+    userEmail,
+    shoppingCartDetails,
+    wishListDetails,
+    updateShoppingCart,
+  } = useUserContext();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [paymentIntent, setPaymentIntent] = useState();
   const [wishList, setWishList] = useState([]);
 
   const [wishListItems, setWishListItems] = useState(wishListDetails || []);
@@ -23,7 +30,34 @@ export default function CarritoDeCompras() {
       setCartItems(shoppingCartDetails);
     }
   }, [shoppingCartDetails, setCartItems]);
+  const userId = user.id;
+  const items = shoppingCartDetails.map((product) => ({
+    id: product.id,
+    quantity: product.quantity,
+  }));
+  useEffect(() => {
+    const fetchPaymentIntent = async () => {
+      const paymentData = {
+        amount: totalPrice,
+        items,
+        userId,
+        userEmail,
+      };
 
+      const data = await newPaymentIntent(paymentData);
+
+      // if (data?.clientSecret) {
+      //   setClientSecret(data.clientSecret);
+      // }
+      if (data) {
+        setPaymentIntent(data.paymentIntentId);
+      }
+    };
+
+    if (totalPrice && items.length > 0 && userId) {
+      fetchPaymentIntent();
+    }
+  }, [totalPrice, items, userId, userEmail]);
   const deleteItemFromShoppingCart = async (userId, productId) => {
     try {
       await deleteProductFromShoppingCart(userId, productId); // Espera a que la promesa se resuelva
@@ -76,9 +110,8 @@ export default function CarritoDeCompras() {
 
   const handlePaymentClick = async () => {
     await updateShoppingCart();
-    console.log("Cart items before proceeding to payment:", cartItems);
 
-    router.push(`/payment?amount=${totalPrice}`);
+    router.push(`/payment?paymentIntentId=${paymentIntent}&fromCart=true`);
   };
 
   useEffect(() => {
@@ -113,7 +146,7 @@ export default function CarritoDeCompras() {
   return (
     <div className="flex flex-col   lg:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto ">
       <div className=" flex flex-col pt-4 md:pt-10 pb-8 mx-full lg:max-w-screen-lg mx-auto">
-        <h3 className="text-2xl">Carrito de Compras</h3>
+        <h3 className="text-4xl font-semibold">Carrito de Compras</h3>
         {cartItems.length === 0 ? (
           <p className="pb-4 md:pb-8">
             Aún no has guardado nada en tu Carrito de Compras{" "}

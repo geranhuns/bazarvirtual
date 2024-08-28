@@ -75,7 +75,7 @@ export default function ListaDeDeseos() {
   return (
     <div className="flex flex-col  md:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto">
       <div className=" flex flex-col pt-4 md:pt-10 pb-8 px-4 mx-auto">
-        <h3 className="text-2xl">Lista de Deseos</h3>
+        <h3 className="text-4xl font-semibold">Lista de Deseos</h3>
         {wishListItems.length === 0 ? (
           <p className="pb-4 md:pb-8">
             Aún no has guardado nada en tu lista de deseos{" "}
