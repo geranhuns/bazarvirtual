@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form"
 import InputNewEvent from "./InputsNewEvent";
 import { MdClose } from "react-icons/md";
+import { IoCloseOutline } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { createDateFetch, updateDateFetch, dateById, cancelDate } from "@/api/bazar/routes";
 import Swal from 'sweetalert2'
@@ -141,7 +142,7 @@ function FormNewDate(props) {
             <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
 
                 <div className="bg-customGreen w-7/12  mt-8 flex flex-col   mx-auto   max-sm:w-full pb-16 rounded-sm">
-                    <button className="bg-raw-sienna-500 flex justify-center self-start rounded-full  mt-2 ml-2" onClick={() => { setOpen(false), setOpenEdDate(false) }} ><MdClose className="text-2xl w-8 h-8 " /></button>
+                    <button className="bg-raw-sienna-500 flex justify-center self-start rounded-full  mt-2 ml-2" onClick={() => { setOpen(false), setOpenEdDate(false) }} ><IoCloseOutline className="text-2xl rounded full" /></button>
                     <form onSubmit={handleSubmit(onSubmit)} className=" w-11/12 h-5/6 mx-auto rounded-sm flex flex-col items-center text-customGreen px-2  pb-10">
                         <div className="  flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
                             {open && <h3 className="text-2xl text-white p-1">Nueva fecha de bazar</h3>}
