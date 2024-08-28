@@ -80,7 +80,7 @@ export const markProductAsDelivered = async (purchaseId, productId) => {
 
 export const newPaymentIntent = async (purchaseData) => {
   const { amount, items, userId, userEmail } = purchaseData;
-
+  console.log(items);
   if (amount && items.length > 0 && userId) {
     try {
       const response = await fetch(`${ORDERS_URL}/create-payment-intent`, {
@@ -127,6 +127,19 @@ export const getPaymentIntent = async (paymentIntentId) => {
     return data.metadata;
   } catch (error) {
     console.error("Error fetching PaymentIntent metadata:", error.message);
+    return null;
+  }
+};
+
+export const fetchClientSecret = async (paymentIntentId) => {
+  try {
+    const response = await fetch(
+      `${ORDERS_URL}/getClientSecret?paymentIntentId=${paymentIntentId}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching clientSecret:", error);
     return null;
   }
 };

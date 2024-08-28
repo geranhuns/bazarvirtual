@@ -14,6 +14,7 @@ import {
   addOneToWishList,
   addOneToShoppingCart,
 } from "@/api/users/productLists/routes";
+import { newPaymentIntent } from "@/api/orders/routes";
 
 export default function VistaDetalladaProducto() {
   const [wishList, setWishList] = useState([]);
@@ -27,9 +28,10 @@ export default function VistaDetalladaProducto() {
   const [price, setPrice] = useState();
   const [amount, setAmount] = useState();
   const [quantity, setQuantity] = useState(1);
+  const [paymentIntent, setPaymentIntent] = useState();
 
   const options = [1, 2, 3, 4, 5, 6];
-  const { user, setUser } = useUserContext();
+  const { user, setUser, userEmail } = useUserContext();
 
   const handleDropdown = (quantity) => {
     setQuantity(quantity); // Pasar el valor como string
@@ -112,6 +114,30 @@ export default function VistaDetalladaProducto() {
     getProduct();
   }, []);
 
+  useEffect(() => {
+    const fetchPaymentIntent = async () => {
+      if (amount > 0 && quantity > 0 && user.id) {
+        const paymentData = {
+          amount,
+          items: [{ id: id, quantity: quantity }],
+          userId: user.id,
+          userEmail,
+        };
+
+        try {
+          const data = await newPaymentIntent(paymentData);
+          if (data) {
+            console.log(data);
+            setPaymentIntent(data.paymentIntentId);
+          }
+        } catch (error) {
+          console.error("Error fetching payment intent:", error);
+        }
+      }
+    };
+
+    fetchPaymentIntent();
+  }, [amount, quantity, id, user.id, userEmail]);
   const handleBuyNow = () => {
     if (!user.role) {
       Swal.fire({
@@ -126,7 +152,7 @@ export default function VistaDetalladaProducto() {
     } else if (user.role === "cliente") {
       if (amount > 0) {
         router.push(
-          `/payment?amount=${amount}&productId=${id}&quantity=${quantity}`
+          `/payment?paymentIntentId=${paymentIntent}&productId=${id}`
         );
       } else {
         console.error("Amount must be a positive number");
