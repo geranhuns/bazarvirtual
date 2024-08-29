@@ -25,7 +25,7 @@ export default function BazarSmallView({ className, item }) {
           alt="logo"
         />
       </div>
-      <div className=" text-center text-xs w-24">
+      <div className=" text-center w-24">
         <h3 className="font-bold">{obtenerFechaFormateada(date)}</h3>
         <h3 className="font-bold"> {time}</h3>
       </div>

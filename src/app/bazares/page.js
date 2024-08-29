@@ -21,7 +21,7 @@ export default function Bazares() {
   if (loading) return <div>Cargando...</div>;
   return (
     <>
-      <div className="    mx-auto  lg:max-w-screen-xl">
+      <div className="mx-auto  lg:max-w-screen-xl px-4">
         <div className="flex flex-col   mx-auto items-center justify-center">
           <h2 className="self-center pt-14 pb-6 text-4xl font-semibold text-patina-900">
             Bazares Afiliados
