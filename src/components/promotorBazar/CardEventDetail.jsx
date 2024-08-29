@@ -1,7 +1,10 @@
 import { React, useState } from "react";
 import { MdEdit } from "react-icons/md";
+import { usePathname, useSearchParams } from "next/navigation";
 
 function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, marcasCurso }) {
+    const pathname = usePathname()
+    const searchParams = useSearchParams();
 
     const obtenerFechaFormateada = (fechaCompleta) => {
         if (!fechaCompleta) return "";
@@ -27,7 +30,14 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                         // setIsParticipant(false)
                         setDataDate({ events, place, time, marcasCurso });
                         setIdDate(dateID);
-
+                        if (pathname) {
+                            const newSearchParams = new URLSearchParams(searchParams);
+                            newSearchParams.set('date', dateID);
+                            const newUrl = `${pathname}?${newSearchParams.toString()}`;
+                            window.history.pushState({}, '', newUrl);
+                        } else {
+                            console.error("pathname is not available");
+                        }
                     }}
                 >
                     <h5 className="text-base font-medium w-full">

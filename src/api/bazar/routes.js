@@ -145,7 +145,6 @@ export const updateProfileBazar = async (userdata, userId) => {
 };
 
 export const createDateFetch = async (data) => {
-  console.log(data);
   try {
     const response = await fetch(`${BAZAR_URL}/createDate`, {
       method: "POST",

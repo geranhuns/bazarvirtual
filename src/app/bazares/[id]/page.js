@@ -17,6 +17,8 @@ import {
 } from "@/api/bazar/routes";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 import { useUserContext } from "@/components/UserContext/UserContext";
+import Swal from "sweetalert2";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 function PromotorVistaId() {
   const [open, setOpen] = useState(false);
@@ -29,6 +31,9 @@ function PromotorVistaId() {
   const [editButtonsActive, setEditButtonsActive] = useState(false);
   const [isParticipant, setIsParticipant] = useState(false);
   const [currentDate, setCurrentDate] = useState(""); //almacena la fecha del dia
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   const redesSociales = dataUser.socialNetworks;
   const params = useParams();
@@ -85,6 +90,18 @@ function PromotorVistaId() {
     }
   }, [id]);
 
+  const handleNewDates = () => {
+    if (datesBazar.length === 3) {
+      Swal.fire({
+        title: "¡Alcanzaste el número máximo de fechas!",
+        text: "Espera a que culmine la fecha más próxima o elimina alguna.",
+        icon: "warning",
+      });
+    } else {
+      setOpen(!open);
+    }
+  };
+
   useEffect(() => {
     fetchData();
     fetchDataDates();
@@ -96,18 +113,38 @@ function PromotorVistaId() {
   }, []);
 
   useEffect(() => {
-    if (datesBazar.length > 0) {
-      const { _id, events, place, time, marcasCurso } = datesBazar[0];
-      setDataDate({ _id, events, place, time, marcasCurso });
-      setIdDate(datesBazar[0]._id);
-    }
+    const dateParam = new URLSearchParams(window.location.search).get("date");
 
-    const filteredDates = filterPastDates(datesBazar);
-    if (JSON.stringify(filteredDates) !== JSON.stringify(datesBazar)) {
-      setDatesBazar(filteredDates);
-      //probar aqui borrar dataDate
+    if (dateParam) {
+      const selectedDate = datesBazar.find((date) => date._id === dateParam);
+      if (selectedDate) {
+        setDataDate(selectedDate);
+        setIdDate(selectedDate._id);
+      }
+    } else if (datesBazar.length > 0) {
+      const now = new Date();
+      const closestDate = datesBazar.reduce((closest, current) => {
+        const currentDate = new Date(current.date);
+        if (
+          closest === null ||
+          Math.abs(currentDate - now) < Math.abs(new Date(closest.date) - now)
+        ) {
+          return current;
+        }
+        return closest;
+      }, null);
+
+      if (closestDate) {
+        setDataDate(closestDate);
+        setIdDate(closestDate._id);
+
+        const newSearchParams = new URLSearchParams(window.location.search);
+        newSearchParams.set("date", closestDate._id);
+        const newUrl = `${pathname}?${newSearchParams.toString()}`;
+        window.history.replaceState({}, "", newUrl);
+      }
     }
-  }, [datesBazar]);
+  }, [datesBazar, pathname]);
 
   useEffect(() => {
     const nameMarca = localStorage.getItem("brandUsername");
@@ -143,7 +180,7 @@ function PromotorVistaId() {
       )}
 
       <div className="bg-patina-500  w-10/12 flex  items-center justify-around  p-10 mx-auto flex-col lg:flex-row my-10 rounded-xl drop-shadow-lg ">
-        <div className=" w-72 rounded-full  h-72 flex justify-center mb-10 lg:mb-0 drop-shadow-lg">
+        <div className=" sm:w-72 rounded-full  sm:h-72 flex justify-center mb-10 lg:mb-0 drop-shadow-lg">
           <img
             className=" object-cover w-full rounded-full"
             src={dataUser.profilePicture}
@@ -238,7 +275,7 @@ function PromotorVistaId() {
                 {editButtonsActive && (
                   <button
                     className="bg-patina-500 h-full rounded-lg p-2"
-                    onClick={() => setOpen(!open)}
+                    onClick={() => handleNewDates()}
                   >
                     <FaPlus className="text-raw-sienna-50 text-2xl" />
                   </button>
@@ -266,18 +303,18 @@ function PromotorVistaId() {
       {(id === user.id || dataDate.events?.length > 0) && (
         <div className="flex w-11/12  pt-8 pb-16  lg:max-w-screen-xl overflow-auto mx-auto  drop-shadow-lg ">
           <div className="bg-patina-900 gap-2 rounded-md p-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 ">
-            <h3 className="text-4xl font-semibold pt-8 text-raw-sienna-50">
+            <h3 className="text-4xl font-semibold pt-8 text-raw-sienna-50 text-center">
               Eventos especiales
             </h3>
             {/* //poner un state con el lugar para precentarlo aqui */}
 
-            <div className="grid grid-cols-1 w-full items-center justify-center px-8 pt-8">
+            <div className="grid grid-cols-1 w-full items-center justify-center md:px-8 pt-8">
               {(!dataDate.events || dataDate.events?.length === 0) && (
                 <div className="flex flex-col items-center justify-center text-center text-pretty space-y-4">
                   <p className="text-raw-sienna-300 font-semibold text-2xl">
                     ¡Crea un bazar inolvidable!
                   </p>
-                  <p className="text-raw-sienna-50 w-10/12 ">
+                  <p className="text-raw-sienna-50 md:w-10/12 ">
                     Música en vivo, talleres creativos y demostraciones
                     artísticas harán que tu bazar sea el destino favorito de los
                     amantes de lo artesanal y lo original.

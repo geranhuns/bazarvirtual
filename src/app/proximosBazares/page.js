@@ -19,7 +19,7 @@ export default function ProximosBazares() {
   return (
     <>
       <div className="mx-auto  lg:max-w-screen-xl  px-4">
-        <div className="flex flex-col">
+        <div className="flex flex-col lg:max-w-screen-xl">
           <h2 className="self-center pt-14 pb-6 text-3xl font-semibold text-patina-900">
             Próximas Fechas
           </h2>

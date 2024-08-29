@@ -111,8 +111,8 @@ function FormNewDate(props) {
                 </button>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 h-5/6 mx-auto rounded-sm flex flex-col items-center text-customGreen px-2 pb-10">
                     <div className="flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
-                        <h3 className="text-2xl text-white p-1">{openEdDate ? "Editar fecha de bazar" : "Nueva fecha de bazar"}</h3>
-                        <label className="text-lg text-white">Lugar</label>
+                        <h3 className="text-2xl text-raw-sienna-50 p-1">{openEdDate ? "Editar fecha de bazar" : "Nueva fecha de bazar"}</h3>
+                        <label className="text-lg text-raw-sienna-50">Lugar</label>
                         <input
                             className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
                             type="text"
@@ -122,9 +122,9 @@ function FormNewDate(props) {
                         {errors.place && <label className="text-red-700 text-xs">{errors.place.message}</label>}
                     </div>
 
-                    <div className="w-full flex px-2">
+                    <div className="w-full flex px-2 gap-4">
                         <div className="flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
-                            <label className="text-lg text-white">Fecha</label>
+                            <label className="text-lg text-raw-sienna-50">Fecha</label>
                             <input
                                 className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
                                 type="date"
@@ -135,7 +135,7 @@ function FormNewDate(props) {
                             {errors.date && <label className="text-red-700 text-xs">{errors.date.message}</label>}
                         </div>
                         <div className="flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
-                            <label className="text-lg text-white">Hora</label>
+                            <label className="text-lg text-raw-sienna-50">Hora</label>
                             <input
                                 className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
                                 type="time"
@@ -146,11 +146,11 @@ function FormNewDate(props) {
                         </div>
                     </div>
 
-                    <h3 className="text-2xl text-white p-1 mt-10">Eventos especiales</h3>
+                    <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10">Eventos especiales</h3>
                     {openEdDate && dataDate.events && dataDate.events.map((event, index) => (
                         <div key={index} className="w-11/12 flex mr-auto justify-around mt-2">
                             <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-white">Evento</label>
+                                <label className="text-lg text-raw-sienna-50">Evento</label>
                                 <input
                                     className="p-1 rounded-sm text-center"
                                     defaultValue={event.eventName}
@@ -160,7 +160,7 @@ function FormNewDate(props) {
                             </div>
 
                             <div className="flex flex-col w-5/12 text-center">
-                                <label className="text-lg text-white">Descripción</label>
+                                <label className="text-lg text-raw-sienna-50">Descripción</label>
                                 <input
                                     className="p-1 rounded-sm text-center"
                                     defaultValue={event.description}
@@ -170,7 +170,7 @@ function FormNewDate(props) {
                             </div>
 
                             <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-white">Horario</label>
+                                <label className="text-lg text-raw-sienna-50">Horario</label>
                                 <input
                                     className="p-1 rounded-sm text-center"
                                     type="time"
@@ -183,9 +183,9 @@ function FormNewDate(props) {
                     ))}
 
                     {extraEvents.map((event, index) => (
-                        <div key={index} className="w-11/12 flex mr-auto justify-around mt-2">
+                        <div key={index} className="w-11/12 flex mr-auto justify-around mt-2 gap-2">
                             <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-white">Evento</label>
+                                <label className="text-lg text-raw-sienna-50">Evento</label>
                                 <input
                                     className="p-1 rounded-sm text-center"
                                     name="eventName"
@@ -195,7 +195,7 @@ function FormNewDate(props) {
                             </div>
 
                             <div className="flex flex-col w-5/12 text-center">
-                                <label className="text-lg text-white">Descripción</label>
+                                <label className="text-lg text-raw-sienna-50">Descripción</label>
                                 <input
                                     className="p-1 rounded-sm text-center"
                                     name="description"
@@ -205,7 +205,7 @@ function FormNewDate(props) {
                             </div>
 
                             <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-white">Horario</label>
+                                <label className="text-lg text-raw-sienna-50">Horario</label>
                                 <input
                                     className="p-1 rounded-sm text-center"
                                     type="time"
@@ -225,19 +225,19 @@ function FormNewDate(props) {
                     ))}
 
                     <button
-                        className="bg-raw-sienna-500 text-white mt-2 p-1 rounded-md w-3/12 mx-auto"
+                        className="bg-raw-sienna-500 text-raw-sienna-900 mt-2 p-1 px-3 rounded-md  mx-auto"
                         type="button"
                         onClick={addEvent}
                     >
                         Agregar evento
                     </button>
 
-                    <div className="mt-10 flex justify-around w-full">
-                        <button className="bg-raw-sienna-500 text-white text-lg rounded-md p-1 w-3/12" type="submit">
+                    <div className="mt-10 flex justify-around w-full gap-4">
+                        <button className="bg-raw-sienna-500 text-raw-sienna-50 text-lg rounded-md p-1 px-3" type="submit">
                             {openEdDate ? "Guardar cambios" : "Guardar fecha"}
                         </button>
                         {openEdDate && (
-                            <button className="bg-raw-sienna-500 text-white text-lg rounded-md p-1 w-3/12" type="button" onClick={handleDeleteDate}>
+                            <button className="bg-raw-sienna-500 text-raw-sienna-50 text-lg rounded-md p-1 px-3" type="button" onClick={handleDeleteDate}>
                                 Cancelar evento
                             </button>
                         )}

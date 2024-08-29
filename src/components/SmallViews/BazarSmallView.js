@@ -13,7 +13,7 @@ export default function BazarSmallView({ className, item }) {
 
   return (
     <a
-      href={`bazares/${createdBy._id}`}
+      href={`bazares/${createdBy._id}?date=${item._id}`}
       className={`flex flex-col lg:flex-row  gap-2 items-center ${className}`}
     >
       <div className=" h-20 w-20  rounded-full">
