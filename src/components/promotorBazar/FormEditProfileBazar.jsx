@@ -36,16 +36,7 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
     }
   };
 
-  // const handleImagen = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       handleSetValue(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
+ 
   const handleImagen = (e) => {
     const file = e.target.files[0];
     const maxSizeInMB = 2; // Tamaño máximo permitido en MB
@@ -149,10 +140,11 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
   return (
     <>
       <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh lg:max-w-screen-xl overflow-auto mx-auto backdrop-blur-md mt-16 px-1 ">
-
-        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-4 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-8 pb-10"  >
-          <button className="bg-raw-sienna-500 p-1 mt-3 flex justify-center items-center self-start  rounded-full " onClick={() => setActive(!active && setPreview(null))} ><IoCloseOutline className="text-2xl rounded full" /></button>
-          <div className=" w-11/12 h-full flex flex-col justify-start items-center max-sm:w-full">
+       
+        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-2 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-4 pb-10"  >
+          <button className=" bg-raw-sienna-500 p-1 mt-1 flex justify-center items-center self-start  rounded-full " onClick={() => setActive(!active && setPreview(null))} ><IoCloseOutline className="text-2xl rounded full" /></button>
+          <h3 className="text-2xl text-white ">Editar perfil </h3>
+          <div className=" w-11/12 h-full flex flex-col justify-start items-center max-sm:w-full  ">
             <div className="  w-full h-2/6 p-15 flex items-center max-sm:rounded-lg ">
               <div className="  w-36 h-36 mx-auto rounded-full relative   ">
                 <img className=" rounded-full object-cover" src={preview ? preview : dataUser.profilePicture} alt="" />
@@ -166,12 +158,12 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
             <div className="  w-10/12 h-4/6 flex flex-col items-center justify-start p-2 max-sm:w-full">
               <div className="  w-full h-2/6  flex justify-around items-center max-sm:flex-col">
                 <div className="  flex flex-col items-center w-1/2 max-sm:w-10/12">
-                  <label className="text-lg text-white  " htmlFor="">Bazar name</label>
-                  <input className="w-11/12 p-1 rounded-xl text-center max-sm:w-full" type="text" defaultValue={dataUser.username}
+                  <label className="text-lg text-white  " htmlFor="">Nombre bazar</label>
+                  <input disabled className="w-11/12 p-1 rounded-xl text-center max-sm:w-full " type="text" defaultValue={dataUser.username}
                     {...register("username")} />
                 </div>
                 <div className="  flex flex-col items-center w-1/2 max-sm:w-10/12 ">
-                  <label className="text-lg text-white " htmlFor="">wep page</label>
+                  <label className="text-lg text-white " htmlFor="">Pagina Web</label>
                   <input className="w-11/12 p-1 rounded-xl  text-center max-sm:w-full" type="text" defaultValue={dataUser.webPage}
                     {...register("webPage")} />
                 </div>

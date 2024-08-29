@@ -158,9 +158,9 @@ export default function NewProductForm({
           <div className="w-12/12 lg:w-1/3">
 
             <div className="  w-full h-5/6 p-15 flex items-center max-sm:rounded-lg ">
-              <div className="  w-36 h-36 mx-auto rounded-full relative border overflow-hidden ">
-                <img className="w-full h-full rounded-full object-cover" src={previewImagen ? previewImagen : 'https://cajasgraf.com.ar/productos/images/df.jpg'} alt="" />
-                <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <div className="  w-36 h-36 mx-auto rounded-lg relative border overflow-hidden ">
+                <img className="w-full h-full rounded-lg object-cover" src={previewImagen ? previewImagen : 'https://cajasgraf.com.ar/productos/images/df.jpg'} alt="" />
+                <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
                   <label className="text-white text-lg cursor-pointer text-center" onClick={handleButtonClick} >
                      + Imagen del producto
                   </label>
