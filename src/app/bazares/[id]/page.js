@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { FaFacebookF } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { IoLogoTiktok } from "react-icons/io5";
-import { CiSquarePlus } from "react-icons/ci";
+import { FaPlus } from "react-icons/fa6";
 import Carrucel from "@/components/promotorBazar/Carrucel";
 import FormNewDate from "@/components/promotorBazar/FormNewDate";
 import CardEventDetail from "@/components/promotorBazar/CardEventDetail";
@@ -208,10 +208,12 @@ function PromotorVistaId() {
             </div>
           </div>
           {(id === user.id || datesBazar.length !== 0) && (
-            <div className="bg-patina-900 rounded-md w-full flex flex-col text-center items-center text-patina-900 gap-2 p-4 drop-shadow-lg">
+            <div className="bg-patina-900 rounded-md w-full flex flex-col text-center items-center text-patina-900 gap-2 p-4 drop-shadow-lg  space-y-4">
               {id === user.id && datesBazar.length === 0 && (
-                <h3 className="text-raw-sienna-50 pb-4">
-                  ¡Haz click en el + para agregar tu siguiente fecha!{" "}
+                <h3 className="text-raw-sienna-50 text-lg">
+                  ¡Haz click en el símbolo + para agregar tu siguiente fecha!
+                  <br />
+                  <span> Registra hasta 3 fechas próximas.</span>
                 </h3>
               )}
               <div className="flex w-full justify-center gap-3 max-sm:flex-col max-sm:items-center ">
@@ -234,15 +236,15 @@ function PromotorVistaId() {
                 ))}
                 {editButtonsActive && (
                   <button
-                    className="bg-patina-500 h-10 rounded-lg "
+                    className="bg-patina-500 h-full rounded-lg p-2"
                     onClick={() => setOpen(!open)}
                   >
-                    <CiSquarePlus className="text-raw-sienna-50 w-full h-full" />
+                    <FaPlus className="text-raw-sienna-50 text-2xl" />
                   </button>
                 )}
               </div>
               {datesBazar.length > 0 && (
-                <div className="flex flex-col text-patina-100 w-full text-xl ">
+                <div className="flex flex-col text-patina-100 w-full text-xl space-y-4">
                   <h3>Lugar: {dataDate.place}</h3>
                   <h3>Hora: {dataDate.time} hrs</h3>
                 </div>
@@ -261,7 +263,7 @@ function PromotorVistaId() {
         />
       )}
       {(id === user.id || dataDate.events?.length > 0) && (
-        <div className="flex w-11/12  pt-8 pb-16  lg:max-w-screen-xl overflow-auto mx-auto  drop-shadow-lg">
+        <div className="flex w-11/12  pt-8 pb-16  lg:max-w-screen-xl overflow-auto mx-auto  drop-shadow-lg ">
           <div className="bg-patina-900 gap-2 rounded-md p-10 mx-auto  w-10/12 h-5/6 flex flex-col  items-center justify-around  max-md:w-11/12 max-md:flex-col max-sm:w-11/12 ">
             <h3 className="text-4xl font-semibold pt-8 text-raw-sienna-50">
               Eventos especiales
@@ -269,18 +271,19 @@ function PromotorVistaId() {
             {/* //poner un state con el lugar para precentarlo aqui */}
 
             <div className="grid grid-cols-1 w-full items-center justify-center px-8 pt-8">
-              {!idDate && (
-                <p className="text-raw-sienna-50 flex justify-center text-pretty ">
-                  ¡Crea un bazar inolvidable! Los eventos especiales con
-                  artistas son la clave para ofrecer a tus clientes una
-                  experiencia de compra única y divertida. Música en vivo,
-                  talleres creativos y demostraciones artísticas harán que tu
-                  bazar sea el destino favorito de los amantes de lo artesanal y
-                  lo original. Aumenta el valor percibido de tus productos y
-                  crea una comunidad alrededor de tu marca.{" "}
-                </p>
+              {(!dataDate.events || dataDate.events?.length === 0) && (
+                <div className="flex flex-col items-center justify-center text-center text-pretty space-y-4">
+                  <p className="text-raw-sienna-300 font-semibold text-2xl">
+                    ¡Crea un bazar inolvidable!
+                  </p>
+                  <p className="text-raw-sienna-50 w-10/12 ">
+                    Música en vivo, talleres creativos y demostraciones
+                    artísticas harán que tu bazar sea el destino favorito de los
+                    amantes de lo artesanal y lo original.
+                  </p>
+                </div>
               )}
-              <div className="flex justify-around items-center max-sm:flex-col drop-shadow-lg">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 drop-shadow-lg">
                 {dataDate &&
                   Array.isArray(dataDate.events) &&
                   dataDate.events.map((date) => (

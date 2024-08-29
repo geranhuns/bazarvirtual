@@ -1,6 +1,7 @@
 
 import React from "react";
-import { MdDeleteSweep } from "react-icons/md";
+import { FaTrash } from "react-icons/fa6";
+
 
 import { deleteEspecialEvent } from "@/api/bazar/routes";
 
@@ -17,7 +18,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
 
 
     return (
-        <div className="bg-patina-500 w-5/12 h-full rounded-lg flex   justify-around items-center my-1 mx-auto max-sm:w-8/12  ">
+        <div className="bg-patina-500 w-full h-full rounded-lg flex   justify-around items-center my-1 mx-auto   ">
 
             <div className="  w-9/12 h-10/12 flex flex-col text-white items-center justify-around text-center max-sm:w-9/12 ">
                 <span className="text-2xl font-semibold flex justify-around items-center max-md:text-lg">{eventName}</span>
@@ -32,7 +33,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
                             className=" rounded-lg p-2"
                             onClick={handleDelete}
                         >
-                            <MdDeleteSweep className=" w-11  h-7 hover:w-11 hover:h-8 p-1" />
+                            <FaTrash className=" w-11  h-7 hover:w-11 hover:h-8 p-1" />
 
 
                         </button>

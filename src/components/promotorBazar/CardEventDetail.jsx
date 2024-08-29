@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { FaRegEdit } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 
 function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, marcasCurso }) {
 
@@ -20,9 +20,9 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                 <span
                     key={dateID}
                     className={`flex flex-row  ${idDate === dateID
-                        ? "bg-raw-sienna-400 text-raw-sienna-50 justify-center"
+                        ? "bg-raw-sienna-500 text-raw-sienna-50 justify-center"
                         : "bg-raw-sienna-200"
-                        } w-full items-start justify-center cursor-pointer rounded-lg p-1 border  max-sm:items-center pl-2`}
+                        } w-full items-start justify-center cursor-pointer rounded-lg max-sm:items-center p-2 text-patina-900`}
                     onClick={() => {
                         // setIsParticipant(false)
                         setDataDate({ events, place, time, marcasCurso });
@@ -41,7 +41,7 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                                 setOpenEdDate(!openEdDate);
                             }}
                         >
-                            <FaRegEdit className="w-6 h-6" />
+                            <MdEdit className="w-6 h-6" />
                         </button>
                     )}
                 </span>
