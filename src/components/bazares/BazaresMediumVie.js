@@ -41,7 +41,7 @@ export default function BazarMediumView({ className, item, createdBy }) {
     >
       <div className="w-36 h-36">
         <img
-          className="object-cover h-full rounded-full"
+          className="object-cover h-full w-full rounded-full"
           src={createdBy?.profilePicture || item.profilePicture}
           alt={username}
         />

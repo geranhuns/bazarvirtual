@@ -180,9 +180,9 @@ function PromotorVistaId() {
       )}
 
       <div className="bg-patina-500  w-10/12 flex  items-center justify-around  p-10 mx-auto flex-col lg:flex-row my-10 rounded-xl drop-shadow-lg ">
-        <div className=" sm:w-72 rounded-full  sm:h-72 flex justify-center mb-10 lg:mb-0 drop-shadow-lg">
+        <div className=" w-52 h-52 md:w-72 md:h-72 rounded-full overflow-hidden flex justify-center mb-10 lg:mb-0 drop-shadow-lg">
           <img
-            className=" object-cover w-full rounded-full"
+            className="object-cover w-full h-full"
             src={dataUser.profilePicture}
             alt=""
           />
@@ -291,7 +291,7 @@ function PromotorVistaId() {
           )}
         </div>
       </div>
-      {(id === user.id || idDate) && (
+      {(id === user.id || user.role === "marca") && (
         <Carrucel
           idDate={idDate}
           marcasCurso={dataDate.marcasCurso}

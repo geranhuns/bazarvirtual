@@ -150,7 +150,6 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
           </>
         )}
 
-
         <div className=" flex  flex-col items-center w-11/12 h-5/6 mx-auto mt-2   ">
           {newMarcasCurso && newMarcasCurso.length > 0 ?
             (
@@ -165,7 +164,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
                 }
               </Slider>
             ) : (
-              <EmptyCard idDate={idDate} />
+              <EmptyCard idDate={idDate} showMessage={showMessage} />
             )
 
           }

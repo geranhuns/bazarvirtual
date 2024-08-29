@@ -22,7 +22,7 @@ export default function Home() {
     <div className="flex flex-col    mx-auto  lg:max-w-screen-xl overflow-auto ">
       <div className="flex flex-col w-full mx-auto lg:max-w-screen-xl items-center">
         <ProximosBazares className="" />
-        <h2 className="pt-14 pb-6 text-4xl font-semibold text-patina-900">
+        <h2 className="pt-14 pb-6 text-4xl font-semibold text-patina-900 text-center">
           Productos destacados
         </h2>
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
