@@ -284,7 +284,7 @@ function PromotorVistaId() {
                   </p>
                 </div>
               )}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 drop-shadow-lg">
+              <div className="grid grid-cols-1 gap-4 drop-shadow-lg">
                 {dataDate &&
                   Array.isArray(dataDate.events) &&
                   dataDate.events.map((date) => (

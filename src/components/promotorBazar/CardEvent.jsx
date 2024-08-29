@@ -26,22 +26,22 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
                 <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">{timeEvent}</span>
             </div>
 
-            {editButtonsActive && eventCount.length > 1 &&
-                <div className="  w-2/12 h-full flex justify-center items-end text-gray-300 hover:text-red-400  p-1">
-                    {Array.isArray(eventCount) && eventCount.length != 1 && (
-                        <button
-                            className=" rounded-lg p-2"
-                            onClick={handleDelete}
-                        >
-                            <FaTrash className=" w-11  h-7 hover:w-11 hover:h-8 p-1" />
+            {/* {editButtonsActive && eventCount.length > 1 && */}
+            <div className="  w-2/12 h-full flex justify-center items-center text-gray-300 hover:text-red-400  p-1">
+                {/* {Array.isArray(eventCount) && eventCount.length != 1 && ( */}
+                <button
+                    className=" rounded-lg p-2"
+                    onClick={handleDelete}
+                >
+                    <FaTrash className=" w-11  h-7 hover:w-11 hover:h-8 p-1" />
 
 
-                        </button>
-                    )
-                    }
+                </button>
+                {/* )
+                    } */}
 
-                </div>
-            }
+            </div>
+            {/* } */}
         </div>
     );
 }
