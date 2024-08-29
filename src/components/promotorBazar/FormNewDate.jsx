@@ -1,31 +1,39 @@
 "use client"
-import React from "react";
-import { useForm } from "react-hook-form"
-import InputNewEvent from "./InputsNewEvent";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { MdClose } from "react-icons/md";
-import { useState, useEffect } from "react";
+import { FaTrash } from "react-icons/fa6";
+
+import Swal from 'sweetalert2';
 import { createDateFetch, updateDateFetch, dateById, cancelDate } from "@/api/bazar/routes";
-import Swal from 'sweetalert2'
 
 function FormNewDate(props) {
     const { setOpen, open, _idUser, fetchDataDates, datesBazar, openEdDate, setOpenEdDate, idDate, updateSelectDate } = props;
-    const [currentDate, setCurrentDate] = useState(''); //state para precedente de tiempo
-    const [showExtraEvent, setShowExtraEvent] = useState(false); //state para monitorear si extra event es true o false
-    const [dateCount, setDateCount] = useState(0) //estado que almacena el numero de fechas que hay en curso
-    const [dataDate, setDataDate] = useState({}) //estado qu almacena los datos de la fecha  editar, se llena cuando se hace el fetch
+    const [currentDate, setCurrentDate] = useState('');
+    const [dateCount, setDateCount] = useState(0);
+    const [dataDate, setDataDate] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const [extraEvents, setExtraEvents] = useState([]);
 
+    const addEvent = () => setExtraEvents([...extraEvents, { eventName: "", description: "", timeEvent: "" }]);
 
-    const toggleExtraEvent = () => {
-        setShowExtraEvent(!showExtraEvent);
+    const removeExtraEvent = (index) => {
+        const updatedEvents = extraEvents.filter((_, i) => i !== index);
+        setExtraEvents(updatedEvents);
+    };
+
+    const handleEventChange = (e, index) => {
+        const { name, value } = e.target;
+        const updatedEvents = [...extraEvents];
+        updatedEvents[index][name] = value;
+        setExtraEvents(updatedEvents);
     };
 
     const dataFecha = async (id) => {
         try {
             const dateData = await dateById(id);
             setDataDate(dateData.data);
-
         } catch (error) {
             console.error('Error al obtener datos de la fecha:', error);
         } finally {
@@ -34,245 +42,210 @@ function FormNewDate(props) {
     };
 
     const obtenerFechaFormateada = (fechaCompleta) => {
-        // Extrae la parte de la fecha 'yyyy-MM-dd' de la cadena 'yyyy-MM-ddTHH:mm:ss.sssZ'
         return fechaCompleta ? fechaCompleta.split('T')[0] : '';
     };
 
     useEffect(() => {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed.
-        const dd = String(today.getDate()).padStart(2, '0');
-
-        setCurrentDate(`${yyyy}-${mm}-${dd}`);
-        setDateCount(datesBazar.length)
-
-        // openEdDate ? dataFecha(idDate) : console.error("No se detecto el ID de la fecha"); //si el form se abrio con boton editar se hace el fetch para traer los datos de la fecha
-
-    }, []);
-
-
-
-
-    useEffect(() => {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-
-        setCurrentDate(`${yyyy}-${mm}-${dd}`);
-        setDataDate(datesBazar.length); // Actualiza dataDate con la longitud de datesBazar
+        const today = new Date().toISOString().split('T')[0];
+        setCurrentDate(today);
+        setDateCount(datesBazar.length);
 
         if (openEdDate) {
             dataFecha(idDate);
-        } else {
-
         }
     }, [datesBazar, openEdDate, idDate]);
-
-    useEffect(() => {
-        setDateCount(datesBazar.length); // Actualiza dateCount con la longitud de datesBazar
-    }, [datesBazar]);
 
     const onSubmit = async (data) => {
         const events = [
             { eventName: data.event, description: data.description, timeEvent: data.timeEvent },
+            ...extraEvents
         ];
-
-        if (data.eventExtra) {
-            events.push({
-                eventName: data.eventExtra,
-                description: data.descriptionExtraEvent,
-                timeEvent: data.timeEventExtra
-            });
-        }
 
         const dataAdjust = {
             createdBy: _idUser,
-            place: data.place,
+            place: data.place.trim(),
             date: data.date,
             time: data.time,
-            events: events,
+            events: events.filter(event => event.eventName || event.description || event.timeEvent),
         };
 
-
-
-        if (!openEdDate && dateCount < 3) {
-            try {
+        try {
+            if (openEdDate) {
+                await updateDateFetch(idDate, dataAdjust);
+                await fetchDataDates();
+                updateSelectDate([]);
+            } else if (dateCount < 3) {
                 await createDateFetch(dataAdjust);
                 await fetchDataDates();
-                setDateCount(dateCount + 1); // Incrementa dateCount después de crear la fecha con éxito
-            } catch (error) {
-                console.error("Error al crear fecha:", error);
+                setDateCount(dateCount + 1);
+            } else {
+                Swal.fire({
+                    title: "¡Alcanzaste el número máximo de fechas!",
+                    text: "Espera a que culmine la fecha más próxima o elimina alguna.",
+                    icon: "warning",
+                });
             }
-        } else if (!openEdDate && dateCount >= 3) {
-            Swal.fire({
-                title: "Alcanzaste el número máximo de fechas!",
-                text: "Espera a que culmine la fecha más próxima o elimina alguna.",
-                icon: "warning",
-            });
-        } else if (openEdDate) {
-            await updateDateFetch(idDate, dataAdjust)
-            await dataFecha(idDate)
-            await fetchDataDates();
-            updateSelectDate([])
+            reset();
+            setOpenEdDate(false);
+            setOpen(false);
+        } catch (error) {
+            console.error("Error al gestionar la fecha:", error);
         }
-        reset();
     };
 
-
-    if (openEdDate) {
-        if (isLoading) {
-
-            return <div>Loading...</div>;
-            //colocar alert
-        }
-    }
     const handleDeleteDate = async () => {
-        await cancelDate(idDate)
-        fetchDataDates()
-        setOpenEdDate(false)
+        await cancelDate(idDate);
+        fetchDataDates();
+        setOpenEdDate(false);
+    };
+
+    if (openEdDate && isLoading) {
+        return <div>Loading...</div>;
     }
-
-
 
     return (
-        <>
-            <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
+        <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
+            <div className="bg-customGreen w-7/12 mt-8 flex flex-col mx-auto max-sm:w-full rounded-sm">
+                <button className="bg-raw-sienna-500 flex justify-center self-start rounded-full mt-2 ml-2" onClick={() => { setOpen(false); setOpenEdDate(false); }}>
+                    <MdClose className="text-2xl w-8 h-8" />
+                </button>
+                <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 h-5/6 mx-auto rounded-sm flex flex-col items-center text-customGreen px-2 pb-10">
+                    <div className="flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
+                        <h3 className="text-2xl text-raw-sienna-50 p-1">{openEdDate ? "Editar fecha de bazar" : "Nueva fecha de bazar"}</h3>
+                        <label className="text-lg text-raw-sienna-50">Lugar</label>
+                        <input
+                            className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
+                            type="text"
+                            defaultValue={dataDate.place || ''}
+                            {...register("place", { required: "Este campo es requerido" })}
+                        />
+                        {errors.place && <label className="text-red-700 text-xs">{errors.place.message}</label>}
+                    </div>
 
-                <div className="bg-customGreen w-7/12  mt-8 flex flex-col   mx-auto   max-sm:w-full pb-16 rounded-sm">
-                    <button className="bg-raw-sienna-500 flex justify-center self-start rounded-full  mt-2 ml-2" onClick={() => { setOpen(false), setOpenEdDate(false) }} ><MdClose className="text-2xl w-8 h-8 " /></button>
-                    <form onSubmit={handleSubmit(onSubmit)} className=" w-11/12 h-5/6 mx-auto rounded-sm flex flex-col items-center text-customGreen px-2  pb-10">
-                        <div className="  flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
-                            {open && <h3 className="text-2xl text-white p-1">Nueva fecha de bazar</h3>}
-                            {openEdDate && <h3 className="text-2xl text-white p-1">Editar fecha de bazar</h3>}
-
-                            <label className="text-lg text-white  " htmlFor="">Lugar</label>
-                            <input className="w-11/12 p-1 rounded-sm text-center max-sm:w-full" type="text"
-                                defaultValue={dataDate ? dataDate.place : ''}
-                                {...register("place", {
-                                    required: openEdDate === false ? "Este campo es requerido" : false
-                                })}
+                    <div className="w-full flex px-2 gap-4">
+                        <div className="flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
+                            <label className="text-lg text-raw-sienna-50">Fecha</label>
+                            <input
+                                className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
+                                type="date"
+                                min={currentDate}
+                                defaultValue={obtenerFechaFormateada(dataDate.date)}
+                                {...register("date", { required: "Este campo es requerido" })}
                             />
-
-                            {errors.place && (
-                                <label className="text-red-700  text-xs">
-                                    {errors.place.message}
-                                </label>
-                            )}
+                            {errors.date && <label className="text-red-700 text-xs">{errors.date.message}</label>}
                         </div>
-                        <div className="  w-full flex px-2">
-                            <div className="  flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
-                                <label className="text-lg text-white  " htmlFor="">Fecha</label>
-                                <input className="w-11/12 p-1 rounded-sm text-center max-sm:w-full" type="date"
-                                    min={currentDate}
-                                    defaultValue={dataDate ? obtenerFechaFormateada(dataDate.date) : ''}
-                                    {...register("date", {
-                                        required: openEdDate === false ? "Este campo es requerido" : false
-                                    })}
-                                />
-                                {errors.date && (
-                                    <label className="text-red-700  text-xs">
-                                        {errors.date.message}
-                                    </label>
-                                )}
-                            </div>
-                            <div className="  flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12 ">
-                                <label className="text-lg text-white  " htmlFor="">Hora</label>
-                                <input className="w-11/12 p-1 rounded-sm text-center max-sm:w-full" type="time"
-                                    defaultValue={dataDate ? dataDate.time : ''}
-                                    {...register("time", {
-                                        required: openEdDate === false ? "Este campo es requerido" : false
-                                    })}
-                                />
-                                {errors.time && (
-                                    <label className="text-red-700  text-xs">
-                                        {errors.time.message}
-                                    </label>
-                                )}
-                            </div>
+                        <div className="flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
+                            <label className="text-lg text-raw-sienna-50">Hora</label>
+                            <input
+                                className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
+                                type="time"
+                                defaultValue={dataDate.time || ''}
+                                {...register("time", { required: "Este campo es requerido" })}
+                            />
+                            {errors.time && <label className="text-red-700 text-xs">{errors.time.message}</label>}
                         </div>
+                    </div>
 
-                        <h3 className="text-2xl text-white p-1 mt-10">Eventos especiales</h3>
-                        <div className="  w-full flex justify-around mt-2  ">
-
-                            <div className="flex flex-col w-3/12 text-center ">
-                                <label className="text-lg text-white">Evento</label>
-                                <input className="p-1 rounded-sm text-center"
-                                    defaultValue={dataDate.events ? dataDate.events[0].eventName : ''}
-                                    {...register("event", {
-                                        required: openEdDate === false ? "Este campo es requerido" : false
-                                    })}
+                    <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10">Eventos especiales</h3>
+                    {openEdDate && dataDate.events && dataDate.events.map((event, index) => (
+                        <div key={index} className="w-11/12 flex mr-auto justify-around mt-2">
+                            <div className="flex flex-col w-3/12 text-center">
+                                <label className="text-lg text-raw-sienna-50">Evento</label>
+                                <input
+                                    className="p-1 rounded-sm text-center"
+                                    defaultValue={event.eventName}
+                                    {...register(`events[${index}].eventName`, { required: "Este campo es requerido" })}
                                 />
-                                {errors.event && (
-                                    <label className="text-red-700  text-xs">
-                                        {errors.event.message}
-                                    </label>
-                                )}
-
+                                {errors.events?.[index]?.eventName && <label className="text-red-700 text-xs">{errors.events[index].eventName.message}</label>}
                             </div>
-
 
                             <div className="flex flex-col w-5/12 text-center">
-                                <label className="text-lg text-white">Descripcion</label>
-                                <input className="p-1 rounded-sm text-center"
-                                    defaultValue={dataDate.events ? dataDate.events[0].description : ''}
-                                    {...register("description", {
-                                        required: openEdDate === false ? "Este campo es requerido" : false
-                                    })}
+                                <label className="text-lg text-raw-sienna-50">Descripción</label>
+                                <input
+                                    className="p-1 rounded-sm text-center"
+                                    defaultValue={event.description}
+                                    {...register(`events[${index}].description`, { required: "Este campo es requerido" })}
                                 />
-                                {errors.description && (
-                                    <label className="text-red-700  text-xs">
-                                        {errors.description.message}
-                                    </label>
-                                )}
-
+                                {errors.events?.[index]?.description && <label className="text-red-700 text-xs">{errors.events[index].description.message}</label>}
                             </div>
 
                             <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-white">Horario</label>
-                                <input className="p-1 rounded-sm text-center" type="time"
-                                    defaultValue={dataDate.events ? dataDate.events[0].timeEvent : ''}
-                                    {...register("timeEvent", {
-                                        required: openEdDate === false ? "Este campo es requerido" : false
-                                    })}
+                                <label className="text-lg text-raw-sienna-50">Horario</label>
+                                <input
+                                    className="p-1 rounded-sm text-center"
+                                    type="time"
+                                    defaultValue={event.timeEvent}
+                                    {...register(`events[${index}].timeEvent`, { required: "Este campo es requerido" })}
                                 />
-                                {errors.timeEvent && (
-                                    <label className="text-red-700  text-xs">
-                                        {errors.timeEvent.message}
-                                    </label>
-                                )}
+                                {errors.events?.[index]?.timeEvent && <label className="text-red-700 text-xs">{errors.events[index].timeEvent.message}</label>}
+                            </div>
+                        </div>
+                    ))}
 
+                    {extraEvents.map((event, index) => (
+                        <div key={index} className="w-11/12 flex mr-auto justify-around mt-2 gap-2">
+                            <div className="flex flex-col w-3/12 text-center">
+                                <label className="text-lg text-raw-sienna-50">Evento</label>
+                                <input
+                                    className="p-1 rounded-sm text-center"
+                                    name="eventName"
+                                    value={event.eventName}
+                                    onChange={(e) => handleEventChange(e, index)}
+                                />
                             </div>
 
+                            <div className="flex flex-col w-5/12 text-center">
+                                <label className="text-lg text-raw-sienna-50">Descripción</label>
+                                <input
+                                    className="p-1 rounded-sm text-center"
+                                    name="description"
+                                    value={event.description}
+                                    onChange={(e) => handleEventChange(e, index)}
+                                />
+                            </div>
 
+                            <div className="flex flex-col w-3/12 text-center">
+                                <label className="text-lg text-raw-sienna-50">Horario</label>
+                                <input
+                                    className="p-1 rounded-sm text-center"
+                                    type="time"
+                                    name="timeEvent"
+                                    value={event.timeEvent}
+                                    onChange={(e) => handleEventChange(e, index)}
+                                />
+                            </div>
+
+                            <button
+                                className=" text-2xl rounded-full self-center"
+                                onClick={() => removeExtraEvent(index)}
+                            >
+                                <FaTrash />
+                            </button>
                         </div>
+                    ))}
 
+                    <button
+                        className="bg-raw-sienna-500 text-raw-sienna-900 mt-2 p-1 px-3 rounded-md  mx-auto"
+                        type="button"
+                        onClick={addEvent}
+                    >
+                        Agregar evento
+                    </button>
 
-
-                        {dataDate.events && dataDate.events.length >= 2 && (
-                            <InputNewEvent register={register} errors={errors}
-                                eventName={dataDate.events[1].eventName}
-                                description={dataDate.events[1].description}
-                                timeEvent={dataDate.events[1].timeEvent}
-                            />
+                    <div className="mt-10 flex justify-around w-full gap-4">
+                        <button className="bg-raw-sienna-500 text-raw-sienna-50 text-lg rounded-md p-1 px-3" type="submit">
+                            {openEdDate ? "Guardar cambios" : "Guardar fecha"}
+                        </button>
+                        {openEdDate && (
+                            <button className="bg-raw-sienna-500 text-raw-sienna-50 text-lg rounded-md p-1 px-3" type="button" onClick={handleDeleteDate}>
+                                Cancelar evento
+                            </button>
                         )}
-
-                        {showExtraEvent && (
-                            <InputNewEvent register={register} openEdDate={openEdDate} errors={errors} />
-                        )}
-                        <div className=" w-full flex ml-10 mt-5" >
-                            <button hidden={openEdDate} type="button" className="bg-raw-sienna-500 rounded-sm text-sm py-1 px-3" onClick={toggleExtraEvent}>{showExtraEvent ? 'Ocultar' : 'Evento extra'}</button>
-                        </div>
-
-                        <input className="bg-raw-sienna-500 rounded-sm text-xl px-8 py-2" type="submit" value="Enviar" />
-                    </form>
-                    {openEdDate ? (<button className="bg-red-500 w-2/3 mt-5 mx-auto p-2 rounded-sm font-semibold" onClick={() => { handleDeleteDate() }}>Cancelar fecha</button>) : ('')}
-
-                </div>
+                    </div>
+                </form>
             </div>
-        </>
-    )
+        </div>
+    );
 }
 
 export default FormNewDate;

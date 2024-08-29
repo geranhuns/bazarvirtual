@@ -39,21 +39,21 @@ export default function MarcaHeaderInfo({ id }) {
   if (brandInfo) {
     return (
       <>
-        <div className="flex flex-col  md:flex-row   gap-10  md:px-10 py-10 bg-patina-500 rounded-xl w-full lg:max-w-4xl  my-10 items-center">
-          <div className="flex items-center justify-center md:w-5/12  rounded-full overflow-hidden">
+        <div className="flex flex-col  md:flex-row   gap-10  md:px-10 py-7 bg-patina-500 rounded-xl w-full lg:max-w-4xl  my-10 items-center drop-shadow-lg">
+          <div className="flex items-center justify-center md:w-5/12  rounded-full overflow-hidden drop-shadow-lg">
             <img
               src={brandInfo.profilePicture}
               alt={brandInfo.username}
-              className=" object-cover  size-64 md:size-80 rounded-full"
+              className=" object-cover  size-64 md:size-80 rounded-full  "
             />
           </div>
           <div className="flex flex-col items-center w-full md:w-7/12 h-80">
             <div
               id="infoMarca"
-              className="flex flex-col items-center justify-center w-full bg-patina-900 md:rounded-xl text-Eggshell "
+              className="flex flex-col items-center justify-center w-full bg-patina-900 md:rounded-xl text-raw-sienna-50 drop-shadow-lg p-4"
             >
-              <h2 className="text-4xl">{brandInfo.username}</h2>
-              <h3 className="pt-2">{brandInfo.slogan}</h3>
+              <h2 className="text-4xl font-semibold">{brandInfo.username}</h2>
+              <h3 className="pt-2 text-lg italic">{brandInfo.slogan}</h3>
               <div className=" flex justify-center gap-x-4 my-5 ">
                 {redesSociales &&
                   redesSociales.map((red) => {
@@ -96,7 +96,7 @@ export default function MarcaHeaderInfo({ id }) {
                   })}
               </div>
             </div>
-            <p className="pt-6 text-lg text-Eggshell p-6">
+            <p className=" text-lg text-raw-sienna-50 p-4 mt-1 text-ellipsis overflow-hidden text-pretty">
               {brandInfo.description}
             </p>
           </div>

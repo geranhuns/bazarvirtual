@@ -1,6 +1,5 @@
 "use client";
 require("dotenv").config();
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
 
 import React, { useEffect, useState } from "react";
 import {
@@ -8,20 +7,20 @@ import {
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
-import { newPaymentIntent } from "@/api/orders/routes";
+import { fetchClientSecret } from "@/api/orders/routes";
 
 const CheckoutPage = ({
+  fromCart,
+  clientSecret,
   amount,
-  userId,
   singleProduct,
   singleQuantity,
   shoppingCartDetails,
-  userEmail,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState();
-  const [clientSecret, setClientSecret] = useState("");
+  // const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
 
@@ -41,32 +40,13 @@ const CheckoutPage = ({
     }
   }, [singleProduct, shoppingCartDetails]);
 
-  useEffect(() => {
-    const fetchClientSecret = async () => {
-      const paymentData = {
-        amount,
-        items,
-        userId,
-        userEmail,
-      };
-
-      const data = await newPaymentIntent(paymentData);
-
-      if (data?.clientSecret) {
-        setClientSecret(data.clientSecret);
-      }
-    };
-
-    if (amount && items.length > 0 && userId) {
-      fetchClientSecret();
-    }
-  }, [amount, items, userId, userEmail]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
 
-    if (!stripe || !elements) {
+    if (!stripe || !elements || !clientSecret) {
+      setErrorMessage("Stripe.js has not loaded yet.");
+      setLoading(false);
       return;
     }
 
@@ -77,7 +57,6 @@ const CheckoutPage = ({
       setLoading(false);
       return;
     }
-    const fromCart = shoppingCartDetails.length > 0 ? "true" : "false";
 
     const { error } = await stripe.confirmPayment({
       elements,

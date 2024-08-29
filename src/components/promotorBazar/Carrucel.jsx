@@ -21,6 +21,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   const [newMarcasCurso, setNewMarcasCurso] = useState([]);
 
 
+
   useEffect(() => {
 
     if (Array.isArray(marcasCurso)) {
@@ -136,31 +137,43 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   if (loading) return <h3>Loading...</h3>
   return (
     <>
-      <section className=" w-full pb-10 bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[59vh] lg:h-[59vh] ">
-        <h2 className="  font-medium text-3xl text-patina-900 py-3 ">Marcas participantes</h2>
-        <div className=" flex  flex-col items-center w-11/12 h-5/6 mx-auto  ">
-          <Slider {...settings} className="w-11/12 h-full flex mx-auto">
-            {newMarcasCurso && newMarcasCurso.length > 0 ? (newMarcasCurso.map((marca, index) => (
-              <ProductoDestacadoMarca2
-                key={index}
-                profile={marca.profile}
-                nameMarca={marca.nameMarca}
-                imageProductos={marca.productos}
-              />))
+      <section className=" w-full  bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[70vh] drop-shadow-lg space-y-4 my-8 mb-20">
+        {idDate && <h2 className="  font-semibold text-4xl  text-patina-900 pt-12 pb-4">Marcas participantes</h2>}
+        {showMessage && !idDate && (
+          <>
+            <p className="flex w-full md:w-2/3 mx-auto justify-center pt-12 pb-4 self-start font-semibold text-4xl text-patina-900">Amplía tus horizontes y alcanza nuevos públicos
+
+            </p>
+            <p className="flex w-full md:w-2/3 mx-auto justify-center text-xl self-start pb-4 text-patina-900">
+              Invita a tus marcas asociadas y ayúdales a ampliar su alcance, tener mayor visibilidad y generar nuevas oportunidades de venta.
+            </p>
+          </>
+        )}
+
+
+        <div className=" flex  flex-col items-center w-11/12 h-5/6 mx-auto mt-2   ">
+          {newMarcasCurso && newMarcasCurso.length > 0 ?
+            (
+              <Slider {...settings} className="w-11/12 h-full flex mx-auto">
+                {newMarcasCurso.map((marca, index) => (
+                  <ProductoDestacadoMarca2
+                    key={index}
+                    profile={marca.profile}
+                    nameMarca={marca.nameMarca}
+                    imageProductos={marca.productos}
+                  />))
+                }
+              </Slider>
             ) : (
-              <>
-                <EmptyCard idDate={idDate} />
+              <EmptyCard idDate={idDate} />
+            )
 
+          }
 
-              </>
-            )}
-          </Slider>
-
-          {showMessage && !idDate && <h3 className="flex w-full justify-center text-xl self-start">¡Crea tu siguiente evento para que las marcas puedan inscribirse!</h3>}
         </div>
 
         {user.role === "marca" &&
-          <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl ">
+          <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl  ">
 
             {isParticipant ? (<div className="flex items-center rounded-md border-2  border-patina-500 px-3 ">
               <Button text="Cancelar" variant="transparent" type="button" className={"px-3 text-patina-500"} onClick={() => { handleCancelSubscription() }} /><CiCircleMinus className="text-2xl text-patina-500" />

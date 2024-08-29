@@ -45,22 +45,16 @@ export default function BusquedaProductos() {
   }, [search, category]); // Depend on search and category
 
   return (
-    <div className="flex flex-col mx-auto lg:max-w-screen-xl overflow-auto">
-      <div className="flex flex-col w-full md:mx-auto lg:max-w-screen-xl">
-        <div className="flex">
-          <h2 className="pt-6 text-xl self-start md:pl-0">
-            Resultados de la búsqueda para
-          </h2>
-          {search && (
-            <h2 className="ml-1 pt-6 text-xl self-start md:pl-0">{`"${search}" en`}</h2>
-          )}
-          <h2 className="ml-1 pt-6 text-xl self-start md:pl-0">
-            la categoría:
-          </h2>
-          <h2 className="ml-1 pt-6 text-xl self-start md:pl-0">{`"${category}"`}</h2>
-        </div>
+    <div className="flex flex-col mx-auto  lg:max-w-screen-xl overflow-auto px-4">
+      <div className="flex flex-col items-center">
+        <h2 className=" text-2xl lg:text-4xl pb-8 pt-16 text-gray-700 self-start">
+          Resultados de la búsqueda para
+          {search && <span>{` "${search}" en `}</span>}
+          <span> la categoría:</span>
+          <span>{` "${category}"`}</span>
+        </h2>
 
-        <h4 className="text-sm self-start md:pl-0">
+        <h4 className="text-xl self-start md:pl-0 text-gray-700">
           Consulta la página de detalle del producto para ver otras opciones de
           compra.
         </h4>
@@ -71,7 +65,7 @@ export default function BusquedaProductos() {
             {`No se encontraron productos con ese nombre`}
           </h2>
         ) : (
-          <div className="pt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5">
+          <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 py-5">
             {filteredProducts.map((item) => (
               <ProductSmallView key={item._id} item={item} />
             ))}

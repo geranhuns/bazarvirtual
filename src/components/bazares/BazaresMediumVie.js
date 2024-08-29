@@ -3,17 +3,23 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function BazarMediumView({ className, item, createdBy }) {
+  console.log(item);
   const pathname = usePathname();
   const { profilePicture, time, date, username, _id } = item;
 
   const [redirect, setRedirect] = useState();
   const obtenerFechaFormateada = (fechaCompleta) => {
-    // Extrae la parte de la fecha 'yyyy-MM-dd' de la cadena 'yyyy-MM-ddTHH:mm:ss.sssZ'
     if (!fechaCompleta) return "";
 
+    // Crea un nuevo objeto Date en UTC
     const fecha = new Date(fechaCompleta);
-    const dia = fecha.getDate();
-    const mes = fecha.toLocaleString("es-ES", { month: "short" });
+
+    // Obtén el año, mes y día en UTC
+    const dia = fecha.getUTCDate();
+    const mes = fecha.toLocaleString("es-ES", {
+      month: "short",
+      timeZone: "UTC",
+    });
 
     return `${dia}-${mes}`;
   };
@@ -30,19 +36,18 @@ export default function BazarMediumView({ className, item, createdBy }) {
   }, []);
   return (
     <a
-      href={`bazares/${redirect}`}
-      className={`flex flex-col bg-raw-sienna-200 py-4 rounded-lg gap-2 items-center cursor-pointer w-36 md:w-40 lg:w-48  ${className}`}
+      href={`bazares/${redirect}?date=${item._id}`}
+      className={`flex flex-col bg-raw-sienna-200  px-16 rounded-lg gap-2 items-center cursor-pointer   ${className} text-raw-sienna-900  pt-8 `}
     >
-      <div className="w-24 h-24 overflow-hidden rounded-full">
+      <div className="w-36 h-36">
         <img
-          className="object-cover h-full "
+          className="object-cover h-full rounded-full"
           src={createdBy?.profilePicture || item.profilePicture}
-          width="100px"
-          heigth="100px"
           alt={username}
         />
       </div>
-      <div className="text-center text-md w-24">
+      <div className="text-center text-2xl py-6">
+        <h3>{createdBy?.username}</h3>
         <h3>{username}</h3>
         {pathname === "/proximosBazares" && (
           <>

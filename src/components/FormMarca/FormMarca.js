@@ -145,8 +145,6 @@ function FormMarca({ marcaInfo }) {
       _id: id,
     };
 
-    console.log(dataAdjust);
-
     try {
       const updatedUser = await updateProfileMarca(dataAdjust, id);
       setDataUser(updatedUser);
