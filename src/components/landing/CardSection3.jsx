@@ -11,7 +11,7 @@ function CardSection3(props) {
       </div>
       <div className=" flex  flex-col justify-around space-y-2 px-4 mt-3 row-start-2 h-60">
         <h3 className="text-32px font-bold text-raw-sienna-50 leading-custom4 max-sm:text-2xl max-sm:text-center">{title}</h3>
-        <p className="text-left text-base text-raw-sienna-50 max-sm:text-base max-sm:text-center">{description}</p>
+        <p className="text-left text-lg text-raw-sienna-50 max-sm:text-base max-sm:text-center">{description}</p>
       </div>
     </div>
 

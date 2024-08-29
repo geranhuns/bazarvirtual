@@ -11,7 +11,7 @@ export default function Button({
   const buttonClassNames = classNames(
     "flex items-center justify-center p-1 px-3 rounded-lg text-lg text-gray-800 font-medium h-9 ",
     {
-      "bg-yellow-bazar": variant === "yellow",
+      "bg-yellow-bazar text-raw-sienna-900": variant === "yellow",
       "bg-orange-bazar": variant === "orange",
       "bg-green-bazar": variant === "green",
       "bg-beige-bazar": variant === "beige",
