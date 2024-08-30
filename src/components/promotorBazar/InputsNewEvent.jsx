@@ -1,75 +1,57 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { FaTrash } from "react-icons/fa6";
 
-function InputNewEvent({
-    register,
-    eventName,
-    description,
-    timeEvent,
-    errors,
-    openEdDate,
-    index,
-    onChange
-}) {
-
+const InputNewEvent = ({ register, eventName, description, timeEvent, errors, openEdDate, index, onChange, removeExtraEvent }) => {
     return (
-        <div className="w-11/12 flex justify-around mt-2">
-            <div className="flex flex-col w-3/12 text-center">
-                <label className="text-lg text-white">Evento</label>
+        <div className="flex  gap-2 mb-4 w-full justify-between">
+            <div className="flex flex-col w-4/12">
+                {/* <label className="text-lg text-white">Evento</label> */}
+
                 <input
-                    className="p-1 rounded-sm text-center"
-                    name={`eventName_${index}`}
+                    className="p-1 rounded-sm text-center "
+                    placeholder="Nombre del evento"
+                    type="text"
+                    name="eventName"
                     value={eventName}
-                    {...register(`eventExtra_${index}`, {
-                        required: !openEdDate && "Este campo es requerido",
-                    })}
                     onChange={(e) => onChange(e, index)}
                 />
-                {errors[`eventExtra_${index}`] && (
-                    <label className="text-red-700 text-xs">
-                        {errors[`eventExtra_${index}`]?.message}
-                    </label>
-                )}
             </div>
+            <div className="flex flex-col w-4/12">
+                {/* <label className="text-lg text-white">Descripción</label> */}
 
-            <div className="flex flex-col w-5/12 text-center">
-                <label className="text-lg text-white">Descripción</label>
                 <input
-                    className="p-1 rounded-sm text-center"
-                    name={`description_${index}`}
+                    className="p-1 rounded-sm text-center "
+                    placeholder="Descripción del evento"
+                    type="text"
+                    name="description"
                     value={description}
-                    {...register(`descriptionExtraEvent_${index}`, {
-                        required: !openEdDate && "Este campo es requerido",
-                    })}
                     onChange={(e) => onChange(e, index)}
                 />
-                {errors[`descriptionExtraEvent_${index}`] && (
-                    <label className="text-red-700 text-xs">
-                        {errors[`descriptionExtraEvent_${index}`]?.message}
-                    </label>
-                )}
             </div>
+            <div className="flex flex-col w-3/12">
+                {/* <label className="text-lg text-white">Horario</label> */}
 
-            <div className="flex flex-col w-3/12 text-center">
-                <label className="text-lg text-white">Horario</label>
                 <input
-                    className="p-1 rounded-sm text-center"
+                    className="p-1 rounded-sm text-center "
+                    placeholder="Hora del evento"
                     type="time"
-                    name={`timeEvent_${index}`}
+                    name="timeEvent"
                     value={timeEvent}
-                    {...register(`timeEventExtra_${index}`, {
-                        required: !openEdDate && "Este campo es requerido",
-                    })}
                     onChange={(e) => onChange(e, index)}
                 />
-                {errors[`timeEventExtra_${index}`] && (
-                    <label className="text-red-700 text-xs">
-                        {errors[`timeEventExtra_${index}`]?.message}
-                    </label>
-                )}
             </div>
+            {errors && <label className="text-red-700 text-xs">Este campo es requerido</label>}
+            {openEdDate && (
+                <button
+                    type="button"
+                    className=" text-white  rounded-full flex items-end pb-3 w-1/12"
+                    onClick={() => removeExtraEvent(index)}
+                >
+                    <FaTrash />
+                </button>
+            )}
         </div>
     );
-}
+};
 
 export default InputNewEvent;

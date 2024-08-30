@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdClose } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
-
 import Swal from 'sweetalert2';
 import { createDateFetch, updateDateFetch, dateById, cancelDate } from "@/api/bazar/routes";
+import InputNewEvent from "./InputsNewEvent";
 
 function FormNewDate(props) {
     const { setOpen, open, _idUser, fetchDataDates, datesBazar, openEdDate, setOpenEdDate, idDate, updateSelectDate } = props;
@@ -49,11 +49,19 @@ function FormNewDate(props) {
         const today = new Date().toISOString().split('T')[0];
         setCurrentDate(today);
         setDateCount(datesBazar.length);
+    }, [datesBazar]);
 
-        if (openEdDate) {
+    useEffect(() => {
+        if (openEdDate && idDate) {
             dataFecha(idDate);
         }
-    }, [datesBazar, openEdDate, idDate]);
+    }, [openEdDate, idDate]);
+
+    useEffect(() => {
+        if (dataDate.events) {
+            setExtraEvents([...dataDate.events]);
+        }
+    }, [dataDate]);
 
     const onSubmit = async (data) => {
         const events = [
@@ -85,6 +93,7 @@ function FormNewDate(props) {
                     icon: "warning",
                 });
             }
+            await fetchDataDates();
             reset();
             setOpenEdDate(false);
             setOpen(false);
@@ -109,12 +118,12 @@ function FormNewDate(props) {
                 <button className="bg-raw-sienna-50 flex justify-center self-end rounded-full mr-2 mt-2" onClick={() => { setOpen(false); setOpenEdDate(false); }}>
                     <MdClose className="text-sm w-6 h-6 " />
                 </button>
-                <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 h-5/6 mx-auto rounded-sm flex flex-col  text-customGreen px-2 pb-10">
-                    <div className="flex flex-col w-full max-sm:w-10/12 px-2">
-                        <h3 className="text-4xl  text-raw-sienna-50 p-1 pb-6">{openEdDate ? "Editar fecha de bazar" : "Nueva fecha de bazar"}</h3>
+                <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 h-5/6 mx-auto rounded-sm flex flex-col text-customGreen px-2 pb-10">
+                    <div className="flex flex-col w-full  px-2">
+                        <h3 className="text-4xl text-raw-sienna-50 p-1 pb-6">{openEdDate ? "Editar fecha de bazar" : "Nueva fecha de bazar"}</h3>
                         <label className="text-lg text-raw-sienna-50">Lugar</label>
                         <input
-                            className=" p-1 rounded-sm text-center max-sm:w-full"
+                            className="p-1 rounded-sm text-center max-sm:w-full"
                             type="text"
                             defaultValue={dataDate.place || ''}
                             {...register("place", { required: "Este campo es requerido" })}
@@ -123,10 +132,10 @@ function FormNewDate(props) {
                     </div>
 
                     <div className="w-full flex px-2 gap-4">
-                        <div className="flex flex-col  w-1/2  ">
+                        <div className="flex flex-col w-1/2">
                             <label className="text-lg text-raw-sienna-50">Fecha</label>
                             <input
-                                className=" p-1 rounded-sm text-center max-sm:w-full"
+                                className="p-1 rounded-sm text-center max-sm:w-full"
                                 type="date"
                                 min={currentDate}
                                 defaultValue={obtenerFechaFormateada(dataDate.date)}
@@ -134,10 +143,10 @@ function FormNewDate(props) {
                             />
                             {errors.date && <label className="text-red-700 text-xs">{errors.date.message}</label>}
                         </div>
-                        <div className="flex flex-col  w-1/2 ">
+                        <div className="flex flex-col w-1/2">
                             <label className="text-lg text-raw-sienna-50">Hora</label>
                             <input
-                                className=" p-1 rounded-sm text-center max-sm:w-full"
+                                className="p-1 rounded-sm text-center max-sm:w-full"
                                 type="time"
                                 defaultValue={dataDate.time || ''}
                                 {...register("time", { required: "Este campo es requerido" })}
@@ -146,86 +155,28 @@ function FormNewDate(props) {
                         </div>
                     </div>
 
-                    <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10">Eventos especiales</h3>
-                    {openEdDate && dataDate.events && dataDate.events.map((event, index) => (
-                        <div key={index} className="w-11/12 flex mr-auto justify-around mt-2">
-                            <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-raw-sienna-50">Evento</label>
-                                <input
-                                    className="p-1 rounded-sm text-center"
-                                    defaultValue={event.eventName}
-                                    {...register(`events[${index}].eventName`, { required: "Este campo es requerido" })}
-                                />
-                                {errors.events?.[index]?.eventName && <label className="text-red-700 text-xs">{errors.events[index].eventName.message}</label>}
-                            </div>
-
-                            <div className="flex flex-col w-5/12 text-center">
-                                <label className="text-lg text-raw-sienna-50">Descripción</label>
-                                <input
-                                    className="p-1 rounded-sm text-center"
-                                    defaultValue={event.description}
-                                    {...register(`events[${index}].description`, { required: "Este campo es requerido" })}
-                                />
-                                {errors.events?.[index]?.description && <label className="text-red-700 text-xs">{errors.events[index].description.message}</label>}
-                            </div>
-
-                            <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-raw-sienna-50">Horario</label>
-                                <input
-                                    className="p-1 rounded-sm text-center"
-                                    type="time"
-                                    defaultValue={event.timeEvent}
-                                    {...register(`events[${index}].timeEvent`, { required: "Este campo es requerido" })}
-                                />
-                                {errors.events?.[index]?.timeEvent && <label className="text-red-700 text-xs">{errors.events[index].timeEvent.message}</label>}
-                            </div>
-                        </div>
-                    ))}
-
+                    <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10 ">Eventos especiales</h3>
+                    {/* <div className="flex justify-between">
+                        <h3 className="text-lg text-white w-4/12">Evento</h3>
+                        <h3 className="text-lg text-white w-4/12">Descripción</h3>
+                        <h3 className="text-lg text-white w-3/12">Horario</h3>
+                    </div> */}
                     {extraEvents.map((event, index) => (
-                        <div key={index} className="w-11/12 flex mr-auto justify-around mt-2 gap-2">
-                            <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-raw-sienna-50">Evento</label>
-                                <input
-                                    className="p-1 rounded-sm text-center"
-                                    name="eventName"
-                                    value={event.eventName}
-                                    onChange={(e) => handleEventChange(e, index)}
-                                />
-                            </div>
-
-                            <div className="flex flex-col w-5/12 text-center">
-                                <label className="text-lg text-raw-sienna-50">Descripción</label>
-                                <input
-                                    className="p-1 rounded-sm text-center"
-                                    name="description"
-                                    value={event.description}
-                                    onChange={(e) => handleEventChange(e, index)}
-                                />
-                            </div>
-
-                            <div className="flex flex-col w-3/12 text-center">
-                                <label className="text-lg text-raw-sienna-50">Horario</label>
-                                <input
-                                    className="p-1 rounded-sm text-center"
-                                    type="time"
-                                    name="timeEvent"
-                                    value={event.timeEvent}
-                                    onChange={(e) => handleEventChange(e, index)}
-                                />
-                            </div>
-
-                            <button
-                                className=" text-2xl rounded-full self-center"
-                                onClick={() => removeExtraEvent(index)}
-                            >
-                                <FaTrash />
-                            </button>
-                        </div>
+                        <InputNewEvent
+                            key={index}
+                            register={register}
+                            eventName={event.eventName}
+                            description={event.description}
+                            timeEvent={event.timeEvent}
+                            errors={errors.events?.[index]}
+                            openEdDate={openEdDate}
+                            index={index}
+                            onChange={(e) => handleEventChange(e, index)}
+                            removeExtraEvent={removeExtraEvent}
+                        />
                     ))}
-
                     <button
-                        className="bg-raw-sienna-500 text-raw-sienna-900 mt-2 p-1 px-3 rounded-md  mx-auto"
+                        className="bg-raw-sienna-500 text-raw-sienna-900 mt-2 p-1 px-3 rounded-md mx-auto"
                         type="button"
                         onClick={addEvent}
                     >

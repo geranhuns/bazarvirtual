@@ -20,21 +20,34 @@ export default function CarritoDeCompras() {
   } = useUserContext();
   const [totalPrice, setTotalPrice] = useState(0);
   const [paymentIntent, setPaymentIntent] = useState();
-  const [wishList, setWishList] = useState([]);
-
-  const [wishListItems, setWishListItems] = useState(wishListDetails || []);
-
   const [cartItems, setCartItems] = useState(shoppingCartDetails || []);
+
   useEffect(() => {
     if (shoppingCartDetails) {
       setCartItems(shoppingCartDetails);
     }
-  }, [shoppingCartDetails, setCartItems]);
-  const userId = user.id;
-  const items = shoppingCartDetails.map((product) => ({
+  }, [shoppingCartDetails]);
+
+  const userId = user?.id || null;
+
+  const items = cartItems.map((product) => ({
     id: product._id,
     quantity: product.quantity,
   }));
+
+  const calculateTotalPrice = useCallback(() => {
+    const newTotalPrice = cartItems.reduce(
+      (total, item) => total + parseFloat(item.price * item.quantity),
+      0
+    );
+    const roundedTotalPrice = Math.round(newTotalPrice * 100) / 100;
+
+    setTotalPrice(roundedTotalPrice);
+  }, [cartItems]);
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cartItems, calculateTotalPrice]);
 
   useEffect(() => {
     const fetchPaymentIntent = async () => {
@@ -67,9 +80,9 @@ export default function CarritoDeCompras() {
 
   const deleteItemFromShoppingCart = async (userId, productId) => {
     try {
-      await deleteProductFromShoppingCart(userId, productId); // Espera a que la promesa se resuelva
+      await deleteProductFromShoppingCart(userId, productId);
       setCartItems((prevState) => {
-        if (!prevState) return []; // Maneja el caso donde prevState es undefined
+        if (!prevState) return [];
         const updatedCart = prevState.filter(
           (product) => product._id !== productId
         );
@@ -84,23 +97,12 @@ export default function CarritoDeCompras() {
       });
     }
   };
+
   const handleDelete = async (userId, productId) => {
-    deleteItemFromShoppingCart(userId, productId);
+    await deleteItemFromShoppingCart(userId, productId);
+    calculateTotalPrice();
     await updateShoppingCart();
   };
-  const calculateTotalPrice = useCallback(() => {
-    const newTotalPrice = cartItems.reduce(
-      (total, item) => total + parseFloat(item.price * item.quantity),
-      0
-    );
-    const roundedTotalPrice = Math.round(newTotalPrice * 100) / 100;
-
-    setTotalPrice(roundedTotalPrice);
-  }, [cartItems]);
-
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [cartItems, calculateTotalPrice]);
 
   const handleQuantityChange = async (itemId, newQuantity) => {
     setCartItems((prevItems) => {
@@ -110,14 +112,13 @@ export default function CarritoDeCompras() {
       return updatedItems;
     });
     calculateTotalPrice();
-    if (user.id) {
+    if (userId) {
       await updateShoppingCart();
     }
   };
 
   const handlePaymentClick = async () => {
     await updateShoppingCart();
-
     router.push(`/payment?paymentIntentId=${paymentIntent}&fromCart=true`);
   };
 
@@ -127,7 +128,6 @@ export default function CarritoDeCompras() {
     }
   }, [user]);
 
-  // Este useEffect maneja la lógica de alerta después de la carga inicial
   useEffect(() => {
     if (!isLoading && user) {
       if (user.role === null) {
@@ -151,12 +151,12 @@ export default function CarritoDeCompras() {
   if (isLoading) return <div>Cargando...</div>;
 
   return (
-    <div className="flex flex-col   lg:w-10/12    lg:max-w-screen-xl mx-auto overflow-auto ">
-      <div className=" flex flex-col pt-4 md:pt-10 pb-8 mx-full lg:max-w-screen-lg mx-auto">
+    <div className="flex flex-col lg:w-10/12 lg:max-w-screen-xl mx-auto overflow-auto">
+      <div className="flex flex-col pt-4 md:pt-10 pb-8 lg:max-w-screen-lg mx-auto">
         <h3 className="text-4xl font-semibold">Carrito de Compras</h3>
         {cartItems.length === 0 ? (
           <p className="pb-4 md:pb-8">
-            Aún no has guardado nada en tu Carrito de Compras{" "}
+            Aún no has guardado nada en tu Carrito de Compras
           </p>
         ) : (
           <p className="pb-8">
@@ -172,24 +172,20 @@ export default function CarritoDeCompras() {
               className="self-end"
               handlePaymentClick={handlePaymentClick}
             />
-
             <hr className="h-0.5 bg-raw-sienna-800 lg:max-w-screen-lg" />
-            {cartItems.map((item) => {
-              return (
-                <ShoppingCartItem
-                  key={item._id}
-                  item={item}
-                  quantity={item.quantity}
-                  onQuantityChange={handleQuantityChange}
-                  userId={user.id}
-                  handleDelete={handleDelete}
-                  deleteItemFromShoppingCart={deleteItemFromShoppingCart}
-                />
-              );
-            })}
+            {cartItems.map((item) => (
+              <ShoppingCartItem
+                key={item._id}
+                item={item}
+                quantity={item.quantity}
+                onQuantityChange={handleQuantityChange}
+                userId={userId}
+                deleteItemFromShoppingCart={handleDelete}
+              />
+            ))}
             <PaymentTotalButton
               total={totalPrice}
-              className={"pt-8"}
+              className="pt-8"
               handlePaymentClick={handlePaymentClick}
             />
           </>
