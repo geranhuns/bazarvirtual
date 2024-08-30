@@ -13,7 +13,7 @@ export default function BazarSmallView({ className, item }) {
 
   return (
     <a
-      href={`bazares/${createdBy._id}`}
+      href={`bazares/${createdBy._id}?date=${item._id}`}
       className={`flex flex-col lg:flex-row  gap-2 items-center ${className}`}
     >
       <div className=" h-20 w-20  rounded-full">
@@ -25,7 +25,7 @@ export default function BazarSmallView({ className, item }) {
           alt="logo"
         />
       </div>
-      <div className=" text-center text-xs w-24">
+      <div className=" text-center w-24">
         <h3 className="font-bold">{obtenerFechaFormateada(date)}</h3>
         <h3 className="font-bold"> {time}</h3>
       </div>

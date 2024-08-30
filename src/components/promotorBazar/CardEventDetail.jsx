@@ -1,7 +1,10 @@
 import { React, useState } from "react";
-import { FaRegEdit } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+import { usePathname, useSearchParams } from "next/navigation";
 
 function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate, openEdDate, setOpenEdDate, editButtonsActive, place, time, marcasCurso }) {
+    const pathname = usePathname()
+    const searchParams = useSearchParams();
 
     const obtenerFechaFormateada = (fechaCompleta) => {
         if (!fechaCompleta) return "";
@@ -20,14 +23,21 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                 <span
                     key={dateID}
                     className={`flex flex-row  ${idDate === dateID
-                        ? "bg-raw-sienna-400 text-raw-sienna-50 justify-center"
+                        ? "bg-raw-sienna-500 text-raw-sienna-50 justify-center"
                         : "bg-raw-sienna-200"
-                        } w-full items-start justify-center cursor-pointer rounded-lg p-1 border  max-sm:items-center pl-2`}
+                        } w-full items-start justify-center cursor-pointer rounded-lg max-sm:items-center p-2 text-patina-900`}
                     onClick={() => {
                         // setIsParticipant(false)
                         setDataDate({ events, place, time, marcasCurso });
                         setIdDate(dateID);
-
+                        if (pathname) {
+                            const newSearchParams = new URLSearchParams(searchParams);
+                            newSearchParams.set('date', dateID);
+                            const newUrl = `${pathname}?${newSearchParams.toString()}`;
+                            window.history.pushState({}, '', newUrl);
+                        } else {
+                            console.error("pathname is not available");
+                        }
                     }}
                 >
                     <h5 className="text-base font-medium w-full">
@@ -41,7 +51,7 @@ function CardEventDetail({ events, fecha, setDataDate, setIdDate, dateID, idDate
                                 setOpenEdDate(!openEdDate);
                             }}
                         >
-                            <FaRegEdit className="w-6 h-6" />
+                            <MdEdit className="w-6 h-6" />
                         </button>
                     )}
                 </span>

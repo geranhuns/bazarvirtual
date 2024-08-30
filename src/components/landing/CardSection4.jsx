@@ -4,18 +4,18 @@ function CardSection4(props) {
   const { bgClass, iconCard, title, description1, description2, textButton, bgButton, hoverButton } = props;
   return (
     <>
-      <div className={`${bgClass}  w-full lg:w-1/2 justify-center h-[70vh] flex py-10 `}>
-        <div className="  flex flex-col items-center justify-center px-12 ">
-          <div className=" w-full  flex flex-col items-center">
+      <div className={`${bgClass}  w-full lg:w-1/2 justify-center flex py-10 text-raw-sienna-50 `}>
+        <div className="px-4 flex flex-col items-center justify-center text-center space-y-4">
+          <div className="flex flex-col items-center space-y-4">
             {iconCard}
-            <h3 className="text-32px text-raw-sienna-50 text-center leading-custom4 font-bold  w-96">{title}</h3>
+            <h3 className="text-xl lg:text-3xl font-bold">{title}</h3>
           </div>
-          <div className=" w-full h-3/6 text-2xl font-light text-center text-raw-sienna-50 flex flex-col justify-around items-center ">
-            <ul className=" h-72 flex flex-col justify-center lg:max-w-2xl space-y-8">
+          <div className=" text-2xl font-light flex flex-col justify-around items-center">
+            <ul className="flex flex-col justify-center space-y-8">
               <li>{description2}</li>
               <li >{description1}</li>
             </ul>
-            <button className={`w-2/3 h-11 ${bgButton} text-xl flex justify-center items-center rounded-sm font-semibold  py-3 ${hoverButton}`}>
+            <button className={`${bgButton} text-xl flex justify-center items-center rounded-lg font-semibold  py-3 px-4 ${hoverButton} mt-8`}>
               <a href="/register">
                 {textButton}
               </a>

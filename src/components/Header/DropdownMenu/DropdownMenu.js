@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 import { useRouter } from "next/navigation";
 import { IoCloseOutline } from "react-icons/io5";
+import { IoMdMenu } from "react-icons/io";
 
 export default function DropdownMenu({
   setDropdownActive,
@@ -33,8 +34,11 @@ export default function DropdownMenu({
   if (isSmallScreen) {
     return (
       <menu className="flex relative justify-end">
+        <button className="rounded-full p-2" onClick={toggleMenu}>
+          <IoMdMenu className="w-full h-full text-raw-sienna-50 text-3xl" />
+        </button>
         <div
-          className={`fixed top-16 left-0 w-full h-full bg-raw-sienna-200 z-50 transform ${
+          className={`fixed top-16 left-0 w-full h-[100vh] bg-raw-sienna-200  z-50 transform ${
             dropdownActive ? "translate-x-0" : "-translate-x-full"
           } transition-transform duration-500 ease-in-out`}
         >
@@ -50,12 +54,17 @@ export default function DropdownMenu({
                 <li className="cursor-pointer">
                   <a href="/listaDeDeseos">Lista de Deseos</a>
                 </li>
+                <hr className="h-1 bg-raw-sienna-50" />
+
                 <li className="cursor-pointer">
                   <a href="/carritoDeCompras">Carrito de Compras</a>
                 </li>
+                <hr className="h-1 bg-raw-sienna-50" />
+
                 <li>
                   <a href="/misPedidos">Mis pedidos</a>
                 </li>
+                <hr className="h-1 bg-raw-sienna-50" />
               </>
             )}
             {role === "marca" && (
@@ -63,12 +72,17 @@ export default function DropdownMenu({
                 <li>
                   <a href="/misPedidos">Mis pedidos</a>
                 </li>
+                <hr className="h-1 bg-raw-sienna-50" />
+
                 <li className="cursor-pointer">
                   <a href={`/marcas/${id}`}>Ver mi Marca</a>
                 </li>
+                <hr className="h-1 bg-raw-sienna-50" />
+
                 <li className="cursor-pointer">
                   <a href={`/miCatalogo/${id}`}>Editar mi catálogo</a>
                 </li>
+                <hr className="h-1 bg-raw-sienna-50" />
               </>
             )}
             {role === "bazar" && (
@@ -76,6 +90,7 @@ export default function DropdownMenu({
                 <li className="cursor-pointer">
                   <a href={`/bazares/${id}`}>Ver mi Perfil</a>
                 </li>
+                <hr className="h-1 bg-raw-sienna-50" />
               </>
             )}
             <li className="border-b-2 border-raw-sienna-300 pb-2 cursor-pointer">
@@ -99,6 +114,8 @@ export default function DropdownMenu({
                 Editar Perfil
               </a>
             </li>
+            <hr className="h-1 bg-raw-sienna-50" />
+
             <li className="pt-2 cursor-pointer" onClick={handleLogout}>
               <a>Cerrar sesión</a>
             </li>

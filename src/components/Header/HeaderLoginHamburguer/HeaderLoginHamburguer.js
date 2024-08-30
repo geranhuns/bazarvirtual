@@ -26,12 +26,12 @@ export default function HeaderLoginHamburguer() {
   return (
     <>
       {isSmallScreen && (
-        <menu className="flex relative justify-end">
+        <menu className="flex relative justify-end ">
           <button className="rounded-full p-2" onClick={toggleMenu}>
             <IoMdMenu className="w-full h-full text-raw-sienna-50 text-3xl" />
           </button>
           <div
-            className={`fixed top-16 left-0 w-full h-full bg-raw-sienna-200 z-50 transform ${
+            className={`fixed top-16 left-0 w-full h-[100vh] bg-raw-sienna-200 z-50 transform ${
               hamburguerActive ? "translate-x-0" : "-translate-x-full"
             } transition-transform duration-500 ease-in-out`}
           >
@@ -41,7 +41,7 @@ export default function HeaderLoginHamburguer() {
             >
               <IoCloseOutline className="text-2xl" />
             </button>
-            <ul className="space-y-6 pt-4 px-6 text-xl text-raw-sienna-900">
+            <ul className="space-y-6 pt-4 px-6 text-xl text-raw-sienna-900  ">
               <li className="cursor-pointer">
                 <a href="/login">Iniciar sesión</a>
               </li>

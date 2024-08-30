@@ -12,7 +12,7 @@ function Section1Landing({ id }) {
                         {/* <h3 className="w-9/12  text-5xl max-sm:text-2xl max-sm:w-10/12  font-semibold  tracking-wide text-raw-sienna-50 leading-10 md:leading-custom ">para emprendedores mexicanos</h3> */}
 
 
-                        <button className="bg-raw-sienna-500 rounded-md  h-full py-4   md:h-14 w-4/12 mt-4 text-raw-sienna-50 text-base font-semibold tracking-wide hover:bg-white transition duration-500 hover:text-color-btnUnete max-sm:w-8/12  ">
+                        <button className="bg-raw-sienna-500 rounded-xl  h-full py-4   md:h-14 w-4/12 mt-4 text-raw-sienna-50 text-xl  font-semibold tracking-wide hover:bg-raw-sienna-100 transition duration-300 hover:text-color-btnUnete max-sm:w-8/12  ">
                             <Link href={"/home"} >Explorar más</Link>
                         </button>
 
