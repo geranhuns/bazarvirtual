@@ -106,15 +106,15 @@ function FormNewDate(props) {
     return (
         <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
             <div className="bg-customGreen w-7/12 mt-8 flex flex-col mx-auto max-sm:w-full rounded-sm">
-                <button className="bg-raw-sienna-500 flex justify-center self-start rounded-full mt-2 ml-2" onClick={() => { setOpen(false); setOpenEdDate(false); }}>
-                    <MdClose className="text-2xl w-8 h-8" />
+                <button className="bg-raw-sienna-50 flex justify-center self-end rounded-full mr-2 mt-2" onClick={() => { setOpen(false); setOpenEdDate(false); }}>
+                    <MdClose className="text-sm w-6 h-6 " />
                 </button>
-                <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 h-5/6 mx-auto rounded-sm flex flex-col items-center text-customGreen px-2 pb-10">
-                    <div className="flex flex-col items-center w-2/3 max-sm:w-10/12 px-2">
-                        <h3 className="text-2xl text-raw-sienna-50 p-1">{openEdDate ? "Editar fecha de bazar" : "Nueva fecha de bazar"}</h3>
+                <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 h-5/6 mx-auto rounded-sm flex flex-col  text-customGreen px-2 pb-10">
+                    <div className="flex flex-col w-full max-sm:w-10/12 px-2">
+                        <h3 className="text-4xl  text-raw-sienna-50 p-1 pb-6">{openEdDate ? "Editar fecha de bazar" : "Nueva fecha de bazar"}</h3>
                         <label className="text-lg text-raw-sienna-50">Lugar</label>
                         <input
-                            className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
+                            className=" p-1 rounded-sm text-center max-sm:w-full"
                             type="text"
                             defaultValue={dataDate.place || ''}
                             {...register("place", { required: "Este campo es requerido" })}
@@ -123,10 +123,10 @@ function FormNewDate(props) {
                     </div>
 
                     <div className="w-full flex px-2 gap-4">
-                        <div className="flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
+                        <div className="flex flex-col  w-1/2  ">
                             <label className="text-lg text-raw-sienna-50">Fecha</label>
                             <input
-                                className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
+                                className=" p-1 rounded-sm text-center max-sm:w-full"
                                 type="date"
                                 min={currentDate}
                                 defaultValue={obtenerFechaFormateada(dataDate.date)}
@@ -134,10 +134,10 @@ function FormNewDate(props) {
                             />
                             {errors.date && <label className="text-red-700 text-xs">{errors.date.message}</label>}
                         </div>
-                        <div className="flex flex-col items-center w-1/2 mx-auto max-sm:w-10/12">
+                        <div className="flex flex-col  w-1/2 ">
                             <label className="text-lg text-raw-sienna-50">Hora</label>
                             <input
-                                className="w-11/12 p-1 rounded-sm text-center max-sm:w-full"
+                                className=" p-1 rounded-sm text-center max-sm:w-full"
                                 type="time"
                                 defaultValue={dataDate.time || ''}
                                 {...register("time", { required: "Este campo es requerido" })}
