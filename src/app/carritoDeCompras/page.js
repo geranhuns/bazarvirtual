@@ -32,25 +32,31 @@ export default function CarritoDeCompras() {
   }, [shoppingCartDetails, setCartItems]);
   const userId = user.id;
   const items = shoppingCartDetails.map((product) => ({
-    id: product.id,
+    id: product._id,
     quantity: product.quantity,
   }));
+
   useEffect(() => {
     const fetchPaymentIntent = async () => {
-      const paymentData = {
-        amount: totalPrice,
-        items,
-        userId,
-        userEmail,
-      };
+      try {
+        const paymentData = {
+          amount: totalPrice,
+          items,
+          userId,
+          userEmail,
+        };
 
-      const data = await newPaymentIntent(paymentData);
-
-      // if (data?.clientSecret) {
-      //   setClientSecret(data.clientSecret);
-      // }
-      if (data) {
-        setPaymentIntent(data.paymentIntentId);
+        const data = await newPaymentIntent(paymentData);
+        if (data) {
+          setPaymentIntent(data.paymentIntentId);
+        }
+      } catch (error) {
+        console.error("Error al crear el PaymentIntent", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error al procesar el pago",
+          text: error.message,
+        });
       }
     };
 
@@ -58,6 +64,7 @@ export default function CarritoDeCompras() {
       fetchPaymentIntent();
     }
   }, [totalPrice, items, userId, userEmail]);
+
   const deleteItemFromShoppingCart = async (userId, productId) => {
     try {
       await deleteProductFromShoppingCart(userId, productId); // Espera a que la promesa se resuelva

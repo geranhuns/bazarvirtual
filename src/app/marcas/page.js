@@ -1,12 +1,15 @@
 "use client";
 require("dotenv").config();
 
-import ProductoDestacadoMarca from "@/components/SmallViews/ProductoDestacadoMarca";
+import ProductoDestacadoMarca2 from "@/components/SmallViews/ProductoDestacadoMarca";
 import { useState, useEffect } from "react";
+import { getAllProducts } from "@/api/marcas/products/routes";
 
 export default function Marcas() {
   const [marcas, setMarcas] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [newMarcasCurso, setNewMarcasCurso] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const getMarcas = async () => {
     try {
@@ -20,10 +23,64 @@ export default function Marcas() {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca/usersMarca`
+        );
+        const data = await response.json();
+        setMarcas(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
-    getMarcas();
-  }, []);
+    if (marcas) {
+      const fetchProducts = async () => {
+        try {
+          const products = await getAllProducts();
+          setProducts(products.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fetchProducts();
+    }
+  }, [marcas]);
+
+  useEffect(() => {
+    if (Array.isArray(marcas) && products.length > 0) {
+      const updatedMarcasCurso = marcas.map((marca) => {
+        const productsMarca = products
+          .filter((producto) => producto.createdBy === marca.marcaID)
+          .slice(0, 4)
+          .map((producto) => ({
+            image: producto.productImage,
+            id: producto._id,
+          }));
+
+        return {
+          ...marca,
+          productos: productsMarca,
+        };
+      });
+
+      setNewMarcasCurso(updatedMarcasCurso);
+    }
+  }, [marcas, products]);
+
+  useEffect(() => {
+    if (marcas && products.length > 0) {
+      setLoading(false);
+    }
+  }, [marcas, products]);
+
   if (loading) {
     return <div>Cargando...</div>;
   }
@@ -36,13 +93,13 @@ export default function Marcas() {
               Conoce nuestras marcas afiliadas
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6  py-5 w-full ml-8 md:ml-0">
-              {marcas.map((marca) => {
+              {newMarcasCurso.map((marca, index) => {
                 return (
-                  <ProductoDestacadoMarca
-                    key={marca._id}
-                    id={marca._id}
-                    profilePicture={marca.profilePicture}
-                    brand={marca.username}
+                  <ProductoDestacadoMarca2
+                    key={index}
+                    profile={marca.profile}
+                    nameMarca={marca.nameMarca}
+                    imageProductos={marca.productos}
                   />
                 );
               })}
