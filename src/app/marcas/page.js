@@ -18,7 +18,6 @@ export default function Marcas() {
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca/usersMarca`
         );
         const data = await response.json();
-        console.log("Marcas data:", data); // Verifica el formato y contenido de la respuesta
         setMarcas(data.data);
       } catch (error) {
         console.log(error);
@@ -33,7 +32,6 @@ export default function Marcas() {
       const fetchProducts = async () => {
         try {
           const products = await getAllProducts();
-          console.log("Fetched products:", products); // Agrega este log
           setProducts(products.data);
         } catch (error) {
           console.log(error);
@@ -81,7 +79,6 @@ export default function Marcas() {
 
   useEffect(() => {
     if (marcas && products.length > 0) {
-      console.log("Products state:", products); // Agrega este log
       setLoading(false);
     }
   }, [marcas, products]);
