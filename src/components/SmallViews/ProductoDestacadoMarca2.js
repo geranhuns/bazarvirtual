@@ -9,9 +9,9 @@ export default function ProductoDestacadoMarca2({
 }) {
   return (
     <div
-      className={`flex flex-col  self-start bg-raw-sienna-50    rounded-md    h-[60vh] md:h-96  md:w-80 mx-auto py-8`}
+      className={`flex flex-col  bg-raw-sienna-500    rounded-md  overflow-hidden  h-[60vh] md:h-96  md:w-72 mx-auto pt-8`}
     >
-      <div className="h-full w-full ">
+      <div className="">
         <MarcaSmallView2
           className={"h-3/12 flex-col "}
           profilePicture={profile}
@@ -19,7 +19,7 @@ export default function ProductoDestacadoMarca2({
         />
 
         <div
-          className={`h-9/12 w-full grid  ${
+          className={` h-9/12 w-full grid  ${
             imageProductos.length === 1
               ? "grid-cols-1"
               : imageProductos.length === 2
@@ -48,7 +48,9 @@ export default function ProductoDestacadoMarca2({
                 >
                   <img
                     className={`w-full  ${
-                      imageProductos.length === 1 ? "h-60" : "h-[20vh] md:h-32"
+                      imageProductos.length === 1
+                        ? "h-full"
+                        : "h-[20vh] md:h-32"
                     } object-cover overflow-hidden `}
                     src={product.image}
                     alt={`product-${product.id}`}
