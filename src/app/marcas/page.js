@@ -98,7 +98,7 @@ export default function Marcas() {
             <h3 className="pt-14 pb-6 text-4xl font-semibold text-zinc-700">
               Conoce nuestras marcas afiliadas
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 py-5 w-full  md:ml-0">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 py-5 w-full">
               {newMarcasCurso.map((marca, index) => {
                 return (
                   <ProductoDestacadoMarca2

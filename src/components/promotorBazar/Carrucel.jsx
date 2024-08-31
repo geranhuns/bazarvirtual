@@ -137,7 +137,7 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   if (loading) return <h3>Loading...</h3>
   return (
     <>
-      <section className=" w-full  bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl h-[80vh] md:h-[70vh] drop-shadow-lg space-y-4 my-8 mb-20">
+      <section className=" w-full  bg-patina-200 flex flex-col  lg:max-w-screen-xl  mx-auto  text-center lg:rounded-xl  drop-shadow-lg  my-8 mb-20 ">
         {idDate && <h2 className="  font-semibold text-4xl  text-patina-900 pt-12 pb-4">Marcas participantes</h2>}
         {showMessage && !idDate && (
           <>
@@ -154,13 +154,16 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
           {newMarcasCurso && newMarcasCurso.length > 0 ?
             (
               <Slider {...settings} className="w-11/12 h-full flex mx-auto">
-                {newMarcasCurso.map((marca, index) => (
-                  <ProductoDestacadoMarca2
+                {newMarcasCurso.map((marca, index) => {
+                  console.log(newMarcasCurso)
+                  return <ProductoDestacadoMarca2
                     key={index}
                     profile={marca.profile}
                     nameMarca={marca.nameMarca}
                     imageProductos={marca.productos}
-                  />))
+                    className={`${(newMarcasCurso.length < 3) ? " md:w-5/12 lg:w-1/3" : "w-11/12"}`}
+                  />
+                })
                 }
               </Slider>
             ) : (
@@ -171,21 +174,23 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
 
         </div>
 
-        {user.role === "marca" &&
-          <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl  ">
+        <div className="flex items-center justify-center gap-6 pt-6 bg-patina-200 pb-10 lg:rounded-xl  ">
+          {user.role === "marca" &&
+            <>
+              {isParticipant ? (<div className="flex items-center rounded-md border-2  border-patina-500 px-3 ">
+                <Button text="Cancelar" variant="transparent" type="button" className={"px-3 text-patina-500"} onClick={() => { handleCancelSubscription() }} /><CiCircleMinus className="text-2xl text-patina-500" />
+              </div>
+              ) : (<div className="flex items-center bg-yellow-bazar rounded-md px-3">
+                <Button text="Participar" variant="yellow" type="button" className={"px-3 text-yellow-800"} onClick={() => { handleSuscribed() }} /><IoAddCircleSharp className="text-2xl text-yellow-700" />
+              </div>
+              )}
 
-            {isParticipant ? (<div className="flex items-center rounded-md border-2  border-patina-500 px-3 ">
-              <Button text="Cancelar" variant="transparent" type="button" className={"px-3 text-patina-500"} onClick={() => { handleCancelSubscription() }} /><CiCircleMinus className="text-2xl text-patina-500" />
-            </div>
-            ) : (<div className="flex items-center bg-yellow-bazar rounded-md px-3">
-              <Button text="Participar" variant="yellow" type="button" className={"px-3 text-yellow-800"} onClick={() => { handleSuscribed() }} /><IoAddCircleSharp className="text-2xl text-yellow-700" />
-            </div>
-            )}
+            </>
 
+          }
 
+        </div>
 
-          </div>
-        }
       </section>
     </>
   )

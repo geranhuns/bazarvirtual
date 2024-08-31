@@ -3,13 +3,16 @@
 import MarcaSmallView2 from "./MarcaSmallView2";
 
 export default function ProductoDestacadoMarca2({
+  className,
   profile,
   nameMarca,
   imageProductos,
 }) {
   return (
     <div
-      className={`flex flex-col  bg-raw-sienna-500    rounded-md  overflow-hidden  h-[60vh] md:h-96  md:w-72 mx-auto pt-8`}
+      className={`flex flex-col  bg-raw-sienna-500 rounded-md  overflow-hidden  mx-auto pt-8 ${
+        className ? className : "w-full"
+      }`}
     >
       <div className="">
         <MarcaSmallView2
@@ -19,9 +22,9 @@ export default function ProductoDestacadoMarca2({
         />
 
         <div
-          className={` h-9/12 w-full grid  ${
+          className={`  w-full grid  ${
             imageProductos.length === 1
-              ? "grid-cols-1"
+              ? "grid-cols-1 h-full"
               : imageProductos.length === 2
               ? "grid-cols-2"
               : imageProductos.length === 3
@@ -43,15 +46,13 @@ export default function ProductoDestacadoMarca2({
                         ? "col-span-2 row-span-1"
                         : "col-span-1 row-span-1"
                       : ""
-                  }`}
+                  } `}
                   key={product.id}
                 >
                   <img
                     className={`w-full  ${
-                      imageProductos.length === 1
-                        ? "h-full"
-                        : "h-[20vh] md:h-32"
-                    } object-cover overflow-hidden `}
+                      imageProductos.length === 1 ? "h-[40vh]" : "h-[20vh] "
+                    } object-cover overflow-hidden`}
                     src={product.image}
                     alt={`product-${product.id}`}
                   />

@@ -291,7 +291,9 @@ function PromotorVistaId() {
           )}
         </div>
       </div>
-      {(id === user.id || user.role === "marca") && (
+      {(id === user.id ||
+        user.role === "marca" ||
+        dataDate.marcasCurso?.length > 0) && (
         <Carrucel
           idDate={idDate}
           marcasCurso={dataDate.marcasCurso}
