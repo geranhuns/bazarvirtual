@@ -337,6 +337,7 @@ function PromotorVistaId() {
                       timeEvent={date.timeEvent}
                       editButtonsActive={editButtonsActive}
                       eventCount={dataDate.events}
+                      showBin={id === user.id}
                     />
                   ))}
               </div>

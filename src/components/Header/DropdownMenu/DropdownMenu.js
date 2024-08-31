@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { HeaderContext } from "@/components/HContext/HeaderContext";
 import { useRouter } from "next/navigation";
 import { IoCloseOutline } from "react-icons/io5";
@@ -15,6 +15,7 @@ export default function DropdownMenu({
   const { active, setActive } = useContext(HeaderContext);
   const router = useRouter();
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const menuRef = useRef(null); // Ref para el contenedor del menú
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,13 +28,31 @@ export default function DropdownMenu({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setDropdownActive(false);
+      }
+    };
+
+    if (dropdownActive) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownActive, setDropdownActive]);
+
   const toggleMenu = () => {
-    setDropdownActive(!dropdownActive);
+    setDropdownActive((prev) => !prev);
   };
 
   if (isSmallScreen) {
     return (
-      <menu className="flex relative justify-end">
+      <div className="flex relative justify-end" ref={menuRef}>
         <button className="rounded-full p-2" onClick={toggleMenu}>
           <IoMdMenu className="w-full h-full text-raw-sienna-50 text-3xl" />
         </button>
@@ -93,7 +112,7 @@ export default function DropdownMenu({
                 <hr className="h-1 bg-raw-sienna-50" />
               </>
             )}
-            <li className="border-b-2 border-raw-sienna-300 pb-2 cursor-pointer">
+            <li className="pb-2 cursor-pointer">
               <a
                 onClick={() => {
                   if (role === "bazar") {
@@ -121,11 +140,14 @@ export default function DropdownMenu({
             </li>
           </ul>
         </div>
-      </menu>
+      </div>
     );
   } else {
     return (
-      <menu className="bg-raw-sienna-500 w-52 px-4 py-4 ml-auto rounded-b-sm drop-shadow-md  border-t-2 border-raw-sienna-300">
+      <div
+        className="bg-raw-sienna-500 w-52 px-4 py-4 ml-auto rounded-b-sm drop-shadow-md  border-t-2 border-raw-sienna-300"
+        ref={menuRef}
+      >
         <ul className="flex flex-col text-lg space-y-2 text-raw-sienna-50">
           {role === "cliente" && (
             <>
@@ -160,7 +182,7 @@ export default function DropdownMenu({
               </li>
             </>
           )}
-          <li className="border-b-2 border-raw-sienna-300 pb-2 cursor-pointer">
+          <li className=" pb-2 cursor-pointer">
             <a
               onClick={() => {
                 if (role === "bazar") {
@@ -181,11 +203,14 @@ export default function DropdownMenu({
               Editar Perfil
             </a>
           </li>
-          <li className="pt-2 cursor-pointer" onClick={handleLogout}>
+          <li
+            className="border-t-2 border-raw-sienna-300 pt-2 cursor-pointer"
+            onClick={handleLogout}
+          >
             <a>Cerrar sesión</a>
           </li>
         </ul>
-      </menu>
+      </div>
     );
   }
 }

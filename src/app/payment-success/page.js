@@ -112,7 +112,12 @@ export default function PaymentSuccess({ searchParams }) {
         </div>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        <h4>Puedes ver tu historial de compras en: Mis Pedidos</h4>
+        <h4>
+          Puedes ver tu historial de compras en:{" "}
+          <a className="cursor-pointer underline" href={"/misPedidos"}>
+            Mis Pedidos
+          </a>
+        </h4>
       </div>
     </main>
   );
