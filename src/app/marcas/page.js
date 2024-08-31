@@ -103,6 +103,7 @@ export default function Marcas() {
                 return (
                   <ProductoDestacadoMarca2
                     key={index}
+                    brandId={marca._id}
                     profile={marca.profilePicture}
                     nameMarca={marca.username}
                     imageProductos={marca.productos} // Aquí pasamos las imágenes correctas

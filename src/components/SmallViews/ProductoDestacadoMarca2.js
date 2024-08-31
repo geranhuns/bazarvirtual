@@ -3,6 +3,7 @@
 import MarcaSmallView2 from "./MarcaSmallView2";
 
 export default function ProductoDestacadoMarca2({
+  brandId,
   className,
   profile,
   nameMarca,
@@ -14,7 +15,7 @@ export default function ProductoDestacadoMarca2({
         className ? className : "w-full"
       }`}
     >
-      <div className="">
+      <a href={`/marcas/${brandId}`}>
         <MarcaSmallView2
           className={"h-3/12 flex-col "}
           profilePicture={profile}
@@ -60,7 +61,7 @@ export default function ProductoDestacadoMarca2({
               );
             })}
         </div>
-      </div>
+      </a>
     </div>
   );
 }

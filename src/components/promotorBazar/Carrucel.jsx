@@ -155,9 +155,9 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
             (
               <Slider {...settings} className="w-11/12 h-full flex mx-auto">
                 {newMarcasCurso.map((marca, index) => {
-                  console.log(newMarcasCurso)
                   return <ProductoDestacadoMarca2
                     key={index}
+                    brandId={marca.marcaID}
                     profile={marca.profile}
                     nameMarca={marca.nameMarca}
                     imageProductos={marca.productos}
