@@ -51,7 +51,7 @@ export default function ProximosBazares({ className }) {
             text={"Ver todos"}
             href={"/proximosBazares"}
             variant={"patina-500"}
-            className={" w-full md:w-1/2 lg:1/3 text-xl"}
+            className={" px-20 text-xl"}
           />
         </div>
         {/* <div className="bg-yellow-bazar py-2 px-4 mt-10">
