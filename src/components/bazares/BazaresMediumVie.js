@@ -3,7 +3,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function BazarMediumView({ className, item, createdBy }) {
-  console.log(item);
   const pathname = usePathname();
   const { profilePicture, time, date, username, _id } = item;
 

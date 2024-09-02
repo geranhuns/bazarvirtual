@@ -7,6 +7,7 @@ import {
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
+import Swal from "sweetalert2";
 import { fetchClientSecret } from "@/api/orders/routes";
 
 const CheckoutPage = ({
@@ -19,8 +20,7 @@ const CheckoutPage = ({
 }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [errorMessage, setErrorMessage] = useState();
-  // const [clientSecret, setClientSecret] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
 
@@ -47,6 +47,11 @@ const CheckoutPage = ({
     if (!stripe || !elements || !clientSecret) {
       setErrorMessage("Stripe.js has not loaded yet.");
       setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Stripe.js has not loaded yet.",
+      });
       return;
     }
 
@@ -55,6 +60,11 @@ const CheckoutPage = ({
     if (submitError) {
       setErrorMessage(submitError.message);
       setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Payment Error",
+        text: submitError.message,
+      });
       return;
     }
 
@@ -68,6 +78,19 @@ const CheckoutPage = ({
 
     if (error) {
       setErrorMessage(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Payment Error",
+        text: error.message,
+      });
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "Payment Successful",
+        text: "Your payment was successful.",
+      }).then(() => {
+        window.location.href = `${window.location.origin}/payment-success?amount=${amount}&fromCart=${fromCart}`;
+      });
     }
 
     setLoading(false);
@@ -75,8 +98,6 @@ const CheckoutPage = ({
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-2 rounded-md w-full">
-      {/* <PaymentElement id="payment-element" /> */}
-
       {clientSecret && <PaymentElement id="payment-element" />}
       {errorMessage && <div>{errorMessage}</div>}
       <button

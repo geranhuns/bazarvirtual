@@ -68,10 +68,16 @@ export const UserProvider = ({ children }) => {
           const wishListData = await fetchWishList(user.id);
           setWishList(wishListData.wishList);
 
-          const wishListDetails = await getWishListWithDetails(
+          const wishListDetailsRaw = await getWishListWithDetails(
             wishListData.wishList
           );
-          setWishListDetails(wishListDetails);
+
+          // Elimina duplicados basados en el ID del producto
+          const uniqueWishListDetails = Array.from(
+            new Map(wishListDetailsRaw.map((item) => [item._id, item])).values()
+          );
+
+          setWishListDetails(uniqueWishListDetails);
         } catch (error) {
           console.error("Error fetching data:", error);
         }

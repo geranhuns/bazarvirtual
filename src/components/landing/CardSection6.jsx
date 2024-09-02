@@ -4,7 +4,7 @@ function CardSection6(props) {
     const { bg, photo, testimonio, namePerson, bazarName } = props;
     return (
         <>
-            <div className={`mt-4 ml-5  ${bg} w-11/12 text-raw-sienna-50 h-96 border-2 rounded-3xl flex flex-col items-center gap-y-8`}>
+            <div className={`mt-4 ml-5  ${bg} w-11/12 text-raw-sienna-50 h-96  rounded-3xl flex flex-col items-center gap-y-8`}>
                 <div className="w-1/3 h-1/3 flex justify-end overflow-hidden self-end">
                     <img src={photo} alt="" className="object-cover object-center rounded-bl-custom1 rounded-tr-3xl" />
                 </div>

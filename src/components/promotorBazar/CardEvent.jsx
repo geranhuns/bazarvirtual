@@ -5,7 +5,7 @@ import { FaTrash } from "react-icons/fa6";
 
 import { deleteEspecialEvent } from "@/api/bazar/routes";
 
-function CardEvent({ eventName, description, timeEvent, idDate, eventID, setDataDate, fetchDataDates, editButtonsActive, eventCount }) {
+function CardEvent({ eventName, description, timeEvent, idDate, eventID, setDataDate, fetchDataDates, showBin, editButtonsActive, eventCount }) {
     const handleDelete = async () => {
         try {
             await deleteEspecialEvent(idDate, eventID);
@@ -26,9 +26,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
                 <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">{timeEvent}</span>
             </div>
 
-            {/* {editButtonsActive && eventCount.length > 1 && */}
-            <div className="  w-2/12 h-full flex justify-center items-center text-gray-300 hover:text-red-400  p-1">
-                {/* {Array.isArray(eventCount) && eventCount.length != 1 && ( */}
+            {showBin && <div className="  w-2/12 h-full flex justify-center items-center text-gray-300 hover:text-red-400  p-1">
                 <button
                     className=" rounded-lg p-2"
                     onClick={handleDelete}
@@ -37,11 +35,9 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
 
 
                 </button>
-                {/* )
-                    } */}
 
-            </div>
-            {/* } */}
+
+            </div>}
         </div>
     );
 }
