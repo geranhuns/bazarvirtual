@@ -245,7 +245,7 @@ export default function VistaDetalladaProducto() {
           </div>
         </div>
         <div className="md:pt-10 pr-10 w-full pl-6">
-          <h3 className="text-2xl font-semibold">{product.title}</h3>
+          <h3 className="text-3xl font-semibold">{product.title}</h3>
           <MarcaSmallView
             className="pt-4 cursor-pointer underline"
             createdBy={product.createdBy}
@@ -268,7 +268,7 @@ export default function VistaDetalladaProducto() {
           </div>
           <h4 className="text-2xl pb-4 md:pb-8">{`$${product.price}`}</h4>
           <h4 className="italic">Acerca de este artículo</h4>
-          <p className="pt-2 text-justify pb-10 text-xl">
+          <p className="pt-2 text-justify pb-10 text-xl text-gray-700">
             {product.description}
           </p>
         </div>

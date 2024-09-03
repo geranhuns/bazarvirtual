@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 
 export default function ProximosBazares({ className }) {
   const [eventos, setEventos] = useState([]);
+  
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bazar/bazarDates`)
       .then((res) => {
@@ -27,6 +28,7 @@ export default function ProximosBazares({ className }) {
           <div className=" flex w-full py-4 gap-8 flex-wrap  lg:flex-nowrap justify-center ">
             {eventos
               .filter((evento) => {
+               
                 const eventStartDate = new Date(evento.date);
                 const eventStartDateMinusThreeDays = new Date(eventStartDate);
                 eventStartDateMinusThreeDays.setDate(
@@ -40,7 +42,9 @@ export default function ProximosBazares({ className }) {
               .sort((a, b) => new Date(a.date) - new Date(b.date))
               .slice(0, 4)
               .map((item) => {
+                
                 return (
+                 
                   <article key={item._id}>
                     <BazarSmallView item={item} />
                   </article>

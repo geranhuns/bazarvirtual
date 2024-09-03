@@ -1,14 +1,15 @@
 export default function BazarSmallView({ className, item }) {
   const { date, time, createdBy } = item;
+ 
   const obtenerFechaFormateada = (fechaCompleta) => {
-    // Extrae la parte de la fecha 'yyyy-MM-dd' de la cadena 'yyyy-MM-ddTHH:mm:ss.sssZ'
+   
     if (!fechaCompleta) return "";
 
-    const fecha = new Date(fechaCompleta);
-    const dia = fecha.getDate();
-    const mes = fecha.toLocaleString("es-ES", { month: "short" });
+        const fecha = new Date(fechaCompleta);
+        const dia = fecha.getUTCDate(); // Obtener el día en UTC
+        const mes = fecha.toLocaleString("es-ES", { month: "short", timeZone: "UTC" }); // Obtener el mes en UTC
 
-    return `${dia}-${mes}`;
+        return `${dia}-${mes}`;
   };
 
   return (
