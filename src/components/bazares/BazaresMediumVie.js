@@ -36,11 +36,11 @@ export default function BazarMediumView({ className, item, createdBy }) {
   return (
     <a
       href={`bazares/${redirect}?date=${item._id}`}
-      className={`flex flex-col bg-raw-sienna-200  px-16 rounded-lg gap-2 items-center cursor-pointer   ${className} text-raw-sienna-900  pt-8 `}
+      className={`flex flex-col bg-raw-sienna-200  px-16 rounded-lg gap-2 items-center cursor-pointer   ${className} text-raw-sienna-900  pt-8 drop-shadow-lg  `}
     >
       <div className="w-36 h-36">
         <img
-          className="object-cover h-full w-full rounded-full"
+          className="object-cover h-full w-full rounded-full drop-shadow-lg"
           src={createdBy?.profilePicture || item.profilePicture}
           alt={username}
         />

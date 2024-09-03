@@ -116,7 +116,7 @@ function FormNewDate(props) {
         <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
             <div className="bg-customGreen w-7/12 mt-8 flex flex-col mx-auto max-sm:w-full rounded-sm">
                 <button className="bg-raw-sienna-50 flex justify-center self-end rounded-full mr-2 mt-2" onClick={() => { setOpen(false); setOpenEdDate(false); }}>
-                    <MdClose className="text-sm w-6 h-6 " />
+                    <MdClose className="text-sm w-6 h-6 text-customGreen " />
                 </button>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 h-5/6 mx-auto rounded-sm flex flex-col text-customGreen px-2 pb-10">
                     <div className="flex flex-col w-full  px-2">
