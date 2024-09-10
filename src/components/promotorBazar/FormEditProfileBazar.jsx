@@ -36,7 +36,7 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
     }
   };
 
- 
+
   const handleImagen = (e) => {
     const file = e.target.files[0];
     const maxSizeInMB = 2; // Tamaño máximo permitido en MB
@@ -140,16 +140,16 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
   return (
     <>
       <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh lg:max-w-screen-xl overflow-auto mx-auto backdrop-blur-md mt-16 px-1 ">
-       
-        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customBlue w-7/12 h-5/6 rounded-xl   mx-auto px-2 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-4 pb-10"  >
-          <button className=" bg-raw-sienna-500 p-1 mt-1 flex justify-center items-center self-start  rounded-full " onClick={() => setActive(!active && setPreview(null))} ><IoCloseOutline className="text-2xl rounded full" /></button>
-          <h3 className="text-2xl text-white ">Editar perfil </h3>
+
+        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customGreen w-7/12 h-5/6 rounded-xl   mx-auto px-2 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-4 pb-10 text-patina-900"  >
+          <button className=" bg-raw-sienna-50 p-1 mt-2 flex justify-center items-center self-end  rounded-full " onClick={() => setActive(!active && setPreview(null))} ><IoCloseOutline className="text-2xl rounded full text-patina-900" /></button>
+          <h3 className="text-2xl text-raw-sienna-50 ">Editar perfil </h3>
           <div className=" w-11/12 h-full flex flex-col justify-start items-center max-sm:w-full  ">
-            <div className="  w-full h-2/6 p-15 flex items-center max-sm:rounded-lg ">
-              <div className="  w-36 h-36 mx-auto rounded-full relative   ">
-                <img className=" rounded-full object-cover" src={preview ? preview : dataUser.profilePicture} alt="" />
+            <div className="w-full h-full flex items-center max-sm:rounded-lg ">
+              <div className="size-44 mx-auto rounded-full relative drop-shadow-lg ">
+                <img className="w-full h-full rounded-full object-cover object-center" src={preview ? preview : dataUser.profilePicture} alt="" />
                 <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                  <label className="text-white text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
+                  <label className="text-raw-sienna-50 text-lg cursor-pointer" onClick={handleButtonClick}>Cambiar perfil</label>
                   <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImagen} />
                 </div>
               </div>
@@ -158,41 +158,41 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
             <div className="  w-10/12 h-4/6 flex flex-col items-center justify-start p-2 max-sm:w-full">
               <div className="  w-full h-2/6  flex justify-around items-center max-sm:flex-col">
                 <div className="  flex flex-col items-center w-1/2 max-sm:w-10/12">
-                  <label className="text-lg text-white  " htmlFor="">Nombre bazar</label>
+                  <label className="text-lg text-raw-sienna-50  " htmlFor="">Nombre de tu bazar</label>
                   <input disabled className="w-11/12 p-1 rounded-xl text-center max-sm:w-full " type="text" defaultValue={dataUser.username}
                     {...register("username")} />
                 </div>
                 <div className="  flex flex-col items-center w-1/2 max-sm:w-10/12 ">
-                  <label className="text-lg text-white " htmlFor="">Pagina Web</label>
+                  <label className="text-lg text-raw-sienna-50 " htmlFor="">Página Web</label>
                   <input className="w-11/12 p-1 rounded-xl  text-center max-sm:w-full" type="text" defaultValue={dataUser.webPage}
                     {...register("webPage")} />
                 </div>
               </div>
 
               <div className="  w-full h-5/6 flex flex-col items-center ">
-                <h3 className="text-xl text-white font-semibold ">Redes sociales</h3>
+                <h3 className="text-2xl pt-6 text-raw-sienna-50 font-semibold ">Redes sociales</h3>
                 <div className=" flex flex-col gap-y-1 w-full px-2 max-sm:items-center">
 
                   <div className="  flex flex-col items-center w-full max-sm:w-10/12 ">
-                    <label id="facebook" name="facebook" className="text-lg text-white " htmlFor="facebook">Facebook</label>
+                    <label id="facebook" name="facebook" className="text-lg text-raw-sienna-50 " htmlFor="facebook">Facebook</label>
                     <input className="w-11/12 p-1 rounded-xl  text-center" type="text" defaultValue={facebookObject.url}
                       {...register("facebook")} />
 
                   </div>
                   <div className="  flex flex-col items-center w-full max-sm:w-10/12 ">
-                    <label className="text-lg text-white " htmlFor="">Instagram</label>
+                    <label className="text-lg text-raw-sienna-50 " htmlFor="">Instagram</label>
                     <input className="w-11/12 p-1 rounded-xl  text-center" type="text" defaultValue={instagramObject.url}
                       {...register("instagram")} />
                   </div>
 
                   <div className="  flex flex-col items-center w-full max-sm:w-10/12">
-                    <label className="text-lg text-white" htmlFor="">TikTok</label>
+                    <label className="text-lg text-raw-sienna-50" htmlFor="">TikTok</label>
                     <input className="w-11/12 p-1 rounded-xl  text-center" type="text" defaultValue={tiktokObject.url}
                       {...register("tiktok")}
                     />
                   </div>
                 </div>
-                <button className="bg-raw-sienna-500 w-9/12 rounded-lg p-1 mt-10" type="submit">Guardar</button>
+                <button className="bg-raw-sienna-500 text-raw-sienna-50 font-bold w-9/12 rounded-lg p-1 mt-10" type="submit">Guardar</button>
               </div>
             </div>
           </div>
