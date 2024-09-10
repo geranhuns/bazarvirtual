@@ -249,6 +249,35 @@ export const updateDateFetch = async (dateID, data) => {
   }
 };
 
+
+export const updateEventsFetch = async (dateID, events) => {
+
+  try {
+    const response = await fetch(`${BAZAR_URL}/updateEventsBazar/${dateID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ eventos: events }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al actualizar datos");
+    }
+    const updatedData = await response.json();
+    Toast.fire({
+      icon: "success",
+      title: "Eventos especiales actualizados.",
+    });
+    // return updatedData;
+  } catch (error) {
+    console.error("Error en la petición de actualización:", error);
+    throw error;
+  }
+};
+
+
+
 export const subscribeToEvent = async (eventId, data) => {
   try {
     const response = await fetch(`${BAZAR_URL}/updateMarcasCurso/${eventId}`, {

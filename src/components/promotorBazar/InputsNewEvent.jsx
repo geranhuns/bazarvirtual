@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTrash } from "react-icons/fa6";
 
-const InputNewEvent = ({ register, eventName, description, timeEvent, errors, openEdDate, index, onChange, removeExtraEvent }) => {
+const InputNewEvent = ({ eventName, description, timeEvent, errors, openEdDate,openAddEspEvent, index, onChange, removeExtraEvent }) => {
     return (
         <div className="flex  gap-2 mb-4 w-full justify-between">
             <div className="flex flex-col w-4/12">
@@ -41,10 +41,10 @@ const InputNewEvent = ({ register, eventName, description, timeEvent, errors, op
                 />
             </div>
             {errors && <label className="text-red-700 text-xs">Este campo es requerido</label>}
-            {openEdDate && (
+            {openEdDate || openAddEspEvent && (
                 <button
                     type="button"
-                    className=" text-white  rounded-full flex items-end pb-3 w-1/12"
+                    className=" text-white  rounded-full flex items-end pb-3 w-1/12 hover:text-red-500"
                     onClick={() => removeExtraEvent(index)}
                 >
                     <FaTrash />

@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdClose } from "react-icons/md";
-import { FaTrash } from "react-icons/fa6";
 import Swal from 'sweetalert2';
 import { createDateFetch, updateDateFetch, dateById, cancelDate } from "@/api/bazar/routes";
 import InputNewEvent from "./InputsNewEvent";
@@ -15,6 +14,8 @@ function FormNewDate(props) {
     const [isLoading, setIsLoading] = useState(true);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [extraEvents, setExtraEvents] = useState([]);
+    
+
 
     const addEvent = () => setExtraEvents([...extraEvents, { eventName: "", description: "", timeEvent: "" }]);
 
@@ -155,16 +156,15 @@ function FormNewDate(props) {
                         </div>
                     </div>
 
+                    
+                    
+                    {( (openEdDate && extraEvents.length > 0) ) && (
+                         <>
                     <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10 ">Eventos especiales</h3>
-                    {/* <div className="flex justify-between">
-                        <h3 className="text-lg text-white w-4/12">Evento</h3>
-                        <h3 className="text-lg text-white w-4/12">Descripción</h3>
-                        <h3 className="text-lg text-white w-3/12">Horario</h3>
-                    </div> */}
+                   
                     {extraEvents.map((event, index) => (
                         <InputNewEvent
                             key={index}
-                            register={register}
                             eventName={event.eventName}
                             description={event.description}
                             timeEvent={event.timeEvent}
@@ -175,14 +175,18 @@ function FormNewDate(props) {
                             removeExtraEvent={removeExtraEvent}
                         />
                     ))}
-                    <button
-                        className="bg-raw-sienna-500 text-raw-sienna-900 mt-2 p-1 px-3 rounded-md mx-auto"
-                        type="button"
-                        onClick={addEvent}
-                    >
+                    {(openEdDate ===false && (
+                        <button
+                            className="bg-raw-sienna-500 text-raw-sienna-900 mt-2 p-1 px-3 rounded-md mx-auto"
+                            type="button"
+                            onClick={addEvent}
+                            >
                         Agregar evento
-                    </button>
-
+                        </button>
+                    ))} 
+                    
+                    </>
+                )}
                     <div className="mt-10 flex justify-around w-full gap-4">
                         <button className="bg-raw-sienna-500 text-raw-sienna-50 text-lg rounded-md p-1 px-3" type="submit">
                             {openEdDate ? "Guardar cambios" : "Guardar fecha"}

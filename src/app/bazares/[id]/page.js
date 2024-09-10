@@ -10,6 +10,7 @@ import FormNewDate from "@/components/promotorBazar/FormNewDate";
 import CardEventDetail from "@/components/promotorBazar/CardEventDetail";
 import FormEditProfileBazar from "@/components/promotorBazar/FormEditProfileBazar";
 import CardEvent from "@/components/promotorBazar/CardEvent";
+import AddEspecialEvents from "@/components/promotorBazar/AddEspecialEvents";
 import {
   dataUserBazarFetch,
   datesBazarFetch,
@@ -21,18 +22,19 @@ import Swal from "sweetalert2";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 function PromotorVistaId() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);//monitorea si el form para agregar fecha esta abierto o cerrado
   const [dataUser, setDataUser] = useState({}); //contiene los datos de peril del user
   const [datesBazar, setDatesBazar] = useState([]); //contiene las fechas del bazarUser
   const [dataDate, setDataDate] = useState({}); //contiene un obj con los eventos especiales, lugar, fecha y marcasCurso de la fecha que se selecciona
   const [idDate, setIdDate] = useState(""); //state que almacena el id de la date seleccionada, es para pasarselo a los events
   const [openEdDate, setOpenEdDate] = useState(false); //monitorea estado para abrir editarDate
+  const [openAddEspEvent, setOpenAddEspEvent]= useState(false) //monitorea estado de abierto o cerrado de form de especialEvents
   const { active, setActive } = useContext(HeaderContext); //monitorea estado para brir form edit profile
   const [editButtonsActive, setEditButtonsActive] = useState(false);
   const [isParticipant, setIsParticipant] = useState(false);
   const [currentDate, setCurrentDate] = useState(""); //almacena la fecha del dia
 
-  const router = useRouter();
+
   const pathname = usePathname();
 
   const redesSociales = dataUser.socialNetworks;
@@ -113,6 +115,11 @@ function PromotorVistaId() {
   }, []);
 
   useEffect(() => {
+    const filteredDates = filterPastDates(datesBazar);
+    if (JSON.stringify(filteredDates) !== JSON.stringify(datesBazar)) {
+      setDatesBazar(filteredDates);
+      //probar aqui borrar dataDate
+    }
     const dateParam = new URLSearchParams(window.location.search).get("date");
 
     if (dateParam) {
@@ -156,6 +163,10 @@ function PromotorVistaId() {
     }
   }, [dataDate]);
 
+  const handleropenFormAddEspEve = ()=>{
+    setOpenAddEspEvent(!openAddEspEvent)
+  }
+
   return (
     <section className="relative w-full   min-h-screen lg:max-w-screen-xl flex flex-col  overflow-auto mx-auto ">
       {(openEdDate || open) && (
@@ -177,6 +188,9 @@ function PromotorVistaId() {
           setActive={setActive}
           setDataUserMain={setDataUser}
         />
+      )}
+      {openAddEspEvent &&(
+        <AddEspecialEvents openAddEspEvent={openAddEspEvent} setOpenAddEspEvent={setOpenAddEspEvent} idDate={idDate} fetchDataDates={fetchDataDates}/>
       )}
 
       <div className="bg-patina-500  w-10/12 flex  items-center justify-around  p-10 mx-auto flex-col lg:flex-row my-10 rounded-xl drop-shadow-lg ">
@@ -308,7 +322,9 @@ function PromotorVistaId() {
             <h3 className="text-4xl font-semibold pt-8 text-raw-sienna-50 text-center">
               Eventos especiales
             </h3>
-            {/* //poner un state con el lugar para precentarlo aqui */}
+            <button className="bg-patina-500 h-full rounded-lg p-2 w-10" onClick={() => handleropenFormAddEspEve()}>
+                <FaPlus className="text-raw-sienna-50 text-2xl" />
+            </button>
 
             <div className="grid grid-cols-1 w-full items-center justify-center md:px-8 pt-8">
               {(!dataDate.events || dataDate.events?.length === 0) && (
