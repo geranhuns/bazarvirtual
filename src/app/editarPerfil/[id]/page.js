@@ -44,8 +44,7 @@ export default function EditarPerfil() {
   return (
     <>
       <div className="flex flex-col items-center h-screen justify-center lg:max-w-screen-xl mx-auto ">
-        <div className="bg-white p-10 rounded-md flex flex-col items-center shadow-md">
-
+        <div className="bg-white w-11/12 p-10 md:p-16 rounded-md flex flex-col items-center shadow-md">
           <ProfileEdit
             userData={userData}
             isSubmit={isSubmit}

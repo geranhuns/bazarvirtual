@@ -53,7 +53,7 @@ export default function ShoppingCartItem({
   };
   return (
     <>
-      <div className="flex flex-row items-center bg-raw-sienna-50 py-5 px-4 lg:max-w-screen-lg text-gray-700 ">
+      <div className="flex flex-col md:flex-row items-center bg-raw-sienna-50 py-5 md:px-4 lg:max-w-screen-lg text-gray-700 ">
         <a
           className="w-36 h-36 overflow-hidden flex justify-center items-center rounded-lg"
           href={`/productos/${_id}`}
@@ -67,7 +67,7 @@ export default function ShoppingCartItem({
           />
         </a>
 
-        <div className="pl-10 flex flex-col w-full  ">
+        <div className="pl-5 md:pl-10 flex flex-col w-full  pt-4 md:pt-0">
           <a className="  text-2xl font-semibold " href={`/productos/${_id}`}>
             {title}
           </a>
@@ -75,6 +75,7 @@ export default function ShoppingCartItem({
             brand={createdBy.username}
             profilePicture={createdBy.profilePicture}
             brandId={createdBy._id}
+            className={"py-4"}
           />
           <div className="flex flex-col md:flex-row pt-2">
             <div className="flex items-center mb-4 md:mb-0">
