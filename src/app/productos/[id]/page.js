@@ -247,7 +247,7 @@ export default function VistaDetalladaProducto() {
         <div className="md:pt-10 pr-10 w-full pl-6">
           <h3 className="text-3xl font-semibold">{product.title}</h3>
           <MarcaSmallView
-            className="pt-4 cursor-pointer underline"
+            className="pt-4 cursor-pointer text-raw-sienna-500"
             createdBy={product.createdBy}
             profilePicture={logo}
           />

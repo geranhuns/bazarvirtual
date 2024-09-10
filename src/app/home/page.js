@@ -21,11 +21,11 @@ export default function Home() {
   return (
     <div className="flex flex-col    mx-auto  lg:max-w-screen-xl overflow-auto ">
       <div className="flex flex-col w-full mx-auto lg:max-w-screen-xl items-center">
-        <ProximosBazares className="" />
+        <ProximosBazares className="w-11/12 md:w-auto" />
         <h2 className="pt-14 pb-6 text-4xl font-semibold text-patina-900 text-center">
           Productos destacados
         </h2>
-        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
+        <div className="w-11/12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5 ">
           {products &&
             products.map((item) => {
               return <ProductSmallView key={item._id} item={item} />;
