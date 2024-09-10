@@ -42,7 +42,7 @@ export default function ProductSmallView({ item }) {
         }}
       >
         <div
-          className="flex flex-col items-center cursor-pointer text-gray-500"
+          className="flex flex-col items-center cursor-pointer text-gray-800"
           // href={`products/${_id}`}
         >
           <div className="w-28 h-28 md:h-36 md:w-36 overflow-hidden rounded-lg">
