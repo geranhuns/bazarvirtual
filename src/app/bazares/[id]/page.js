@@ -322,9 +322,11 @@ function PromotorVistaId() {
             <h3 className="text-4xl font-semibold pt-8 text-raw-sienna-50 text-center">
               Eventos especiales
             </h3>
+            {(idDate && datesBazar?.length > 0) && (
             <button className="bg-patina-500 h-full rounded-lg p-2 w-10" onClick={() => handleropenFormAddEspEve()}>
                 <FaPlus className="text-raw-sienna-50 text-2xl" />
             </button>
+            )}
 
             <div className="grid grid-cols-1 w-full items-center justify-center md:px-8 pt-8">
               {(!dataDate.events || dataDate.events?.length === 0) && (
