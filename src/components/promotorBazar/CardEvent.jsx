@@ -23,7 +23,7 @@ function CardEvent({ eventName, description, timeEvent, idDate, eventID, setData
             <div className="  w-9/12 h-10/12 flex flex-col text-white items-center justify-around text-center max-sm:w-9/12 ">
                 <span className="text-2xl font-semibold flex justify-around items-center max-md:text-lg">{eventName}</span>
                 <span className="text-xl font-medium max-md:text-sm">{description}</span>
-                <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">{timeEvent}</span>
+                <span className="text-xl font-medium flex justify-around items-center max-md:text-sm">{timeEvent} hrs</span>
             </div>
 
             {showBin && <div className="  w-2/12 h-full flex justify-center items-center text-gray-300 hover:text-red-400  p-1">

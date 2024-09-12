@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdClose } from "react-icons/md";
+import { FaTrash } from "react-icons/fa6";
 import Swal from 'sweetalert2';
 import { createDateFetch, updateDateFetch, dateById, cancelDate } from "@/api/bazar/routes";
 import InputNewEvent from "./InputsNewEvent";
@@ -14,8 +15,6 @@ function FormNewDate(props) {
     const [isLoading, setIsLoading] = useState(true);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [extraEvents, setExtraEvents] = useState([]);
-    
-
 
     const addEvent = () => setExtraEvents([...extraEvents, { eventName: "", description: "", timeEvent: "" }]);
 
@@ -114,7 +113,7 @@ function FormNewDate(props) {
     }
 
     return (
-        <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16 text-patina-900">
+        <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
             <div className="bg-customGreen w-7/12 mt-8 flex flex-col mx-auto max-sm:w-full rounded-sm">
                 <button className="bg-raw-sienna-50 flex justify-center self-end rounded-full mr-2 mt-2" onClick={() => { setOpen(false); setOpenEdDate(false); }}>
                     <MdClose className="text-sm w-6 h-6 text-customGreen " />
@@ -124,7 +123,7 @@ function FormNewDate(props) {
                         <h3 className="text-4xl text-raw-sienna-50 p-1 pb-6">{openEdDate ? "Editar fecha de bazar" : "Nueva fecha de bazar"}</h3>
                         <label className="text-lg text-raw-sienna-50">Lugar</label>
                         <input
-                            className="p-1 rounded-sm text-center max-sm:w-full text-customGreen"
+                            className="p-1 rounded-sm text-center max-sm:w-full"
                             type="text"
                             defaultValue={dataDate.place || ''}
                             {...register("place", { required: "Este campo es requerido" })}
@@ -136,7 +135,7 @@ function FormNewDate(props) {
                         <div className="flex flex-col w-1/2">
                             <label className="text-lg text-raw-sienna-50">Fecha</label>
                             <input
-                                className="p-1 rounded-sm text-center max-sm:w-full text-customGreen"
+                                className="p-1 rounded-sm text-center max-sm:w-full"
                                 type="date"
                                 min={currentDate}
                                 defaultValue={obtenerFechaFormateada(dataDate.date)}
@@ -147,7 +146,7 @@ function FormNewDate(props) {
                         <div className="flex flex-col w-1/2">
                             <label className="text-lg text-raw-sienna-50">Hora</label>
                             <input
-                                className="p-1 rounded-sm text-center max-sm:w-full text-customGreen"
+                                className="p-1 rounded-sm text-center max-sm:w-full"
                                 type="time"
                                 defaultValue={dataDate.time || ''}
                                 {...register("time", { required: "Este campo es requerido" })}
@@ -156,44 +155,41 @@ function FormNewDate(props) {
                         </div>
                     </div>
 
-                    
-                    
-                    {( (openEdDate && extraEvents.length > 0) ) && (
-                         <>
-                    <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10 ">Eventos especiales</h3>
-                   
-                    {extraEvents.map((event, index) => (
-                        <InputNewEvent
-                            key={index}
-                            eventName={event.eventName}
-                            description={event.description}
-                            timeEvent={event.timeEvent}
-                            errors={errors.events?.[index]}
-                            openEdDate={openEdDate}
-                            index={index}
-                            onChange={(e) => handleEventChange(e, index)}
-                            removeExtraEvent={removeExtraEvent}
-                        />
-                    ))}
-                    {(openEdDate ===false && (
-                        <button
-                            className="bg-raw-sienna-500 text-raw-sienna-900 mt-2 p-1 px-3 rounded-md mx-auto"
-                            type="button"
-                            onClick={addEvent}
+                    {extraEvents.length > 0 &&
+                        <>
+
+                            <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10 ">Eventos especiales</h3>
+                            {extraEvents.map((event, index) => (
+                                <InputNewEvent
+                                    key={index}
+                                    register={register}
+                                    eventName={event.eventName}
+                                    description={event.description}
+                                    timeEvent={event.timeEvent}
+                                    errors={errors.events?.[index]}
+                                    openEdDate={openEdDate}
+                                    index={index}
+                                    onChange={(e) => handleEventChange(e, index)}
+                                    removeExtraEvent={removeExtraEvent}
+                                />
+                            ))}
+                            <button
+                                className="bg-patina-500 text-patina-50 mt-2 p-1 px-3 rounded-md mx-auto"
+                                type="button"
+                                onClick={addEvent}
                             >
-                        Agregar evento
-                        </button>
-                    ))} 
-                    
-                    </>
-                )}
+                                Agregar evento
+                            </button>
+                        </>
+                    }
+
                     <div className="mt-10 flex justify-around w-full gap-4">
                         <button className="bg-raw-sienna-500 text-raw-sienna-50 text-lg rounded-md p-1 px-3" type="submit">
                             {openEdDate ? "Guardar cambios" : "Guardar fecha"}
                         </button>
                         {openEdDate && (
                             <button className="bg-raw-sienna-500 text-raw-sienna-50 text-lg rounded-md p-1 px-3" type="button" onClick={handleDeleteDate}>
-                                Cancelar evento
+                                Cancelar fecha
                             </button>
                         )}
                     </div>

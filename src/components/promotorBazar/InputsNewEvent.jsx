@@ -1,9 +1,9 @@
 import React from "react";
 import { FaTrash } from "react-icons/fa6";
 
-const InputNewEvent = ({ eventName, description, timeEvent, errors, openEdDate,openAddEspEvent, index, onChange, removeExtraEvent }) => {
+const InputNewEvent = ({ eventName, description, timeEvent, errors, openEdDate, openAddEspEvent, index, onChange, removeExtraEvent }) => {
     return (
-        <div className="flex  gap-2 mb-4 w-full justify-between">
+        <div className="flex  gap-2 mb-4 w-full justify-between px-2">
             <div className="flex flex-col w-4/12">
                 {/* <label className="text-lg text-white">Evento</label> */}
 
@@ -41,15 +41,14 @@ const InputNewEvent = ({ eventName, description, timeEvent, errors, openEdDate,o
                 />
             </div>
             {errors && <label className="text-red-700 text-xs">Este campo es requerido</label>}
-            {openEdDate || openAddEspEvent && (
-                <button
-                    type="button"
-                    className=" text-white  rounded-full flex items-end pb-3 w-1/12 hover:text-red-500"
-                    onClick={() => removeExtraEvent(index)}
-                >
-                    <FaTrash />
-                </button>
-            )}
+            <button
+                type="button"
+                className=" text-white  rounded-full flex items-center justify-end h-full w-1/12 hover:text-red-500"
+                onClick={() => removeExtraEvent(index)}
+            >
+                <FaTrash />
+            </button>
+
         </div>
     );
 };

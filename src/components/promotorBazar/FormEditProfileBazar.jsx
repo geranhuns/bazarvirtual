@@ -141,7 +141,7 @@ function FormEditProfileBazar({ active, setActive, setDataUserMain }) {
     <>
       <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh lg:max-w-screen-xl overflow-auto mx-auto backdrop-blur-md mt-16 px-1 ">
 
-        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customGreen w-7/12 h-5/6 rounded-xl   mx-auto px-2 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-4 pb-10 text-patina-900"  >
+        <form onSubmit={handleSubmit(onSubmit)} className=" bg-customGreen w-7/12 h-5/6 rounded-sm   mx-auto px-2 flex flex-col items-center max-md:w-10/12 max-sm:w-full mt-4 pb-10 text-patina-900"  >
           <button className=" bg-raw-sienna-50 p-1 mt-2 flex justify-center items-center self-end  rounded-full " onClick={() => setActive(!active && setPreview(null))} ><IoCloseOutline className="text-2xl rounded full text-patina-900" /></button>
           <h3 className="text-2xl text-raw-sienna-50 ">Editar perfil </h3>
           <div className=" w-11/12 h-full flex flex-col justify-start items-center max-sm:w-full  ">
