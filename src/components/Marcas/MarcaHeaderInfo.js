@@ -20,8 +20,8 @@ export default function MarcaHeaderInfo({ id }) {
       setBrandInfo(data.data);
       setRedesSociales(data.data.socialNetworks);
 
-      localStorage.setItem("brandProfilePicture", data.data.profilePicture);
-      localStorage.setItem("brandUsername", data.data.username);
+      // localStorage.setItem("brandProfilePicture", data.data.profilePicture);
+      // localStorage.setItem("brandUsername", data.data.username);
 
       setLoading(false);
     } catch (error) {

@@ -7,7 +7,7 @@ import { IoLogoTiktok } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 
-import Carrucel from "@/components/promotorBazar/Carrucel";
+import Carrusel from "@/components/promotorBazar/Carrusel";
 import FormNewDate from "@/components/promotorBazar/FormNewDate";
 import CardEventDetail from "@/components/promotorBazar/CardEventDetail";
 import FormEditProfileBazar from "@/components/promotorBazar/FormEditProfileBazar";
@@ -315,7 +315,7 @@ function PromotorVistaId() {
       {(id === user.id ||
         user.role === "marca" ||
         dataDate.marcasCurso?.length > 0) && (
-        <Carrucel
+        <Carrusel
           idDate={idDate}
           marcasCurso={dataDate.marcasCurso}
           fetchDataDates={fetchDataDates}

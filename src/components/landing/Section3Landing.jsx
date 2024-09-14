@@ -7,7 +7,7 @@ import CardSection3 from "./CardSection3";
 
 function Section3Landing({ id }) {
         const settings = {
-                dots: false, //Puntos de debajo del carrucel off(false)
+                dots: false, //Puntos de debajo del carrusel off(false)
                 arrows: false,
                 infinite: true,
                 speed: 500,

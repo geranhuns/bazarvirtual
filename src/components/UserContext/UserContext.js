@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
   const [shoppingCartDetails, setShoppingCartDetails] = useState([]);
   const [wishList, setWishList] = useState([]);
   const [wishListDetails, setWishListDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getShoppingCartWithDetails = async (shoppingCart) => {
     try {
@@ -103,11 +104,30 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    if (user.id && user.role === "cliente") {
-      updateShoppingCart();
+  const getMarca = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/marca/${user.id}`
+      );
+      const data = await response.json();
+
+      localStorage.setItem("brandProfilePicture", data.data.profilePicture);
+      localStorage.setItem("brandUsername", data.data.username);
+      localStorage.setItem("marcaID", data.data._id);
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
-  }, [user.id]);
+  };
+
+  useEffect(() => {
+    if (user.id && user.role === "marca") {
+      getMarca();
+    }
+  }, [user.id, user.role]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

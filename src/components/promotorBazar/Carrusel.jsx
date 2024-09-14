@@ -14,7 +14,7 @@ import { getAllProducts } from "@/api/marcas/products/routes"
 
 
 
-function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMessage }) {
+function Carrusel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMessage }) {
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
   const [products, setProducts] = useState([])
@@ -161,7 +161,12 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
                     profile={marca.profile}
                     nameMarca={marca.nameMarca}
                     imageProductos={marca.productos}
-                    className={`${(newMarcasCurso.length < 3) ? " md:w-5/12 lg:w-1/3" : "w-11/12"}`}
+                    className={`${newMarcasCurso.length === 1
+                      ? "w-4/12"
+                      : newMarcasCurso.length === 2
+                        ? "w-8/12"
+                        : "w-11/12"
+                      }`}
                   />
                 })
                 }
@@ -196,4 +201,4 @@ function Carrucel({ idDate, marcasCurso, fetchDataDates, isParticipant, showMess
   )
 }
 
-export default Carrucel;
+export default Carrusel;

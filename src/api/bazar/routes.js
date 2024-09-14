@@ -249,9 +249,7 @@ export const updateDateFetch = async (dateID, data) => {
   }
 };
 
-
 export const updateEventsFetch = async (dateID, events) => {
-
   try {
     const response = await fetch(`${BAZAR_URL}/updateEventsBazar/${dateID}`, {
       method: "PUT",
@@ -275,8 +273,6 @@ export const updateEventsFetch = async (dateID, events) => {
     throw error;
   }
 };
-
-
 
 export const subscribeToEvent = async (eventId, data) => {
   try {

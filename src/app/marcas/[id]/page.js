@@ -47,13 +47,13 @@ export default function VistaMarca() {
       return null;
     }
   };
-  useEffect(() => {
-    if (token) {
-      const decoded = decodeToken(token);
-      setDecodedToken(decoded);
-    }
-    localStorage.setItem("marcaID", id);
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     const decoded = decodeToken(token);
+  //     setDecodedToken(decoded);
+  //   }
+  //   localStorage.setItem("marcaID", id);
+  // }, [token]);
   useEffect(() => {
     getProducts();
   }, []);
