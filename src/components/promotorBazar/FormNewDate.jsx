@@ -8,7 +8,7 @@ import { createDateFetch, updateDateFetch, dateById, cancelDate } from "@/api/ba
 import InputNewEvent from "./InputsNewEvent";
 
 function FormNewDate(props) {
-    const { setOpen, open, _idUser, fetchDataDates, datesBazar, openEdDate, setOpenEdDate, idDate, updateSelectDate } = props;
+    const { setOpen, open, _idUser, fetchDataDates, datesBazar, openEdDate, setOpenEdDate, idDate, updateSelectDate, openEditSpecialEvents, setOpenEditSpecialEvents } = props;
     const [currentDate, setCurrentDate] = useState('');
     const [dateCount, setDateCount] = useState(0);
     const [dataDate, setDataDate] = useState({});
@@ -108,6 +108,14 @@ function FormNewDate(props) {
         setOpenEdDate(false);
     };
 
+    const handleClose = () => {
+        setOpen(false); setOpenEdDate(false);
+        if (openEditSpecialEvents) {
+
+            setOpenEditSpecialEvents(!openEditSpecialEvents)
+        }
+    }
+
     if (openEdDate && isLoading) {
         return <div>Loading...</div>;
     }
@@ -115,7 +123,9 @@ function FormNewDate(props) {
     return (
         <div className="fixed inset-0 z-50 bg-gray-600/80 w-full h-dvh backdrop-blur-md flex flex-col lg:max-w-screen-xl overflow-auto mx-auto mt-16">
             <div className="bg-customGreen w-7/12 mt-8 flex flex-col mx-auto max-sm:w-full rounded-sm">
-                <button className="bg-raw-sienna-50 flex justify-center self-end rounded-full mr-2 mt-2" onClick={() => { setOpen(false); setOpenEdDate(false); }}>
+                <button className="bg-raw-sienna-50 flex justify-center self-end rounded-full mr-2 mt-2" onClick={() => {
+                    handleClose();
+                }}>
                     <MdClose className="text-sm w-6 h-6 text-customGreen " />
                 </button>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 h-5/6 mx-auto rounded-sm flex flex-col text-customGreen px-2 pb-10">
@@ -155,7 +165,7 @@ function FormNewDate(props) {
                         </div>
                     </div>
 
-                    {(setOpenEdDate || extraEvents.length > 0) &&
+                    {(openEditSpecialEvents || extraEvents.length > 0) &&
                         <>
 
                             <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10 ">Eventos especiales</h3>

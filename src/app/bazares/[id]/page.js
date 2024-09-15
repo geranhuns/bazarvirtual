@@ -35,6 +35,7 @@ function PromotorVistaId() {
   const [editButtonsActive, setEditButtonsActive] = useState(false);
   const [isParticipant, setIsParticipant] = useState(false);
   const [currentDate, setCurrentDate] = useState(""); //almacena la fecha del dia
+  const [openEditSpecialEvents, setOpenEditSpecialEvents] = useState(false);
 
   const pathname = usePathname();
 
@@ -165,7 +166,10 @@ function PromotorVistaId() {
   }, [dataDate]);
 
   const handleropenFormAddEspEve = () => {
-    setOpenAddEspEvent(!openAddEspEvent);
+    // setOpenAddEspEvent(!openAddEspEvent);
+    setOpenEdDate(!openEdDate);
+    console.log("click en editar especiales");
+    setOpenEditSpecialEvents(!openEditSpecialEvents);
   };
 
   return (
@@ -181,6 +185,8 @@ function PromotorVistaId() {
           openEdDate={openEdDate}
           setOpenEdDate={setOpenEdDate}
           updateSelectDate={setDataDate}
+          openEditSpecialEvents={openEditSpecialEvents}
+          setOpenEditSpecialEvents={setOpenEditSpecialEvents}
         />
       )}
       {active && (
@@ -333,7 +339,7 @@ function PromotorVistaId() {
               {id === user.id && idDate && datesBazar?.length > 0 && (
                 <button
                   className=" h-full rounded-lg p-2 w-10"
-                  onClick={() => setOpenEdDate(true)}
+                  onClick={() => handleropenFormAddEspEve()}
                 >
                   <MdEdit className="text-raw-sienna-50 text-2xl" />
                 </button>
