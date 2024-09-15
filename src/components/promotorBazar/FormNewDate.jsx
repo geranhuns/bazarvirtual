@@ -155,7 +155,7 @@ function FormNewDate(props) {
                         </div>
                     </div>
 
-                    {extraEvents.length > 0 &&
+                    {(setOpenEdDate || extraEvents.length > 0) &&
                         <>
 
                             <h3 className="text-2xl text-raw-sienna-50 p-1 mt-10 ">Eventos especiales</h3>
